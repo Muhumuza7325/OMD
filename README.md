@@ -1,0 +1,4 @@
+- Hi, I’m @Muhumuza7325
+- A passionate scientist
+- Currently exploring Bioinformatics
+- Reach me vial email: muhumuzaomega@gmail.com
