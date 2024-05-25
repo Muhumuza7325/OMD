@@ -704,7 +704,7 @@ while true; do
          fi
         if [[ "$user_input" == "zz" ]]; then
             echo -e "\n"
-            curl -O -L  "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/chemistry_tutorial_wsl.sh" && echo -e "\n\n"${y}Code successfully updated.. You will have to restart a new session${y}" \c" && wait_for_a_key_press && exit || echo -e "\n\n"${m}Error updating code!... Please check your internet connection and try again!${t}" \c" && return
+            curl -O -L  "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/chemistry_tutorial_wsl.sh" && echo -e "\n\n"${y}Code successfully updated.. You will have to restart a new session${y}" \c" && sleep 4 && exit || echo -e "\n\n"${m}Error updating code!... Please check your internet connection and try again!${t}" \c" && return
         fi
         if [[ "$user_input" == "xx" ]]; then
             current_datetime=$(date)
