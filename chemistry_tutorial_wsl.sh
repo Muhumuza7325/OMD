@@ -76,6 +76,9 @@ function handle_class_input() {
     if { [ -n "$last_class" ] || [ -z "$last_topic" ]; } && [ -f .chemistry_surveyor ]; then
 		while true; do
 	        read -rp $'\n\nPlease enter '"${r}1 or 2 or 3 or 4${t}"' to go to your class or '"${r}x${t}"' to exit'$'\n\n> ' class
+            if [ "$class" == "x" ]; then
+                exit
+            fi
 		    # Check if .current_chemistry_class is accidentally empty
 		    if [ ! -s .current_chemistry_class ]; then
 		        # Echo 1 to .current_chemistry_class
@@ -99,6 +102,7 @@ function handle_class_input() {
 		done
     fi
 }
+
 
 # Function to handle S4 user input for topic selection
 function handle_s4_topic_input() {
@@ -279,6 +283,7 @@ process_random_reminder() {
 }
 
 geminichat() {
+read -r API_KEY < .gemini_api
 # Loop for interactive input
 while true; do
   # Prompt for input
@@ -681,7 +686,7 @@ while true; do
     trap 'rm -f videos.txt figures.txt tables.txt' EXIT
 
     # Prompt the user for input
-    read -rp $'\n\nEnter '"${y}Keywords...${t}"' to search or type '"${g}cl${t}"' to get to class or '"${b}ch${t}"' to connect to chatgpt or '"${r}ge${t}"' to connect to Google AI or '"${r}x${t}"' to exit: ' user_input
+    read -rp $'\n\nEnter '"${y}Keywords...${t}"' to search or type '"${g}cl${t}"' to get to class or '"${b}ch${t}"' to connect to chatgpt or '"${r}ge${t}"' to connect to Google AI or '"${m}zz${t}"' to update the code or '"${m}xx${t}"' to update learning materials or '"${r}x${t}"' to exit: ' user_input
 
     # Check if user_input is not empty
     if [[ -n "$user_input" ]]; then
@@ -697,6 +702,21 @@ while true; do
                 geminichat
                 return
          fi
+        if [[ "$user_input" == "zz" ]]; then
+            echo -e "\n"
+            curl -O -L  "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/chemistry_tutorial_wsl.sh" && echo -e "\n\n"${y}Code successfully updated.. You will have to restart a new session${y}" \c" && wait_for_a_key_press && exit || echo -e "\n\n"${m}Error updating code!... Please check your internet connection and try again!${t}" \c" && return
+        fi
+        if [[ "$user_input" == "xx" ]]; then
+            current_datetime=$(date)
+            echo -e "\nIt is   ........   ""${r}$current_datetime${t}""   ........\n\nPlease understand that the content upon which the code runs is always updated on the "${y}first day of every month${t}"   ........ \c"
+            read -rp $'\n\nEnsure the code is up to date and enter '"${m}y${t}"' to proceed to the update or press '"${y}Enter${t}"' to get to class   ........   '$'\n> ' input
+            if [[ "$input" == "y" || "$input" == "Y" ]]; then
+                bash .update_chemistry.sh
+                return
+            else
+                return
+            fi
+        fi
         if [[ "$user_input" == "x" ]]; then
                 quit  # Exit the loop if the user enters 'close'
          fi
@@ -1754,7 +1774,8 @@ process_final_assignment() {
     done
 }
 
-
+read -r key < .openai_api
+export OPENAI_KEY="$key"
 
 if [ ! -f .chemistry_user_state ]; then
 	touch .chemistry_user_state
@@ -1841,22 +1862,21 @@ if [ ${#files[@]} -eq 0 ]; then
         fi
 
         sudo apt-get install -y jq
+        pip install -q -U google-generativeai
 
         curl -sS https://raw.githubusercontent.com/0xacx/chatGPT-shell-cli/main/install.sh | sudo -E bash > /dev/null 2>&1
 
-        curl -O -L https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.1.acids_and_alkalis.txt || echo -e "\n\nError fetching material for this tutorial \c"
-
-        pip install -q -U google-generativeai
+        curl -O -L https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.1.chemistry_and_society.txt || echo -e "\n\nError fetching material for this tutorial \c"
 
         echo -e "\n\nYou got the first step covered.\n\nAs you progress, please, do all the available assignments as they will contribute to your final score.\n\nYou can get somewhere to write and we start \c"
-        cp 2.1.acids_and_alkalis.txt Notes/Chemistry || echo -e "\n\nError copying 2.1.acids_and_alkalis.txt to the Chemistry directory in the Notes directory \c"
+        cp 1.1.chemistry_and_society.txt Notes/Chemistry || echo -e "\n\nError copying 1.1.chemistry_and_society.txt to the Chemistry directory in the Notes directory \c"
         wait_for_a_key_press
     else
         wait_for_a_key_press
         quit
     fi
 else
-    rm -f ../chemistry_tutorial 2.1.acids_and_alkalis.txt
+    rm -f ../chemistry_tutorial 1.1.chemistry_and_society.txt
 fi
 
 while true; do
@@ -1866,7 +1886,7 @@ while true; do
     if [[ "$class" == "1" ]]; then
 
         if ! find . -maxdepth 1 -name '.s_chemistry_1*' -type f -quit 2>/dev/null; then
-            echo -e "\n\n${g}Welcome to S1 Chemistry class; a class that is the starting point for every chemistout there in the world${t}\n\n${y}Together, we are going to get you started${t} \c" && wait_for_a_key_press
+            echo -e "\n\n${g}Welcome to S1 Chemistry class; a class that is the starting point for every chemist out there in the world${t}\n\n${y}Together, we are going to get you started${t} \c" && wait_for_a_key_press
             echo -e "\n-------------------------------------- \c"
             clear_and_center "There are ${r}nine${t} topics to be covered in Senior one.. Being the start of chemistry, You are advised to adventure into the world of chemistry and appreciate why the subject is one of the compulsory ones to do at such a level in this modern world"
         fi
@@ -2481,20 +2501,20 @@ while true; do
                             if ! [ -f ".s_chemistry_2_1" ]; then
                                 echo -e "\n\nYou chose topic 1, proceeding with Acids and alkalis...\n\nThank you for choosing to excel with us!\n\nWe adore you ${g}darling${t} and wish you all the best! \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Chemistry/2.1.acids_and_alkalis.txt" . || exit 1
-			    			mv 2.1.acids_and_alkalis.txt .2.1.acids_and_alkalis.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .2.1.acids_and_alkalis.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .2.1.acids_and_alkalis.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .2.1.acids_and_alkalis.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .2.1.acids_and_alkalis.txt
-                            process_reminders_from_file .2.1.acids_and_alkalis.txt
+                            cp "Notes/Chemistry/1.1.chemistry_and_society.txt" . || exit 1
+			    			mv 1.1.chemistry_and_society.txt .1.1.chemistry_and_society.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .1.1.chemistry_and_society.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .1.1.chemistry_and_society.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .1.1.chemistry_and_society.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .1.1.chemistry_and_society.txt
+                            process_reminders_from_file .1.1.chemistry_and_society.txt
                             STATE_FILE=".s_chemistry_2_1"
-                            process_file .2.1.acids_and_alkalis.txt
+                            process_file .1.1.chemistry_and_society.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
                             fi
-                            rm -f .2.1.acids_and_alkalis.txt
+                            rm -f .1.1.chemistry_and_society.txt
                             sed -i '/1/!d' .s_chemistry_2_1
 
                             attempts=0
