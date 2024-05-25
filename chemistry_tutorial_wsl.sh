@@ -283,53 +283,39 @@ process_random_reminder() {
 }
 
 geminichat() {
-read -r API_KEY < .gemini_api
-# Loop for interactive input
-while true; do
-  # Prompt for input
-  read -rp $'\nPrompt: ' prompt
+    read -r API_KEY < .gemini_api
+    conversation_history=""
 
-  # Skip exit request
-  if [[ "$prompt" == "q" ]]; then
-    break
-  fi
+    # Loop for interactive input
+    while true; do
+        # Prompt for input
+        read -rp $'\nPrompt: ' prompt
 
-if ! [[ "$prompt" == ".jpg" ]]; then
-  # Call API and capture generated text
-  generated_text=$(curl -s \
-    https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=$API_KEY \
-    -H 'Content-Type: application/json' \
-    -X POST \
-    -d '{"contents": [{"parts":[{"text": "'"$prompt"'"}]}]}' \
-    2> /dev/null | grep "text")
-    # Print generated text
-    echo -e "\n$generated_text" | sed 's/^[ \t]*"text": "//g' | sed 's|\\"||g' | tr -d '*' | rev | sed 's/"//1' | rev
-fi
+        # Skip exit request
+        if [[ "$prompt" == "q" ]]; then
+            break
+        fi
 
-if [[ "$prompt" == ".jpg" ]]; then
-python3 - <<EOF
-    import PIL.Image
-    img = PIL.Image.open("Msbt/Chemistry/"$prompt"")
-    img.resize((512, int(img.height*512/img.width)))
-EOF
-    echo '{
-      "contents":[
-        {
-          "parts":[
-            {"text": "What is this picture?"},
-            {
-              "inline_data": {
-                "mime_type":"image/jpeg",
-                "data": "'$(base64 -w0 image.jpg)'"
-              }
-            }
-          ]
-        }
-      ]
-    }' > request.json
-rm -f request.json
-fi
-done
+        # Combine prompt with conversation history
+        combined_prompt="$conversation_history $prompt"
+
+        # Call API and capture generated text
+        generated_text=$(curl -s \
+            https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=$API_KEY \
+            -H 'Content-Type: application/json' \
+            -X POST \
+            -d '{"contents": [{"parts":[{"text": "'"$combined_prompt"'"}]}]}' \
+            2> /dev/null | grep "text")
+
+        # Extract generated text
+        generated_text=$(echo "$generated_text" | sed 's/^[ \t]*"text": "//g' | sed 's|\\"||g' | tr -d '*' | rev | sed 's/"//1' | rev)
+
+        # Update conversation history
+        conversation_history="$conversation_history $generated_text"
+
+        # Print generated text
+        echo -e "\n$generated_text"
+    done
 }
 
 replace_prompt() {
@@ -711,6 +697,9 @@ while true; do
             echo -e "\nIt is   ........   ""${r}$current_datetime${t}""   ........\n\nPlease understand that the content upon which the code runs is always updated on the "${y}first day of every month${t}"   ........ \c"
             read -rp $'\n\nEnsure the code is up to date and enter '"${m}y${t}"' to proceed to the update or press '"${y}Enter${t}"' to get to class   ........   '$'\n> ' input
             if [[ "$input" == "y" || "$input" == "Y" ]]; then
+                echo -e "\n"
+                curl -O -L  "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/update_chemistry.sh" || echo -e "\n\n"${m}Check your internet connection and try again!${t}" \c" && return
+		        mv update_chemistry.sh .update_chemistry.sh
                 bash .update_chemistry.sh
                 return
             else
