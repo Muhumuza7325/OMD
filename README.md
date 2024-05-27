@@ -13,7 +13,7 @@ All work in this repository is licensed under the Creative Commons Attribution-N
 
 If you use or adapt any files from this repository, you must give appropriate credit. Please provide a link to the license and indicate if changes were made. You can include the following attribution statement in your work:
 
-"[File Name] from [Muhumuza7325] by @Muhumuza7325 is licensed under CC BY-NC [version]. To view a copy of this license, visit [link to license]."
+"[File Name] from [Muhumuza7325] by @Muhumuza7325 is licensed under CC BY-NC 4.0. To view a copy of this license, visit [link to license]."
 
 ### License Information
 
