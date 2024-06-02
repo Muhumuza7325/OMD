@@ -2490,20 +2490,20 @@ while true; do
                             if ! [ -f ".s_chemistry_2_1" ]; then
                                 echo -e "\n\nYou chose topic 1, proceeding with Acids and alkalis...\n\nThank you for choosing to excel with us!\n\nWe adore you ${g}darling${t} and wish you all the best! \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Chemistry/1.1.chemistry_and_society.txt" . || exit 1
-			    			mv 1.1.chemistry_and_society.txt .1.1.chemistry_and_society.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .1.1.chemistry_and_society.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .1.1.chemistry_and_society.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .1.1.chemistry_and_society.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .1.1.chemistry_and_society.txt
-                            process_reminders_from_file .1.1.chemistry_and_society.txt
+                            cp "Notes/Chemistry/2.1.acids_and_alkalis.txt" . || exit 1
+			    			mv 2.1.acids_and_alkalis.txt .2.1.acids_and_alkalis.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .2.1.acids_and_alkalis.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .2.1.acids_and_alkalis.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .2.1.acids_and_alkalis.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .2.1.acids_and_alkalis.txt
+                            process_reminders_from_file .2.1.acids_and_alkalis.txt
                             STATE_FILE=".s_chemistry_2_1"
-                            process_file .1.1.chemistry_and_society.txt
+                            process_file .2.1.acids_and_alkalis.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
                             fi
-                            rm -f .1.1.chemistry_and_society.txt
+                            rm -f .2.1.acids_and_alkalis.txt
                             sed -i '/1/!d' .s_chemistry_2_1
 
                             attempts=0
