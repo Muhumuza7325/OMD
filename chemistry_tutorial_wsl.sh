@@ -607,13 +607,13 @@ process_file() {
                 if [[ $sentence == *"Table"* ]]; then
                     cd Tables/Chemistry || { echo -e "\nFailed to change to Tables/Chemistry \c"; return; }
                     explorer.exe "$sentence" > /dev/null 2>&1 &
-                    cd ../..|| { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
+                    cd ../.. || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
                 fi
 
                 if [[ $sentence == *"Video"* ]]; then
                     cd Videos/Chemistry || { echo -e "\nFailed to change to Videos/Chemistry \c"; return; }
                     explorer.exe "$sentence" > /dev/null 2>&1 &
-                    cd ../..|| { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
+                    cd ../.. || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
                 fi
                 if [ $((sentence_count % 5)) -eq 0 ]; then
                     # Clear and center for every 5th sentence
@@ -672,7 +672,7 @@ while true; do
     trap 'rm -f videos.txt figures.txt tables.txt' EXIT
 
     # Prompt the user for input
-    read -rp $'\n\nEnter '"${y}Keywords...${t}"' to search or type '"${g}cl${t}"' to get to class or '"${b}ch${t}"' to connect to chatgpt or '"${r}ge${t}"' to connect to Google AI or '"${m}zz${t}"' to update the code or '"${m}xx${t}"' to update learning materials or '"${r}x${t}"' to exit: ' user_input
+    read -rp $'\n\nEnter '"${y}Keywords...${t}"' to search or type '"${g}cl${t}"' to get to class or '"${b}ch${t}"' to connect to chatgpt or '"${r}ge${t}"' to connect to Google AI or '"${m}zz${t}"' to update the code or '"${m}xx${t}"' to update learning materials or '"${c}nw${t}"' to create new workspace or '"${r}x${t}"' to exit: ' user_input
 
     # Check if user_input is not empty
     if [[ -n "$user_input" ]]; then
@@ -706,6 +706,10 @@ while true; do
                 return
             fi
         fi
+        if [[ "$user_input" == "nw" ]]; then
+                new_workspace
+		return
+         fi
         if [[ "$user_input" == "x" ]]; then
                 quit  # Exit the loop if the user enters 'close'
          fi
@@ -762,7 +766,7 @@ while true; do
                         done < "$text_file"
                 # Remove the temporary file
                 # Go back to the original directory
-                cd ../..|| { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
+                cd ../.. || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
                 rm -f Tables/Chemistry/tables.txt
             fi
 
@@ -783,7 +787,7 @@ while true; do
                     sleep 10
                 done < "$text_file"
                 # Go back to the original directory
-                cd ../..|| { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
+                cd ../.. || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
                 # Remove the temporary file
                 rm -f Videos/Chemistry/videos.txt
             fi
@@ -1141,9 +1145,18 @@ process_question_answer() {
         fi
         # Remove empty lines from all text files
         find . -type f -name "*$file_extension_answer" -exec sed -i '/^[[:space:]]*$/d' {} +
-        # Find all text files and randomly select one
-        local selected_file  # Declare the variable
-        selected_file=$(find . -type f -name "*$file_extension_answer" -size +0 -print | shuf -n 1)
+        ls *.ans.txt > rvsn.txt
+        sed -i -e 's/\.ans\.txt//g' -e 's/_/ /g' -e 's/\([0-9]\+\)\.\([0-9]\+\)\./\2. /g' -e 's/^\([^a-zA-Z]*\)\([a-zA-Z]\)/\1\U\2/' rvsn.txt
+        echo -e "\n\n"${y}Below is a list of chapters available for revision${t}" \n"
+        cat rvsn.txt
+        read -rp $'\n\nEnter a '"${m}Specific${t}"' chapter number or press '"${r}Enter${t}"' to get a random chapter'$'\n> ' input
+        if [[ -n $input ]]; then
+	        selected_file=$(ls | grep -E "[0-9]+\.${input}\." | grep -v "_cp")
+        else
+            # Find all text files and randomly select one
+            local selected_file  # Declare the variable
+            selected_file=$(find . -type f -name "*$file_extension_answer" -size +0 -print | shuf -n 1)
+        fi
         # Check if the selected file exists
         if ! [ -f "$selected_file" ]; then
             echo -e "\n\nYou answered all the available questions. ${g}Opening them alongside their answers in the text editor${t}... \c"
@@ -1302,11 +1315,11 @@ process_question_answer() {
         # Calculate percentage based on total_score and total_questions
         percentage=$((score * 100 / total_questions))
         if [ "$percentage" -lt 80 ]; then
-             cd ..
+             cd ../..
              wscript.exe //nologo sound1.vbs &
              cd - > /dev/null 2>&1 || exit
         else
-             cd ..
+             cd ../..
              wscript.exe //nologo sound.vbs &
              cd - > /dev/null 2>&1 || exit
         fi
@@ -1363,7 +1376,7 @@ process_question_answer() {
             sed -i -E 's/;School/\nSchool/g' ../../../."$school_name"_students_file.txt
             echo -e "\n\nThe obtained score has been recorded and allocated accordingly... \c"
         else
-            echo -e "\n\nThe obtained score has not been recorded... Please visit topic options  on the next visit and select the option to provide student details \c"
+            echo -e "\n\nThe obtained score has not been recorded... Please visit topic options on the next visit and select the option to provide student details \c"
         fi
         wait_for_a_key_press
         # If the total score is below 80, prompt the user to retry
@@ -1733,7 +1746,7 @@ process_final_assignment() {
                         max_questions=100
                     else
                         popd > /dev/null || exit
-                        cd /mnt/f
+                        cd ../..
                         wscript.exe //nologo sound2.vbs &
                         cd - > /dev/null 2>&1 || exit
                         if ! [ -f .current_chemistry_class ]; then
@@ -1761,6 +1774,40 @@ process_final_assignment() {
             fi
         fi
     done
+}
+
+new_workspace() {
+# Create the Students directory if it does not exist
+mkdir -p Students
+while true; do
+    read -rp $'\n\nTo create a '"${y}new workspace${t}"', enter unique '"${r}Initials${t}"''$'\n\n> ' initials
+    # List directories in the Students folder and check for a match
+    if ls Students | grep -wq "$initials"; then
+        echo -e "\nThe provided initials are ${m}already${t} in use. Please choose other initials!"
+    else
+        mkdir "Students/$initials"
+        cp -r Exercise Revision .gemini_api .openai_api *_wsl.sh "Students/$initials"
+        echo -e "                                    $initials\n" > "Students/$initials/Exercise/chemistry_answered_ans.txt"
+        echo -e "                                    $initials\n" > "Students/$initials/Revision/chemistry_covered_qns.txt"
+        for file in "Students/$initials"/*.sh; do
+            sed -i -e 's|Notes|../../Notes|g' -e 's|Videos|../../Videos|g' -e 's|Figures|../../Figures|g' -e 's|Students|../../Students|g' -e 's|Tables|../../Tables|g' -e 's#cd ../.. ||#cd - > /dev/null 2>\&1 ||#g' "$file"
+            # Determining the correct path to the Desktop using the USERPROFILE environment variable
+            desktop_path=""
+            windows_userprofile=$(cmd.exe /C "cd /d %USERPROFILE% & echo %USERPROFILE%" 2>/dev/null | tr -d '\r')
+            # Converting Windows path to WSL path
+            windows_userprofile_wsl=$(wslpath -u "$windows_userprofile")
+            if [ -d "$windows_userprofile_wsl/OneDrive/Desktop" ]; then
+                desktop_path="$windows_userprofile_wsl/OneDrive/Desktop"
+            else
+                desktop_path="$windows_userprofile_wsl/Desktop"
+            fi
+            # Generating the batch file content
+            echo -e "@echo off\nC:\\Windows\\System32\\wsl.exe -e bash -c '/home/omd/Omd/Students/$initials/${file##*/}'" > "$desktop_path/$initials $initials_${file##*/}.bat" >/dev/null 2>&1
+        done
+        echo -e "\n\nBy default, ${y}new executable files${t} have been created and shortcuts named ("${g}"$initials"${t}") put on your desktop... \n"
+        break
+    fi
+done
 }
 
 read -r key < .openai_api
