@@ -690,7 +690,7 @@ while true; do
          fi
         if [[ "$user_input" == "zz" ]]; then
             echo -e "\n"
-            TEMP_FILE=$(mktemp) && curl -o "$TEMP_FILE" -L "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/chemistry_tutorial_wsl.sh" && mv "$TEMP_FILE" chemistry_tutorial_wsl.sh && chmod +x chemistry_tutorial_wsl.sh && echo -e "\n\n${y}Code successfully updated.. You will have to restart a new session${t} \c" && sleep 4 && exit || (echo -e "\n\n${m}Error updating code!... Please check your internet connection and try again!${t} \c" && rm -f "$TEMP_FILE" && return)
+            TEMP_FILE=$(mktemp) && curl -o "$TEMP_FILE" -L "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/chemistry_tutorial_wsl.sh" && mv "$TEMP_FILE" chemistry_tutorial_wsl.sh && chmod +x chemistry_tutorial_wsl.sh && echo -e "\n\nCode successfully updated.. You will have to restart a new session \c" && sleep 4 && exit || (echo -e "\n\nError updating code!... Please check your internet connection and try again! \c" && rm -f "$TEMP_FILE" && return)
         fi
         if [[ "$user_input" == "xx" ]]; then
             current_datetime=$(date)
@@ -1802,7 +1802,7 @@ while true; do
                 desktop_path="$windows_userprofile_wsl/Desktop"
             fi
             # Generating the batch file content
-            echo -e "@echo off\nC:\\Windows\\System32\\wsl.exe -e bash -c '/home/omd/Omd/Students/$initials/${file##*/}'" > "$desktop_path/$initials $initials_${file##*/}.bat" >/dev/null 2>&1
+            echo -e "@echo off\nC:\\Windows\\System32\\wsl.exe -e bash -c '/home/omd/Omd/Students/$initials/${file##*/}'" > "$desktop_path/$initials $initials_${file##*/}.bat"
         done
         echo -e "\n\nBy default, ${y}new executable files${t} have been created and shortcuts named ("${g}"$initials"${t}") put on your desktop... \n"
         break
@@ -2173,6 +2173,10 @@ while true; do
                             process_reminders_from_file .1.4.using_materials.txt
                             STATE_FILE=".s_chemistry_1_4"
                             process_file .1.4.using_materials.txt
+                            contact_ai
+                            if [ -f .resume_to_class ]; then
+                                break
+                            fi
                             rm -f .1.4.using_materials.txt
                             sed -i '/^1$/!d' .s_chemistry_1_4
                             attempts=0
@@ -2220,6 +2224,10 @@ while true; do
                             STATE_FILE=".s_chemistry_1_5"
                             process_file .1.5.temporary_and_permanent_changes.txt
                             rm -f .1.5.temporary_and_permanent_changes.txt
+                            contact_ai
+                            if [ -f .resume_to_class ]; then
+                                break
+                            fi
                             sed -i '/^1$/!d' .s_chemistry_1_5
                             attempts=0
                             # Define the targeted directory
@@ -2265,6 +2273,10 @@ while true; do
                             process_reminders_from_file .1.6.mixtures_elements_and_compounds.txt
                             STATE_FILE=".s_chemistry_1_6"
                             process_file .1.6.mixtures_elements_and_compounds.txt
+                            contact_ai
+                            if [ -f .resume_to_class ]; then
+                                break
+                            fi
                             rm -f .1.6.mixtures_elements_and_compounds.txt
                             sed -i '/^1$/!d' .s_chemistry_1_6
                             attempts=0
@@ -2311,6 +2323,10 @@ while true; do
                             process_reminders_from_file .1.7.air.txt
                             STATE_FILE=".s_chemistry_1_7"
                             process_file .1.7.air.txt
+                            contact_ai
+                            if [ -f .resume_to_class ]; then
+                                break
+                            fi
                             rm -f .1.7.air.txt
                             sed -i '/^1$/!d' .s_chemistry_1_7
                             attempts=0
@@ -2357,6 +2373,10 @@ while true; do
                             process_reminders_from_file .1.8.water.txt
                             STATE_FILE=".s_chemistry_1_8"
                             process_file .1.8.water.txt
+                            contact_ai
+                            if [ -f .resume_to_class ]; then
+                                break
+                            fi
                             rm -f .1.8.water.txt
                             sed -i '/^1$/!d' .s_chemistry_1_8
                             attempts=0
@@ -2403,6 +2423,10 @@ while true; do
                             process_reminders_from_file .1.9.rocks_and_minerals.txt
                             STATE_FILE=".s_chemistry_1_9"
                             process_file .1.9.rocks_and_minerals.txt
+                            contact_ai
+                            if [ -f .resume_to_class ]; then
+                                break
+                            fi
                             rm -f .1.9.rocks_and_minerals.txt
                             sed -i '/^1$/!d' .s_chemistry_1_9
                             attempts=0
