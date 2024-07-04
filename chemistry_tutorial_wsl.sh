@@ -107,7 +107,6 @@ function handle_class_input() {
 # Function to handle S4 user input for topic selection
 function handle_s4_topic_input() {
     if [ -f .resume_to_class ]; then
-                                break
         rm -f .resume_to_class
         rm -f .chemistry_topic_selected
     fi
@@ -129,7 +128,6 @@ function handle_s4_topic_input() {
 # Function to handle S3 user input for topic selection
 function handle_s3_topic_input() {
     if [ -f .resume_to_class ]; then
-                                break
         rm -f .resume_to_class
         rm -f .chemistry_topic_selected
     fi
@@ -150,7 +148,6 @@ function handle_s3_topic_input() {
 # Function to handle S1 class user input for topic selection
 function handle_s1_topic_input() {
     if [ -f .resume_to_class ]; then
-                                break
         rm -f .resume_to_class
         rm -f .chemistry_topic_selected
     fi
@@ -172,7 +169,6 @@ function handle_s1_topic_input() {
 # Function to handle S2 class user input for topic selection
 function handle_s2_topic_input() {
     if [ -f .resume_to_class ]; then
-                                break
         rm -f .resume_to_class
         rm -f .chemistry_topic_selected
     fi
@@ -2030,7 +2026,6 @@ while true; do
                                 break
                             fi
                             if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
                             	break
                             fi
                             rm -f .1.1.chemistry_and_society.txt
@@ -2089,7 +2084,7 @@ while true; do
                                 break
                             fi
                             if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
+                                break
                             fi
                             rm -f .1.2.experimental_chemistry.txt
                             sed -i '/1/!d' .s_chemistry_1_2
@@ -2146,7 +2141,7 @@ while true; do
                                 break
                             fi
                             if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
+                                break
                             fi
                             rm -f .1.3.states_and_changes_of_states_of_matter.txt
                             sed -i '/1/!d' .s_chemistry_1_3
@@ -2201,7 +2196,7 @@ while true; do
                                 break
                             fi
                             if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
+                                break
                             fi
                             rm -f .1.4.using_materials.txt
                             sed -i '/^1$/!d' .s_chemistry_1_4
@@ -2255,7 +2250,7 @@ while true; do
                                 break
                             fi
                             if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
+                                break
                             fi
                             sed -i '/^1$/!d' .s_chemistry_1_5
                             attempts=0
@@ -2307,7 +2302,7 @@ while true; do
                                 break
                             fi
                             if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
+                                break
                             fi
                             rm -f .1.6.mixtures_elements_and_compounds.txt
                             sed -i '/^1$/!d' .s_chemistry_1_6
@@ -2360,7 +2355,7 @@ while true; do
                                 break
                             fi
                             if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
+                                break
                             fi
                             rm -f .1.7.air.txt
                             sed -i '/^1$/!d' .s_chemistry_1_7
@@ -2413,7 +2408,7 @@ while true; do
                                 break
                             fi
                             if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
+                                break
                             fi
                             rm -f .1.8.water.txt
                             sed -i '/^1$/!d' .s_chemistry_1_8
@@ -2466,7 +2461,7 @@ while true; do
                                 break
                             fi
                             if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
+                                break
                             fi
                             rm -f .1.9.rocks_and_minerals.txt
                             sed -i '/^1$/!d' .s_chemistry_1_9
@@ -2616,7 +2611,7 @@ while true; do
                                 break
                             fi
                             if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
+                                break
                             fi
                             rm -f .2.1.acids_and_alkalis.txt
                             sed -i '/1/!d' .s_chemistry_2_1
@@ -2675,7 +2670,7 @@ while true; do
                                 break
                             fi
                             if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
+                                break
                             fi
                             rm -f .2.2.salts.txt
                             sed -i '/1/!d' .s_chemistry_2_2
@@ -2731,7 +2726,7 @@ while true; do
                                 break
                             fi
                             if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
+                                break
                             fi
                             rm -f .2.3.the_periodic_table.txt
                             sed -i '/1/!d' .s_chemistry_2_3
@@ -2789,7 +2784,7 @@ while true; do
                                 break
                             fi
                             if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
+                                break
                             fi
                             rm -f .2.4.carbon_in_the_environment.txt
                             sed -i '/1/!d' .s_chemistry_2_4
@@ -2845,7 +2840,7 @@ while true; do
                                 break
                             fi
                             if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
+                                break
                             fi
                             rm -f .2.5.the_reactivity_series.txt
                             sed -i '/1/!d' .s_chemistry_2_5
@@ -2990,7 +2985,7 @@ while true; do
                                 break
                             fi
                             if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
+                                break
                             fi
                             rm -f .3.1.carbon_in_life.txt
                             sed -i '/^1$/!d' .s_chemistry_3_1
@@ -3043,7 +3038,7 @@ while true; do
                                 break
                             fi
                             if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
+                                break
                             fi
                             rm -f .3.2.structures_and_bonds.txt
                             sed -i '/^1$/!d' .s_chemistry_3_2
@@ -3096,7 +3091,7 @@ while true; do
                                 break
                             fi
                             if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
+                                break
                             fi
                             rm -f .3.3.formulae_stoichiometry_and_mole_concept.txt
                             sed -i '/^1$/!d' .s_chemistry_3_3
@@ -3149,7 +3144,7 @@ while true; do
                                 break
                             fi
                             if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
+                                break
                             fi
                             rm -f .3.4.properties_and_structures_of_substances.txt
                             sed -i '/^1$/!d' .s_chemistry_3_4
@@ -3202,7 +3197,7 @@ while true; do
                                 break
                             fi
                             if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
+                                break
                             fi
                             rm -f .3.5.fossil_fuels.txt
                             sed -i '/^1$/!d' .s_chemistry_3_5
@@ -3255,7 +3250,7 @@ while true; do
                                 break
                             fi
                             if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
+                                break
                             fi
                             rm -f .3.6.chemical_reactions.txt
                             sed -i '/^1$/!d' .s_chemistry_3_6
@@ -3407,7 +3402,7 @@ while true; do
                                 break
                             fi
                             if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
+                                break
                             fi
                             rm -f .4.1.oxidation_and_reduction_reactions.txt
                             sed -i '/^1$/!d' .s_chemistry_4_1
@@ -3460,7 +3455,7 @@ while true; do
                                 break
                             fi
                             if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
+                                break
                             fi
                             rm -f .4.2.industrial_processes.txt
                             sed -i '/^1$/!d' .s_chemistry_4_2
@@ -3513,7 +3508,7 @@ while true; do
                                 break
                             fi
                             if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
+                                break
                             fi
                             rm -f .4.3.trends_in_the_periodic_table.txt
                             sed -i '/^1$/!d' .s_chemistry_4_3
@@ -3566,7 +3561,7 @@ while true; do
                                 break
                             fi
                             if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
+                                break
                             fi
                             rm -f .4.4.energy_changes_during_chemical_reactions.txt
                             sed -i '/^1$/!d' .s_chemistry_4_4
@@ -3619,7 +3614,7 @@ while true; do
                                 break
                             fi
                             if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
+                                break
                             fi
                             rm -f .4.5.chemicals_for_consumers.txt
                             sed -i '/^1$/!d' .s_chemistry_4_5
@@ -3672,7 +3667,7 @@ while true; do
                                 break
                             fi
                             if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
+                                break
                             fi
                             rm -f .4.6.nuclear_processes.txt
                             sed -i '/^1$/!d' .s_chemistry_4_6
