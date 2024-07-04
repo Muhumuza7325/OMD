@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # set -x
 # ANSI escape codes for text formatting
-t=$'\e[0m' #reset text color and style
+t=$'\e[0m' #reset text colour and style
 r=$'\e[1;31m' #Red
 g=$'\e[1;32m' #Green
 y=$'\e[1;33m' #Yellow
@@ -648,7 +648,7 @@ process_file() {
             fi
             if [[ $REPLY == $'\e' ]]; then
                 echo -e "\n"
-                exit 1
+		touch .skip_exercises && break
             fi
         done
     done < "$1"
@@ -1823,7 +1823,7 @@ else
 	handle_resume_input
 fi
 
-if [ -z "$class" ]; then
+if [ -z "$class" ] && [ -s ".chemistry_user_state" ]; then
     echo -e "\n\nYou can search your Notes by topic using uppercase letters or just feed in key words \c"
     get_and_display_pattern
 fi
@@ -2014,13 +2014,19 @@ while true; do
                             fi
                             cp "Notes/Chemistry/1.1.chemistry_and_society.txt" . || exit 1
                             mv 1.1.chemistry_and_society.txt .1.1.chemistry_and_society.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e 's/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .1.1.chemistry_and_society.txt
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .1.1.chemistry_and_society.txt 
+                            sed -i 's/;\([:!?]\);/\;\1/g' .1.1.chemistry_and_society.txt 
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .1.1.chemistry_and_society.txt 
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .1.1.chemistry_and_society.txt 
                             process_reminders_from_file .1.1.chemistry_and_society.txt
                             STATE_FILE=".s_chemistry_1_1"
                             process_file .1.1.chemistry_and_society.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
+                            fi
+                            if [ -f .skip_exercises ]; then
+                            	break
                             fi
                             rm -f .1.1.chemistry_and_society.txt
                             sed -i '/1/!d' .s_chemistry_1_1
@@ -2066,12 +2072,18 @@ while true; do
                             fi
                             cp "Notes/Chemistry/1.2.experimental_chemistry.txt" . || exit 1
                             mv 1.2.experimental_chemistry.txt .1.2.experimental_chemistry.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e 's/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .1.2.experimental_chemistry.txt
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .1.2.experimental_chemistry.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .1.2.experimental_chemistry.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .1.2.experimental_chemistry.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .1.2.experimental_chemistry.txt
                             process_reminders_from_file .1.2.experimental_chemistry.txt
                             STATE_FILE=".s_chemistry_1_2"
                             process_file .1.2.experimental_chemistry.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
                                 break
                             fi
                             rm -f .1.2.experimental_chemistry.txt
@@ -2118,11 +2130,17 @@ while true; do
                             cp "Notes/Chemistry/1.3.states_and_changes_of_states_of_matter.txt" . || exit 1
                             mv 1.3.states_and_changes_of_states_of_matter.txt .1.3.states_and_changes_of_states_of_matter.txt || exit 1
                             sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .1.3.states_and_changes_of_states_of_matter.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .1.3.states_and_changes_of_states_of_matter.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .1.3.states_and_changes_of_states_of_matter.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .1.3.states_and_changes_of_states_of_matter.txt
                             process_reminders_from_file .1.3.states_and_changes_of_states_of_matter.txt
                             STATE_FILE=".s_chemistry_1_3"
                             process_file .1.3.states_and_changes_of_states_of_matter.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
                                 break
                             fi
                             rm -f .1.3.states_and_changes_of_states_of_matter.txt
@@ -2177,6 +2195,9 @@ while true; do
                             if [ -f .resume_to_class ]; then
                                 break
                             fi
+                            if [ -f .skip_exercises ]; then
+                                break
+                            fi
                             rm -f .1.4.using_materials.txt
                             sed -i '/^1$/!d' .s_chemistry_1_4
                             attempts=0
@@ -2228,6 +2249,9 @@ while true; do
                             if [ -f .resume_to_class ]; then
                                 break
                             fi
+                            if [ -f .skip_exercises ]; then
+                                break
+                            fi
                             sed -i '/^1$/!d' .s_chemistry_1_5
                             attempts=0
                             # Define the targeted directory
@@ -2275,6 +2299,9 @@ while true; do
                             process_file .1.6.mixtures_elements_and_compounds.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
                                 break
                             fi
                             rm -f .1.6.mixtures_elements_and_compounds.txt
@@ -2327,6 +2354,9 @@ while true; do
                             if [ -f .resume_to_class ]; then
                                 break
                             fi
+                            if [ -f .skip_exercises ]; then
+                                break
+                            fi
                             rm -f .1.7.air.txt
                             sed -i '/^1$/!d' .s_chemistry_1_7
                             attempts=0
@@ -2377,6 +2407,9 @@ while true; do
                             if [ -f .resume_to_class ]; then
                                 break
                             fi
+                            if [ -f .skip_exercises ]; then
+                                break
+                            fi
                             rm -f .1.8.water.txt
                             sed -i '/^1$/!d' .s_chemistry_1_8
                             attempts=0
@@ -2425,6 +2458,9 @@ while true; do
                             process_file .1.9.rocks_and_minerals.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
                                 break
                             fi
                             rm -f .1.9.rocks_and_minerals.txt
@@ -2574,6 +2610,9 @@ while true; do
                             if [ -f .resume_to_class ]; then
                                 break
                             fi
+                            if [ -f .skip_exercises ]; then
+                                break
+                            fi
                             rm -f .2.1.acids_and_alkalis.txt
                             sed -i '/1/!d' .s_chemistry_2_1
 
@@ -2630,6 +2669,9 @@ while true; do
                             if [ -f .resume_to_class ]; then
                                 break
                             fi
+                            if [ -f .skip_exercises ]; then
+                                break
+                            fi
                             rm -f .2.2.salts.txt
                             sed -i '/1/!d' .s_chemistry_2_2
 
@@ -2681,6 +2723,9 @@ while true; do
                             process_file .2.3.the_periodic_table.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
                                 break
                             fi
                             rm -f .2.3.the_periodic_table.txt
@@ -2738,6 +2783,9 @@ while true; do
                             if [ -f .resume_to_class ]; then
                                 break
                             fi
+                            if [ -f .skip_exercises ]; then
+                                break
+                            fi
                             rm -f .2.4.carbon_in_the_environment.txt
                             sed -i '/1/!d' .s_chemistry_2_4
 
@@ -2789,6 +2837,9 @@ while true; do
                             process_file .2.5.the_reactivity_series.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
                                 break
                             fi
                             rm -f .2.5.the_reactivity_series.txt
@@ -2933,6 +2984,9 @@ while true; do
                             if [ -f .resume_to_class ]; then
                                 break
                             fi
+                            if [ -f .skip_exercises ]; then
+                                break
+                            fi
                             rm -f .3.1.carbon_in_life.txt
                             sed -i '/^1$/!d' .s_chemistry_3_1
                             attempts=0
@@ -2983,7 +3037,10 @@ while true; do
                             if [ -f .resume_to_class ]; then
                                 break
                             fi
-                            rm -f .3.structures_and_bonds.txt
+                            if [ -f .skip_exercises ]; then
+                                break
+                            fi
+                            rm -f .3.2.structures_and_bonds.txt
                             sed -i '/^1$/!d' .s_chemistry_3_2
                             attempts=0
                             # Define the targeted directory
@@ -3031,6 +3088,9 @@ while true; do
                             process_file .3.3.formulae_stoichiometry_and_mole_concept.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
                                 break
                             fi
                             rm -f .3.3.formulae_stoichiometry_and_mole_concept.txt
@@ -3083,6 +3143,9 @@ while true; do
                             if [ -f .resume_to_class ]; then
                                 break
                             fi
+                            if [ -f .skip_exercises ]; then
+                                break
+                            fi
                             rm -f .3.4.properties_and_structures_of_substances.txt
                             sed -i '/^1$/!d' .s_chemistry_3_4
                             attempts=0
@@ -3133,6 +3196,9 @@ while true; do
                             if [ -f .resume_to_class ]; then
                                 break
                             fi
+                            if [ -f .skip_exercises ]; then
+                                break
+                            fi
                             rm -f .3.5.fossil_fuels.txt
                             sed -i '/^1$/!d' .s_chemistry_3_5
                             attempts=0
@@ -3181,6 +3247,9 @@ while true; do
                             process_file .3.6.chemical_reactions.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
                                 break
                             fi
                             rm -f .3.6.chemical_reactions.txt
@@ -3332,6 +3401,9 @@ while true; do
                             if [ -f .resume_to_class ]; then
                                 break
                             fi
+                            if [ -f .skip_exercises ]; then
+                                break
+                            fi
                             rm -f .4.1.oxidation_and_reduction_reactions.txt
                             sed -i '/^1$/!d' .s_chemistry_4_1
                             attempts=0
@@ -3382,7 +3454,10 @@ while true; do
                             if [ -f .resume_to_class ]; then
                                 break
                             fi
-                            rm -f .4.industrial_processes.txt
+                            if [ -f .skip_exercises ]; then
+                                break
+                            fi
+                            rm -f .4.2.industrial_processes.txt
                             sed -i '/^1$/!d' .s_chemistry_4_2
                             attempts=0
                             # Define the targeted directory
@@ -3430,6 +3505,9 @@ while true; do
                             process_file .4.3.trends_in_the_periodic_table.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
                                 break
                             fi
                             rm -f .4.3.trends_in_the_periodic_table.txt
@@ -3482,6 +3560,9 @@ while true; do
                             if [ -f .resume_to_class ]; then
                                 break
                             fi
+                            if [ -f .skip_exercises ]; then
+                                break
+                            fi
                             rm -f .4.4.energy_changes_during_chemical_reactions.txt
                             sed -i '/^1$/!d' .s_chemistry_4_4
                             attempts=0
@@ -3532,6 +3613,9 @@ while true; do
                             if [ -f .resume_to_class ]; then
                                 break
                             fi
+                            if [ -f .skip_exercises ]; then
+                                break
+                            fi
                             rm -f .4.5.chemicals_for_consumers.txt
                             sed -i '/^1$/!d' .s_chemistry_4_5
                             attempts=0
@@ -3580,6 +3664,9 @@ while true; do
                             process_file .4.6.nuclear_processes.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
                                 break
                             fi
                             rm -f .4.6.nuclear_processes.txt
