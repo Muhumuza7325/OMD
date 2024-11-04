@@ -691,6 +691,11 @@ while true; do
          fi
         if [[ "$user_input" == "zz" ]]; then
             echo -e "\n"
+            if [ "$(basename "$(pwd)")" != "Omd" ]; then
+                echo -e "You can only update your code using the parent code ... \c"
+                sleep 2
+                return
+            fi
             TEMP_FILE=$(mktemp) && curl -o "$TEMP_FILE" -L "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/chemistry_tutorial_wsl.sh" && mv "$TEMP_FILE" chemistry_tutorial_wsl.sh && chmod +x chemistry_tutorial_wsl.sh && echo -e "\n\nCode successfully updated.. You will have to restart a new session \c" && sleep 4 && exit || (echo -e "\n\nError updating code!... Please check your internet connection and try again! \c" && rm -f "$TEMP_FILE" && return)
         fi
         if [[ "$user_input" == "xx" ]]; then
