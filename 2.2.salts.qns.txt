@@ -1,0 +1,30 @@
+Qn. You, a senior two student, has been requested by your chemistry teacher to teach Joan who missed a chemistry class due to unavoidable circumstances, how to prepare any one soluble salt. Choose a soluble salt of your choice and briefly describe its preparation to Joan. Include an equation and an observation in your description (3 scores);
+Qn. Water is a very important resource, however, many villages face a challenge of unsafe water. This has resulted into diseases like bilharzia and cholera due to use of contaminated water. The National Water and Sewerage Cooperation (NWSC) plans to start up another water treatment plant to solve this challenge.
+Task:
+As the water engineer, prepare a write up you will present to the Operations manager of NWSC on the steps of treatment the water needs to go through before it is released for domestic use.;
+Qn. Temperature (⁰C)                        0       20      40      60
+    Solubility of KCl (g/ 100g of water)    28      34      39      45
+    Solubility of KNO3 (g/ 100 g of water)  13      32      61      108
+(a) On the same axes, plot graphs of solubilities of potassium chloride and potassium nitrate against temperatures.
+(b) Determine the temperature at which the solubilities of the two salts are equal.
+(c) Which of the two salts dissolves more rapidly with an increase in temperature?
+(d) State what would happen if a saturated solution of potassium chloride at 40⁰C was cooled.
+(e) A saturated solution of potassium chloride at 40⁰C was cooled to 35⁰C. Calculate the mass of potassium chloride crystals formed.
+Mass of the evaporating dish + saturated solution = 100.7g.
+Mass of the dish + dry salt = 73.8 g.
+Use the data above to calculate the solubility of potassium nitrate at 20˚C. Clearly show your working.;
+
+Qn. The demand for common salt, a fundamental compound used in various industries such as food processing, chemical manufacturing, and water treatment, has skyrocketed in recent years. To address this challenge, while ensuring minimal environmental impact, company A is considering the establishment of a small-scale common salt production facility for a short-term basis, whereas the government is considering the establishment of a large-scale common salt production facility for a long-term basis. 
+
+You have been appointed to sensitise both company A and the government on the most effective strategies to achieve their goals.
+Task: 
+a) Prepare a presentation you will deliver upon invitation by company A (10 scores).
+
+b) Prepare a presentation you will deliver upon invitation by the government (10 scores).
+
+EXPECTED RESPONSES FOR EACH PART OF THE ITEM
+
+Raw material(s)-------2 scores
+Production process-----3 scores [Must be coherent, with all the steps accurately included, and symbolic equations provided if available]
+Side effects and mitigation----3 scores [One accurate side effect has to be explained and a clear mitigation to it provided] ***Additional side effects and mitigation shall be scored too***
+Social benefits--------2 scores [One accurate social benefit has to be clearly explained] ***Additional social benefits shall be scored too***;

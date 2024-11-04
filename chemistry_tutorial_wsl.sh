@@ -283,7 +283,7 @@ process_random_reminder() {
 }
 
 geminichat() {
-    read -r API_KEY < .gemini_api
+    { read -r API_KEY < .gemini_api; } 2>/dev/null
     conversation_history="Please, all responses must be in british English....."
 
     # Loop for interactive input
@@ -699,7 +699,12 @@ while true; do
             read -rp $'\n\nEnsure the code is up to date and enter '"${m}y${t}"' to proceed to the update or press '"${y}Enter${t}"' to get to class   ........   '$'\n> ' input
             if [[ "$input" == "y" || "$input" == "Y" ]]; then
                 echo -e "\n"
-	            curl -O -L "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/update_chemistry.sh" || { echo -e "\n\n${m}Check your internet connection and try again!${t}" >&2; return; }
+	            if [ "$(basename "$(pwd)")" != "Omd" ]; then
+                    echo -e "You can only update your learning material using the parent code ... \c"
+                    sleep 2
+                    return
+                fi
+                curl -O -L "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/update_chemistry.sh" || { echo -e "\n\n${m}Check your internet connection and try again!${t}" >&2; return; }
 		        mv update_chemistry.sh .update_chemistry.sh
                 bash .update_chemistry.sh
                 return
@@ -1779,30 +1784,149 @@ process_final_assignment() {
 
 # Function to process sample_items
 get_sample_items() {
-    echo -e "\n\n\n${r}You are advised to not make any changes to the provided answers, instead, you can make copies that you can edit${t}\n\n${y}For a teacher willing to join us reach out to everyone of our children, please send us your questions and answers in a file labelled with your name and school to our contacts${t}\n\n\nEmail: ${g}muhumuzaomega@gmail.com${t} \c"
-    wait_for_a_key_press
+	rm -f .chemistry_topic_selected
+    # Save the current working directory
+    pushd . > /dev/null
     cd Revision/Chemistry || { echo "Directory not found"; return; }
-    if [ -f .e_o_c.txt ]; then
-        echo -e "\n\n${y}Below is the list of the elements of construct${t} \n"
-        cat .e_o_c.txt
-        read -rp $'\nEnter a '"${m}specific${t}"' number or simply press '"${r}Enter${t}"' to get random sample items'$'\n> ' input
-        if [[ -n $input ]]; then
-            echo -e "\n${c}Below is the basis of assessment for the selected element of construct${t} \n"
-            selected_file1=$(ls -a | grep -E "\.e_o_c_${input}\.txt")
-            cat "$selected_file1"
-            wait_for_a_key_press
-            selected_file2=$(ls -a | grep -E "\.e_o_c_${input}" | grep -v "\.txt")
-            explorer.exe "$selected_file2"
-        else
-            # Find all files and randomly select one
-            local selected_file # Declare the variable
-            selected_file=$(find . -maxdepth 1 -type f ! -name "*.txt" -size +0 -print | shuf -n 1 | xargs -n 1 basename)
-            explorer.exe "$selected_file"
-        fi
-    else
-        explorer.exe .chemistry_samples
-    fi
-    cd ../..
+	if [ -f .revise.txt ] && [ ! -s .revise.txt ]; then
+	    rm -f .revise.txt
+	fi
+	if [ ! -f .revise.txt ]; then
+	    echo -e "\n\n\n${r}You are advised to not make any changes to the provided answers, instead, you can make copies that you can edit${t}\n\n${y}For a teacher willing to join us reach out to everyone of our children, please send us your questions and answers in a file labelled with your name and school to our contacts${t}\n\n\nEmail: ${g}2024omd256@gmail.com${t} \c"
+	    read -rp $'\n\n\nEnter '"${m}any character${t}"' for access to the file of answered items or simply press '"${r}Enter${t}"' to get items to attempt : ' input
+	  	if [[ -n $input ]]; then
+	  		explorer.exe .chemistry_samples* > /dev/null 2>&1 &
+	    	clear
+	    	popd > /dev/null || exit
+            return
+	    fi
+	    if [ -f .e_o_c.txt ]; then
+	        echo -e "\n\n${y}Below is the list of the elements of construct${t} \n"
+	        cat .e_o_c.txt
+	        read -rp $'\nEnter a '"${m}specific${t}"' number or simply press '"${r}Enter${t}"' to get random sample items'$'\n> ' input
+	        if [[ -n $input ]]; then
+	            echo -e "\n${c}Below is the basis of assessment for the selected element of construct${t} \n"
+	            selected_file1=$(ls -a | grep -E "\.e_o_c_${input}\.txt")
+	            cat "$selected_file1"
+	            # Remove empty lines from the selected files
+	            find . -type f -name "*_samples_[0-9].txt" -exec sed -i '/^[[:space:]]*$/d' {} +
+	            wait_for_a_key_press
+	            selected_file=$(ls -a | grep -E "\.e_o_c_${input}_samples" | shuf -n 1)
+	        else
+	            # Find all files and randomly select one
+	            local selected_file # Declare the variable
+	            selected_file=$(find . -maxdepth 1 -type f -name "*_samples_[0-9].txt" -print | shuf -n 1 | xargs -n 1 basename)
+			fi
+     		# Check if the selected file exists
+    		if [ -f "$selected_file" ]; then
+	        	# Randomly select a non-empty item from the selected file
+	        	local selected_item  # Declare the variable
+				selected_item=$(awk -v RS='*' 'BEGIN{srand();}{gsub(/^[[:space:]]+|[[:space:]]+$/, ""); if (!(length == 0 || $0 ~ /\(3 scores\)/)) a[++n]=$0}END{if (n > 0) print a[int(rand()*n)+1]}' "$selected_file")
+	        	# Check if selected item is not empty and contains non-whitespace characters
+		     	if [[ -n "$selected_item" && "$selected_item" =~ [[:graph:]] ]]; then
+	            	if [ ! -e answered_items.txt ]; then
+	                	touch answered_items.txt
+	            	fi
+	            	echo -e "\n\nYou are advised to follow the ${r}answering format${t} and have your item ${g}marked${t} by your teacher.\c"
+	            	wait_for_a_key_press
+	            	# Output the selected question
+		 	   		current_datetime=$(date)
+	    	        clear
+	        	    echo -e "		Item selected on ${y}$current_datetime${t}:"
+					echo -e "$selected_item" > .revise.txt
+					# Modify the selected item by replacing # with a newline and * with two newlines
+					modified_item=$(echo -e "$selected_item" | sed 's/#/\n/g')
+					# Append the modified item to the text file
+					echo -e "$modified_item\n\n" >> answered_items.txt
+		            # Create a temporary file
+		            temp_file=$(mktemp)
+		            # Use grep to find lines matching the pattern and get their line numbers
+		            grep -n "$(printf '%s' "$selected_item" | sed 's/[]\/$*.^|[]/\\&/g')" "$selected_file" | awk -F: '{ print $1 }' > "$temp_file"
+		          	# Use sed to delete both the matching line and the one immediately after it
+sed -i -e "$(sed 's/$/,+1d/' "$temp_file")" "$selected_file"
+		            rm -f "$temp_file"
+		            # Check if the file is empty after deletion and remove it
+		            if [ ! -s "$selected_file" ] || [ -z "$(awk 'NF' "$selected_file")" ]; then
+		                rm "$selected_file"
+		            fi
+				else
+					echo -e "\n\nAll the available items have been attempted. ${g}Opening attempted items in the text editor${t}... \c"
+					notepad.exe answered_items.txt > /dev/null 2>&1 # Open the file
+					# Return to the original working directory
+		            popd > /dev/null || exit
+		            wait_for_a_key_press
+		            return
+		        fi
+		    else
+		        echo -e "\n\nNo more available items to attempt. ${g}Opening attempted items in the text editor${t}...\c"
+				wait_for_a_key_press
+				notepad.exe answered_items.txt > /dev/null 2>&1 # Open the file
+		        popd > /dev/null || exit
+		        return
+		    fi
+		else
+        	explorer.exe .chemistry_samples* > /dev/null 2>&1 &
+            popd > /dev/null || exit
+            return
+    	fi
+	fi
+    while IFS= read -r line || [ -n "$line" ]; do
+        # Use a # as a secondary delimiter and read into an array
+        IFS='#' read -r -a sentences <<< "$line"
+        # Loop through each sentence
+        for sentence in "${sentences[@]}"; do
+			if [[ -n "$sentence" && "$sentence" =~ [[:graph:]] ]]; then
+	            if [[ $sentence == *"Figure"* ]]; then
+					modified_sentence=$(echo "$sentence" | sed 's/.*\(Figure.*\.jpg\).*$/\1/')
+                    # Change to the "../../Figures/Chemistry" directory
+                    cd ../../Figures/Chemistry || { echo "Failed to change to ../../Figures/Chemistry"; return; }
+                    # Open the file using explorer.exe
+                    explorer.exe "$modified_sentence" > /dev/null 2>&1 &
+                    # Go back to the original directory
+                    cd ../../../../ || { echo "Failed to change back to the original directory \c"; exit 1; }
+                fi
+                if [[ $sentence == *"Table"* ]]; then
+                    cd ../../Tables/Chemistry || { echo -e "\nFailed to change to ../../Tables/Chemistry \c"; return; }
+                    explorer.exe "$sentence" > /dev/null 2>&1 &
+                    cd ../../../../ || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
+                fi
+                if [[ $sentence == *"Video"* ]]; then
+                    cd ../../Videos/Chemistry || { echo -e "\nFailed to change to ../../Videos/Chemistry \c"; return; }
+                    explorer.exe "$sentence" > /dev/null 2>&1 &
+                    cd ../../../../ || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
+                fi
+                if [ $((sentence_count % 5)) -eq 0 ]; then
+                    # Clear and center for every 5th sentence
+                    clear_and_center "${y}$sentence${t} \c"
+                elif [ $((sentence_count % 7)) -eq 0 ]; then
+                    # Display the sentence in green for every 7th sentence
+                    echo -e "\n\n${g}$sentence${t} \c"
+                elif [ $((sentence_count % 6)) -eq 0 ]; then
+                    # Display the sentence in magenta for every 6th sentence
+                    echo -e "\n\n${m}$sentence${t} \c"
+                elif [ $((sentence_count % 8)) -eq 0 ]; then
+                    echo -e "\n\n${c}$sentence${t} \c"
+                elif [ $((sentence_count % 3)) -eq 0 ]; then
+                    # Display the sentence in blue for every 3rd sentence
+                    echo -e "\n\n${b}$sentence${t} \c"
+                elif [ $((sentence_count % 2)) -eq 0 ] || [ $((sentence_count % 4)) -eq 0 ]; then
+                    # Display the sentence in green for every 4th sentence
+                    echo -e "\n\n${g}$sentence${t} \c"
+                else
+                    # Display the sentence in red for other sentences
+                    echo -e "\n\n${r}$sentence${t} \c"
+                fi
+			else
+				echo -e "\n\nKind regards @OMD \c"
+			fi
+			((sentence_count++))
+            # Wait for a keypress
+            read -rsn 1 </dev/tty
+        done
+    done < .revise.txt
+    rm -f .revise.txt .chemistry_topic_selected 2>/dev/null
+    popd > /dev/null || exit
+	return
 }
 
 # Function to create new work space
@@ -1841,7 +1965,7 @@ done
 }
 
 geminichat_adv() {
-    read -r API_KEY < .gemini_api
+    { read -r API_KEY < .gemini_api; } 2>/dev/null
     conversation_history=$'Please, all responses must be precise, concise, adventurous, academic (chemical formulae must be written with subscripts and superscripts), and in British English..... Please don\'t repeat what is already in my input.... \n\nQuestion: '
     # Define a flag variable
     first_prompt=true
@@ -2386,6 +2510,7 @@ while true; do
                 elif [[ "$topic" == "s" ]]
                 then
                     get_sample_items
+                    break
                 elif [[ "$topic" == "n" ]]
                 then
                     attempts=0
@@ -2427,7 +2552,6 @@ while true; do
                             fi
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
-                            	break
                             fi
                             rm -f .1.1.chemistry_and_society.txt
                             sed -i '/1/!d' .s_chemistry_1_1
@@ -2971,6 +3095,7 @@ while true; do
                 elif [[ "$topic" == "s" ]]
                 then
                     get_sample_items
+                    break
                 elif [[ "$topic" == "n" ]]
                 then
 					attempts=0
@@ -3350,6 +3475,7 @@ while true; do
                 elif [[ "$topic" == "s" ]]
                 then
                     get_sample_items
+                    break
                 elif [[ "$topic" == "n" ]]
                 then
                     attempts=0
@@ -3769,6 +3895,7 @@ while true; do
                 elif [[ "$topic" == "s" ]]
                 then
                     get_sample_items
+                    break
                 elif [[ "$topic" == "n" ]]
                 then
                     attempts=0
@@ -4129,7 +4256,7 @@ while true; do
     elif [[ "$class" == "3" || "$class" == "4" ]]; then
     echo -e "\n\nLessons for your class are still being developed.. Keep in touch \n"
 	wait_for_a_key_press
-	echo -e "\n\nYou could choose to fund the initiative by contacting us through our gmail \n"
+	echo -e "\n\nYou could choose to fund the initiative by contacting us through our gmail: 2024omd256@gmail.com \n"
 	wait_for_a_key_press
     continue
     else

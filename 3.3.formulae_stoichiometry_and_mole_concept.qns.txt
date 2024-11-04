@@ -1,0 +1,54 @@
+Qn. a) Explain in detail, the meaning of relative atomic mass and relative molecular mass
+
+b) What is the relationship between the number of moles and the number of particles
+
+c) What is the relationship between the number of moles of a substance and its mass
+
+d) Calculate the percentage of Iron by mass in hydrated Iron (II) sulphate crystals, FeSO₄.7H₂O (Fe = 56, S = 32, O = 16, H = 1)
+
+e) Compare and contrast empirical formula with molecular formula
+
+f) Mass of crucible and lid = 25.8g. Mass of crucible, lid and magnesium ribbon = 28.2g. Mass of crucible, lid and magnesium oxide = 29.7g. Calculate the formula of magnesium oxide (Mg = 24, 0 = 16).
+
+g) Write chemical formulae of 10 compounds of your own choice
+
+h) Construct balanced chemical equations for at least 10 chemical reactions
+
+i) Interpret 2 different chemical equations of your own choice (One of the equations has to be comprising of gaseous reactants and gaseous products)
+
+j) What is the relationship between the number of moles of a gas and its volume
+
+k) What is the molar volume of a gas at STP or room conditions
+
+l) Construct a mind-map to show the relationship between number of particles, number of moles, mass of substances and volume of gases at STP and room conditions
+
+m) Explain any 5 scientific attitudes and values in investigating matter
+
+Note: You are required to practice problem solving activities involving number of particles, number of moles, mass of a substance and volume of gases at STP or room conditions. Equally, you are to practice calculating the volume of gases at STP (or room conditions) from the number of moles and vice versa;
+
+Qn. 1) Use the value of 6.02×10²³mol⁻¹ for the Avogadro constant to find the number of atoms in: a) 2.0x10⁻³g of calcium. b) 5.0x10⁻⁶g of argon. c) 1.00x10⁻³g of mercury.
+2) Calculate the molar masses of the following. (i) Sodium sulphate (Na = 23, S = 32, O = 16). (ii) Potassium carbonate (K = 39, C = 12, O = 16).
+3) Calculate the percentage of the following substances in their compounds: Sulphur in hydrogen sulphide (S = 32, H = 1). Oxygen in glucose (H = 1, C = 12, O = 16).
+4) Given (O = 16, Ca = 40, C = 12, S = 32, H = 1, Cu = 64, Ag = 108, Mg = 24). Calculate the number of moles in: a) 21.6g of silver. b) 12g of magnesium. c) 6g of ammonia. 
+5) Calculate the masses of the following: 1) 0.25 moles of ammonium phosphate (N = 14, P = 31, O= 16, H = 1). 2) 0.02 moles of zinc chloride (Zn = 65, Cl = 35.5).
+6) A compound Q of formula mass 60, contains carbon, 40%, hydrogen, 6.7% and the rest being oxygen. (a) (i) Calculate the empirical formula of Q (H = 1 C = 12 O = 16). (ii) Determine the molecular formula of Q.
+7) Calculate the mass in grams of carbon dioxide liberated when 20g of calcium carbonate is completely reacted with hydrochloric acid (Ca = 40, C = 12, O = 16). 
+8) 1.4 litres of ammonia gas measured at STP were passed over hot copper (II) oxide. The equation for the reaction is 3CuO(s) + 2NH₃(g) → 3Cu(s) + N₂(s) + 3H₂O(l). Calculate: a) The number of moles of ammonia used. b) The number of moles of nitrogen gas used. c) The mass of copper formed. 
+9) 3.1g of a carbonate XCO₃ are heated to constant mass: 2.0g of the metal oxide are formed. When heated in a stream of hydrogen for sufficient time, the oxide is reduced to 1.6g of pure metal. a) Give the equation for the two reactions. b) Calculate the minimum volume of hydrogen at STP needed to reduce the oxide. c) Calculate the volume of carbon dioxide at STP produced when the carbonate was completely decomposed.
+10) Explain any 5 scientific attitudes and values in investigating matter.;
+
+Qn. In a recent chemistry laboratory session, students were tasked with investigating the reaction between ammonia gas and copper (II) oxide. They measured 0.2 moles of ammonia gas at standard temperature and pressure, and passed it over copper (II) oxide. 
+2NH₃(g) + 3CuO(s) → 3H₂O(l) + N₂(g) + 3Cu(s)
+Calculate: 
+a) The number of moles of copper (II) oxide used (02 scores)
+b) The mass of copper formed (02 scores)
+c) The volume of ammonia used at stp (Cu=64, O=16, N=14, H=1, 1 mole of a gas occupies 22.4l at stp) (02 scores)
+In another experiment, they found out that carbohydrate J of vapour density, 171, contained 42.11% carbon, 51.46% oxygen and the rest was hydrogen. 
+Calculate the molecular formula of the carbohydrate (H = 1, C = 12, O = 16) (04 scores);
+
+Qn. In a recent chemistry laboratory session, students were tasked with (i) analysing the relationship between the number of moles and the number of particles (ii) analysing the relationship between the number of moles of a substance and its mass.
+Calculate: 
+a) Calculate the mass of sodium with 1.5x10²² sodium atoms (Na = 23, NA = 6.02×10²³ atoms) (02 scores)
+b) Calculate the percentage of nitrogen in ammonium sulphate (N = 14, H = 1, S = 32, O = 16) (02 scores)
+In another experiment, they found out that carbohydrate J of relative molecular mass, 342, contained 42.11% carbon, 51.46% oxygen and the rest was hydrogen. 
+Calculate the molecular formula of the carbohydrate (H = 1, C = 12, O = 16) (05 scores);
