@@ -90,27 +90,33 @@ section3b=(
 )
 
 section4=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.1.the_molecular_biology.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.2.proteins.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.3.nucleic_acids.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.4.the_cell.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.5.the_biochemistry_of_life.txt"
+
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.1.oxidation_and_reduction_reactions.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.2.industrial_processes.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.3.trends_in_the_periodic_table.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.4.energy_changes_during_chemical_reactions.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.5.chemicals_for_consumers.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.6.nuclear_processes.txt"
 )
 
 section4a=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.1.the_molecular_biology.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.2.proteins.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.3.nucleic_acids.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.4.the_cell.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.5.the_biochemistry_of_life.ans.txt"
+
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.1.oxidation_and_reduction_reactions.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.2.industrial_processes.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.3.trends_in_the_periodic_table.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.4.energy_changes_during_chemical_reactions.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.5.chemicals_for_consumers.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.6.nuclear_processes.ans.txt"
 )
 
 section4b=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.1.the_molecular_biology.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.2.proteins.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.3.nucleic_acids.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.4.the_cell.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.5.the_biochemistry_of_life.qns.txt"
+
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.1.oxidation_and_reduction_reactions.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.2.industrial_processes.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.3.trends_in_the_periodic_table.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.4.energy_changes_during_chemical_reactions.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.5.chemicals_for_consumers.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.6.nuclear_processes.qns.txt"
 )
 
 section5=(
