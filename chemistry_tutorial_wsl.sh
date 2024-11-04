@@ -692,7 +692,7 @@ while true; do
         if [[ "$user_input" == "zz" ]]; then
             echo -e "\n"
             if [ "$(basename "$(pwd)")" != "Omd" ]; then
-                echo -e "You can only update your code using the parent code ... \c"
+                echo -e "You can only update your code using the parent code. And then create new workspace ... \c"
                 sleep 2
                 return
             fi
@@ -1943,6 +1943,21 @@ while true; do
     # List directories in the Students folder and check for a match
     if ls Students | grep -wq "$initials"; then
         echo -e "\nThe provided initials are ${m}already${t} in use. Please choose other initials!"
+        # Define the path to the similar file and a temporary copy
+        similar_file="../../$(basename "$0")"
+        temp_file="$(mktemp)"
+        # Check if a similar file exists
+        if [ -f "$similar_file" ]; then
+            # Copy the similar file to the temporary file
+            cp "$similar_file" "$temp_file"
+            # Apply sed replacements on the temporary file
+            sed -i -e 's|../../Notes|../../../../Notes|g' -e 's|../../Videos|../../../../Videos|g' -e 's|../../Figures|../../../../Figures|g' -e 's|../../Students|../../../../Students|g' -e 's|../../Tables|../../../../Tables|g' -e 's#cd - > /dev/null 2>&1 ||#cd - > /dev/null 2>\&1 ||#g' "$temp_file"
+            mv "$temp_file" "$0"
+            chmod +x "$0"
+            echo -e "\n\n${y}Your code has been updated. You will need to restart a new session.${t} \n"
+            sleep 8
+            exit
+        fi
     else
         mkdir "Students/$initials"
         cp -r Exercise Revision .gemini_api .openai_api *_wsl.sh "Students/$initials"
