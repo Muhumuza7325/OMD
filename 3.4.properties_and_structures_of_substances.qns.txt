@@ -1,0 +1,15 @@
+1. Explain how the physical properties of giant molecular, giant ionic, and giant metallic structures influence the uses of common materials derived from each type. Provide specific examples to support your explanations.
+
+2. Carry out simple stoichiometric calculations on some of the common covalent reactions below:
+
+a) Nitrogen monoxide reacts with oxygen according to the following equation: 2NO(g) + O₂(g) → 2NO₂(g). Calculate the volume of nitrogen dioxide formed when 15cm³ of nitrogen monoxide reacts with excess oxygen. 
+
+b) Ethene burns in oxygen according to the equation. C₂H₄(g) + O₂(g) → 2CO₂(g) + 2H₂O(g). Calculate the mass of each of the products when 14g of ethene is completely burnt in oxygen (C = 12, H = 1). 
+
+c) Propane burns in air according to the following equation. C₃H₈(g) + 5O₂(g) → 3CO₂(g) + 4H₂O(g). Calculate the mass of oxygen required for complete combustion of 4.4g of propane (C = 12, H = 1, O = 16). 
+
+d) From the equation: H₂(g) + Cl₂(g) → 2HCl(g). Calculate the:
+(i) Volume of chlorine at STP required to react with 8g of hydrogen. 
+(ii) Mass of hydrogen chloride formed (H = 1, Cl = 35.5, 1 mole of a gas occupies 22.4l at STP).
+
+3. Write other 5 equations for common covalent reactions and clearly state which covalent bonds are broken, and which ones are formed. Note: A covalent reaction refers to a chemical reaction in which covalent bonds are formed or broken between atoms.;
