@@ -1,44 +1,63 @@
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
-}
-
-header {
-    background-color: #4CAF50;
-    color: white;
-    padding: 1rem;
+    background-color: #f9f9f9;
+    color: #333;
     text-align: center;
 }
 
-main {
-    padding: 2rem;
+/* Header */
+header {
+    background-color: #007bff;
+    color: white;
+    padding: 20px 10px;
 }
 
-section {
-    margin-bottom: 2rem;
+header h1 {
+    margin: 0;
+    font-size: 2em;
+}
+
+/* Sections */
+main {
+    padding: 20px;
+}
+
+.features, .download, .shortcut {
+    background: white;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
 }
 
 h2 {
-    color: #4CAF50;
+    color: #007bff;
 }
 
-a {
-    color: #4CAF50;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-footer {
-    background-color: #333;
+/* Button Styles */
+.btn {
+    display: inline-block;
+    background-color: #007bff;
     color: white;
-    text-align: center;
-    padding: 1rem;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
+    padding: 12px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background 0.3s ease-in-out;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* Footer */
+footer {
+    margin-top: 20px;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 0;
 }
