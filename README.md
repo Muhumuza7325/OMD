@@ -1,9 +1,32 @@
-# About Me
+# About the Developer
 
 - Hi, I’m @Muhumuza7325
-- A passionate scientist currently exploring Bioinformatics
-- Determined to individually transform the education system of Uganda and the world at large
-- Reach me via email: muhumuzaomega@gmail.com
+- A passionate scientist currently exploring Bioinformatics.
+- Driven by the vision to contribute to the transformation of education in Uganda and globally.
+- Connect me via email: muhumuzaomega@gmail.com
+
+## Installation Instructions for MacOS and Linux
+
+1.  **Create the Omd Folder:**
+    Open your file manager. Navigate to your home directory (usually represented by a house icon or your username). If a folder named `Omd` does not exist, create a new folder and name it `Omd`.
+
+2.  **Move and Make Executable the Script:**
+    Open the downloaded ZIP archive and locate the file named `chemistry_tutorial.sh`. Drag this file into the `Omd` folder you just created in your home directory.
+
+    Next, you need to make this file executable. Open your terminal application. Type `chmod +x ~/Omd/chemistry_tutorial.sh` and press Enter. This command gives the script permission to run.
+
+3.  **Move and Rename the Logo:**
+    From the downloaded ZIP archive, find the file named `logo.jpeg`. Drag this file into the `Omd` folder in your home directory. Once it's there, rename the file to `.logo.jpeg` (note the dot at the beginning). This often makes the file hidden in some file managers.
+
+4.  **Move the Desktop Shortcut:**
+    Locate the file named `chemistry_tutorial.desktop` in the downloaded ZIP archive. Drag this file to your Desktop.
+
+5.  **Allow Launching the Shortcut:**
+    Go to your Desktop and find the "CHEM" shortcut. Right-click on it. Look for an option that allows you to trust or allow launching the application. This might be in a "Permissions" tab or a context menu option like "Allow Launching" or similar. Enable this.
+
+6.  **Start Learning:**
+    Double-click the "CHEM" shortcut on your Desktop to begin your learning experience.
+
 
 ## License
 
