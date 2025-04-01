@@ -8,7 +8,7 @@
 ## Installation Instructions for MacOS and Linux
 
 1.  **Create the Omd directory:**
-    Open your file manager. Navigate to your home directory (usually represented by a house icon or your username). If a directory named `Omd` does not exist, create a new directory and name it `Omd`. Mind about the case of the letters (Its only `O` thats upper case. m and d are lower case letters).
+    Open your file manager. Navigate to your home directory (usually represented by a house icon or your username). If a directory named `Omd` does not exist, create a new directory and name it `Omd`. Make sure only "O" is uppercase.
 
 2.  **Extract and Make Executable the Script:**
     Open the downloaded ZIP archive and locate the file named `chemistry_tutorial.sh`. Extract this file into the `Omd` directory you just created in your home directory.
@@ -21,8 +21,8 @@
 4.  **Extract the Desktop Shortcut:**
     Locate the file named `chemistry_tutorial.desktop` in the downloaded ZIP archive. Extract this file to your Desktop.
     
-5.  **Delete the downloaded Zip archive:**
-    At this stage. You are free to delete the downloaded ZIP archive.
+5.  **Delete the downloaded Zip archive (Optional):**
+    At this stage (After extracting all the necessary files). You are free to delete the downloaded ZIP archive.
 
 6.  **Allow Launching the Shortcut:**
     Go to your Desktop and find the `chemistry_tutorial.desktop` file. Right-click on it. Look for an option that allows you to trust or allow launching the application. This might be in a "Permissions" tab or a context menu option like "Allow Launching" or similar. Enable this.
