@@ -4,6 +4,7 @@
 - A passionate scientist currently exploring Bioinformatics.
 - Driven by the vision to contribute to the transformation of education in Uganda and globally.
 - [Connect to me via email](mailto:muhumuzaomega@gmail.com)
+- [https://github.com/Muhumuza7325/Muhumuza7325/blob/main/LICENSE.txt]
 
 ## Installation Instructions for MacOS and Linux
 
