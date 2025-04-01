@@ -7,16 +7,16 @@
 
 ## Installation Instructions for MacOS and Linux
 
-1.  **Create the Omd Folder:**
-    Open your file manager. Navigate to your home directory (usually represented by a house icon or your username). If a folder named `Omd` does not exist, create a new folder and name it `Omd`.
+1.  **Create the Omd directory:**
+    Open your file manager. Navigate to your home directory (usually represented by a house icon or your username). If a directory named `Omd` does not exist, create a new directory and name it `Omd`. Mind about the case of the letters (Its only `O` thats upper case. m and d are lower case letters).
 
-2.  **Move and Make Executable the Script:**
-    Open the downloaded ZIP archive and locate the file named `chemistry_tutorial.sh`. Drag this file into the `Omd` folder you just created in your home directory.
+2.  **Extract and Make Executable the Script:**
+    Open the downloaded ZIP archive and locate the file named `chemistry_tutorial.sh`. Extract this file into the `Omd` directory you just created in your home directory.
 
     Next, you need to make this file executable. Open your terminal application. Type `chmod +x ~/Omd/chemistry_tutorial.sh` and press Enter. This command gives the script permission to run.
 
-3.  **Move and Rename the Logo:**
-    From the downloaded ZIP archive, find the file named `logo.jpeg`. Drag this file into the `Omd` folder in your home directory. Once it's there, rename the file to `.logo.jpeg` (note the dot at the beginning). This often makes the file hidden in some file managers.
+3.  **Extract and Rename the Logo:**
+    From the downloaded ZIP archive, find the file named `logo.jpeg`. Extract this file into the `Omd` directory in your home directory. Once it's there, rename the file to `.logo.jpeg` (note the dot at the beginning). This often makes the file hidden in some file managers.
 
 4.  **Extract the Desktop Shortcut:**
     Locate the file named `chemistry_tutorial.desktop` in the downloaded ZIP archive. Extract this file to your Desktop.
