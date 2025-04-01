@@ -8,7 +8,7 @@
 ## Installation Instructions for MacOS and Linux
 
 1.  **Create the Omd Folder:**
-    Open your file manager. Navigate to your home directory (usually represented by a house icon or your username). If a folder named `Omd` does not exist, create a new folder and name it `Omd`.
+    Open your file manager. Navigate to your home directory (usually represented by a house icon or your username). If a folder named `Omd` does not exist, create a new folder and name it `Omd`. Mind about the case of the letters (Its only `O` thats upper case. m and d are lower case letters).
 
 2.  **Extract and Make Executable the Script:**
     Open the downloaded ZIP archive and locate the file named `chemistry_tutorial.sh`. Extract this file into the `Omd` folder you just created in your home directory.
