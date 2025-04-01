@@ -7,15 +7,6 @@
 
 ## Installation Instructions for MacOS and Linux
 
-# About the Developer
-
-- Hi, I’m @Muhumuza7325
-- A passionate scientist currently exploring Bioinformatics.
-- Driven by the vision to contribute to the transformation of education in Uganda and globally.
-- Connect me via email: muhumuzaomega@gmail.com
-
-## Installation Instructions for MacOS and Linux
-
 1.  **Create the Omd Folder:**
     Open your file manager. Navigate to your home directory (usually represented by a house icon or your username). If a folder named `Omd` does not exist, create a new folder and name it `Omd`.
 
