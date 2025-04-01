@@ -3,7 +3,7 @@
 - Hi, I’m @Muhumuza7325
 - A passionate scientist currently exploring Bioinformatics.
 - Driven by the vision to contribute to the transformation of education in Uganda and globally.
-- You can connect to me via email: [muhumuzaomega@gmail.com](mailto:muhumuzaomega@gmail.com) or via phone: [+256763956608](tel:+256763956608)/[+256747130325](tel:+256747130325)
+- You can connect to me via email: muhumuzaomega@gmail.com
 
 ## Installation Instructions for MacOS and Linux
 
