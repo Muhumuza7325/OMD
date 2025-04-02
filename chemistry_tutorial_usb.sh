@@ -79,7 +79,7 @@ function handle_class_input() {
             if [ "$class" == "x" ]; then
                 exit
             fi
-		    # Check if .current_chemistry_class is accidentally empty
+		    # Check if .current chemistry class is accidentally empty
 		    if [ ! -s .current_chemistry_class ]; then
 		        # Echo 1 to .current_chemistry_class
 		        echo "1" > .current_chemistry_class
@@ -88,11 +88,11 @@ function handle_class_input() {
 		    current_chemistry_class=$(<.current_chemistry_class) 2>/dev/null
 		    # Check if the value is equal to $class
 		    if [ "$current_chemistry_class" -lt "$class" 2>/dev/null ]; then
-		        echo -e "\n${y}Your progress can't be tracked.${t} ${g}You either havent completed your current class' final assignment${t} ${r}or${t}\n\nYour files have been interfered with! You need ${b}to go back${t} and progress the right way! \c"
+		        echo -e "\n${y}Your progress can't be tracked.${t} ${g}You either havent completed your current final assignment${t} ${r}or${t}\n\nYour files have been interfered with! You need ${b}to go back${t} and progress the right way! \c"
 		        wait_for_a_key_press
 				continue
 			else
-	            rm -f ".chemistry_topic_selected"
+	            rm -f "$chemistry_topic_selected"
 	            # Update the state file with the class
 	            if [ "$class" != "x" ]; then
 	                echo "$class" > .chemistry_user_state 2>/dev/null
@@ -102,7 +102,6 @@ function handle_class_input() {
 		done
     fi
 }
-
 
 # Function to handle S4 user input for topic selection
 function handle_s4_topic_input() {
@@ -124,7 +123,6 @@ function handle_s4_topic_input() {
         fi
     fi
 }
-
 # Function to handle S3 user input for topic selection
 function handle_s3_topic_input() {
     if [ -f .resume_to_class ]; then
@@ -132,7 +130,7 @@ function handle_s3_topic_input() {
         rm -f .chemistry_topic_selected
     fi
     if [ -z "$last_topic" ] || [ -f .chemistry_topic_selected ]; then
-        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4 or 5 or 6${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. Carbon in life '"${r}Term1${t}"''$'\n\n2. Structures and bonds '"${r}Term1${t}"''$'\n\n3. Formulae, stoichiometry and mole concept '"${r}Term2${t}"''$'\n\n4. Properties and structures of substances '"${r}Term2${t}"''$'\n\n5. Fossil fuels '"${r}Term3${t}"''$'\n\n6. Chemical reactions '"${r}Term3${t}"''$'\n\n> ' topic
+        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4 or 5 or 6${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. Carbon in life '"${r}Term1${t}"''$'\n\n2. Structures and bonds '"${r}Term1${t}"''$'\n\n3. 3.3.formulae stoichiometry and mole concept '"${r}Term2${t}"''$'\n\n4. Properties and structures of substances '"${r}Term2${t}"''$'\n\n5. Fossil fuels '"${r}Term3${t}"''$'\n\n6. Chemical reactions '"${r}Term3${t}"''$'\n\n> ' topic
         touch .chemistry_surveyor
         touch .chemistry_topic_selected
         # Update the state file with the topic
@@ -145,37 +143,36 @@ function handle_s3_topic_input() {
         fi
     fi
 }
-# Function to handle S1 class user input for topic selection
-function handle_s1_topic_input() {
-    if [ -f .resume_to_class ]; then
-        rm -f .resume_to_class
-        rm -f .chemistry_topic_selected
-    fi
-    if [ -z "$last_topic" ] || [ -f .chemistry_topic_selected ]; then
-        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. Chemistry and Society (Introduction to Chemistry and Experimental Techniques, '"${r}Term1${t}"')'$'\n\n2. Experimental Chemistry (Introduction to Chemistry and Experimental Techniques, '"${r}Term1${t}"')'$'\n\n3. States and changes of states of matter (Particle Nature of Matter, '"${r}Term1${t}"')'$'\n\n4. Using materials (Particle Nature of Matter, '"${r}Term1${t}"')'$'\n\n5. Temporary and permanent changes (Temporary and Permanent Changes to Materials, '"${r}Term2${t}"')'$'\n\n6. Mixtures, Elements, and compounds (Temporary and Permanent Changes to Materials, '"${r}Term2${t}"')'$'\n\n7. Air (Air and Environment, '"${r}Term3${t}"')'$'\n\n8. Water (Air and Environment, '"${r}Term3${t}"')'$'\n\n9. Rocks and Minerals (Earth and Space, '"${r}Term3${t}"') '$'\n\n> ' topic
-        touch .chemistry_surveyor
-        touch .chemistry_topic_selected
-        # Update the state file with the topic
-        # Check if the state file exists, and the topic is not "x"
-        if [ -f .chemistry_user_state ] && [ "$topic" != "x" ]; then
-            # Get the current class value from the state file
-            existing_class=$(awk '{print $1}' .chemistry_user_state)
-            # Update the state file with the topic, preserving the existing class value
-            echo "$existing_class $topic" > .chemistry_user_state 2>/dev/null
-        fi
-    fi
-}
-
-# Function to handle S2 class user input for topic selection
+# Function to handle S2 user input for topic selection
 function handle_s2_topic_input() {
     if [ -f .resume_to_class ]; then
         rm -f .resume_to_class
         rm -f .chemistry_topic_selected
     fi
     if [ -z "$last_topic" ] || [ -f .chemistry_topic_selected ]; then
-        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4 or 5${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. Acids and alkalis (Acids and Alkalis, '"${r}Term1${t}"')'$'\n\n2. Salts (Acids and Alkalis, '"${r}Term1${t}"')'$'\n\n3. The Periodic table (The Periodic table, '"${r}Term1${t}"')'$'\n\n4. Carbon in the environment (Carbon in the environment, '"${r}Term2${t}"')'$'\n\n5. The reactivity series (Order of Reactivity of Metals, '"${r}Term3${t}"')'$'\n\n> ' topic
+        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4 or 5${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. Acids and alkalis '"${r}Term1${t}"''$'\n\n2. Salts '"${r}Term1${t}"''$'\n\n3. The periodic table '"${r}Term1${t}"''$'\n\n4. Carbon in the environment '"${r}Term2${t}"''$'\n\n5. The reactivity series '"${r}Term3${t}"''$'\n\n> ' topic
         touch .chemistry_surveyor
-		touch .chemistry_topic_selected
+        touch .chemistry_topic_selected
+        # Update the state file with the topic
+        # Check if the state file exists, and the topic is not "x"
+        if [ -f .chemistry_user_state ] && [ "$topic" != "x" ]; then
+            # Get the current class value from the state file
+            existing_class=$(awk '{print $1}' .chemistry_user_state)
+            # Update the state file with the topic, preserving the existing class value
+            echo "$existing_class $topic" > .chemistry_user_state 2>/dev/null
+        fi
+    fi
+}
+# Function to handle S1 user input for topic selection
+function handle_s1_topic_input() {
+    if [ -f .resume_to_class ]; then
+        rm -f .resume_to_class
+        rm -f .chemistry_topic_selected
+    fi
+    if [ -z "$last_topic" ] || [ -f .chemistry_topic_selected ]; then
+        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. chemistry and society '"${r}Term1${t}"''$'\n\n2. Experimental chemistry '"${r}Term1${t}"''$'\n\n3. States and changes of states of matter '"${r}Term1${t}"''$'\n\n4. Using materials '"${r}Term1${t}"''$'\n\n5. Temporary and permanent changes '"${r}Term2${t}"''$'\n\n6. Mixtures elements and compounds '"${r}Term2${t}"''$'\n\n7. Air '"${r}Term2${t}"''$'\n\n8. Water '"${r}Term3${t}"''$'\n\n9. Rocks and minerals '"${r}Term3${t}"''$'\n\n> ' topic
+        touch .chemistry_surveyor
+        touch .chemistry_topic_selected
         # Update the state file with the topic
         # Check if the state file exists, and the topic is not "x"
         if [ -f .chemistry_user_state ] && [ "$topic" != "x" ]; then
@@ -564,7 +561,7 @@ PROGRESSIVE ASSESSMENT' > student
     if grep -q Microsoft /proc/version; then
         explorer.exe .student.txt
     else
-        xdg-open .student.txt
+        xdg-open .student.txt 2>/dev/null
     fi
     wait_for_a_key_press
     sed -e ':a;N;$!ba;s/\n/;/g' .student.txt >> ."$school_name"_students_file.txt
@@ -573,7 +570,6 @@ PROGRESSIVE ASSESSMENT' > student
     echo "$student_number" > .student_number.txt
     echo " "
 }
-
 
 # Function to process file
 process_file() {
@@ -594,28 +590,19 @@ process_file() {
 
         # Loop through each sentence
         for sentence in "${sentences[@]}"; do
-                if [[ -n "$sentence" && "$sentence" =~ [[:graph:]] ]]; then
-                if [[ $sentence == *"Figure"* ]]; then
-					modified_sentence=$(echo "$sentence" | sed 's/.*\(Figure.*\.jpg\).*$/\1/')
-                    # Change to the "Figures/Chemistry" directory
-                    cd Figures/Chemistry || { echo "Failed to change to Figures/Chemistry"; return; }
-                    # Open the file using explorer.exe
-                    explorer.exe "$modified_sentence" > /dev/null 2>&1 &
-                    # Go back to the original directory
-                    cd ../.. || { echo "Failed to change back to the original directory \c"; exit 1; }
+			if [[ -n "$sentence" && "$sentence" =~ [[:graph:]] ]]; then
+	            if [[ $sentence == *"Figure"* ]]; then
+                    modified_sentence=$(echo "$sentence" | sed 's/.*\(Figure.*\.jpg\).*$/\1/')
+                    # Open the file
+                    eog "Figures/Chemistry/$modified_sentence" > /dev/null 2>&1 &
                 fi
-
                 if [[ $sentence == *"Table"* ]]; then
-                    cd Tables/Chemistry || { echo -e "\nFailed to change to Tables/Chemistry \c"; return; }
-                    explorer.exe "$sentence" > /dev/null 2>&1 &
-                    cd ../.. || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
+                    libreoffice "Tables/Chemistry/$sentence" > /dev/null 2>&1 &
                 fi
-
                 if [[ $sentence == *"Video"* ]]; then
-                    cd Videos/Chemistry || { echo -e "\nFailed to change to Videos/Chemistry \c"; return; }
-                    explorer.exe "$sentence" > /dev/null 2>&1 &
-                    cd ../.. || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
-                fi
+                    # Open the video file
+                    vlc --one-instance --playlist-enqueue "Videos/Chemistry/$sentence" > /dev/null 2>&1 &
+	            fi
                 if [ $((sentence_count % 5)) -eq 0 ]; then
                     # Clear and center for every 5th sentence
                     clear_and_center "${y}$sentence${t} \c"
@@ -637,9 +624,9 @@ process_file() {
                     # Display the sentence in red for other sentences
                     echo -e "\n\n${r}$sentence${t} \c"
                 fi
-            else
-                echo -e "\n\nKind regards @OMD \c"
-            fi
+			else
+				echo -e "\n\nKind regards @OMD \c"
+			fi
             ((sentence_count++))
             save_state
             # Wait for a keypress
@@ -673,6 +660,7 @@ while true; do
     trap 'rm -f videos.txt figures.txt tables.txt' EXIT
 
     # Prompt the user for input
+
     read -rp $'\n\nEnter '"${y}Keywords...${t}"' to search or type '"${g}cl${t}"' to get to class or '"${g}sh${t}"' to share anything with us or '"${b}ch${t}"' to connect to chatgpt or '"${r}ge${t}"' to connect to Google AI or '"${m}zz${t}"' to update the code or '"${m}xx${t}"' to update learning materials or '"${c}nw${t}"' to create new workspace or '"${r}x${t}"' to exit: ' user_input
 
     # Check if user_input is not empty
@@ -683,7 +671,7 @@ while true; do
 		    encoded_subject=$(echo "$subject" | sed 's/ /%20/g; s/\n/%0A/g')
 		    encoded_body=$(echo "$Response" | sed 's/ /%20/g; s/\n/%0A/g')
 		    # Open the email in the browser with the encoded subject and body
-		    powershell.exe -Command "Start-Process 'https://mail.google.com/mail/?view=cm&to=2024omd256@gmail.com&su=${encoded_subject}&body=${encoded_body}'"
+		    xdg-open "https://mail.google.com/mail/?view=cm&to=2024omd256@gmail.com&su=${encoded_subject}&body=${encoded_body}" > /dev/null 2>&1 &
 			return
 		fi
          if [[ "$user_input" == "cl" ]]; then
@@ -694,9 +682,9 @@ while true; do
             return
          fi
         if [[ "$user_input" == "ge" ]]; then
-                echo -e "\nYou can quit with "${y}q${t}""
-                geminichat
-                return
+            echo -e "\nYou can quit with "${y}q${t}""
+            geminichat
+            return
          fi
         if [[ "$user_input" == "zz" ]]; then
             echo -e "\n"
@@ -705,7 +693,7 @@ while true; do
                 sleep 2
                 return
             fi
-            TEMP_FILE=$(mktemp) && curl -o "$TEMP_FILE" -L "https://github.com/Muhumuza7325/OMD/raw/main/chemistry_tutorial_wsl.sh" && mv "$TEMP_FILE" chemistry_tutorial_wsl.sh && chmod +x chemistry_tutorial_wsl.sh && cp chemistry_tutorial_wsl.sh Students/Omd && echo -e "\n\nCode successfully updated.. You will have to restart a new session \c" && sleep 4 && exit || (echo -e "\n\nError updating code!... Please check your internet connection and try again! \c" && rm -f "$TEMP_FILE" && return)
+            TEMP_FILE=$(mktemp) && curl -o "$TEMP_FILE" -L "https://github.com/Muhumuza7325/OMD/raw/main/chemistry_tutorial_usb.sh" && mv "$TEMP_FILE" chemistry_tutorial_usb.sh && chmod +x chemistry_tutorial_usb.sh && cp chemistry_tutorial_usb.sh Students/Omd && echo -e "\n\n${y}Code successfully updated.. You will have to restart a new session${t} \c" && sleep 4 && exit || (echo -e "\n\n${m}Error updating code!... Please check your internet connection and try again!${t} \c" && rm -f "$TEMP_FILE" && return)
         fi
         if [[ "$user_input" == "xx" ]]; then
             current_datetime=$(date)
@@ -713,13 +701,13 @@ while true; do
             read -rp $'\n\nEnsure the code is up to date and enter '"${m}y${t}"' to proceed to the update or press '"${y}Enter${t}"' to get to class   ........   '$'\n> ' input
             if [[ "$input" == "y" || "$input" == "Y" ]]; then
                 echo -e "\n"
-	            if [ "$(basename "$(pwd)")" != "Omd" ]; then
+                if [ "$(basename "$(pwd)")" != "Omd" ]; then
                     echo -e "You can only update your learning material using the parent code ... \c"
                     sleep 2
                     return
                 fi
                 curl -O -L "https://github.com/Muhumuza7325/OMD/raw/main/update_chemistry.sh" || { echo -e "\n\n${m}Check your internet connection and try again!${t}" >&2; return; }
-		        mv update_chemistry.sh .update_chemistry.sh
+                mv update_chemistry.sh .update_chemistry.sh
                 bash .update_chemistry.sh
                 return
             else
@@ -740,78 +728,60 @@ while true; do
             result=$(grep -h -w -A 999999 "$user_input" Notes/Chemistry/*.txt | sed -e '1s/^/\n/' -e 's/\.\s\+/&\n\n/g' -e 's/;\s*/&\n/g' | sed '/https:/! s/^[^:]*://' | tr -d '\000' | sed 's/^ \([^ ]\)/\1/')
         else
             # Case-insensitive search for user input
-		    result=$(find Notes/Chemistry -type f -name "*.txt" -exec awk '{if (gsub(/\.\s+/,"&\n\n"FILENAME":")) print ""; print FILENAME":" $0}' {} \; | grep -i -w "$user_input" | sed -e 's/: /. /g' | awk -F: 'BEGIN {file="";} {if (file != $1) { print ""; print $1; file=$1; print ""; } print $2}' | sed -e '/https:/! s/^[^:]*://' -e '/^$/N;/^\n$/D' | sed 's/\.\s\+/&\n/g' | tr -d '\000' | grep -E "$user_input|.txt" | sed 's/$/\n/' | sed 's/;\s*/&\n/g')
+	    	result=$(find Notes/Chemistry -type f -name "*.txt" | sort | while read -r file; do awk '{if (gsub(/\.\s+/,"&\n\n"FILENAME":")) print ""; print FILENAME":" $0}' "$file"; done | grep -i -w "$user_input" | sed -e 's/: /. /g' | awk -F: 'BEGIN {file="";} {if (file != $1) { print ""; print $1; file=$1; print ""; } print $2}' | sed -e '/https:/! s/^[^:]*://' -e '/^$/N;/^\n$/D' | sed 's/\.\s\+/&\n/g' | tr -d '\000' | grep -E "$user_input|.txt" | sed 's/$/\n/' | sed 's/;\s*/&\n/g')
         fi
-
         # Check if the result is not empty
         if [[ -n "$result" ]]; then
-            echo "$result" > search.txt  # Save the result to a file
-            notepad.exe search.txt > /dev/null 2>&1  # Open the file in Notepad
+	    echo "$result" > search.txt
+            gedit --new-window search.txt > /dev/null 2>&1  # Open the file
             rm -f search.txt
             echo -e "\c"
             if echo "$result" | grep "Figure"; then
-                echo "$result" | grep -o '\bFigure[0-9]\+.*\.jpg\(\.[0-9]\+\)*\b' > Figures/Chemistry/figures.txt
-                sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' Figures/Chemistry/figures.txt
-                # Change to the "Figures/Chemistry" directory
-                cd Figures/Chemistry || { echo "Failed to change to Figures/Chemistry"; return; }
-                # Specify the path to the text file containing figure names
+                echo "$result" | grep -o '\bFigure[0-9]\+.*\.jpg\(\.[0-9]\+\)*\b' > figures.txt
+ 				sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' figures.txt
+                # Specify the path to the text file containing video names
                 text_file="figures.txt"
                 # Read each line from the text file and open the corresponding figure
                 while IFS= read -r figure_prefix || [ -n "$figure_prefix" ]; do
                     # Use sed to edit the figure_prefix and store it in a temporary variable
                     edited_figure_prefix=$(echo "$figure_prefix." | sed 's/.*\(Figure.*\.jpg\).*$/\1/')
-                    # Open the figure file using explorer.exe
-                    explorer.exe "${edited_figure_prefix}"* > /dev/null 2>&1 &
-                    sleep 5
+                    # Open the figure file
+                    eog "Figures/Chemistry/${edited_figure_prefix}"* > /dev/null 2>&1 &
+					sleep 5
                 done < "$text_file"
-                # Go back to the original directory
-                cd ../.. || { echo "Failed to change back to the original directory \c"; exit 1; }
                 # Remove the temporary file
-                rm -f Figures/Chemistry/figures.txt
+                rm -f figures.txt
             fi
-
             if echo "$result" | grep "Table"; then
-                echo "$result" | grep -o '\bTable[0-9]\+\(\.[0-9]\+\)*\b' > Tables/Chemistry/tables.txt
-                sed -i -e '/^Table/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' Tables/Chemistry/tables.txt
-                cd Tables/Chemistry || { echo -e "\nFailed to change to Tables/Chemistry \c"; return; }
+                echo "$result" | grep -o '\bTable[0-9]\+\(\.[0-9]\+\)*\b' > tables.txt
+				sed -i -e '/^Table/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' tables.txt
                 # Specify the path to the text file containing Table names
                 text_file="tables.txt"
                 # Read each line from the text file and open the corresponding table
                 while IFS= read -r table_prefix || [ -n "$table_prefix" ]; do
-                    # Use sed to edit the figure_prefix and store it in a temporary variable
                     edited_table_prefix=$(echo "${table_prefix}"* | sed -n 's/\([^ ]*\.odt\).*$/\1/p')
                     # Open the file
-                    explorer.exe "${edited_table_prefix}"* > /dev/null 2>&1 &
-                                sleep 10
-                        done < "$text_file"
+                    libreoffice "Tables/Chemistry/${edited_table_prefix}"* > /dev/null 2>&1 &
+					sleep 10
+                done < "$text_file"
                 # Remove the temporary file
-                # Go back to the original directory
-                cd ../.. || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
-                rm -f Tables/Chemistry/tables.txt
-            fi
-
+                rm -f tables.txt
+			fi
             if echo "$result" | grep "Video"; then
-                #echo "$result" > Videos/Chemistry/videos.txt
-                echo "$result" | grep -o '\bVideo[0-9]\+\(\.[0-9]\+\)*\b' > Videos/Chemistry/videos.txt
+            	echo "$result" | grep -o '\bVideo[0-9]\+\.[^ ]*\.mp4' > videos.txt
                 # Remove lines not starting with "Video" and any leading/trailing whitespaces
-                sed -i -e '/^Video/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' Videos/Chemistry/videos.txt
-                # Change to the "Videos/Chemistry" directory
-                cd Videos/Chemistry || { echo -e "\nFailed to change to Videos/Chemistry \c"; return; }
+                sed -i -e '/^Video/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' videos.txt
                 # Specify the path to the text file containing video names
                 text_file="videos.txt"
                 while IFS= read -r video_prefix || [ -n "$video_prefix" ]; do
-                    # Use sed to edit the figure_prefix and store it in a temporary variable
                     edited_video_prefix=$(echo "${video_prefix}"* | sed -n 's/\([^ ]*\.mp4\).*$/\1/p')
-                    # Open the video file using explorer.exe
-                    explorer.exe "${edited_video_prefix}"* > /dev/null 2>&1 &
+                    # Open the video file using vlc
+                    vlc --one-instance --playlist-enqueue "Videos/Chemistry/${edited_video_prefix}"* > /dev/null 2>&1 &					
                     sleep 10
                 done < "$text_file"
-                # Go back to the original directory
-                cd ../.. || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
                 # Remove the temporary file
-                rm -f Videos/Chemistry/videos.txt
+				rm -f videos.txt
             fi
-
         else
             echo -e "\nNo items match your search \c"
         fi
@@ -848,37 +818,31 @@ while true; do
     if [ -f "$selected_file" ]; then
         # Randomly select a non-empty short answer question from the selected file
         local selected_question  # Declare the variable
-        selected_question=$(awk -v RS=';' 'BEGIN{srand();}{gsub(/^[[:space:]]+|[[:space:]]+$/, ""); if (length > 0 && $0 ~ /\(3 scores\)/) a[++n]=$0}END{if (n > 0) print a[int(rand()*n)+1]}' "$selected_file")
+		selected_question=$(awk -v RS=';' 'BEGIN{srand();}{gsub(/^[[:space:]]+|[[:space:]]+$/, ""); if (length > 0 && $0 ~ /\(3 scores\)/) a[++n]=$0}END{if (n > 0) print a[int(rand()*n)+1]}' "$selected_file")
         # Check if selected question is not empty and contains non-whitespace characters
         if [[ -n "$selected_question" && "$selected_question" =~ [[:graph:]] ]]; then
             if [ ! -e "$revision_file" ]; then
                 touch "$revision_file"
             fi
             # Output the selected question
-                current_datetime=$(date)
+ 	    	current_datetime=$(date)
             echo -e "\n\nQuestion selected on ${y}$current_datetime${t}:\n$selected_question\n"
 
             # Append the selected question to revision_file
             echo -e "$selected_question;" >> "$revision_file"
 
             if echo "$selected_question" | grep "Figure"; then
-                echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../Figures/Chemistry/figures.txt
-                sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../Figures/Chemistry/figures.txt
-                # Change to the "Figures/Chemistry" directory
-                cd ../../Figures/Chemistry || { echo "Failed to change to Figures/Chemistry"; return; }
+                echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > figures.txt
+                sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' figures.txt
                 # Specify the path to the text file containing figure names
                 text_file="figures.txt"
                 # Read each line from the selected question and open the corresponding figure
                 while IFS= read -r figure_prefix || [ -n "$figure_prefix" ]; do
-                    # Use sed to edit the figure_prefix and store it in a temporary variable
                     edited_figure_prefix=$(echo "${figure_prefix}"* | sed 's/.*\(Figure.*\.jpg\).*$/\1/')
-                    # Open the figure file using explorer.exe
-                    explorer.exe "${edited_figure_prefix}"* > /dev/null 2>&1 &
+                    eog "Figures/Chemistry/${edited_figure_prefix}"* > /dev/null 2>&1 &
                 done < "$text_file"
-                # Go back to the original directory
-                cd ../../Revision/Chemistry || { echo "Failed to change back to the targeted directory \c"; exit 1; }
                 # Remove the temporary file
-                rm -f ../../Figures/Chemistry/figures.txt
+                rm -f figures.txt
             fi
 
             # Create a temporary file
@@ -901,7 +865,7 @@ while true; do
             wait_for_a_key_press
             return
         else
-                        echo -e "\n\nAll the available short answer questions have been attempted. ${g}Please try the remaining activities of integration${t}... \c"
+			echo -e "\n\nAll the available short answer questions have been attempted. ${g}Please try the remaining activities of integration${t}... \c"
             # Return to the original working directory
             popd > /dev/null || exit
             wait_for_a_key_press
@@ -909,7 +873,7 @@ while true; do
         fi
     else
         echo -e "\n\nAll the available questions have most likely been attempted. ${r}To confirm, try to find an activity of integration instead${t}...\c"
-                wait_for_a_key_press
+		wait_for_a_key_press
         popd > /dev/null || exit
         break
     fi
@@ -943,9 +907,9 @@ while true; do
     if [ -f "$selected_file" ]; then
         # Randomly select a non-empty activity of integration from the selected file
         local selected_question  # Declare the variable
-                selected_question=$(awk -v RS=';' 'BEGIN{srand();}{gsub(/^[[:space:]]+|[[:space:]]+$/, ""); if (!(length == 0 || $0 ~ /\(3 scores\)/)) a[++n]=$0}END{if (n > 0) print a[int(rand()*n)+1]}' "$selected_file")
+		selected_question=$(awk -v RS=';' 'BEGIN{srand();}{gsub(/^[[:space:]]+|[[:space:]]+$/, ""); if (!(length == 0 || $0 ~ /\(3 scores\)/)) a[++n]=$0}END{if (n > 0) print a[int(rand()*n)+1]}' "$selected_file")
         # Check if selected question is not empty and contains non-whitespace characters
-        if [[ -n "$selected_question" && "$selected_question" =~ [[:graph:]] ]]; then
+     	if [[ -n "$selected_question" && "$selected_question" =~ [[:graph:]] ]]; then
             if [ ! -e "$revision_file" ]; then
                 touch "$revision_file"
             fi
@@ -953,29 +917,23 @@ while true; do
             wait_for_a_key_press
 
             # Output the selected question
-         	current_datetime=$(date)
+ 	   		 current_datetime=$(date)
             echo -e "\n\nQuestion selected on ${y}$current_datetime${t}:\n$selected_question\n"
             # Append the selected question to revision_file
             echo -e "$selected_question;" >> "$revision_file"
 
             if echo "$selected_question" | grep "Figure"; then
-                echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../Figures/Chemistry/figures.txt
-                sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../Figures/Chemistry/figures.txt
-                # Change to the "Figures/Chemistry" directory
-                cd ../../Figures/Chemistry || { echo "Failed to change to Figures/Chemistry"; return; }
+                echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > figures.txt
+                sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' figures.txt
                 # Specify the path to the text file containing figure names
                 text_file="figures.txt"
                 # Read each line from the selected question and open the corresponding figure
                 while IFS= read -r figure_prefix || [ -n "$figure_prefix" ]; do
-                    # Use sed to edit the figure_prefix and store it in a temporary variable
                     edited_figure_prefix=$(echo "${figure_prefix}"* | sed 's/.*\(Figure.*\.jpg\).*$/\1/')
-                    # Open the figure file using explorer.exe
-                    explorer.exe "${edited_figure_prefix}"* > /dev/null 2>&1 &
+                    eog "Figures/Chemistry/${edited_figure_prefix}"* > /dev/null 2>&1 &
                 done < "$text_file"
-                # Go back to the original directory
-                cd ../../Revision/Chemistry || { echo "Failed to change back to the targeted directory \c"; exit 1; }
                 # Remove the temporary file
-                rm -f ../../Figures/Chemistry/figures.txt
+                rm -f figures.txt
             fi
 
             # Create a temporary file
@@ -997,8 +955,8 @@ while true; do
             popd > /dev/null || exit
             wait_for_a_key_press
             return
-                else
-                        echo -e "\n\nAll the available activities of integration have been attempted. ${g}Please try the remaining short answer questions${t}... \c"
+		else
+			echo -e "\n\nAll the available activities of integration have been attempted. ${g}Please try the remaining short answer questions${t}... \c"
             # Return to the original working directory
             popd > /dev/null || exit
             wait_for_a_key_press
@@ -1006,24 +964,9 @@ while true; do
         fi
     else
         echo -e "\n\nNo more available questions to attempt. ${g}Opening attempted questions in the text editor${t}...\c"
-                wait_for_a_key_press
-                original_directory=$(pwd)
-                directory_path=$(dirname "$revision_file")
-                file_name=$(basename "$revision_file")
-
-                # Change to the directory of the file
-                if cd "$directory_path"; then
-
-                        notepad.exe "$file_name" > /dev/null 2>&1
-
-                    # Return to the original directory
-                    cd "$original_directory"
-                else
-                    # If cd fails, return to the original directory
-                    cd "$original_directory"
-                    echo "Failed to change to the specified directory."
-                fi
-                echo -e "\n"
+		wait_for_a_key_press
+		gedit --new-window "$revision_file" > /dev/null 2>&1 # Open the file
+		echo -e "\n"
         popd > /dev/null || exit
         break
     fi
@@ -1139,7 +1082,6 @@ display_failure_message() {
         echo -e "\n\n${g}${echo_fail[random_index]}${t} \c"
 }
 
-
 # Function to select and process a random question with an answer
 process_question_answer() {
     # Save the current working directory
@@ -1149,9 +1091,9 @@ process_question_answer() {
     # Initialize the score
     score=0
     total_questions=0
-        max_questions=10
+	max_questions=10
 
-        while true; do
+	while true; do
         local answered_directory="$1"
         local file_extension_answer="$2"
         local exercise_file="$3"
@@ -1171,7 +1113,7 @@ process_question_answer() {
         cat rvsn.txt
         read -rp $'\n\nEnter a '"${m}specific${t}"' chapter number or press '"${r}Enter${t}"' to get a random chapter'$'\n> ' input
         if [[ -n $input ]]; then
-	        selected_file=$(ls | grep -E "[0-9]+\.${input}\." | grep -v "_cp")
+            selected_file=$(ls | grep -E "[0-9]+\.${input}\." | grep -v "_cp")
         else
             # Find all text files and randomly select one
             local selected_file  # Declare the variable
@@ -1180,23 +1122,8 @@ process_question_answer() {
         # Check if the selected file exists
         if ! [ -f "$selected_file" ]; then
             echo -e "\n\nYou answered all the available questions. ${g}Opening them alongside their answers in the text editor${t}... \c"
-                        wait_for_a_key_press
-                        original_directory=$(pwd)
-                        directory_path=$(dirname "$exercise_file")
-                        file_name=$(basename "$exercise_file")
-
-                        # Change to the directory of the file
-                        if cd "$directory_path"; then
-
-                                notepad.exe "$file_name" > /dev/null 2>&1
-
-                            # Return to the original directory
-                            cd "$original_directory"
-                        else
-                            # If cd fails, return to the original directory
-                            cd "$original_directory"
-                            echo "Failed to change to the specified directory."
-                        fi
+			wait_for_a_key_press
+            gedit --new-window "$exercise_file" > /dev/null 2>&1 # Open the file
             echo -e "\n"
             popd > /dev/null || exit
             break 2
@@ -1209,7 +1136,7 @@ process_question_answer() {
             if [ -f "$selected_file" ]; then
                 # Randomly select a non-empty question from the selected file
                 local selected_question  # Declare the variable
-                selected_question=$(awk -v RS=';' 'BEGIN{srand();}{gsub(/^[[:space:]]+|[[:space:]]+$/, ""); if (length > 0 && $0 !~ /answered/) a[++n]=$0}END{if (n > 0) print a[int(rand()*n)+1]}' "$selected_file")
+				selected_question=$(awk -v RS=';' 'BEGIN{srand();}{gsub(/^[[:space:]]+|[[:space:]]+$/, ""); if (length > 0 && $0 !~ /answered/) a[++n]=$0}END{if (n > 0) print a[int(rand()*n)+1]}' "$selected_file")
                 # Check if selected question is not empty and contains non-whitespace characters
                 if [[ -n "$selected_question" && "$selected_question" =~ [[:graph:]] ]]; then
                     if [ ! -e "$exercise_file" ]; then
@@ -1218,73 +1145,59 @@ process_question_answer() {
                     # Output the selected question with a new line after each 'opening ('
                     clear_and_center "${b}Selected Question${t}:\n\n\c"
                     echo "${selected_question//(/$'\n'}"
-
-                    if echo "$selected_question" | grep -q "Figure"; then
-                        echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../../Figures/Chemistry/figures.txt
-                        sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../../Figures/Chemistry/figures.txt
-
-                        # Save the current working directory
-                        pushd . > /dev/null
-                        # Change to the "Figures/Chemistry" directory
-                        cd ../../../Figures/Chemistry || { echo "Failed to change to Figures/Chemistry"; return; }
+                    if echo "$selected_question" | grep "Figure"; then
+                        echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > figures.txt
+                        sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' figures.txt
                         # Specify the path to the text file containing figure names
                         text_file="figures.txt"
-
+                        # Read each line from the selected question and open the corresponding figure
                         while IFS= read -r figure_prefix || [ -n "$figure_prefix" ]; do
-                            # Use sed to edit the figure_prefix and store it in a temporary variable
-                            edited_figure_prefix=$(echo "$figure_prefix." | sed 's/.*\(Figure.*\.jpg\).*$/\1/')
-                            # Open the figure file using explorer.exe
-                            explorer.exe "${edited_figure_prefix}"* > /dev/null 2>&1 &
+		                    edited_figure_prefix=$(echo "${figure_prefix}"* | sed 's/.*\(Figure.*\.jpg\).*$/\1/')
+	    	                eog "Figures/Chemistry/${edited_figure_prefix}"* > /dev/null 2>&1 &
                         done < "$text_file"
-
                         # Remove the temporary file
                         rm -f figures.txt
-                        # Go back to the original directory
-                        popd > /dev/null || { echo "Failed to change back to the targeted directory \c"; exit 1; }
-
-
-
-                            fi
+                    fi
 
                     # Create a temporary file
                     temp_file=$(mktemp)
-                                        # Trap the EXIT signal to delete the temporary file on script exit
-                                        trap 'rm -f "$temp_file"' EXIT
+					# Trap the EXIT signal to delete the temporary file on script exit
+					trap 'rm -f "$temp_file"' EXIT
                     # Use grep to find lines matching the pattern and get their line numbers
-                                        grep -n "$selected_question" "$selected_file" | awk -F: '{ print $1 }' > "$temp_file"
+  					grep -n "$selected_question" "$selected_file" | awk -F: '{ print $1 }' > "$temp_file"
 
                     # Read the line number from the temporary file
                     read -r line_number < "$temp_file"
 
-                                        # Check if the selected question contains the pattern (a)
-                                        if [[ "$selected_question" =~ \(a\) ]]; then
-                                                # Determine the selected index based on the line number
-                                                selected_index=$(( (line_number - 1) % 4 ))
-                                                # Use a case statement to map the index to the corresponding character
-                                                case $selected_index in
-                                                    0) selected_character='a' ;;
-                                                    1) selected_character='b' ;;
-                                                    2) selected_character='c' ;;
-                                                    3) selected_character='d' ;;
-                                                esac
-                                        else
-                                                # Check if the line number is even
-                                                if ((line_number % 2 == 0)); then
-                                                        selected_character=y
-                                                else
-                                                    selected_character=n
-                                                fi
-                                        fi
+					# Check if the selected question contains the pattern (a)
+					if [[ "$selected_question" =~ \(a\) ]]; then
+						# Determine the selected index based on the line number
+						selected_index=$(( (line_number - 1) % 4 ))
+						# Use a case statement to map the index to the corresponding character
+						case $selected_index in
+						    0) selected_character='a' ;;
+						    1) selected_character='b' ;;
+						    2) selected_character='c' ;;
+						    3) selected_character='d' ;;
+						esac
+					else
+						# Check if the line number is even
+						if ((line_number % 2 == 0)); then
+							selected_character=y
+						else
+						    selected_character=n
+						fi
+					fi
 
                     # Prompt the user for an answer and convert it to lowercase
                     # Initialize the score for each question
                     local score_per_question=0
                     while true; do
-                        if [[ "$selected_question" =~ \(a\) ]]; then
-                                                        read -rp $'\n'"${b}Your answer${t}"' '"${r}(a/b/c/d)${t}"' : ' user_answer
-                                                else
-                                                        read -rp $'\n'"${b}Your answer${t}"' '"${r}(y/n)${t}"' : ' user_answer
-                                                fi
+                    	if [[ "$selected_question" =~ \(a\) ]]; then
+							read -rp $'\n'"${b}Your answer${t}"' '"${r}(a/b/c/d)${t}"' : ' user_answer
+						else
+							read -rp $'\n'"${b}Your answer${t}"' '"${r}(y/n)${t}"' : ' user_answer
+						fi
                         user_answer=${user_answer,,}  # Convert to lowercase
                         if [[ -n "$user_answer" ]]; then
                             if [ "$selected_character" = "$user_answer" ]; then
@@ -1292,13 +1205,13 @@ process_question_answer() {
                                 # Call the function to display a random success message
                                 display_success_message
                             else
-                                if ([ "$selected_character" = "y" ] && [ "$user_answer" = "n" ]) || ([ "$selected_character" = "n" ] && [ "$user_answer" = "y" ]); then
+								if ([ "$selected_character" = "y" ] && [ "$user_answer" = "n" ]) || ([ "$selected_character" = "n" ] && [ "$user_answer" = "y" ]); then
                                     # Call the function to display a random failure message
                                     echo -en "\007" && display_failure_message
-                                else
+        						else
                                     echo -en "\007"
-                                    echo -e "\n\n${r}Not quite right!${t} The answer is ""${g}""$selected_character""${t}"": \c"
-                                fi
+                                	echo -e "\n\n${r}Not quite right!${t} The answer is ""${g}""$selected_character""${t}"": \c"
+								fi
                             fi
 
                             # Update the total score
@@ -1319,12 +1232,12 @@ process_question_answer() {
                     # Append the selected question to the exercise_file
                     echo -e "$selected_question; $selected_character" >> "$exercise_file"
                     # Use sed to substitute lines by line numbers
-                                        sed -i -e "$(sed 's|$|s/.*/answered;/|' "$temp_file")" "$selected_file"
+					sed -i -e "$(sed 's|$|s/.*/answered;/|' "$temp_file")" "$selected_file"
                     rm -f "$temp_file"
-                                        # Check if all remaining non-empty lines have the pattern "answered;" and remove the file
-                                        if awk '!/^$/ && $0 !~ /^answered;$/ { exit 1 }' "$selected_file"; then
-                                            rm "$selected_file"
-                                        fi
+					# Check if all remaining non-empty lines have the pattern "answered;" and remove the file
+					if awk '!/^$/ && $0 !~ /^answered;$/ { exit 1 }' "$selected_file"; then
+					    rm "$selected_file"
+					fi
                 fi
             else
                 break
@@ -1335,13 +1248,9 @@ process_question_answer() {
         # Calculate percentage based on total_score and total_questions
         percentage=$((score * 100 / total_questions))
         if [ "$percentage" -lt 80 ]; then
-             cd ../..
-             wscript.exe //nologo sound1.vbs &
-             cd - > /dev/null 2>&1 || exit
+        	nohup aplay ../../zzzz.wav >/dev/null 2>&1 &
         else
-             cd ../..
-             wscript.exe //nologo sound.vbs &
-             cd - > /dev/null 2>&1 || exit
+           	nohup aplay ../../zzza.wav >/dev/null 2>&1 &
         fi
         # Record the end time
         end_time=$(date +%s)
@@ -1356,7 +1265,7 @@ process_question_answer() {
             converted_time="${seconds}s"
         fi
         wait_for_a_key_press
-        echo -e "\n\nYou have used ${b}$converted_time${t} to answer ${y}$total_questions qns${t} and your ${b}total score${t} out of $total_questions is: ${r}$score ($percentage%)${t} \c"
+		echo -e "\n\nYou have used ${b}$converted_time${t} to answer ${y}$total_questions qns${t} and your ${b}total score${t} out of $total_questions is: ${r}$score ($percentage%)${t} \c"
         if [ -f ../../../.school_name ]; then
             read -r school_name < ../../../.school_name
             school_name="${school_name// /_}"
@@ -1404,30 +1313,15 @@ process_question_answer() {
             echo -e "\n\nGiven your score, ${r}let's see if there are more questions for you${t} \c"
             wait_for_a_key_press
             # Check if the are more files
-                        if find . -maxdepth 2 -type f -name "*$file_extension_answer" | grep -q .; then
+			if find . -maxdepth 2 -type f -name "*$file_extension_answer" | grep -q .; then
                 echo -e "\n\n${r}Perfect!${t}. You still have questions! ${y}All the best dear one${t} \c"
                 score=0
                 total_questions=0
                 max_questions=10
-                        else
-                                echo -e "\n\nYou are all ${r}good${t}. Questions are done! ${y}All the best dear one${t}. ${g}Opening answered questions alongside their answers in the text editor${t}...\c"
+			else
+				echo -e "\n\nYou are all ${r}good${t}. Questions are done! ${y}All the best dear one${t}. ${g}Opening answered questions alongside their answers in the text editor${t}...\c"
                 wait_for_a_key_press
-                                original_directory=$(pwd)
-                                directory_path=$(dirname "$exercise_file")
-                                file_name=$(basename "$exercise_file")
-
-                                # Change to the directory of the file
-                                if cd "$directory_path"; then
-
-                                notepad.exe "$file_name" > /dev/null 2>&1
-
-                                    # Return to the original directory
-                                    cd "$original_directory"
-                                else
-                                    # If cd fails, return to the original directory
-                                    cd "$original_directory"
-                                    echo "Failed to change to the specified directory."
-                                fi
+                gedit --new-window "$exercise_file" > /dev/null 2>&1 # Open the file
                 echo -e "\n"
                 popd > /dev/null || exit
                 break 2
@@ -1442,32 +1336,17 @@ process_question_answer() {
                 wait_for_a_key_press
                 break 2
             else
-                                if find . -maxdepth 2 -type f -name "*$file_extension_answer" | grep -q .; then
-                        echo -e "\n\n${r}Perfect!${t}. You still have questions! ${y}All the best dear one${t} \c"
+				if find . -maxdepth 2 -type f -name "*$file_extension_answer" | grep -q .; then
+                	echo -e "\n\n${r}Perfect!${t}. You still have questions! ${y}All the best dear one${t} \c"
                     score=0
                     total_questions=0
                     max_questions=10
-                                else
-                                        echo -e "\n\nYou are all ${r}good${t}. Questions are done! ${y}All the best dear one${t}. ${g}Opening answered questions alongside their answers in the text editor${t}...\c"
-                                wait_for_a_key_press
-                                        original_directory=$(pwd)
-                                        directory_path=$(dirname "$exercise_file")
-                                        file_name=$(basename "$exercise_file")
-
-                                        # Change to the directory of the file
-                                        if cd "$directory_path"; then
-
-                                                notepad.exe "$file_name" > /dev/null 2>&1
-
-                                            # Return to the original directory
-                                            cd "$original_directory"
-                                        else
-                                            # If cd fails, return to the original directory
-                                            cd "$original_directory"
-                                            echo "Failed to change to the specified directory."
-                                        fi
-                                echo -e "\n"
-                                popd > /dev/null || exit
+				else
+ 					echo -e "\n\nYou are all ${r}good${t}. Questions are done! ${y}All the best dear one${t}. ${g}Opening answered questions alongside their answers in the text editor${t}...\c"
+			        wait_for_a_key_press
+        			gedit --new-window "$exercise_file" > /dev/null 2>&1 # Open the file
+        			echo -e "\n"
+        			popd > /dev/null || exit
                     break 2
                 fi
             fi
@@ -1480,20 +1359,20 @@ function resume_from_last_point() {
     if [ -f .chemistry_user_state ]; then
         last_class=$(awk -F' ' '{print $1}' .chemistry_user_state)
         last_topic=$(awk -F' ' '{print $2}' .chemistry_user_state)
-                if [ -n "$last_class" ] && [ -n "$last_topic" ]; then
+		if [ -n "$last_class" ] && [ -n "$last_topic" ]; then
             echo -e "\n              Resuming from ${r}S$last_class${t} : ${g}Topic '$last_topic'${t} \c"
             rm -f .chemistry_surveyor
             clear_and_center "          ..........    Resumed from ${g}Topic $last_topic${t} (${r}S$last_class${t})    ............"
             return 0
         elif [ -n "$last_class" ] && [ -z "$last_topic" ]; then
-                        echo -e "\nTaking you to ${r}class selection${t} \c"
+			echo -e "\nTaking you to ${r}class selection${t} \c"
             wait_for_a_key_press
             return 0
         elif [ -z "$last_class" ] && [ -z "$last_topic" ]; then
-                        return 0
-                else
+			return 0
+		else
             echo -e "\n${b}Unable to track your last point${t}. Starting from the beginning... \c"
-                        wait_for_a_key_press
+			wait_for_a_key_press
             return 1
         fi
     else
@@ -1507,42 +1386,43 @@ function resume_from_last_point() {
 function handle_resume_input() {
     # Check if the user wants to resume from the last point
     clear_and_center "${r}\n\n            Equitable, Relevant, and Quality Education for All${t}\n\n\n            ${m}Your Education is our Future${t} -------- ${g}Never despair${t}"
-    read -rp $'\n\n\n   '"${y}Press Enter to resume from your last point. Otherwise, enter${t}"' (no or n) : ' resume_choice
+    read -rp $'\n\n\n	'"${y}Press Enter to resume from your last point. Otherwise, enter${t}"' (no or n) : ' resume_choice
     resume_choice=${resume_choice,,}  # Convert to lowercase
     if ! [[ "$resume_choice" == "no" || "$resume_choice" == "n" ]]; then
-        rm -f .chemistry_topic_selected
+		rm -f .chemistry_topic_selected
         if resume_from_last_point; then
             # User wants to resume
             class=$last_class
             topic=$last_topic
         fi
-        else
-                touch .chemistry_surveyor
+	else
+		touch .chemistry_surveyor
     fi
 }
 
 # Function to select and process random questions with answers
 process_final_assignment() {
-    # Check if .current_chemistry_class is accidentally empty
+	# Check if user is ready for the assignment
+    # Check if .current chemistry class is accidentally empty
     if [ ! -s .current_chemistry_class ]; then
-        # Echo 1 to .current_chemistry_class
+        # Echo 1 to .current chemistry class
         echo "1" > .current_chemistry_class
     fi
-    # Read the value from the .current_chemistry_class file
+    # Read the value from the .current chemistry class file
     current_chemistry_class=$(<.current_chemistry_class) 2>/dev/null
     # Check if the value in the .chemistry_ready file is equal to $class
-    # Read the value from the .chemistry_ready file
+	# Read the value from the .chemistry_ready file
     if [ ! -s .chemistry_ready ]; then
         echo "0" > .chemistry_ready
     fi
-    how.chemistry_ready=$(<.chemistry_ready) 2>/dev/null
-    # Check if the value is equal to $class
-    if [ "$how.chemistry_ready" -lt "$current_chemistry_class" 2>/dev/null ]; then
-        read -rp $'\n\nYou havent done all the topic assignments for your current chemistry class\n\n'"${r}Proceeding from here will affect your very final score${y}"'. To go back and progress right, enter '"${y}ok${t}"'. Otherwise, press the Enter key to do the final class assignment: ' progress
-        if [ "$progress" == "ok" ]; then
-            return
-        fi
-    fi
+	how.chemistry_ready=$(<.chemistry_ready) 2>/dev/null
+	# Check if the value is equal to $class
+	if [ "$how.chemistry_ready" -lt "$current_chemistry_class" 2>/dev/null ]; then
+		read -rp $'\n\nYou havent done all the topic assignments for your current chemistry class\n\n'"${r}Proceeding from here will affect your very final score${y}"'. To go back and progress right, enter '"${y}ok${t}"'. Otherwise, press the Enter key to do the final class assignment: ' progress
+		if [ "$progress" == "ok" ]; then
+			return
+		fi
+	fi
     echo -e "\n\n${y}You are welcome to your final class session.${t}\n\n${r}You will have to use a maximum of 3600s (1hr) to obtain a minimum of 95 scores by answering 100 questions, @ carrying 1 score!${t}\n\n${g}You must get that score to move on to the next class. We wish you the very best dear...${t} \c"
     # Save the current working directory
     pushd . > /dev/null
@@ -1579,7 +1459,7 @@ process_final_assignment() {
         selected_file=$(find . -type f \( -name "*$file_extension_answer" -o -name "cpd.txt" \) -size +0 -print | shuf -n 1)
         # Check if the selected file exists
         if ! [ -f "$selected_file" ]; then
-            echo -e "\n\n${r}Your learning material has most likely been interfered with.${t}\nTo proceed, you will need fresh learning material from UNEB.\n${g}Returning to your current session...${t} \c"
+            echo -e "\n\n${r}Your learning material has most likely been interfered with.${t}\nTo proceed, you will need fresh learning material from OMD.\n${g}Returning to your current session...${t} \c"
             wait_for_a_key_press
             popd > /dev/null || exit
             break 2
@@ -1601,34 +1481,24 @@ process_final_assignment() {
                     # Output the selected question with a new line after each 'opening ('
                     clear_and_center "${b}Selected Question${t}:\n\n\c"
                     if grep -q "cpd" <<< "$selected_file"; then
-                            echo "${selected_question:1}"
+                        echo "${selected_question:1}"
                     else
                         echo "${selected_question//(/$'\n'}"
                     fi
-
-                    if echo "$selected_question" | grep -q "Figure"; then
-                        echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../../Figures/Chemistry/figures.txt
-                        sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../../Figures/Chemistry/figures.txt
-
-                        # Save the current working directory
-                        pushd . > /dev/null
-                        # Change to the "Figures/Chemistry" directory
-                        cd ../../../Figures/Chemistry || { echo "Failed to change to Figures/Chemistry"; return; }
+                    if echo "$selected_question" | grep "Figure"; then
+                        echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > figures.txt
+                        sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' figures.txt
                         # Specify the path to the text file containing figure names
                         text_file="figures.txt"
-
+                        # Read each line from the selected question and open the corresponding figure
                         while IFS= read -r figure_prefix || [ -n "$figure_prefix" ]; do
-                            # Use sed to edit the figure_prefix and store it in a temporary variable
-                            edited_figure_prefix=$(echo "$figure_prefix." | sed 's/.*\(Figure.*\.jpg\).*$/\1/')
-                            # Open the figure file using explorer.exe
-                            explorer.exe "${edited_figure_prefix}"* > /dev/null 2>&1 &
+		                    edited_figure_prefix=$(echo "${figure_prefix}"* | sed 's/.*\(Figure.*\.jpg\).*$/\1/')
+	        	            eog "Figures/Chemistry/${edited_figure_prefix}"* > /dev/null 2>&1 &
                         done < "$text_file"
-
                         # Remove the temporary file
                         rm -f figures.txt
-                        # Go back to the original directory
-                        popd > /dev/null || { echo "Failed to change back to the targeted directory \c"; exit 1; }
                     fi
+
                     # Create a temporary file
                     temp_file=$(mktemp)
                     # Trap the EXIT signal to delete the temporary files on script exit
@@ -1719,7 +1589,19 @@ process_final_assignment() {
         done
         wait_for_a_key_press
         if ! [ "$total_questions" == 100 ]; then
-            echo -e "\n\n${r}Sorry about this, your learning material had most likely been interfered with before this session.${t}\nTo proceed, you will need fresh learning material from UNEB.\n${g}Displaying your current progress...${t} \c"
+            echo -e "\n\n${r}Sorry about this, your learning material had most likely been interfered with before this session.${t}\nTo proceed, you will need fresh learning material from OMD.\n${g}Displaying your current progress...${t} \c"
+            # Record the end time
+            end_time=$(date +%s)
+            # Calculate and print the elapsed time
+            elapsed_time=$((end_time - start_time))
+            # Calculate percentage based on total_score and total_questions
+            percentage=$((score * 100 / total_questions))
+            wait_for_a_key_press
+            echo -e "\n\nYou have used ${b}$elapsed_time seconds${t} to answer ${y}$total_questions questions${t} and your ${b}total score${t} out of $total_questions is: ${r}$score ($percentage%)${t} \c"
+            wait_for_a_key_press
+            popd > /dev/null || exit
+            break 2
+        else
             # Record the end time
             end_time=$(date +%s)
             # Calculate and print the elapsed time
@@ -1734,66 +1616,102 @@ process_final_assignment() {
             fi
             # Calculate percentage based on total_score and total_questions
             percentage=$((score * 100 / total_questions))
-            wait_for_a_key_press
-            echo -e "\n\nYou have used ${b}$converted_time${t} to answer ${y}$total_questions qns${t} and your ${b}total score${t} out of $total_questions is: ${r}$score ($percentage%)${t} \c"
-            wait_for_a_key_press
-            popd > /dev/null || exit
-            break 2
-        else
-        # Record the end time
-        end_time=$(date +%s)
-        # Calculate and print the elapsed time
-        elapsed_time=$((end_time - start_time))
-        # Calculate percentage based on total_score and total_questions
-        percentage=$((score * 100 / total_questions))
             if [ "$elapsed_time" -gt 3600 ]; then
-                    echo -e "\n\nYou have used ${b}$elapsed_time seconds${t} to answer ${y}$total_questions questions${t} and your ${b}total score${t} out of $total_questions is: ${r}$score ($percentage%)${t} \c"
-                    wait_for_a_key_press
-                    echo -e "\n\nGiven the time you took, ${r}You will have to try just one more time!${t} \c"
-                    score=0
-                    total_questions=0
-                    max_questions=100
+	            echo -e "\n\nYou have used ${b}$converted_time${t} to answer ${y}$total_questions qns${t} and your ${b}total score${t} out of $total_questions is: ${r}$score ($percentage%)${t} \c"
+	            wait_for_a_key_press
+	            echo -e "\n\nGiven the time you took, ${r}You will have to try just one more time!${t} \c"
+	            score=0
+	            total_questions=0
+	            max_questions=100
             else
                 echo -e "\n\nOhh! ${b}Finally!${t} You got this covered in time... \c"
-                    wait_for_a_key_press
-                    echo -e "\n\nYou have used ${b}$elapsed_time seconds${t} to answer ${y}$total_questions questions${t} and your ${b}total score${t} out of $total_questions is: ${r}$score ($percentage%)${t} \c"
-                    wait_for_a_key_press
-                    # If the total score is below 95, prompt the user to retry
-                if [ "$percentage" -lt 95 ]; then
-                        echo -e "\n\nGiven your score, ${r}You will have to try just one more time!${t} \c"
-                        score=0
-                        total_questions=0
-                        max_questions=100
-                    else
-                        popd > /dev/null || exit
-                        cd ../..
-                        wscript.exe //nologo sound2.vbs &
-                        cd - > /dev/null 2>&1 || exit
-                        if ! [ -f .current_chemistry_class ]; then
-                            # Echo the result to the file .current_class
-                            echo "2" > .current_chemistry_class
-                            echo -e "\n\n${g}Congratulations!${t}  You have successfully gained access to the next class (S2).\n\nHowever, if a diferrent class was expected, then something is wrong.\n\nFrom here, you will have to go back to go back to S2 and acess the next classes the right way \c"
-                            wait_for_a_key_press
-                        else
-                                # Add 1 to $class value
-                                new_class=$(($class + 1))
-                                # Read the value from the file
-                                current_chemistry_class=$(<.current_chemistry_class) 2>/dev/null
-                                # Check if the new_class value is lt $current_chemistry_class
-                                if [ "$new_class" -gt "$current_chemistry_class" 2>/dev/null ]; then
-                                # Echo the result to the file .current_class
-                                echo "$new_class" > .current_chemistry_class
-                                fi
-                                echo -e "\n\n${g}Congratulations!${t} You have successfully gained access to the next class! \c"
-                                wait_for_a_key_press
-                        fi
-                        echo -e "\n\nYou can now choose the next class from the available options... ${y}Returning to your current session${t} \c"
+	            wait_for_a_key_press
+	            echo -e "\n\nYou have used ${b}$elapsed_time seconds${t} to answer ${y}$total_questions questions${t} and your ${b}total score${t} out of $total_questions is: ${r}$score ($percentage%)${t} \c"
+	            wait_for_a_key_press
+	            # If the total score is below 95, prompt the user to retry
+            	if [ "$percentage" -lt 95 ]; then
+	                echo -e "\n\nGiven your score, ${r}You will have to try just one more time!${t} \c"
+	                score=0
+	                total_questions=0
+	                max_questions=100
+	            else
+	                popd > /dev/null || exit
+					nohup aplay ../../zzza.wav >/dev/null 2>&1 &
+                    if ! [ -f .current_chemistry_class ]; then
+		                # Echo the result to the file .current_class
+		                echo "2" > .current_chemistry_class
+                        echo -e "\n\n${g}Congratulations!${t}  You have successfully gained access to the next class (S2).\n\nHowever, if a diferrent class was expected, then something is wrong.\n\nFrom here, you will have to go back to go back to S2 and acess the next classes the right way \c"
                         wait_for_a_key_press
-                        break 2
-                fi
+                	else
+		                # Add 1 to $class value
+		                new_class=$(($class + 1))
+		                # Read the value from the file
+		                current_chemistry_class=$(<.current_chemistry_class) 2>/dev/null
+		                # Check if the new_class value is lt $current_chemistry_class
+		                if [ "$new_class" -gt "$current_chemistry_class" 2>/dev/null ]; then
+	                        # Echo the result to the file .current_class
+                    		echo "$new_class" > .current_chemistry_class
+            			fi
+		                echo -e "\n\n${g}Congratulations!${t} You have successfully gained access to the next class! \c"
+		                wait_for_a_key_press
+                	fi
+        			echo -e "\n\nYou can now choose the next class from the available options... ${y}Returning to your current session${t} \c"
+                	wait_for_a_key_press
+                	break 2
+            	fi
             fi
-        fi
+    	fi
     done
+}
+
+# Function to create new work space
+new_workspace() {
+# Create the Students directory if it does not exist
+mkdir -p Students
+while true; do
+    read -rp $'\n\nTo create a '"${y}new workspace${t}"', enter unique '"${r}Initials${t}"''$'\n\n> ' initials
+    # List directories in the Students folder and check for a match
+    if ls Students | grep -wq "$initials"; then
+        echo -e "\nThe provided initials are ${m}already${t} in use. Please choose other initials!"
+        # Define the path to the similar file and a temporary copy
+        similar_file="../../$(basename "$0")"
+        temp_file="$(mktemp)"
+        # Check if a similar file exists
+        if [ -f "$similar_file" ]; then
+            # Copy the similar file to the temporary file
+            cp "$similar_file" "$temp_file"
+            # Apply sed replacements on the temporary file
+            sed -i -e 's|../../Notes|../../../../Notes|g' -e 's|../../Videos|../../../../Videos|g' -e 's|../../Figures|../../../../Figures|g' -e 's|../../Students|../../../../Students|g' -e 's|../../Tables|../../../../Tables|g' -e 's#cd - > /dev/null 2>&1 ||#cd - > /dev/null 2>\&1 ||#g' "$temp_file"
+            mv "$temp_file" "$0"
+            chmod +x "$0"
+            echo -e "\n\n${y}Your code has been updated. You will need to restart a new session.${t} \n"
+            sleep 8
+            exit
+        fi
+    else
+        mkdir "Students/$initials"
+	  	find . -maxdepth 1 -name "*.sh" ! -name "*_wsl.sh" -exec cp -r Exercise Revision {} "Students/$initials" \;
+        echo -e "$initials\n" > "Students/$initials/Exercise/chemistry_answered_ans.txt"
+        echo -e "$initials\n" > "Students/$initials/Revision/chemistry_covered_qns.txt"
+        for file in "Students/$initials"/*.sh; do
+            sed -i -e 's|Notes|../../Notes|g' -e 's|Videos|../../Videos|g' -e 's|Figures|../../Figures|g' -e 's|Students|../../Students|g' -e 's|Tables|../../Tables|g' -e 's#cd ../.. ||#cd - > /dev/null 2>\&1 ||#g' "$file"
+			# Extract the base filename without the directory and .sh extension
+			base_filename="${file##*/}"
+			filename_without_ext="${base_filename%_tutorial_usb.sh}"
+            # Generating executable file
+			# Define the content of the .desktop file
+			desktop_file_content=$(printf "[Desktop Entry]\nName=${initials}_${filename_without_ext}\nComment=Interactive learning script\nExec=gnome-terminal -- bash -c \'if [ -f "/media/ubuntu/OMD/Omd/Students/$initials/$base_filename" ]; then bash "/media/ubuntu/OMD/Omd/Students/$initials/$base_filename"; else bash Omd/Students/$initials/$base_filename; fi\'\nType=Application\nIcon=/home/ubuntu/Omd/.logo.jpeg")
+		    # Path to the .desktop file on the desktop
+		    desktop_file="$HOME/Desktop/${initials}_${filename_without_ext}.desktop"
+			# Create the .desktop file with the specified content
+			echo "$desktop_file_content" > "$desktop_file"
+			# Make the .desktop file executable
+			chmod +x "$desktop_file"
+		done
+        echo -e "\n\nBy default, ${y}new executable files${t} have been created and shortcuts named ("${g}"$initials"${t}") put on your desktop... \n\n\nRight click the files and allow launching... "
+        break
+    fi
+done
 }
 
 # Function to process sample_items
@@ -1827,7 +1745,7 @@ get_sample_items() {
     		fi
             read -rp $'\n\n\nEnter '"${m}any character${t}"' for access to the file of answered items or simply press '"${r}Enter${t}"' to get items to attempt : ' input
           	if [[ -n $input ]]; then
-          		explorer.exe .chemistry_samples* > /dev/null 2>&1 &
+          		libreoffice .chemistry_samples* > /dev/null 2>&1 &
             	clear
             	popd > /dev/null || exit
                 return
@@ -1882,7 +1800,7 @@ get_sample_items() {
         	            fi
         			else
         				echo -e "\n\nAll the available items have been attempted. ${g}Opening attempted items in the text editor${t}... \c"
-        				notepad.exe answered_items.txt > /dev/null 2>&1 # Open the file
+        				gedit --new-window answered_items.txt > /dev/null 2>&1 # Open the file
         				# Return to the original working directory
         	            popd > /dev/null || exit
         	            wait_for_a_key_press
@@ -1891,12 +1809,12 @@ get_sample_items() {
         	    else
         	        echo -e "\n\nNo more available items to attempt. ${g}Opening attempted items in the text editor${t}...\c"
         			wait_for_a_key_press
-        			notepad.exe answered_items.txt > /dev/null 2>&1 # Open the file
+        			gedit --new-window answered_items.txt > /dev/null 2>&1 # Open the file
         	        popd > /dev/null || exit
         	        return
         	    fi
         	else
-            	explorer.exe .chemistry_samples* > /dev/null 2>&1 &
+            	libreoffice .chemistry_samples* > /dev/null 2>&1 &
                 popd > /dev/null || exit
                 return
         	fi
@@ -1907,24 +1825,17 @@ get_sample_items() {
                 for sentence in "${sentences[@]}"; do
         			if [[ -n "$sentence" && "$sentence" =~ [[:graph:]] ]]; then
         	            if [[ $sentence == *"Figure"* ]]; then
-        					modified_sentence=$(echo "$sentence" | sed 's/.*\(Figure.*\.jpg\).*$/\1/')
-                            # Change to the "../../Figures/Chemistry" directory
-                            cd ../../Figures/Chemistry || { echo "Failed to change to ../../Figures/Chemistry"; return; }
-                            # Open the file using explorer.exe
-                            explorer.exe "$modified_sentence" > /dev/null 2>&1 &
-                            # Go back to the original directory
-                            cd ../../../../ || { echo "Failed to change back to the original directory \c"; exit 1; }
+                            modified_sentence=$(echo "$sentence" | sed 's/.*\(Figure.*\.jpg\).*$/\1/')
+                            # Open the file
+                            eog "../../Figures/Chemistry/$modified_sentence" > /dev/null 2>&1 &
                         fi
                         if [[ $sentence == *"Table"* ]]; then
-                            cd ../../Tables/Chemistry || { echo -e "\nFailed to change to ../../Tables/Chemistry \c"; return; }
-                            explorer.exe "$sentence" > /dev/null 2>&1 &
-                            cd ../../../../ || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
+                            libreoffice "../../Tables/Chemistry/$sentence" > /dev/null 2>&1 &
                         fi
                         if [[ $sentence == *"Video"* ]]; then
-                            cd ../../Videos/Chemistry || { echo -e "\nFailed to change to ../../Videos/Chemistry \c"; return; }
-                            explorer.exe "$sentence" > /dev/null 2>&1 &
-                            cd ../../../../ || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
-                        fi
+                            # Open the video file
+                            vlc --one-instance --playlist-enqueue "../../Videos/Chemistry/$sentence" > /dev/null 2>&1 &
+        	            fi
                         if [ $((sentence_count % 5)) -eq 0 ]; then
                             # Clear and center for every 5th sentence
                             clear_and_center "${y}$sentence${t} \c"
@@ -1955,60 +1866,53 @@ get_sample_items() {
                 done
             done < .revise.txt
 	    else
-            while IFS= read -r line || [ -n "$line" ]; do
-                # Use a # as a secondary delimiter and read into an array
-                IFS='#' read -r -a sentences <<< "$line"
-                # Loop through each sentence
-                for sentence in "${sentences[@]}"; do
-        			if [[ -n "$sentence" && "$sentence" =~ [[:graph:]] ]]; then
-        	            if [[ $sentence == *"Figure"* ]]; then
-        					modified_sentence=$(echo "$sentence" | sed 's/.*\(Figure.*\.jpg\).*$/\1/')
-                            # Change to the "../../Figures/Chemistry" directory
-                            cd ../../Figures/Chemistry || { echo "Failed to change to ../../Figures/Chemistry"; return; }
-                            # Open the file using explorer.exe
-                            explorer.exe "$modified_sentence" > /dev/null 2>&1 &
-                            # Go back to the original directory
-                            cd ../../../../ || { echo "Failed to change back to the original directory \c"; exit 1; }
-                        fi
-                        if [[ $sentence == *"Table"* ]]; then
-                            cd ../../Tables/Chemistry || { echo -e "\nFailed to change to ../../Tables/Chemistry \c"; return; }
-                            explorer.exe "$sentence" > /dev/null 2>&1 &
-                            cd ../../../../ || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
-                        fi
-                        if [[ $sentence == *"Video"* ]]; then
-                            cd ../../Videos/Chemistry || { echo -e "\nFailed to change to ../../Videos/Chemistry \c"; return; }
-                            explorer.exe "$sentence" > /dev/null 2>&1 &
-                            cd ../../../../ || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
-                        fi
-                        if [ $((sentence_count % 5)) -eq 0 ]; then
-                            # Clear and center for every 5th sentence
-                            clear_and_center "${y}$sentence${t} \c"
-                        elif [ $((sentence_count % 7)) -eq 0 ]; then
-                            # Display the sentence in green for every 7th sentence
-                            echo -e "\n\n${g}$sentence${t} \c"
-                        elif [ $((sentence_count % 6)) -eq 0 ]; then
-                            # Display the sentence in magenta for every 6th sentence
-                            echo -e "\n\n${m}$sentence${t} \c"
-                        elif [ $((sentence_count % 8)) -eq 0 ]; then
-                            echo -e "\n\n${c}$sentence${t} \c"
-                        elif [ $((sentence_count % 3)) -eq 0 ]; then
-                            # Display the sentence in blue for every 3rd sentence
-                            echo -e "\n\n${b}$sentence${t} \c"
-                        elif [ $((sentence_count % 2)) -eq 0 ] || [ $((sentence_count % 4)) -eq 0 ]; then
-                            # Display the sentence in green for every 4th sentence
-                            echo -e "\n\n${g}$sentence${t} \c"
-                        else
-                            # Display the sentence in red for other sentences
-                            echo -e "\n\n${r}$sentence${t} \c"
-                        fi
-        			else
-        				echo -e "\n\nKind regards @OMD \c"
-        			fi
-        			((sentence_count++))
-                    # Wait for a keypress
-                    read -rsn 1 </dev/tty
-                done
-            done < .revise.txt
+		    while IFS= read -r line || [ -n "$line" ]; do
+		        # Use a # as a secondary delimiter and read into an array
+		        IFS='#' read -r -a sentences <<< "$line"
+		        # Loop through each sentence
+		        for sentence in "${sentences[@]}"; do
+					if [[ -n "$sentence" && "$sentence" =~ [[:graph:]] ]]; then
+			            if [[ $sentence == *"Figure"* ]]; then
+		                    modified_sentence=$(echo "$sentence" | sed 's/.*\(Figure.*\.jpg\).*$/\1/')
+		                    # Open the file
+		                    eog "../../Figures/Chemistry/$modified_sentence" > /dev/null 2>&1 &
+		                fi
+		                if [[ $sentence == *"Table"* ]]; then
+		                    libreoffice "../../Tables/Chemistry/$sentence" > /dev/null 2>&1 &
+		                fi
+		                if [[ $sentence == *"Video"* ]]; then
+		                    # Open the video file
+		                    vlc --one-instance --playlist-enqueue "../../Videos/Chemistry/$sentence" > /dev/null 2>&1 &
+			            fi
+		                if [ $((sentence_count % 5)) -eq 0 ]; then
+		                    # Clear and center for every 5th sentence
+		                    clear_and_center "${y}$sentence${t} \c"
+		                elif [ $((sentence_count % 7)) -eq 0 ]; then
+		                    # Display the sentence in green for every 7th sentence
+		                    echo -e "\n\n${g}$sentence${t} \c"
+		                elif [ $((sentence_count % 6)) -eq 0 ]; then
+		                    # Display the sentence in magenta for every 6th sentence
+		                    echo -e "\n\n${m}$sentence${t} \c"
+		                elif [ $((sentence_count % 8)) -eq 0 ]; then
+		                    echo -e "\n\n${c}$sentence${t} \c"
+		                elif [ $((sentence_count % 3)) -eq 0 ]; then
+		                    # Display the sentence in blue for every 3rd sentence
+		                    echo -e "\n\n${b}$sentence${t} \c"
+		                elif [ $((sentence_count % 2)) -eq 0 ] || [ $((sentence_count % 4)) -eq 0 ]; then
+		                    # Display the sentence in green for every 4th sentence
+		                    echo -e "\n\n${g}$sentence${t} \c"
+		                else
+		                    # Display the sentence in red for other sentences
+		                    echo -e "\n\n${r}$sentence${t} \c"
+		                fi
+					else
+						echo -e "\n\nKind regards @OMD \c"
+					fi
+					((sentence_count++))
+		            # Wait for a keypress
+		            read -rsn 1 </dev/tty
+		        done
+		    done < .revise.txt
 	    fi
         rm -f .revise.txt .chemistry_topic_selected 2>/dev/null
     done
@@ -2016,60 +1920,10 @@ get_sample_items() {
 	return
 }
 
-# Function to create new work space
-new_workspace() {
-# Create the Students directory if it does not exist
-mkdir -p Students
-while true; do
-    read -rp $'\n\nTo create a '"${y}new workspace${t}"', enter unique '"${r}Initials${t}"''$'\n\n> ' initials
-    # List directories in the Students folder and check for a match
-    if ls Students | grep -wq "$initials"; then
-        echo -e "\nThe provided initials are ${m}already${t} in use. Please choose other initials!"
-        # Define the path to the similar file and a temporary copy
-        similar_file="../../$(basename "$0")"
-        temp_file="$(mktemp)"
-        # Check if a similar file exists
-        if [ -f "$similar_file" ]; then
-            # Copy the similar file to the temporary file
-            cp "$similar_file" "$temp_file"
-            # Apply sed replacements on the temporary file
-            sed -i -e 's|../../Notes|../../../../Notes|g' -e 's|../../Videos|../../../../Videos|g' -e 's|../../Figures|../../../../Figures|g' -e 's|../../Students|../../../../Students|g' -e 's|../../Tables|../../../../Tables|g' -e 's#cd - > /dev/null 2>&1 ||#cd - > /dev/null 2>\&1 ||#g' "$temp_file"
-            mv "$temp_file" "$0"
-            chmod +x "$0"
-            echo -e "\n\n${y}Your code has been updated. You will need to restart a new session.${t} \n"
-            sleep 8
-            exit
-        fi
-    else
-        mkdir "Students/$initials"
-        cp -r Exercise Revision *_wsl.sh "Students/$initials"
-        echo -e "                                    $initials\n" > "Students/$initials/Exercise/chemistry_answered_ans.txt"
-        echo -e "                                    $initials\n" > "Students/$initials/Revision/chemistry_covered_qns.txt"
-        for file in "Students/$initials"/*.sh; do
-            sed -i -e 's|Notes|../../Notes|g' -e 's|Videos|../../Videos|g' -e 's|Figures|../../Figures|g' -e 's|Students|../../Students|g' -e 's|Tables|../../Tables|g' -e 's#cd ../.. ||#cd - > /dev/null 2>\&1 ||#g' "$file"
-            # Determining the correct path to the Desktop using the USERPROFILE environment variable
-            desktop_path=""
-            windows_userprofile=$(cmd.exe /C "cd /d %USERPROFILE% & echo %USERPROFILE%" 2>/dev/null | tr -d '\r')
-            # Converting Windows path to WSL path
-            windows_userprofile_wsl=$(wslpath -u "$windows_userprofile")
-            if [ -d "$windows_userprofile_wsl/OneDrive/Desktop" ]; then
-                desktop_path="$windows_userprofile_wsl/OneDrive/Desktop"
-            else
-                desktop_path="$windows_userprofile_wsl/Desktop"
-            fi
-            # Generating the batch file content
-            echo -e "@echo off\nC:\\Windows\\System32\\wsl.exe -e bash -c '$HOME/Omd/Students/$initials/${file##*/}'" > "$desktop_path/$initials $initials_${file##*/}.bat"
-        done
-        echo -e "\n\nBy default, ${y}new executable files${t} have been created and shortcuts named ("${g}"$initials"${t}") put on your desktop... \n"
-        break
-    fi
-done
-}
-
 geminichat_adv() {
     { read -r API_KEY < "$HOME/.gemini_api"; } 2>/dev/null
     conversation_history=$'Please, all responses must be precise, concise, adventurous, academic (chemical formulae must be written with subscripts and superscripts), and in British English..... Please don\'t repeat what is already in my input.... \n\nQuestion: '
-    # Define a flag variable
+  	# Define a flag variable
     first_prompt=true
     # Loop for interactive input
     while true; do
@@ -2161,7 +2015,7 @@ process_question_answer_adv() {
             file_name=$(basename "$exercise_file")
             # Change to the directory of the file
             if cd "$directory_path"; then
-                notepad.exe "$file_name" > /dev/null 2>&1
+        		gedit --new-window "$file_name" > /dev/null 2>&1
                 # Return to the original directory
                 cd "$original_directory"
             else
@@ -2204,8 +2058,8 @@ process_question_answer_adv() {
                         while IFS= read -r figure_prefix || [ -n "$figure_prefix" ]; do
                             # Use sed to edit the figure_prefix and store it in a temporary variable
                             edited_figure_prefix=$(echo "$figure_prefix." | sed 's/.*\(Figure.*\.jpg\).*$/\1/')
-                            # Open the figure file using explorer.exe
-                            explorer.exe "${edited_figure_prefix}"* > /dev/null 2>&1 &
+                            # Open the figure file
+                            eog "${edited_figure_prefix}"* > /dev/null 2>&1 &
                         done < "$text_file"
                         # Remove the temporary file
                         rm -f figures.txt
@@ -2303,13 +2157,9 @@ process_question_answer_adv() {
         # Calculate percentage based on total_score and total_questions
         percentage=$((score * 100 / total_questions))
         if [ "$percentage" -lt 80 ]; then
-             cd ../..
-             wscript.exe //nologo sound1.vbs &
-             cd - > /dev/null 2>&1 || exit
+        	nohup aplay ../../zzzz.wav >/dev/null 2>&1 &
         else
-             cd ../..
-             wscript.exe //nologo sound.vbs &
-             cd - > /dev/null 2>&1 || exit
+           	nohup aplay ../../zzza.wav >/dev/null 2>&1 &
         fi
         # Record the end time
         end_time=$(date +%s)
@@ -2385,7 +2235,7 @@ process_question_answer_adv() {
                 file_name=$(basename "$exercise_file")
                 # Change to the directory of the file
                 if cd "$directory_path"; then
-                    notepad.exe "$file_name" > /dev/null 2>&1
+                    gedit --new-window "$file_name" > /dev/null 2>&1
                     # Return to the original directory
                     cd "$original_directory"
                 else
@@ -2420,7 +2270,7 @@ process_question_answer_adv() {
                     file_name=$(basename "$exercise_file")
                     # Change to the directory of the file
                     if cd "$directory_path"; then
-                        notepad.exe "$file_name" > /dev/null 2>&1
+                        gedit --new-window "$file_name" > /dev/null 2>&1
                         # Return to the original directory
                         cd "$original_directory"
                     else
@@ -2455,7 +2305,7 @@ if [ -z "$class" ] && [ -s ".chemistry_user_state" ]; then
     get_and_display_pattern
 fi
 # Check for the presence of specific directories and a file
-if ! [ -d "Notes" ] || ! [ -d "Revision" ] || ! [ -d "Exercise" ] || ! [ -d "Videos" ] || ! [ -d "Figures" ] || ! [ -d "Tables" ]; then
+if ! [ -d "Notes" ] || ! [ -d "Revision" ] || ! [ -d "Exercise" ] || ! [ -d "Figures" ] || ! [ -d "Tables" ]; then
     echo -e "\n\nTo change to your desirable font, click on the three lines in the title bar of your terminal\nFrom the menu that appears, select properties\nSelect unnamed, check custom font, click on it and choose the size you’d like\nThen click select \c"
     wait_for_a_key_press
     clear_and_center
@@ -2479,7 +2329,7 @@ if ! [ -d "Notes" ] || ! [ -d "Revision" ] || ! [ -d "Exercise" ] || ! [ -d "Vid
         fi
 
         # Prompt the user again
-        read -rp $'\n\nTo get started, enter a preferably'"${r} short unique name${t}"' for the directory you will use for this tutorial or press '"${r}x${t}"' to exit'$'\n\n> ' dir_name
+        read -rp $'\n\nTo get started, enter a preferably'"${r} short unique name${t}"' for the directory where all your study material will be stored or press '"${r}x${t}"' to exit'$'\n\n> ' dir_name
 
         # Check if the user wants to exit
         if [[ "$dir_name" == "x" ]]; then
@@ -2506,14 +2356,16 @@ if ! [ -d "Notes" ] || ! [ -d "Revision" ] || ! [ -d "Exercise" ] || ! [ -d "Vid
     echo -e "\n"
     ls "$PWD"
     wait_for_a_key_press
-    echo -e "\n\n${t}For this tutorial, you will require current learning material from UNEB in your current folder or directory\n\notherwise follow the procedure below to obtain the material \c"
+    echo -e "\n\n${t}For this tutorial, you will require current learning material from OMD in your current folder or directory\n\notherwise follow the procedure below to obtain the material \c"
     cp ../chemistry_tutorial .
     clear_and_center
     echo
 fi
 
+shopt -s nullglob
 files=(Notes/Chemistry/*.txt)
 if [ ${#files[@]} -eq 0 ]; then
+    shopt -u nullglob
     read -rp $'\n\nTo get material for this tutorial, get your internet on and press the enter key or press any character key followed by the Enter key to exit: ' user_input
 
     if [[ -z "$user_input" ]]; then
@@ -2531,27 +2383,28 @@ if [ ${#files[@]} -eq 0 ]; then
 
         curl -O -L https://github.com/Muhumuza7325/OMD/raw/main/1.1.chemistry_and_society.txt || echo -e "\n\nError fetching material for this tutorial \c"
 
-        echo -e "\n\nYou got the first step covered.\n\nAs you progress, please, do all the available assignments as they will contribute to your final score.\n\nYou can get somewhere to write and we start \c"
-        cp 1.1.chemistry_and_society.txt Notes/Chemistry || echo -e "\n\nError copying 1.1.chemistry_and_society.txt to the Chemistry directory in the Notes directory \c"
+        echo -e "\n\nYou got the first step covered. As you progress, please, do all the available assignments as they will contribute to your final score.\n\n You can get somewhere to write and we start \c"
+        cp 1.1.chemistry_and_society.txt Notes/Chemistry || echo -e "\n\nError copying 1.1.chemistry_and_society.txt to the chemistry directory in the Notes directory \c"
         wait_for_a_key_press
     else
+		echo -e "\n\nThere are files in the target sub directories in your Notes directory already, if it isn't intentional, please delete those files and try again \c"
         wait_for_a_key_press
         quit
     fi
 else
     rm -f ../chemistry_tutorial 1.1.chemistry_and_society.txt
 fi
+shopt -u nullglob
 
 while true; do
 
     handle_class_input
 
     if [[ "$class" == "1" ]]; then
-
         if ! find . -maxdepth 1 -name '.s_chemistry_1*' -type f -quit 2>/dev/null; then
-            echo -e "\n\n${g}Welcome to S1 Chemistry class; a class that is the starting point for every chemist out there in the world${t}\n\n${y}Together, we are going to get you started${t} \c" && wait_for_a_key_press
+            echo -e "\n\n${g}Welcome to S1 chemistry class${t}\n\n${y}Together, we are going to get you started${t} \c" && wait_for_a_key_press
             echo -e "\n-------------------------------------- \c"
-            clear_and_center "There are ${r}nine${t} topics to be covered in Senior one.. Being the start of chemistry, You are advised to adventure into the world of chemistry and appreciate why the subject is one of the compulsory ones to do at such a level in this modern world"
+            clear_and_center "There are ${r}9${t} topics to be covered. Your tasks will always expand or shrink to fit in the time you give them. For that reason, never procrastinate darling!"
         fi
         attempts=0
         max_attempts=4
@@ -2561,7 +2414,6 @@ while true; do
             do
                 handle_s1_topic_input
                 touch .chemistry_topic_selected
-
                 if [[ "$topic" == "x" ]]
                 then
                     quit
@@ -2598,7 +2450,7 @@ while true; do
                     exercise_file="../../chemistry_answered_ans.txt"
                     # Call the function to process a random question
                     process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                elif [[ "$topic" == "z" ]]
+                elif [[ "$topic" == "z"  ]]
                 then
                     attempts=0
                     # Define the targeted directory
@@ -2624,11 +2476,9 @@ while true; do
                     exercise_file="../../chemistry_answered_ans.txt"
                     # Call the function to process a random question
                     process_final_assignment "$answered_directory" "$file_extension_answer" "$exercise_file"
-
                 elif [[ "$topic" == "p" ]]
                 then
                     track_student_progress
-
                 elif [[ ! "$topic" =~ ^[1-9]$ || -z "$topic" ]]
                 then
                     echo -e "\n\nTopic ${r}$topic not available${t}... Please choose from the available options\c"
@@ -2637,14 +2487,14 @@ while true; do
                     case "$topic" in
                         1)
                             if ! [ -f ".s_chemistry_1_1" ]; then
-                                echo -e "\n\nYou chose topic 1, proceeding with Chemistry and Society...\n\nThank you for choosing to excel with us!\n\nWe adore you ${g}darling${t} and wish you the very best! \c" && wait_for_a_key_press
+                                echo -e "\n\nYou chose to explore chemistry and society ...\n\nThank you for choosing to educate yourself!\n\nWe adore you ${g}darling${t} and wish you the very best! \c" && wait_for_a_key_press
                             fi
                             cp "Notes/Chemistry/1.1.chemistry_and_society.txt" . || exit 1
                             mv 1.1.chemistry_and_society.txt .1.1.chemistry_and_society.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .1.1.chemistry_and_society.txt 
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .1.1.chemistry_and_society.txt
                             sed -i 's/;\([:!?]\);/\;\1/g' .1.1.chemistry_and_society.txt
                             sed -i 's/;\([0-9]*\);/;\1. /g' .1.1.chemistry_and_society.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .1.1.chemistry_and_society.txt 
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .1.1.chemistry_and_society.txt
                             process_reminders_from_file .1.1.chemistry_and_society.txt
                             STATE_FILE=".s_chemistry_1_1"
                             process_file .1.1.chemistry_and_society.txt
@@ -2656,8 +2506,7 @@ while true; do
                                 rm -f .skip_exercises && break
                             fi
                             rm -f .1.1.chemistry_and_society.txt
-                            sed -i '/1/!d' .s_chemistry_1_1
-
+                            sed -i '/^1$/!d' .s_chemistry_1_1
                             attempts=0
                             # Define the targeted directory
                             question_directory="Revision/Chemistry/S1"
@@ -2667,7 +2516,6 @@ while true; do
                             revision_file="../../chemistry_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension" "$revision_file"
-
                             attempts=0
                             # Define the targeted directory
                             question_directory="Revision/Chemistry/S1"
@@ -2677,10 +2525,8 @@ while true; do
                             revision_file="../../chemistry_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-
                         ;;
                         2)
-
                             if ! [ -f ".chemistry.1.1" ]; then
                                 attempts=0
                                 # Define the targeted directory
@@ -2693,9 +2539,8 @@ while true; do
                                 process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
                                 touch .chemistry.1.1
                             fi
-
                             if ! [ -f ".s_chemistry_1_2" ]; then
-                                echo -e "\n\nYou happen to have chosen to explore topic 2, proceeding with Experimental Chemistry...\n\nOnce again we treasure you ${g}dear one${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
+                                echo -e "\n\nYou happen to have decided to delve into Experimental chemistry ...\n\nOnce again we treasure you ${g}dear one${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
                             fi
                             cp "Notes/Chemistry/1.2.experimental_chemistry.txt" . || exit 1
                             mv 1.2.experimental_chemistry.txt .1.2.experimental_chemistry.txt || exit 1
@@ -2713,9 +2558,8 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .1.2.experimental_chemistry.txt
-                            sed -i '/1/!d' .s_chemistry_1_2
-
+                            rm -f .1.experimental_chemistry.txt
+                            sed -i '/^1$/!d' .s_chemistry_1_2
                             attempts=0
                             # Define the targeted directory
                             question_directory="Revision/Chemistry/S1"
@@ -2725,7 +2569,6 @@ while true; do
                             revision_file="../../chemistry_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-
                             attempts=0
                             # Define the targeted directory
                             question_directory="Revision/Chemistry/S1"
@@ -2737,22 +2580,20 @@ while true; do
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
                         ;;
                         3)
-
                             if ! [ -f ".chemistry.1.2" ]; then
                                 attempts=0
                                 # Define the targeted directory
                                 answered_directory="Exercise/Chemistry/S1"
                                 # Define the file extension
-                                file_extension_answer=".1.experimental_chemistry.ans.txt"
+                                file_extension_answer=".2.experimental_chemistry.ans.txt"
                                 # Define the exercise file
                                 exercise_file="../../chemistry_answered_ans.txt"
                                 # Call the function to process a random question
                                 process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
                                 touch .chemistry.1.2
                             fi
-
                             if ! [ -f ".s_chemistry_1_3" ]; then
-                                echo -e "\n\nYou happen to have chosen to explore topic 3, proceeding with States and changes of States of Matter...\n\nWe are so exited to have you with us ${g}darling${t}\n\nRemember that hard work forever pays \c" && wait_for_a_key_press
+                                echo -e "\n\nYou have made a choice to cover States and changes of states of matter ...\n\nWe are so exited to have you with us ${g}darling${t}\n\nRemember that hard work forever pays \c" && wait_for_a_key_press
                             fi
                             cp "Notes/Chemistry/1.3.states_and_changes_of_states_of_matter.txt" . || exit 1
                             mv 1.3.states_and_changes_of_states_of_matter.txt .1.3.states_and_changes_of_states_of_matter.txt || exit 1
@@ -2771,8 +2612,7 @@ while true; do
                                 rm -f .skip_exercises && break
                             fi
                             rm -f .1.3.states_and_changes_of_states_of_matter.txt
-                            sed -i '/1/!d' .s_chemistry_1_3
-
+                            sed -i '/^1$/!d' .s_chemistry_1_3
                             attempts=0
                             # Define the targeted directory
                             question_directory="Revision/Chemistry/S1"
@@ -2782,7 +2622,6 @@ while true; do
                             revision_file="../../chemistry_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-
                             attempts=0
                             # Define the targeted directory
                             question_directory="Revision/Chemistry/S1"
@@ -2792,7 +2631,7 @@ while true; do
                             revision_file="../../chemistry_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-			            ;;
+						;;
                         4)
                             if ! [ -f ".chemistry.1.3" ]; then
                                 attempts=0
@@ -2871,7 +2710,6 @@ while true; do
                             process_reminders_from_file .1.5.temporary_and_permanent_changes.txt
                             STATE_FILE=".s_chemistry_1_5"
                             process_file .1.5.temporary_and_permanent_changes.txt
-                            rm -f .1.5.temporary_and_permanent_changes.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -2879,6 +2717,7 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
+                            rm -f .1.5.temporary_and_permanent_changes.txt
                             sed -i '/^1$/!d' .s_chemistry_1_5
                             attempts=0
                             # Define the targeted directory
@@ -3072,7 +2911,7 @@ while true; do
                                 touch .chemistry.1.8
                             fi
                             if ! [ -f ".s_chemistry_1_9" ]; then
-                                echo -e "\n\nI am so happy for you dear one. You are here to cover the the 9th topic (Rocks and minerals)...\n\n${g}Just never underestimate the value of a single second${t}\n\nThat extra one second maybe all you need to fully understand a given concept \c" && wait_for_a_key_press
+                                echo -e "\n\nI am so happy for you dear one. You are here to cover the the 9th topic (Rocks and minerals )...\n\n${g}Just never underestimate the value of a single second${t}\n\nThat extra one second maybe all you need to fully understand a given concept \c" && wait_for_a_key_press
                             fi
                             cp "Notes/Chemistry/1.9.rocks_and_minerals.txt" . || exit 1
                             mv 1.9.rocks_and_minerals.txt .1.9.rocks_and_minerals.txt || exit 1
@@ -3110,33 +2949,42 @@ while true; do
                             revision_file="../../chemistry_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-
+                            if ! [ -f ".chemistry.1.9" ]; then
+	                            attempts=0
+	                            # Define the targeted directory
+	                            answered_directory="Exercise/Chemistry/S1"
+	                            # Define the file extension
+	                            file_extension_answer=".9.rocks_and_minerals.ans.txt"
+	                            # Define the exercise file
+	                            exercise_file="../../chemistry_answered_ans.txt"
+	                            # Call the function to process a random answer
+	                            process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+								touch .chemistry.1.9
+								echo "1" > .chemistry_ready
+							fi
                         ;;
-                        # Additional cases for other topics can be added here
 
+                        # Additional cases for other topics can be added here
                         *)
                             echo -e "\n\nInvalid topic number \c"
                             continue
                         ;;
                     esac
-
                     break  # Exit the inner loop after successfully handling user input
                 fi
                 ((attempts++))
             done
-
             # If the loop exits due to max_attempts, handle it
             if [ "$attempts" -eq "$max_attempts" ]; then
                 quit1
             fi
         done
 
-    elif [[ "$class" == "2" ]]; then
-
+	elif [[ "$class" == "2" ]]; then
         if ! find . -maxdepth 1 -name '.s_chemistry_2*' -type f -quit 2>/dev/null; then
-            echo -e "\n\n${g}Welcome to S2 Chemistry class; the class that really matters alot${t}\n\n${y}Together, nothing is impossible${t} \c" && wait_for_a_key_press
-	    	echo -e "\n-------------------------------------- \c"
-            clear_and_center "There are ${r}five complex${t} topics to be covered in Senior two.. Being the basis of chemistry, You are advised to cover each topic to the finest details"
+            echo -e "\n\n${g}Welcome to S2 chemistry class${t}\n\n${y}Together, we are going to get you started${t} \c" && wait_for_a_key_press
+            echo -e "\n-------------------------------------- \c"
+            clear_and_center "There are ${r}5${t} topics to be covered. Your tasks will always expand or shrink to fit in the time you give them. For that reason, never procrastinate darling!"
         fi
         attempts=0
         max_attempts=4
@@ -3144,9 +2992,8 @@ while true; do
         do
             while [ "$attempts" -lt "$max_attempts" ]
             do
-				handle_s2_topic_input
-        		touch .chemistry_topic_selected
-
+                handle_s2_topic_input
+                touch .chemistry_topic_selected
                 if [[ "$topic" == "x" ]]
                 then
                     quit
@@ -3163,7 +3010,7 @@ while true; do
                     process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
                 elif [[ "$topic" == "a" ]]
                 then
-		    		attempts=0
+                    attempts=0
                     # Define the targeted directory
                     question_directory="Revision/Chemistry/S2"
                     # Define the file extension
@@ -3182,8 +3029,8 @@ while true; do
                     # Define the exercise file
                     exercise_file="../../chemistry_answered_ans.txt"
                     # Call the function to process a random question
-    		    	process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                elif [[ "$topic" == "z" ]]
+                    process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+                elif [[ "$topic" == "z"  ]]
                 then
                     attempts=0
                     # Define the targeted directory
@@ -3200,33 +3047,30 @@ while true; do
                     break
                 elif [[ "$topic" == "n" ]]
                 then
-					attempts=0
-					# Define the targeted directory
-					answered_directory="Exercise/Chemistry/S2"
-					# Define the file extension
-					file_extension_answer=".ans.txt"
-					# Define the exercise file
-					exercise_file="../../chemistry_answered_ans.txt"
-					# Call the function to process a random question
-					process_final_assignment "$answered_directory" "$file_extension_answer" "$exercise_file"
-
+                    attempts=0
+                    # Define the targeted directory
+                    answered_directory="Exercise/Chemistry/S2"
+                    # Define the file extension
+                    file_extension_answer=".ans.txt"
+                    # Define the exercise file
+                    exercise_file="../../chemistry_answered_ans.txt"
+                    # Call the function to process a random question
+                    process_final_assignment "$answered_directory" "$file_extension_answer" "$exercise_file"
                 elif [[ "$topic" == "p" ]]
                 then
                     track_student_progress
-
                 elif [[ ! "$topic" =~ ^[1-5]$ || -z "$topic" ]]
                 then
                     echo -e "\n\nTopic ${r}$topic not available${t}... Please choose from the available options\c"
-		    		wait_for_a_key_press
+                    wait_for_a_key_press
                 else
                     case "$topic" in
                         1)
-
                             if ! [ -f ".s_chemistry_2_1" ]; then
-                                echo -e "\n\nYou chose topic 1, proceeding with Acids and alkalis...\n\nThank you for choosing to excel with us!\n\nWe adore you ${g}darling${t} and wish you all the best! \c" && wait_for_a_key_press
+                                echo -e "\n\nYou chose to explore Acids and alkalis ...\n\nThank you for choosing to educate yourself!\n\nWe adore you ${g}darling${t} and wish you the very best! \c" && wait_for_a_key_press
                             fi
                             cp "Notes/Chemistry/2.1.acids_and_alkalis.txt" . || exit 1
-			    			mv 2.1.acids_and_alkalis.txt .2.1.acids_and_alkalis.txt || exit 1
+                            mv 2.1.acids_and_alkalis.txt .2.1.acids_and_alkalis.txt || exit 1
                             sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .2.1.acids_and_alkalis.txt
                             sed -i 's/;\([:!?]\);/\;\1/g' .2.1.acids_and_alkalis.txt
                             sed -i 's/;\([0-9]*\);/;\1. /g' .2.1.acids_and_alkalis.txt
@@ -3242,8 +3086,7 @@ while true; do
                                 rm -f .skip_exercises && break
                             fi
                             rm -f .2.1.acids_and_alkalis.txt
-                            sed -i '/1/!d' .s_chemistry_2_1
-
+                            sed -i '/^1$/!d' .s_chemistry_2_1
                             attempts=0
                             # Define the targeted directory
                             question_directory="Revision/Chemistry/S2"
@@ -3253,36 +3096,31 @@ while true; do
                             revision_file="../../chemistry_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension" "$revision_file"
-
-							attempts=0
-	                    	# Define the targeted directory
-	                    	question_directory="Revision/Chemistry/S2"
-	                    	# Define the file extension
-	                    	file_extension_question=".1.acids_and_alkalis.qns.txt"
-	                    	# Define the revision file
-	                    	revision_file="../../chemistry_covered_qns.txt"
-	                    	# Call the function to process a random question
-	                    	process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Chemistry/S2"
+                            # Define the file extension
+                            file_extension_question=".1.acids_and_alkalis.qns.txt"
+                            # Define the revision file
+                            revision_file="../../chemistry_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
                         ;;
-
                         2)
-
                             if ! [ -f ".chemistry.2.1" ]; then
-				    			attempts=0
-                        	    # Define the targeted directory
-                        	    answered_directory="Exercise/Chemistry/S2"
-                        	    # Define the file extension
-                        	    file_extension_answer=".1.acids_and_alkalis.ans.txt"
-                        	    # Define the exercise file
-                        	    exercise_file="../../chemistry_answered_ans.txt"
-                        	    # Call the function to process a random question
-                        	    process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-				    			touch .chemistry.2.1
-			    			fi
-
+                                attempts=0
+                                # Define the targeted directory
+                                answered_directory="Exercise/Chemistry/S2"
+                                # Define the file extension
+                                file_extension_answer=".1.acids_and_alkalis.ans.txt"
+                                # Define the exercise file
+                                exercise_file="../../chemistry_answered_ans.txt"
+                                # Call the function to process a random question
+                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+                                touch .chemistry.2.1
+                            fi
                             if ! [ -f ".s_chemistry_2_2" ]; then
-                                echo -e "\n\nYou happen to have chosen to explore topic 2, proceeding with Salts...\n\nOnce again we treasure you ${g}dear one${t}\n\nYou got our prayers \c" && wait_for_a_key_press
+                                echo -e "\n\nYou happen to have decided to delve into Salts ...\n\nOnce again we treasure you ${g}dear one${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
                             fi
                             cp "Notes/Chemistry/2.2.salts.txt" . || exit 1
                             mv 2.2.salts.txt .2.2.salts.txt || exit 1
@@ -3300,9 +3138,8 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .2.2.salts.txt
-                            sed -i '/1/!d' .s_chemistry_2_2
-
+                            rm -f .2.salts.txt
+                            sed -i '/^1$/!d' .s_chemistry_2_2
                             attempts=0
                             # Define the targeted directory
                             question_directory="Revision/Chemistry/S2"
@@ -3312,7 +3149,6 @@ while true; do
                             revision_file="../../chemistry_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-
                             attempts=0
                             # Define the targeted directory
                             question_directory="Revision/Chemistry/S2"
@@ -3322,11 +3158,8 @@ while true; do
                             revision_file="../../chemistry_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-
                         ;;
-
-		    			3)
-
+                        3)
                             if ! [ -f ".chemistry.2.2" ]; then
                                 attempts=0
                                 # Define the targeted directory
@@ -3339,13 +3172,15 @@ while true; do
                                 process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
                                 touch .chemistry.2.2
                             fi
-
                             if ! [ -f ".s_chemistry_2_3" ]; then
-                                echo -e "\n\nYou happen to have chosen to explore topic 3, proceeding with The Periodic table...\n\nOnce again we treasure you ${g}darling${t}\n\nRemember that you have to work really hard \c" && wait_for_a_key_press
+                                echo -e "\n\nYou have made a choice to cover The periodic table ...\n\nWe are so exited to have you with us ${g}darling${t}\n\nRemember that hard work forever pays \c" && wait_for_a_key_press
                             fi
-							cp "Notes/Chemistry/2.3.the_periodic_table.txt" . || exit 1
+                            cp "Notes/Chemistry/2.3.the_periodic_table.txt" . || exit 1
                             mv 2.3.the_periodic_table.txt .2.3.the_periodic_table.txt || exit 1
                             sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .2.3.the_periodic_table.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .2.3.the_periodic_table.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .2.3.the_periodic_table.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .2.3.the_periodic_table.txt
                             process_reminders_from_file .2.3.the_periodic_table.txt
                             STATE_FILE=".s_chemistry_2_3"
                             process_file .2.3.the_periodic_table.txt
@@ -3357,8 +3192,7 @@ while true; do
                                 rm -f .skip_exercises && break
                             fi
                             rm -f .2.3.the_periodic_table.txt
-                            sed -i '/1/!d' .s_chemistry_2_3
-
+                            sed -i '/^1$/!d' .s_chemistry_2_3
                             attempts=0
                             # Define the targeted directory
                             question_directory="Revision/Chemistry/S2"
@@ -3368,7 +3202,6 @@ while true; do
                             revision_file="../../chemistry_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-
                             attempts=0
                             # Define the targeted directory
                             question_directory="Revision/Chemistry/S2"
@@ -3378,25 +3211,22 @@ while true; do
                             revision_file="../../chemistry_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-
+						;;
                         4)
-
                             if ! [ -f ".chemistry.2.3" ]; then
-				    			attempts=0
-                        	    # Define the targeted directory
-                        	    answered_directory="Exercise/Chemistry/S2"
-                        	    # Define the file extension
-                        	    file_extension_answer=".3.the_periodic_table.ans.txt"
-                        	    # Define the exercise file
-                        	    exercise_file="../../chemistry_answered_ans.txt"
-                        	    # Call the function to process a random question
-                        	    process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-				    			touch .chemistry.2.3
-			    			fi
-
+                                attempts=0
+                                # Define the targeted directory
+                                answered_directory="Exercise/Chemistry/S2"
+                                # Define the file extension
+                                file_extension_answer=".3.the_periodic_table.ans.txt"
+                                # Define the exercise file
+                                exercise_file="../../chemistry_answered_ans.txt"
+                                # Call the function to process a random question
+                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+                                touch .chemistry.2.3
+                            fi
                             if ! [ -f ".s_chemistry_2_4" ]; then
-                                echo -e "\n\nYou happen to have chosen to explore topic 4, proceeding with Carbon in the environment...\n\nOnce again we treasure you ${g}dear one${t}\n\nYou got our prayers \c" && wait_for_a_key_press
+                                echo -e "\n\nYou did qualify to probe into the realm of Carbon in the environment ...\n\nWe do treasure you ${g}darling${t}. Just never forget, that no matter how prepared you are, to win gold, you have to follow instructions! \c" && wait_for_a_key_press
                             fi
                             cp "Notes/Chemistry/2.4.carbon_in_the_environment.txt" . || exit 1
                             mv 2.4.carbon_in_the_environment.txt .2.4.carbon_in_the_environment.txt || exit 1
@@ -3415,18 +3245,16 @@ while true; do
                                 rm -f .skip_exercises && break
                             fi
                             rm -f .2.4.carbon_in_the_environment.txt
-                            sed -i '/1/!d' .s_chemistry_2_4
-
+                            sed -i '/^1$/!d' .s_chemistry_2_4
                             attempts=0
                             # Define the targeted directory
                             question_directory="Revision/Chemistry/S2"
                             # Define the file extension
-                            file_extension_question=".4.carbon_in_the_environment.qns.txt"
+                            file_extension=".4.carbon_in_the_environment.qns.txt"
                             # Define the revision file
                             revision_file="../../chemistry_covered_qns.txt"
                             # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-
+                            process_random_short_answer_question "$question_directory" "$file_extension" "$revision_file"
                             attempts=0
                             # Define the targeted directory
                             question_directory="Revision/Chemistry/S2"
@@ -3436,11 +3264,8 @@ while true; do
                             revision_file="../../chemistry_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-
                         ;;
-
-		    			5)
-
+                        5)
                             if ! [ -f ".chemistry.2.4" ]; then
                                 attempts=0
                                 # Define the targeted directory
@@ -3453,13 +3278,15 @@ while true; do
                                 process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
                                 touch .chemistry.2.4
                             fi
-
                             if ! [ -f ".s_chemistry_2_5" ]; then
-                                echo -e "\n\nYou happen to have chosen to explore topic 5, proceeding with The reactivity series...\n\nOnce again we treasure you ${g}darling${t}\n\nRemember that you have to work really hard \c" && wait_for_a_key_press
+                                echo -e "\n\nHere you are dear one... Stay organised as you explore The reactivity series ...\n\n${g}Just know we are not going to leave you alone${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
                             fi
-							cp "Notes/Chemistry/2.5.the_reactivity_series.txt" . || exit 1
+                            cp "Notes/Chemistry/2.5.the_reactivity_series.txt" . || exit 1
                             mv 2.5.the_reactivity_series.txt .2.5.the_reactivity_series.txt || exit 1
                             sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .2.5.the_reactivity_series.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .2.5.the_reactivity_series.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .2.5.the_reactivity_series.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .2.5.the_reactivity_series.txt
                             process_reminders_from_file .2.5.the_reactivity_series.txt
                             STATE_FILE=".s_chemistry_2_5"
                             process_file .2.5.the_reactivity_series.txt
@@ -3471,8 +3298,7 @@ while true; do
                                 rm -f .skip_exercises && break
                             fi
                             rm -f .2.5.the_reactivity_series.txt
-                            sed -i '/1/!d' .s_chemistry_2_5
-
+                            sed -i '/^1$/!d' .s_chemistry_2_5
                             attempts=0
                             # Define the targeted directory
                             question_directory="Revision/Chemistry/S2"
@@ -3482,7 +3308,6 @@ while true; do
                             revision_file="../../chemistry_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-
                             attempts=0
                             # Define the targeted directory
                             question_directory="Revision/Chemistry/S2"
@@ -3492,30 +3317,39 @@ while true; do
                             revision_file="../../chemistry_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+                            if ! [ -f ".chemistry.2.5" ]; then
+	                            attempts=0
+	                            # Define the targeted directory
+	                            answered_directory="Exercise/Chemistry/S2"
+	                            # Define the file extension
+	                            file_extension_answer=".5.the_reactivity_series.ans.txt"
+	                            # Define the exercise file
+	                            exercise_file="../../chemistry_answered_ans.txt"
+	                            # Call the function to process a random answer
+	                            process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+								touch .chemistry.2.5
+								echo "2" > .chemistry_ready
+							fi
+                        ;;
 
-		    			;;
                         # Additional cases for other topics can be added here
-
                         *)
                             echo -e "\n\nInvalid topic number \c"
                             continue
                         ;;
                     esac
-
                     break  # Exit the inner loop after successfully handling user input
                 fi
                 ((attempts++))
             done
-
             # If the loop exits due to max_attempts, handle it
             if [ "$attempts" -eq "$max_attempts" ]; then
                 quit1
             fi
         done
-
     elif [[ "$class" == "3" ]]; then
         if ! find . -maxdepth 1 -name '.s_chemistry_3*' -type f -quit 2>/dev/null; then
-            echo -e "\n\n${g}Welcome to S3 Chemistry class${t}\n\n${y}Together, we are going to get you started${t} \c" && wait_for_a_key_press
+            echo -e "\n\n${g}Welcome to S3 chemistry class${t}\n\n${y}Together, we are going to get you started${t} \c" && wait_for_a_key_press
             echo -e "\n-------------------------------------- \c"
             clear_and_center "There are ${r}6${t} topics to be covered. Your tasks will always expand or shrink to fit in the time you give them. For that reason, never procrastinate darling!"
         fi
@@ -3563,7 +3397,7 @@ while true; do
                     exercise_file="../../chemistry_answered_ans.txt"
                     # Call the function to process a random question
                     process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                elif [[ "$topic" == "z" ]]
+                elif [[ "$topic" == "z"  ]]
                 then
                     attempts=0
                     # Define the targeted directory
@@ -3671,7 +3505,7 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .3.2.structures_and_bonds.txt
+                            rm -f .3.structures_and_bonds.txt
                             sed -i '/^1$/!d' .s_chemistry_3_2
                             attempts=0
                             # Define the targeted directory
@@ -3706,7 +3540,7 @@ while true; do
                                 touch .chemistry.3.2
                             fi
                             if ! [ -f ".s_chemistry_3_3" ]; then
-                                echo -e "\n\nYou have made a choice to cover Formulae, stoichiometry and mole concept ...\n\nWe are so exited to have you with us ${g}darling${t}\n\nRemember that hard work forever pays \c" && wait_for_a_key_press
+                                echo -e "\n\nYou have made a choice to cover Formulae stoichiometry and mole concept ...\n\nWe are so exited to have you with us ${g}darling${t}\n\nRemember that hard work forever pays \c" && wait_for_a_key_press
                             fi
                             cp "Notes/Chemistry/3.3.formulae_stoichiometry_and_mole_concept.txt" . || exit 1
                             mv 3.3.formulae_stoichiometry_and_mole_concept.txt .3.3.formulae_stoichiometry_and_mole_concept.txt || exit 1
@@ -3935,7 +3769,7 @@ while true; do
         done
     elif [[ "$class" == "4" ]]; then
         if ! find . -maxdepth 1 -name '.s_chemistry_4*' -type f -quit 2>/dev/null; then
-            echo -e "\n\n${g}Welcome to S4 Chemistry class${t}\n\n${y}Together, we are going to get you started${t} \c" && wait_for_a_key_press
+            echo -e "\n\n${g}Welcome to S4 chemistry class${t}\n\n${y}Together, we are going to get you started${t} \c" && wait_for_a_key_press
             echo -e "\n-------------------------------------- \c"
             clear_and_center "There are ${r}6${t} topics to be covered. Your tasks will always expand or shrink to fit in the time you give them. For that reason, never procrastinate darling!"
         fi
@@ -3983,7 +3817,7 @@ while true; do
                     exercise_file="../../chemistry_answered_ans.txt"
                     # Call the function to process a random question
                     process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                elif [[ "$topic" == "z" ]]
+                elif [[ "$topic" == "z"  ]]
                 then
                     attempts=0
                     # Define the targeted directory
@@ -4091,7 +3925,7 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .4.2.industrial_processes.txt
+                            rm -f .4.industrial_processes.txt
                             sed -i '/^1$/!d' .s_chemistry_4_2
                             attempts=0
                             # Define the targeted directory
@@ -4355,15 +4189,15 @@ while true; do
         done
 
 
-    elif [[ "$class" == "3" || "$class" == "4" ]]; then
+    elif [[ "$class" == "2" || "$class" == "3" || "$class" == "4" ]]; then
     echo -e "\n\nLessons for your class are still being developed.. Keep in touch \n"
-	wait_for_a_key_press
-	echo -e "\n\nYou could choose to fund the initiative by contacting us through our gmail: 2024omd256@gmail.com or by phone: +256763956608 (WhatsApp), +256747130325 \n"
-	wait_for_a_key_press
+    wait_for_a_key_press
+    echo -e "\n\nYou could choose to fund the initiative by contacting us through our gmail: 2024omd256@gmail.com or by phone: +256763956608 (WhatsApp), +256747130325 \n"
+    wait_for_a_key_press
     continue
     else
         echo -e "\n\nYou entered a wrong number, please choose from the available options \c"
-		wait_for_a_key_press
+        wait_for_a_key_press
         continue
     fi
 done

@@ -689,11 +689,11 @@ while true; do
         if [[ "$user_input" == "zz" ]]; then
             echo -e "\n"
             if [ "$(basename "$(pwd)")" != "Omd" ]; then
-                echo -e "You can only update your code using the parent code. And then create new workspace ... \c"
+                echo -e "You can only update your code using the parent code. And then create new workspace or recreate new workspace using the very exact initials of your current workspace ... \c"
                 sleep 2
                 return
             fi
-            TEMP_FILE=$(mktemp) && curl -o "$TEMP_FILE" -L "https://github.com/Muhumuza7325/OMD/raw/main/chemistry_tutorial_wsl.sh" && mv "$TEMP_FILE" chemistry_tutorial_wsl.sh && chmod +x chemistry_tutorial_wsl.sh && echo -e "\n\n${y}Code successfully updated.. You will have to restart a new session${t} \c" && sleep 4 && exit || (echo -e "\n\n${m}Error updating code!... Please check your internet connection and try again!${t} \c" && rm -f "$TEMP_FILE" && return)
+            TEMP_FILE=$(mktemp) && curl -o "$TEMP_FILE" -L "https://github.com/Muhumuza7325/OMD/raw/main/chemistry_tutorial.sh" && mv "$TEMP_FILE" chemistry_tutorial.sh && chmod +x chemistry_tutorial.sh && cp chemistry_tutorial.sh Students/Omd && echo -e "\n\n${y}Code successfully updated.. You will have to restart a new session${t} \c" && sleep 4 && exit || (echo -e "\n\n${m}Error updating code!... Please check your internet connection and try again!${t} \c" && rm -f "$TEMP_FILE" && return)
         fi
         if [[ "$user_input" == "xx" ]]; then
             current_datetime=$(date)
@@ -1700,7 +1700,7 @@ while true; do
 			filename_without_ext="${base_filename%_tutorial.sh}"
             # Generating executable file
 			# Define the content of the .desktop file
-			desktop_file_content=$(printf "[Desktop Entry]\nName=${initials}_${filename_without_ext}\nComment=Interactive learning script\nExec=gnome-terminal -e \"Omd/Students/$initials/$base_filename\"\nType=Application\nIcon=/home/ubuntu/Omd/.logo.jpeg")
+			desktop_file_content=$(printf "[Desktop Entry]\nName=${initials}_${filename_without_ext}\nComment=Interactive learning script\nExec=gnome-terminal -- bash -c \'if [ -f "/media/ubuntu/OMD/Omd/Students/$initials/$base_filename" ]; then bash "/media/ubuntu/OMD/Omd/Students/$initials/$base_filename"; else bash Omd/Students/$initials/$base_filename; fi\'\nType=Application\nIcon=/home/ubuntu/Omd/.logo.jpeg")
 		    # Path to the .desktop file on the desktop
 		    desktop_file="$HOME/Desktop/${initials}_${filename_without_ext}.desktop"
 			# Create the .desktop file with the specified content
