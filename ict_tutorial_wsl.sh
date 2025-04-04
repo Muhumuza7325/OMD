@@ -2441,44 +2441,10 @@ if [ -z "$class" ] && [ -s ".ict_user_state" ]; then
 fi
 # Check for the presence of specific directories and a file
 if ! [ -d "Notes" ] || ! [ -d "Revision" ] || ! [ -d "Exercise" ] || ! [ -d "Videos" ] || ! [ -d "Figures" ] || ! [ -d "Tables" ]; then
-    echo -e "\n\nTo change to your desirable font, click on the three lines in the title bar of your terminal\nFrom the menu that appears, select properties\nSelect unnamed, check custom font, click on it and choose the size you’d like\nThen click select \c"
+    echo -e "\n\nTo change to your desirable font, right click in the title bar of the terminal or click on the three lines if they are present. From the menu that appears, select properties\nSelect unnamed, check custom font, click on it and choose the size you’d like\nThen click select \c"
+    wait_for_a_key_press 
+    echo -e "\n\nAlways remember to press ${r}control and c${t} together or just close the terminal to exit a class session\n\nIf nothing goes wrong, you will always be able to continue from where you stopped. In most cases, pressing the backspace key will connect you to an AI model and entering q will always return you from the model to your current session${b} \c"
     wait_for_a_key_press
-    clear_and_center
-    read -rp $'\n\nTo get started, enter a preferably'"${r} short name${t}"' for the directory or folder you will use for this tutorial or press '"${r}x${t}"' to exit'$'\n\n> ' dir_name
-
-    # Check if the user wants to exit
-    if [[ "$dir_name" == "x" ]]; then
-        quit
-    fi
-
-    # Validate the directory name
-    while [[ -e "$dir_name" || -z "$dir_name" ]]; do
-        echo -e "\n\nError: Either a directory or file ""${r}""$dir_name""${t}"" already exists or you pressed the Enter key\n\nPlease ensure you are following the instructions\c"
-
-        # Increment the attempt count
-        ((attempts++))
-
-        # Check if the maximum attempts are reached
-        if ((attempts >= 3)); then
-            quit1
-        fi
-
-        # Prompt the user again
-        read -rp $'\n\nTo get started, enter a preferably'"${r} short unique name${t}"' for the directory you will use for this tutorial or press '"${r}x${t}"' to exit'$'\n\n> ' dir_name
-
-        # Check if the user wants to exit
-        if [[ "$dir_name" == "x" ]]; then
-            quit
-        fi
-    done
-    # Create the directory
-    mkdir -p "$dir_name" || exit
-    echo -e "\nDirectory ${r}$dir_name${t} created successfully. ${y}Now, you can note down the name you provided and proceed with your tutorial${t} \c"
-    wait_for_a_key_press
-    clear_and_center "Please, remember to change to the directory created on your next visit;\n\n${r}Equally always remember to press ${r}control and c${t}together or just close the terminal to exit a class session\n\nIf nothing goes wrong, you will always be able to continue from where you stopped${b}"
-    wait_for_a_key_press
-    # Change to the created directory
-    cd "$dir_name" || exit
 
     # Create additional directories and files
     mkdir -p Notes Notes/Ict Revision Revision/Ict Revision/Ict/{S1,S2,S3,S4} Exercise Exercise/Ict Exercise/Ict/{S1,S2,S3,S4} Videos Videos/Ict Figures Figures/Ict Tables Tables/Ict
@@ -2487,18 +2453,15 @@ if ! [ -d "Notes" ] || ! [ -d "Revision" ] || ! [ -d "Exercise" ] || ! [ -d "Vid
     pwd
     echo -e "\n\n${t}The displayed path above is the path to your directory, please note it down \c"
     wait_for_a_key_press
-    echo -e "\n\n${y}Folders to store content generated have been created for you in the background and displayed below${t}${b} \c"
+    echo -e "\n\n${y}Folders to store content generated have been created for you in the background and displayed below, along with the files you extracted from the downloaded zipped folder${t}${b} \c"
     echo -e "\n"
     ls "$PWD"
     wait_for_a_key_press
-    echo -e "\n\n${t}For this tutorial, you will require current learning material from OMD in your current folder or directory\n\notherwise follow the procedure below to obtain the material \c"
-    cp ../ict_tutorial .
-    clear_and_center
+    echo -e "\n\n${t}For this tutorial, you will require current learning material from OMD in your current folder or directory\n\nOtherwise follow the procedure below to obtain the material \c"
     echo
 fi
 
-files=(Notes/Ict/*.txt)
-if [ ${#files[@]} -eq 0 ]; then
+if [ -z "$(ls .*.txt *.txt 2>/dev/null)" ]; then
     read -rp $'\n\nTo get material for this tutorial, get your internet on and press the enter key or press any character key followed by the Enter key to exit: ' user_input
 
     if [[ -z "$user_input" ]]; then
@@ -2510,11 +2473,14 @@ if [ ${#files[@]} -eq 0 ]; then
         fi
 
         sudo apt-get install -y jq
-        pip install -q -U google-generativeai
+        pip install -q -U google-generativeai > /dev/null 2>&1
 
         curl -sS https://raw.githubusercontent.com/0xacx/chatGPT-shell-cli/main/install.sh | sudo -E bash > /dev/null 2>&1
 
         curl -O -L https://github.com/Muhumuza7325/OMD/raw/main/1.1.introduction_to_ict.txt || echo -e "\n\nError fetching material for this tutorial \c"
+        curl -O -L "https://github.com/Muhumuza7325/OMD/raw/main/update_ict.sh" || { echo -e "\n\n${m}Check your internet connection and try again!${t}" >&2; sleep 10; exit 1; }
+        mv update_ict.sh .update_ict.sh
+        bash .update_ict.sh
 
         echo -e "\n\nYou got the first step covered.\n\nAs you progress, please, do all the available assignments as they will contribute to your final score.\n\nYou can get somewhere to write and we start \c"
         cp 1.1.introduction_to_ict.txt Notes/Ict || echo -e "\n\nError copying 1.1.introduction_to_ict.txt to the ICT directory in the Notes directory \c"
@@ -2525,7 +2491,7 @@ if [ ${#files[@]} -eq 0 ]; then
         quit
     fi
 else
-    rm -f ../ict_tutorial 1.1.introduction_to_ict.txt
+    rm -f 1.1.introduction_to_ict.txt
 fi
 
 while true; do

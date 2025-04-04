@@ -13,11 +13,10 @@
 2.  **Extract and Make Executable the Scripts:**
     Open the downloaded ZIP archive and locate the files ending with `_tutorial.sh`. Extract these files into the `Omd` directory you just created in your home directory. Choose files bearing the names of the subjects you are interested in.
 
-    Next, you need to make these files executable. Open your terminal application. Type `chmod +x ~/Omd/*.sh` and press Enter. This command gives the scripts permission to run.
+    Next, you need to make these files executable. Type `sudo chown -R omd:omd ~/Omd` (Remember to change omd to your user name e.g., `sudo chown -R irene:irene ~/Omd`) in the terminal and press Enter (if you don't know what and where the terminal is, search for it from the Apps on your computer). Also type `sudo chomd -R 777 ~/Omd` in the terminal and press Enter. These two commands give the scripts permission to run.
 
 3.  **Extract the Desktop Shortcuts:**
     Locate the files ending with `_tutorial.desktop` in the downloaded ZIP archive. Extract these files to your Desktop. Equally choose files bearing the names of the subjects you are interested in.
-
     
 4.  **Extract and Rename the Logo:**
     From the downloaded ZIP archive, find the file named `logo.jpeg`. Extract this file into the `Omd` directory in your home directory. This will allow the desktop shortcut to have our logo. Once it's there, rename the file to `.logo.jpeg` (note the dot at the beginning). This often makes the file hidden in some file managers. 
@@ -29,7 +28,7 @@
     Go to your Desktop and find the desktop files ending with `_tutorial.desktop`. Right-click on each. Look for an option that allows you to trust or allow launching the application. This might be in a "Permissions" tab or a context menu option like "Allow Launching" or similar. Enable this for each.
 
 7.  **Start Learning:**
-    Double-click the shortcuts on your Desktop to begin your learning experience. Note that content of some subjects is still being developed. We wish you all the best.
+    Thank you for installing the Educational Pipeline. To begin your learning journey, simply double-click on any of the shortcuts. Please note that content for some subjects is still under development. We wish you all the best in your studies and look forward to your continued cooperation.
 
 
 ## Installation Instructions for Windows (10 & above) users
@@ -52,19 +51,22 @@
 6.  **Extract and Make Executable the Scripts:**
     Open the downloaded ZIP archive and locate the files ending with `_tutorial_wsl.sh`. Extract these files into the `Omd` folder you just created in the step above. Choose files bearing the names of the subjects you are interested in.
 
-    Next, you need to make these files executable. Open your Ubuntu application again (you can refer to step 4). Type `chmod +x ~/Omd/*.sh` in the terminal and press Enter. This command gives the scripts permission to run.
+    Next, you need to make these files executable. Open your Ubuntu application again (you can refer to step 4). Type `sudo chown -R omd:omd ~/Omd` (Remember to change omd to your user name e.g., `sudo chown -R irene:irene ~/Omd`) in the terminal and press Enter. Also type `sudo chomd -R 777 ~/Omd` in the terminal and press Enter. These two commands give the scripts permission to run.
 
 7.  **Extract the Desktop Shortcuts:**
-    Locate the files ending with `.Ink` in the downloaded ZIP archive. Extract these files to your Desktop (You could later move to any other location). . Equally choose files bearing the names of the subjects you are interested in.
+    Locate the files ending with `.Ink` in the downloaded ZIP archive. Extract these files to your Desktop (You could later move them to any other location). Equally choose files bearing the names of the subjects you are interested in.
 
 8.  **Extract and Rename the Logo:**
-    From the downloaded ZIP archive, find the file named `logo.ico`. Extract this file into the Pictures folder on your PC (You can extract it to any other folder you want). This will allow the shortcut created in the step above to have our logo. Once it's there, rename the file to `.logo.ico` (note the dot at the beginning). This often makes the file hidden in some file managers. You will have to right click the shortcut, choose properties, choose change Icon and select the icon right from the folder you placed it in.
+    From the downloaded ZIP archive, find the file named `logo.ico`. Extract this file into the Pictures folder on your PC (You can extract it to any other folder you want). Once it's there, rename the file to `.logo.ico` (note the dot at the beginning). This often makes the file hidden in some file managers.
 
-9.  **Delete the downloaded Zip archive (Optional):**
+9.  **Modify the target and icon of each Shortcut:**
+    NOTE carefully that you have to individually edit the target and icon of each shortcut. You will have to go where you extracted your shortcuts to, right click each shortcut, choose properties, and look at the target. In the case of say chemistry, (C:\Windows\System32\bash.exe -c '/home/omd/Omd/chemistry_tutorial_wsl.sh') will be the target. Make sure to replace the word `omd` in the target to your username e.g., to (C:\Windows\System32\bash.exe -c '/home/irene/Omd/chemistry_tutorial_wsl.sh'). Jumping this step will not allow you to run the pipeline using the shorcut. After changing the target, also change the icon [Right below the target of each icon, click on the change Icon tab and select the icon right from the folder you placed it in]. This will allow each shortcut to have our logo. 
+
+10.  **Delete the downloaded Zip archive (Optional):**
     At this stage (After extracting all the necessary files). You are free to delete the downloaded ZIP archive.
 
-10.  **Launch the application and start learning:**
-    Double-click the shortcuts on your Desktop to begin your learning experience. Note that content of some subjects is still being developed. We wish you all the best.
+11.  **Launch the application and start learning:**
+    Thank you for installing the Educational Pipeline. To begin your learning journey, simply double-click on any of the shortcuts. Please note that content for some subjects is still under development. We wish you all the best in your studies and look forward to your continued cooperation.
 
 ## License
 
