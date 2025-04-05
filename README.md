@@ -28,7 +28,7 @@
     Go to your Desktop and find the desktop files ending with `_tutorial.desktop`. Right-click on each. Look for an option that allows you to trust or allow launching the application. This might be in a "Permissions" tab or a context menu option like "Allow Launching" or similar. Enable this for each.
 
 7.  **Start Learning:**
-    Thank you for installing the Educational Pipeline. Remember to contact us for details on how to integrate AI (Artificial intrlligence) for free into the pipeline. To begin your learning journey, simply double-click on any of the shortcuts. Please note that content for some subjects is still under development. We wish you all the best in your studies and look forward to your continued cooperation.
+    Thank you for installing the Educational Pipeline. To begin your learning journey, simply double-click on any of the shortcuts. Please note that content for some subjects is still under development. We wish you all the best in your studies and look forward to your continued cooperation. If you have any questions or run into any difficulties, please feel free to contact us. Also remember to contact us for details on how to integrate AI (Artificial intelligence) for free into the pipeline.
 
 
 ## Installation Instructions for Windows (10 & above) users
@@ -66,7 +66,8 @@
     At this stage (After extracting all the necessary files). You are free to delete the downloaded ZIP archive.
 
 11.  **Launch the application and start learning:**
-    Thank you for installing the Educational Pipeline. Remember to contact us for details on how to integrate AI (Artificial intrlligence) for free into the pipeline. To begin your learning journey, simply double-click on any of the shortcuts. Please note that content for some subjects is still under development. We wish you all the best in your studies and look forward to your continued cooperation.
+    Thank you for installing the Educational Pipeline. To begin your learning journey, simply double-click on any of the shortcuts. Please note that content for some subjects is still under development. We wish you all the best in your studies and look forward to your continued cooperation. If you have any questions or run into any difficulties, please feel free to contact us. Also remember to contact us for details on how to integrate AI (Artificial intelligence) for free into the pipeline.
+
 
 ## License
 
