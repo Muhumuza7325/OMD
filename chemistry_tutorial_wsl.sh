@@ -673,7 +673,7 @@ while true; do
     trap 'rm -f videos.txt figures.txt tables.txt' EXIT
 
     # Prompt the user for input
-    if [ -z "$(ls .*.txt *.txt 2>/dev/null)" ]; then
+    if [ -z "$(find . -mindepth 3 -maxdepth 3 -type f -name "*.txt" 2>/dev/null)" ]; then
 	read -rp $'\n\nEnter '"${g}cl${t}"' to get to class or '"${r}x${t}"' to exit: ' user_input
     else
 	read -rp $'\n\nEnter '"${y}Keywords...${t}"' to search or type '"${g}cl${t}"' to get to class or '"${g}sh${t}"' to share anything with us or '"${b}ch${t}"' to connect to chatgpt or '"${r}ge${t}"' to connect to Google AI or '"${m}zz${t}"' to update the code or '"${m}xx${t}"' to update learning materials or '"${c}nw${t}"' to create new workspace or '"${r}x${t}"' to exit: ' user_input
@@ -2058,11 +2058,13 @@ while true; do
             windows_userprofile_wsl=$(wslpath -u "$windows_userprofile")
             if [ -d "$windows_userprofile_wsl/OneDrive/Desktop" ]; then
                 desktop_path="$windows_userprofile_wsl/OneDrive/Desktop"
+                desktop_path1="$windows_userprofile_wsl/Desktop"
             else
                 desktop_path="$windows_userprofile_wsl/Desktop"
             fi
             # Generating the batch file content
             echo -e "@echo off\nC:\\Windows\\System32\\wsl.exe -e bash -c '$HOME/Omd/Students/$initials/${file##*/}'" > "$desktop_path/$initials $initials_${file##*/}.bat"
+            echo -e "@echo off\nC:\\Windows\\System32\\wsl.exe -e bash -c '$HOME/Omd/Students/$initials/${file##*/}'" > "$desktop_path1/$initials $initials_${file##*/}.bat"
         done
         echo -e "\n\nBy default, ${y}new executable files${t} have been created and shortcuts named ("${g}"$initials"${t}") put on your desktop... \n"
         break
@@ -2480,7 +2482,7 @@ if ! [ -d "Notes" ] || ! [ -d "Revision" ] || ! [ -d "Exercise" ] || ! [ -d "Vid
     echo
 fi
 
-if [ -z "$(ls .*.txt *.txt 2>/dev/null)" ]; then
+if [ -z "$(find . -mindepth 3 -maxdepth 3 -type f -name "*.txt" 2>/dev/null)" ]; then
     read -rp $'\n\nTo get material for this tutorial, get your internet on and press the enter key or press any character key followed by the Enter key to exit: ' user_input
 
     if [[ -z "$user_input" ]]; then
