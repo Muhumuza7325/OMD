@@ -7,27 +7,19 @@
 
 ## Installation Instructions for MacOS and Linux
 
-1.  **Create the Omd directory:**
-    Open your file manager. Navigate to your home directory (usually represented by a house icon or your username). If a directory named `Omd` does not exist, create a new directory and name it `Omd`. Make sure only "O" is uppercase.
+1.  **Create a New folder on the Desktop:**
+    Right-click on your Desktop and create a new folder. You can name it anything you like (e.g., Omd).
 
-2.  **Extract and Make Executable the Script(s):**
-    Open the downloaded ZIP archive and locate the files ending with `_tutorial.sh`. Extract these files into the `Omd` directory you just created in your home directory. Choose files bearing the names of the subjects you are interested in.
-
-    Next, you need to make these files executable. Type `sudo chown -R omd:omd ~/Omd` (Remember to change omd to your user name e.g., `sudo chown -R irene:irene ~/Omd`) in the terminal and press Enter (if you don't know what and where the terminal is, search for it from the Apps on your computer). Also type `sudo chomd -R 777 ~/Omd` in the terminal and press Enter. These two commands give the scripts permission to run.
-
-3.  **Extract the Desktop Shortcuts:**
-    Locate the files ending with `_tutorial.desktop` in the downloaded ZIP archive. Extract these files to your Desktop. Equally choose files bearing the names of the subjects you are interested in.
+2.  **Extract the files to the newly created folder:**
+    Right-click the downloaded ZIP archive and select "Extract To...". Choose the folder you just created in Step 1 as the destination. After extraction, open the folder and delete any files and shortcuts related to subjects you are not interested in. This prevents installation of unwanted pipelines. macOS users do not need to delete any shortcuts, as they will not be used in the installation.
     
-4.  **Extract and Rename the Logo:**
-    From the downloaded ZIP archive, find the file named `logo.jpeg`. Extract this file into the `Omd` directory in your home directory. This will allow the desktop shortcut to have our logo. Once it's there, rename the file to `.logo.jpeg` (note the dot at the beginning). This often makes the file hidden in some file managers. 
+3.  **Copy or move some files to the Desktop:**
+    From the folder, copy or move the following three files to your Desktop: install_omd.desktop, install_omd.sh, and logo.jpeg. Then, right-click the install_omd.desktop file and enable it for launching: On Linux, look for an option like “Allow Launching” or enable permissions via the “Properties” > “Permissions” tab. On macOS, the install_omd.desktop file will not be used. You can ignore it.
 
-5.  **Delete the downloaded Zip archive (Optional):**
-    At this stage (After extracting all the necessary files). You are free to delete the downloaded ZIP archive.
+4.  **Install the pipeline(s):**
+    On Linux, double-click the install_omd.desktop file to begin installation. A terminal window will appear showing the progress. You may be asked to enter your sudo password. On macOS, double-click the install_omd.command file(s) that will appear on your Desktop automatically after extraction. Once installation is complete, you may delete the ZIP archive, the extracted folder, and the files you placed on your Desktop. Note that the shortcuts to the installed pipelines will appear on your Desktop. Do not move them to other locations, or they may stop working. For Linux users, refer back to Step 3 if needed to allow launching.
 
-6.  **Allow Launching the Shortcuts:**
-    Go to your Desktop and find the desktop files ending with `_tutorial.desktop`. Right-click on each. Look for an option that allows you to trust or allow launching the application. This might be in a "Permissions" tab or a context menu option like "Allow Launching" or similar. Enable this for each.
-
-7.  **Start Learning:**
+5.  **Launch the Pipeline(s) and start Learning:**
     Thank you for installing the Educational Pipeline(s). To begin your learning journey, simply double-click on any of the shortcuts. Please note that content for some subjects is still under development. We wish you all the best in your studies and look forward to your continued cooperation. If you have any questions or run into any difficulties, please feel free to contact us. Also remember to contact us for details on how to integrate AI (Artificial intelligence) for free into the pipeline(s).
 
 
