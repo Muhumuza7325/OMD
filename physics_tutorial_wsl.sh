@@ -1821,17 +1821,17 @@ get_sample_items() {
             	popd > /dev/null || exit
                 return
             fi
-            if [ -f .e_o_c.txt ]; then
+            if [ -f .e_o_c_physics.txt ]; then
                 echo -e "\n\n${y}Below is the list of the elements of construct${t} \n"
-                cat .e_o_c.txt
+                cat .e_o_c_physics.txt
                 read -rp $'\nEnter a '"${m}specific${t}"' number or simply press '"${r}Enter${t}"' to get random sample items'$'\n> ' input
                 if [[ -n $input ]]; then
                     echo -e "\n${c}Below is the basis of assessment for the selected element of construct${t} \n"
-                    selected_file1=$(ls -a | grep -E "\.e_o_c_${input}\.txt")
+                    selected_file1=$(ls -a | grep -E "\.e_o_c_physics_${input}\.txt")
                     cat "$selected_file1"
                     # Remove empty lines from the selected files
                     find . -type f -name "*_samples_[0-9].txt" -exec sed -i '/^[[:space:]]*$/d' {} +
-                    selected_file=$(ls -a | grep -E "\.e_o_c_${input}_samples" | shuf -n 1)
+                    selected_file=$(ls -a | grep -E "\.e_o_c_physics_${input}_samples" | shuf -n 1)
                 else
                     # Find all files and randomly select one
                     local selected_file # Declare the variable
