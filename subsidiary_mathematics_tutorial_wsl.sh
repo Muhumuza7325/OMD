@@ -629,11 +629,7 @@ while true; do
     trap 'rm -f videos.txt figures.txt tables.txt' EXIT
 
     # Prompt the user for input
-    if [ -z "$(find . -mindepth 3 -maxdepth 3 -type f -name "*.txt" 2>/dev/null)" ]; then
-	read -rp $'\n\nEnter '"${g}cl${t}"' to get to class or '"${r}x${t}"' to exit: ' user_input
-    else
-	read -rp $'\n\nEnter '"${y}Keywords...${t}"' to search or type '"${g}cl${t}"' to get to class or '"${g}sh${t}"' to share anything with us or '"${b}ch${t}"' to connect to chatgpt or '"${r}ge${t}"' to connect to Google AI or '"${m}zz${t}"' to update the code or '"${m}xx${t}"' to update learning materials or '"${c}nw${t}"' to create new workspace or '"${r}x${t}"' to exit: ' user_input
-    fi
+    read -rp $'\n\nEnter '"${y}Keywords...${t}"' to search or type '"${g}cl${t}"' to get to class or '"${g}sh${t}"' to share anything with us or '"${b}ch${t}"' to connect to chatgpt or '"${r}ge${t}"' to connect to Google AI or '"${m}zz${t}"' to update the code or '"${m}xx${t}"' to update learning materials or '"${c}nw${t}"' to create new workspace or '"${r}x${t}"' to exit: ' user_input
 
     # Check if user_input is not empty
     if [[ -n "$user_input" ]]; then
@@ -1769,17 +1765,17 @@ get_sample_items() {
             	popd > /dev/null || exit
                 return
             fi
-            if [ -f .e_o_c_subsidiary_mathematics.txt ]; then
+            if [ -f .e_o_c.txt ]; then
                 echo -e "\n\n${y}Below is the list of the elements of construct${t} \n"
-                cat .e_o_c_subsidiary_mathematics.txt
+                cat .e_o_c.txt
                 read -rp $'\nEnter a '"${m}specific${t}"' number or simply press '"${r}Enter${t}"' to get random sample items'$'\n> ' input
                 if [[ -n $input ]]; then
                     echo -e "\n${c}Below is the basis of assessment for the selected element of construct${t} \n"
-                    selected_file1=$(ls -a | grep -E "\.e_o_c_subsidiary_mathematics_${input}\.txt")
+                    selected_file1=$(ls -a | grep -E "\.e_o_c_${input}\.txt")
                     cat "$selected_file1"
                     # Remove empty lines from the selected files
                     find . -type f -name "*_samples_[0-9].txt" -exec sed -i '/^[[:space:]]*$/d' {} +
-                    selected_file=$(ls -a | grep -E "\.e_o_c_subsidiary_mathematics_${input}_samples" | shuf -n 1)
+                    selected_file=$(ls -a | grep -E "\.e_o_c_${input}_samples" | shuf -n 1)
                 else
                     # Find all files and randomly select one
                     local selected_file # Declare the variable
@@ -1991,13 +1987,11 @@ while true; do
             windows_userprofile_wsl=$(wslpath -u "$windows_userprofile")
             if [ -d "$windows_userprofile_wsl/OneDrive/Desktop" ]; then
                 desktop_path="$windows_userprofile_wsl/OneDrive/Desktop"
-                desktop_path1="$windows_userprofile_wsl/Desktop"
             else
                 desktop_path="$windows_userprofile_wsl/Desktop"
             fi
             # Generating the batch file content
             echo -e "@echo off\nC:\\Windows\\System32\\wsl.exe -e bash -c '$HOME/Omd/Students/$initials/${file##*/}'" > "$desktop_path/$initials $initials_${file##*/}.bat"
-            echo -e "@echo off\nC:\\Windows\\System32\\wsl.exe -e bash -c '$HOME/Omd/Students/$initials/${file##*/}'" > "$desktop_path1/$initials $initials_${file##*/}.bat"
         done
         echo -e "\n\nBy default, ${y}new executable files${t} have been created and shortcuts named ("${g}"$initials"${t}") put on your desktop... \n"
         break
@@ -2395,10 +2389,44 @@ if [ -z "$class" ] && [ -s ".subsidiary_mathematics_user_state" ]; then
 fi
 # Check for the presence of specific directories and a file
 if ! [ -d "Notes" ] || ! [ -d "Revision" ] || ! [ -d "Exercise" ] || ! [ -d "Videos" ] || ! [ -d "Figures" ] || ! [ -d "Tables" ]; then
-    echo -e "\n\nTo change to your desirable font, right click in the title bar of the terminal or click on the three lines if they are present. From the menu that appears, select properties\nSelect unnamed, check custom font, click on it and choose the size you’d like\nThen click select \c"
-    wait_for_a_key_press 
-    echo -e "\n\nAlways remember to press ${r}control and c${t} together or just close the terminal to exit a class session\n\nIf nothing goes wrong, you will always be able to continue from where you stopped. In most cases, pressing the backspace key will connect you to an AI model and entering q will always return you from the model to your current session${b} \c"
+    echo -e "\n\nTo change to your desirable font, click on the three lines in the title bar of your terminal\nFrom the menu that appears, select properties\nSelect unnamed, check custom font, click on it and choose the size you’d like\nThen click select \c"
     wait_for_a_key_press
+    clear_and_center
+    read -rp $'\n\nTo get started, enter a preferably'"${r} short name${t}"' for the directory or folder you will use for this tutorial or press '"${r}x${t}"' to exit'$'\n\n> ' dir_name
+
+    # Check if the user wants to exit
+    if [[ "$dir_name" == "x" ]]; then
+        quit
+    fi
+
+    # Validate the directory name
+    while [[ -e "$dir_name" || -z "$dir_name" ]]; do
+        echo -e "\n\nError: Either a directory or file ""${r}""$dir_name""${t}"" already exists or you pressed the Enter key\n\nPlease ensure you are following the instructions\c"
+
+        # Increment the attempt count
+        ((attempts++))
+
+        # Check if the maximum attempts are reached
+        if ((attempts >= 3)); then
+            quit1
+        fi
+
+        # Prompt the user again
+        read -rp $'\n\nTo get started, enter a preferably'"${r} short unique name${t}"' for the directory you will use for this tutorial or press '"${r}x${t}"' to exit'$'\n\n> ' dir_name
+
+        # Check if the user wants to exit
+        if [[ "$dir_name" == "x" ]]; then
+            quit
+        fi
+    done
+    # Create the directory
+    mkdir -p "$dir_name" || exit
+    echo -e "\nDirectory ${r}$dir_name${t} created successfully. ${y}Now, you can note down the name you provided and proceed with your tutorial${t} \c"
+    wait_for_a_key_press
+    clear_and_center "Please, remember to change to the directory created on your next visit;\n\n${r}Equally always remember to press ${r}control and c${t}together or just close the terminal to exit a class session\n\nIf nothing goes wrong, you will always be able to continue from where you stopped${b}"
+    wait_for_a_key_press
+    # Change to the created directory
+    cd "$dir_name" || exit
 
     # Create additional directories and files
     mkdir -p Notes Notes/Subsidiary_mathematics Revision Revision/Subsidiary_mathematics Revision/Subsidiary_mathematics/{S5,S6} Exercise Exercise/Subsidiary_mathematics Exercise/Subsidiary_mathematics/{S5,S6} Videos Videos/Subsidiary_mathematics Figures Figures/Subsidiary_mathematics Tables Tables/Subsidiary_mathematics
@@ -2407,15 +2435,18 @@ if ! [ -d "Notes" ] || ! [ -d "Revision" ] || ! [ -d "Exercise" ] || ! [ -d "Vid
     pwd
     echo -e "\n\n${t}The displayed path above is the path to your directory, please note it down \c"
     wait_for_a_key_press
-    echo -e "\n\n${y}Folders to store content generated have been created for you in the background and displayed below, along with the files you extracted from the downloaded zipped folder${t}${b} \c"
+    echo -e "\n\n${y}Folders to store content generated have been created for you in the background and displayed below${t}${b} \c"
     echo -e "\n"
     ls "$PWD"
     wait_for_a_key_press
-    echo -e "\n\n${t}For this tutorial, you will require current learning material from OMD in your current folder or directory\n\nOtherwise follow the procedure below to obtain the material \c"
+    echo -e "\n\n${t}For this tutorial, you will require current learning material from OMD in your current folder or directory\n\notherwise follow the procedure below to obtain the material \c"
+    cp ../subsidiary_mathematics_tutorial .
+    clear_and_center
     echo
 fi
 
-if [ -z "$(find . -mindepth 3 -maxdepth 3 -type f -name "*.txt" 2>/dev/null)" ]; then
+files=(Notes/Subsidiary_mathematics/*.txt)
+if [ ${#files[@]} -eq 0 ]; then
     read -rp $'\n\nTo get material for this tutorial, get your internet on and press the enter key or press any character key followed by the Enter key to exit: ' user_input
 
     if [[ -z "$user_input" ]]; then
@@ -2427,14 +2458,11 @@ if [ -z "$(find . -mindepth 3 -maxdepth 3 -type f -name "*.txt" 2>/dev/null)" ];
         fi
 
         sudo apt-get install -y jq
-        pip install -q -U google-generativeai > /dev/null 2>&1
+        pip install -q -U google-generativeai
 
         curl -sS https://raw.githubusercontent.com/0xacx/chatGPT-shell-cli/main/install.sh | sudo -E bash > /dev/null 2>&1
 
         curl -O -L https://github.com/Muhumuza7325/OMD/raw/main/1.1.matrices.txt || echo -e "\n\nError fetching material for this tutorial \c"
-        curl -O -L "https://github.com/Muhumuza7325/OMD/raw/main/update_subsidiary_mathematics.sh" || { echo -e "\n\n${m}Check your internet connection and try again!${t}" >&2; sleep 10; exit 1; }
-        mv update_subsidiary_mathematics.sh .update_subsidiary_mathematics.sh
-        bash .update_subsidiary_mathematics.sh
 
         echo -e "\n\nYou got the first step covered.\n\nAs you progress, please, do all the available assignments as they will contribute to your final score.\n\nYou can get somewhere to write and we start \c"
         cp 1.1.matrices.txt Notes/Subsidiary_mathematics || echo -e "\n\nError copying 1.1.matrices.txt to the Subsidiary_mathematics directory in the Notes directory \c"
@@ -2445,7 +2473,7 @@ if [ -z "$(find . -mindepth 3 -maxdepth 3 -type f -name "*.txt" 2>/dev/null)" ];
         quit
     fi
 else
-    rm -f 1.1.matrices.txt
+    rm -f ../subsidiary_mathematics_tutorial 1.1.matrices.txt
 fi
 
 while true; do
@@ -2530,7 +2558,7 @@ while true; do
                 elif [[ "$topic" == "p" ]]
                 then
                     track_student_progress
-                elif [[ ! "$topic" =~ ^[1-9]$ || -z "$topic" ]]
+                elif [[ ! "$topic" =~ ^(10|[1-9])$ || -z "$topic" ]]
                 then
                     echo -e "\n\nTopic ${r}$topic not available${t}... Please choose from the available options\c"
                     wait_for_a_key_press

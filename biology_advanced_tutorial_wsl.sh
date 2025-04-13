@@ -81,7 +81,7 @@ function handle_class_input() {
             fi
 		    # Check if .current_biology_advanced_class is accidentally empty
 		    if [ ! -s .current_biology_advanced_class ]; then
-		        # Echo 5 to .current_biology_advanced_class
+		        # echo 5 to .current_biology_advanced_class
 		        echo "5" > .current_biology_advanced_class
 		    fi
 		    # Read the value from the file
@@ -110,7 +110,7 @@ function handle_s6_topic_input() {
         rm -f .biology_advanced_topic_selected
     fi
     if [ -z "$last_topic" ] || [ -f .biology_advanced_topic_selected ]; then
-        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. Coordination '"${r}Term1${t}"''$'\n\n2. Inheritance and evolution '"${r}Term2${t}"''$'\n\n3. Growth and development '"${r}Term2${t}"''$'\n\n4. Ecology '"${r}Term3${t}"''$'\n\n> ' topic
+        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. Coordination '"${r}Term1${t}"''$'\n\n2. Inheritance and evolution '"${r}Term2${t}"''$'\n\n3. Growth, in, plants and development, in, insects '"${r}Term2${t}"''$'\n\n4. Ecology '"${r}Term3${t}"''$'\n\n> ' topic
         touch .biology_advanced_surveyor
         touch .biology_advanced_topic_selected
         # Update the state file with the topic
@@ -130,7 +130,7 @@ function handle_s5_topic_input() {
         rm -f .biology_advanced_topic_selected
     fi
     if [ -z "$last_topic" ] || [ -f .biology_advanced_topic_selected ]; then
-        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4 or 5${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. Cell biology '"${r}Term1${t}"''$'\n\n2. Nutrition '"${r}Term2${t}"''$'\n\n3. Transport '"${r}Term2${t}"''$'\n\n4. Respiration '"${r}Term3${t}"''$'\n\n5. Homoestasis '"${r}Term3${t}"''$'\n\n> ' topic
+        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4 or 5${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. Cell biology '"${r}Term1${t}"''$'\n\n2. Nutrition in plants '"${r}Term2${t}"''$'\n\n3. Transport in humans '"${r}Term2${t}"''$'\n\n4. Respiration '"${r}Term3${t}"''$'\n\n5. Homoeostasis '"${r}Term3${t}"''$'\n\n> ' topic
         touch .biology_advanced_surveyor
         touch .biology_advanced_topic_selected
         # Update the state file with the topic
@@ -638,12 +638,12 @@ while true; do
     # Check if user_input is not empty
     if [[ -n "$user_input" ]]; then
 		if [[ "$user_input" == "sh" ]]; then
-		    Response="We are looking forward to receiving your economic support, thoughts, suggestions, and any files you feel should reach out to everyone of our children. Please remember to label the files you are to attach using the format: Your_name_School_Subject_File_content (e.g., Muhumuza_Omega_Kasule_High_School_O_level_Chemistry_Answered_EOC1_Items.pdf). Thanks a lot for your contributions."    
-		    subject="$(basename "$0") - $(date +"%Y-%m-%d %H:%M:%S") - Thoughts, suggestions, and contributions"
-		    encoded_subject=$(echo "$subject" | sed 's/ /%20/g; s/\n/%0A/g')
+		    Response="We are looking forward to receiving your economic support, thoughts, suggestions, and any files you feel should reach out to everyone of our children. Please remember to label the files you are to attach using the format: Your_name_School_Biology_advanced_File_content (e.g., Muhumuza_Omega_Kasule_High_School_O_level_Chemistry_Answered_EOC1_Items.pdf). Thanks a lot for your contributions."    
+		    biology_advanced="$(basename "$0") - $(date +"%Y-%m-%d %H:%M:%S") - Thoughts, suggestions, and contributions"
+		    encoded_biology_advanced=$(echo "$biology_advanced" | sed 's/ /%20/g; s/\n/%0A/g')
 		    encoded_body=$(echo "$Response" | sed 's/ /%20/g; s/\n/%0A/g')
-		    # Open the email in the browser with the encoded subject and body
-		    powershell.exe -Command "Start-Process 'https://mail.google.com/mail/?view=cm&to=2024omd256@gmail.com&su=${encoded_subject}&body=${encoded_body}'"
+		    # Open the email in the browser with the encoded biology_advanced and body
+		    powershell.exe -Command "Start-Process 'https://mail.google.com/mail/?view=cm&to=2024omd256@gmail.com&su=${encoded_biology_advanced}&body=${encoded_body}'"
 			return
 		fi
          if [[ "$user_input" == "cl" ]]; then
@@ -661,11 +661,11 @@ while true; do
         if [[ "$user_input" == "zz" ]]; then
             echo -e "\n"
             if [ "$(basename "$(pwd)")" != "Omd" ]; then
-                echo -e "You can only update your code using the parent code. And then create new workspace or recreate new workspace using the very exact initials of your current workspace ... \c"
+                echo -e "You can only update your code using the parent code. And then create new workspace ... \c"
                 sleep 2
                 return
             fi
-            TEMP_FILE=$(mktemp) && curl -o "$TEMP_FILE" -L "https://github.com/Muhumuza7325/OMD/raw/main/biology_advanced_tutorial_wsl.sh" && mv "$TEMP_FILE" biology_advanced_tutorial_wsl.sh && chmod +x biology_advanced_tutorial_wsl.sh && cp biology_advanced_tutorial_wsl.sh Students/Omd && echo -e "\n\n${y}Code successfully updated.. You will have to restart a new session${t} \c" && sleep 4 && exit || (echo -e "\n\n${m}Error updating code!... Please check your internet connection and try again!${t} \c" && rm -f "$TEMP_FILE" && return)
+            TEMP_FILE=$(mktemp) && curl -o "$TEMP_FILE" -L "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/biology_advanced_tutorial_wsl.sh" && mv "$TEMP_FILE" biology_advanced_tutorial_wsl.sh && chmod +x biology_advanced_tutorial_wsl.sh && echo -e "\n\n${y}Code successfully updated.. You will have to restart a new session${t} \c" && sleep 4 && exit || (echo -e "\n\n${m}Error updating code!... Please check your internet connection and try again!${t} \c" && rm -f "$TEMP_FILE" && return)
         fi
         if [[ "$user_input" == "xx" ]]; then
             current_datetime=$(date)
@@ -678,7 +678,7 @@ while true; do
                     sleep 2
                     return
                 fi
-                curl -O -L "https://github.com/Muhumuza7325/OMD/raw/main/update_biology_advanced.sh" || { echo -e "\n\n${m}Check your internet connection and try again!${t}" >&2; return; }
+                curl -O -L "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/update_biology_advanced.sh" || { echo -e "\n\n${m}Check your internet connection and try again!${t}" >&2; return; }
                 mv update_biology_advanced.sh .update_biology_advanced.sh
                 bash .update_biology_advanced.sh
                 return
@@ -1466,7 +1466,7 @@ process_final_assignment() {
     # Check if user is.biology_advanced_ready for the assignment
     # Check if .current_biology_advanced_class is accidentally empty
     if [ ! -s .current_biology_advanced_class ]; then
-        # Echo 5 to .current_biology_advanced_class
+        # echo 5 to .current_biology_advanced_class
         echo "5" > .current_biology_advanced_class
     fi
     # Read the value from the .current_biology_advanced_class file
@@ -1708,8 +1708,8 @@ process_final_assignment() {
                     cd - > /dev/null 2>&1 || exit
                     if ! [ -f .current_biology_advanced_class ]; then
                         # Echo the result to the file .current_class
-                        echo "6" > .current_biology_advanced_class
-                        echo -e "\n\n${g}Congratulations!${t}  You have successfully gained access to the next class (S6).\n\nHowever, if a diferrent class was expected, then something is wrong.\n\nFrom here, you will have to go back to go back to S5 and acess the next classes the right way \c"
+                        echo "2" > .current_biology_advanced_class
+                        echo -e "\n\n${g}Congratulations!${t}  You have successfully gained access to the next class (S2).\n\nHowever, if a diferrent class was expected, then something is wrong.\n\nFrom here, you will have to go back to go back to S2 and acess the next classes the right way \c"
                         wait_for_a_key_press
                     else
                         # Add 1 to $class value
@@ -1759,7 +1759,7 @@ get_sample_items() {
     	    time_diff=$((current_time - last_echo_time))
         	if [ $time_diff -gt 3600 ]; then
             	# Echo the message and update the last echo time
-	        	echo -e "\n\n\n${r}You are advised to not make any changes to the provided answers, instead, you can make copies that you can edit${t}\n\n${y}For a teacher willing to join us reach out to everyone of our children, please send us your questions and answers in a file labelled with your name, school, subject, and file content (e.g., Muhumuza_Omega_Kasule_High_School_O_level_Chemistry_Answered_EOC1_Items.pdf) to our contacts${t}\n\n\nEmail: ${g}2024omd256@gmail.com${t} \c"
+	        	echo -e "\n\n\n${r}You are advised to not make any changes to the provided answers, instead, you can make copies that you can edit${t}\n\n${y}For a teacher willing to join us reach out to everyone of our children, please send us your questions and answers in a file labelled with your name, school, biology_advanced, and file content (e.g., Muhumuza_Omega_Kasule_High_School_O_level_Chemistry_Answered_EOC1_Items.pdf) to our contacts${t}\n\n\nEmail: ${g}2024omd256@gmail.com${t} \c"
 				echo $current_time > "$last_echo_time_file"
     		fi
             read -rp $'\n\n\nEnter '"${m}any character${t}"' for access to the file of answered items or simply press '"${r}Enter${t}"' to get items to attempt : ' input
@@ -2395,10 +2395,44 @@ if [ -z "$class" ] && [ -s ".biology_advanced_user_state" ]; then
 fi
 # Check for the presence of specific directories and a file
 if ! [ -d "Notes" ] || ! [ -d "Revision" ] || ! [ -d "Exercise" ] || ! [ -d "Videos" ] || ! [ -d "Figures" ] || ! [ -d "Tables" ]; then
-    echo -e "\n\nTo change to your desirable font, right click in the title bar of the terminal or click on the three lines if they are present. From the menu that appears, select properties\nSelect unnamed, check custom font, click on it and choose the size you’d like\nThen click select \c"
-    wait_for_a_key_press 
-    echo -e "\n\nAlways remember to press ${r}control and c${t} together or just close the terminal to exit a class session\n\nIf nothing goes wrong, you will always be able to continue from where you stopped. In most cases, pressing the backspace key will connect you to an AI model and entering q will always return you from the model to your current session${b} \c"
+    echo -e "\n\nTo change to your desirable font, click on the three lines in the title bar of your terminal\nFrom the menu that appears, select properties\nSelect unnamed, check custom font, click on it and choose the size you’d like\nThen click select \c"
     wait_for_a_key_press
+    clear_and_center
+    read -rp $'\n\nTo get started, enter a preferably'"${r} short name${t}"' for the directory or folder you will use for this tutorial or press '"${r}x${t}"' to exit'$'\n\n> ' dir_name
+
+    # Check if the user wants to exit
+    if [[ "$dir_name" == "x" ]]; then
+        quit
+    fi
+
+    # Validate the directory name
+    while [[ -e "$dir_name" || -z "$dir_name" ]]; do
+        echo -e "\n\nError: Either a directory or file ""${r}""$dir_name""${t}"" already exists or you pressed the Enter key\n\nPlease ensure you are following the instructions\c"
+
+        # Increment the attempt count
+        ((attempts++))
+
+        # Check if the maximum attempts are reached
+        if ((attempts >= 3)); then
+            quit1
+        fi
+
+        # Prompt the user again
+        read -rp $'\n\nTo get started, enter a preferably'"${r} short unique name${t}"' for the directory you will use for this tutorial or press '"${r}x${t}"' to exit'$'\n\n> ' dir_name
+
+        # Check if the user wants to exit
+        if [[ "$dir_name" == "x" ]]; then
+            quit
+        fi
+    done
+    # Create the directory
+    mkdir -p "$dir_name" || exit
+    echo -e "\nDirectory ${r}$dir_name${t} created successfully. ${y}Now, you can note down the name you provided and proceed with your tutorial${t} \c"
+    wait_for_a_key_press
+    clear_and_center "Please, remember to change to the directory created on your next visit;\n\n${r}Equally always remember to press ${r}control and c${t}together or just close the terminal to exit a class session\n\nIf nothing goes wrong, you will always be able to continue from where you stopped${b}"
+    wait_for_a_key_press
+    # Change to the created directory
+    cd "$dir_name" || exit
 
     # Create additional directories and files
     mkdir -p Notes Notes/Biology_advanced Revision Revision/Biology_advanced Revision/Biology_advanced/{S5,S6} Exercise Exercise/Biology_advanced Exercise/Biology_advanced/{S5,S6} Videos Videos/Biology_advanced Figures Figures/Biology_advanced Tables Tables/Biology_advanced
@@ -2407,15 +2441,18 @@ if ! [ -d "Notes" ] || ! [ -d "Revision" ] || ! [ -d "Exercise" ] || ! [ -d "Vid
     pwd
     echo -e "\n\n${t}The displayed path above is the path to your directory, please note it down \c"
     wait_for_a_key_press
-    echo -e "\n\n${y}Folders to store content generated have been created for you in the background and displayed below, along with the files you extracted from the downloaded zipped folder${t}${b} \c"
+    echo -e "\n\n${y}Folders to store content generated have been created for you in the background and displayed below${t}${b} \c"
     echo -e "\n"
     ls "$PWD"
     wait_for_a_key_press
-    echo -e "\n\n${t}For this tutorial, you will require current learning material from OMD in your current folder or directory\n\nOtherwise follow the procedure below to obtain the material \c"
+    echo -e "\n\n${t}For this tutorial, you will require current learning material from OMD in your current folder or directory\n\notherwise follow the procedure below to obtain the material \c"
+    cp ../biology_advanced_tutorial .
+    clear_and_center
     echo
 fi
 
-if [ -z "$(find . -mindepth 3 -maxdepth 3 -type f -name "*.txt" 2>/dev/null)" ]; then
+files=(Notes/Biology_advanced/*.txt)
+if [ ${#files[@]} -eq 0 ]; then
     read -rp $'\n\nTo get material for this tutorial, get your internet on and press the enter key or press any character key followed by the Enter key to exit: ' user_input
 
     if [[ -z "$user_input" ]]; then
@@ -2427,14 +2464,11 @@ if [ -z "$(find . -mindepth 3 -maxdepth 3 -type f -name "*.txt" 2>/dev/null)" ];
         fi
 
         sudo apt-get install -y jq
-        pip install -q -U google-generativeai > /dev/null 2>&1
+        pip install -q -U google-generativeai
 
         curl -sS https://raw.githubusercontent.com/0xacx/chatGPT-shell-cli/main/install.sh | sudo -E bash > /dev/null 2>&1
 
-        curl -O -L https://github.com/Muhumuza7325/OMD/raw/main/1.1.cell_biology.txt || echo -e "\n\nError fetching material for this tutorial \c"
-        curl -O -L "https://github.com/Muhumuza7325/OMD/raw/main/update_biology_advanced.sh" || { echo -e "\n\n${m}Check your internet connection and try again!${t}" >&2; sleep 10; exit 1; }
-        mv update_biology_advanced.sh .update_biology_advanced.sh
-        bash .update_biology_advanced.sh
+        curl -O -L https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.1.cell_biology.txt || echo -e "\n\nError fetching material for this tutorial \c"
 
         echo -e "\n\nYou got the first step covered.\n\nAs you progress, please, do all the available assignments as they will contribute to your final score.\n\nYou can get somewhere to write and we start \c"
         cp 1.1.cell_biology.txt Notes/Biology_advanced || echo -e "\n\nError copying 1.1.cell_biology.txt to the Biology_advanced directory in the Notes directory \c"
@@ -2445,7 +2479,7 @@ if [ -z "$(find . -mindepth 3 -maxdepth 3 -type f -name "*.txt" 2>/dev/null)" ];
         quit
     fi
 else
-    rm -f 1.1.cell_biology.txt
+    rm -f ../biology_advanced_tutorial 1.1.cell_biology.txt
 fi
 
 while true; do
@@ -2591,17 +2625,17 @@ while true; do
                                 touch .biology_advanced.5.1
                             fi
                             if ! [ -f ".s_biology_advanced_5_2" ]; then
-                                echo -e "\n\nYou happen to have decided to delve into Nutrition ...\n\nOnce again we treasure you ${g}dear one${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
+                                echo -e "\n\nYou happen to have decided to delve into Nutrition in plants ...\n\nOnce again we treasure you ${g}dear one${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Biology_advanced/5.2.nutrition.txt" . || exit 1
-                            mv 5.2.nutrition.txt .5.2.nutrition.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .5.2.nutrition.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .5.2.nutrition.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .5.2.nutrition.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .5.2.nutrition.txt
-                            process_reminders_from_file .5.2.nutrition.txt
+                            cp "Notes/Biology_advanced/5.2.nutrition_in_plants.txt" . || exit 1
+                            mv 5.2.nutrition_in_plants.txt .5.2.nutrition_in_plants.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .5.2.nutrition_in_plants.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .5.2.nutrition_in_plants.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .5.2.nutrition_in_plants.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .5.2.nutrition_in_plants.txt
+                            process_reminders_from_file .5.2.nutrition_in_plants.txt
                             STATE_FILE=".s_biology_advanced_5_2"
-                            process_file .5.2.nutrition.txt
+                            process_file .5.2.nutrition_in_plants.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -2609,13 +2643,13 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .5.2.nutrition.txt
+                            rm -f .5.2.nutrition_in_plants.txt
                             sed -i '/^1$/!d' .s_biology_advanced_5_2
                             attempts=0
                             # Define the targeted directory
                             question_directory="Revision/Biology_advanced/S5"
                             # Define the file extension
-                            file_extension_question=".2.nutrition.qns.txt"
+                            file_extension_question=".2.nutrition_in_plants.qns.txt"
                             # Define the revision file
                             revision_file="../../biology_advanced_covered_qns.txt"
                             # Call the function to process a random question
@@ -2624,7 +2658,7 @@ while true; do
                             # Define the targeted directory
                             question_directory="Revision/Biology_advanced/S5"
                             # Define the file extension
-                            file_extension_question=".2.nutrition.qns.txt"
+                            file_extension_question=".2.nutrition_in_plants.qns.txt"
                             # Define the revision file
                             revision_file="../../biology_advanced_covered_qns.txt"
                             # Call the function to process a random question
@@ -2636,7 +2670,7 @@ while true; do
                                 # Define the targeted directory
                                 answered_directory="Exercise/Biology_advanced/S5"
                                 # Define the file extension
-                                file_extension_answer=".2.nutrition.ans.txt"
+                                file_extension_answer=".2.nutrition_in_plants.ans.txt"
                                 # Define the exercise file
                                 exercise_file="../../biology_advanced_answered_ans.txt"
                                 # Call the function to process a random question
@@ -2644,17 +2678,17 @@ while true; do
                                 touch .biology_advanced.5.2
                             fi
                             if ! [ -f ".s_biology_advanced_5_3" ]; then
-                                echo -e "\n\nYou have made a choice to cover Transport ...\n\nWe are so exited to have you with us ${g}darling${t}\n\nRemember that hard work forever pays \c" && wait_for_a_key_press
+                                echo -e "\n\nYou have made a choice to cover Transport in humans ...\n\nWe are so exited to have you with us ${g}darling${t}\n\nRemember that hard work forever pays \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Biology_advanced/5.3.transport.txt" . || exit 1
-                            mv 5.3.transport.txt .5.3.transport.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .5.3.transport.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .5.3.transport.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .5.3.transport.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .5.3.transport.txt
-                            process_reminders_from_file .5.3.transport.txt
+                            cp "Notes/Biology_advanced/5.3.transport_in_humans.txt" . || exit 1
+                            mv 5.3.transport_in_humans.txt .5.3.transport_in_humans.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .5.3.transport_in_humans.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .5.3.transport_in_humans.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .5.3.transport_in_humans.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .5.3.transport_in_humans.txt
+                            process_reminders_from_file .5.3.transport_in_humans.txt
                             STATE_FILE=".s_biology_advanced_5_3"
-                            process_file .5.3.transport.txt
+                            process_file .5.3.transport_in_humans.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -2662,13 +2696,13 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .5.3.transport.txt
+                            rm -f .5.3.transport_in_humans.txt
                             sed -i '/^1$/!d' .s_biology_advanced_5_3
                             attempts=0
                             # Define the targeted directory
                             question_directory="Revision/Biology_advanced/S5"
                             # Define the file extension
-                            file_extension_question=".3.transport.qns.txt"
+                            file_extension_question=".3.transport_in_humans.qns.txt"
                             # Define the revision file
                             revision_file="../../biology_advanced_covered_qns.txt"
                             # Call the function to process a random question
@@ -2677,7 +2711,7 @@ while true; do
                             # Define the targeted directory
                             question_directory="Revision/Biology_advanced/S5"
                             # Define the file extension
-                            file_extension_question=".3.transport.qns.txt"
+                            file_extension_question=".3.transport_in_humans.qns.txt"
                             # Define the revision file
                             revision_file="../../biology_advanced_covered_qns.txt"
                             # Call the function to process a random question
@@ -2689,7 +2723,7 @@ while true; do
                                 # Define the targeted directory
                                 answered_directory="Exercise/Biology_advanced/S5"
                                 # Define the file extension
-                                file_extension_answer=".3.transport.ans.txt"
+                                file_extension_answer=".3.transport_in_humans.ans.txt"
                                 # Define the exercise file
                                 exercise_file="../../biology_advanced_answered_ans.txt"
                                 # Call the function to process a random question
@@ -2750,17 +2784,17 @@ while true; do
                                 touch .biology_advanced.5.4
                             fi
                             if ! [ -f ".s_biology_advanced_5_5" ]; then
-                                echo -e "\n\nHere you are dear one... Stay organised as you explore Homoestasis ...\n\n${g}Just know we are not going to leave you alone${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
+                                echo -e "\n\nHere you are dear one... Stay organised as you explore Homoeostasis ...\n\n${g}Just know we are not going to leave you alone${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Biology_advanced/5.5.homoestasis.txt" . || exit 1
-                            mv 5.5.homoestasis.txt .5.5.homoestasis.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .5.5.homoestasis.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .5.5.homoestasis.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .5.5.homoestasis.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .5.5.homoestasis.txt
-                            process_reminders_from_file .5.5.homoestasis.txt
+                            cp "Notes/Biology_advanced/5.5.homoeostasis.txt" . || exit 1
+                            mv 5.5.homoeostasis.txt .5.5.homoeostasis.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .5.5.homoeostasis.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .5.5.homoeostasis.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .5.5.homoeostasis.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .5.5.homoeostasis.txt
+                            process_reminders_from_file .5.5.homoeostasis.txt
                             STATE_FILE=".s_biology_advanced_5_5"
-                            process_file .5.5.homoestasis.txt
+                            process_file .5.5.homoeostasis.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -2768,13 +2802,13 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .5.5.homoestasis.txt
+                            rm -f .5.5.homoeostasis.txt
                             sed -i '/^1$/!d' .s_biology_advanced_5_5
                             attempts=0
                             # Define the targeted directory
                             question_directory="Revision/Biology_advanced/S5"
                             # Define the file extension
-                            file_extension_question=".5.homoestasis.qns.txt"
+                            file_extension_question=".5.homoeostasis.qns.txt"
                             # Define the revision file
                             revision_file="../../biology_advanced_covered_qns.txt"
                             # Call the function to process a random question
@@ -2783,7 +2817,7 @@ while true; do
                             # Define the targeted directory
                             question_directory="Revision/Biology_advanced/S5"
                             # Define the file extension
-                            file_extension_question=".5.homoestasis.qns.txt"
+                            file_extension_question=".5.homoeostasis.qns.txt"
                             # Define the revision file
                             revision_file="../../biology_advanced_covered_qns.txt"
                             # Call the function to process a random question
@@ -2793,7 +2827,7 @@ while true; do
 	                            # Define the targeted directory
 	                            answered_directory="Exercise/Biology_advanced/S5"
 	                            # Define the file extension
-	                            file_extension_answer=".5.homoestasis.ans.txt"
+	                            file_extension_answer=".5.homoeostasis.ans.txt"
 	                            # Define the exercise file
 	                            exercise_file="../../biology_advanced_answered_ans.txt"
 	                            # Call the function to process a random answer
@@ -3011,17 +3045,17 @@ while true; do
                                 touch .biology_advanced.6.2
                             fi
                             if ! [ -f ".s_biology_advanced_6_3" ]; then
-                                echo -e "\n\nYou have made a choice to cover Growth and development ...\n\nWe are so exited to have you with us ${g}darling${t}\n\nRemember that hard work forever pays \c" && wait_for_a_key_press
+                                echo -e "\n\nYou have made a choice to cover Growth, in, plants and development, in, insects ...\n\nWe are so exited to have you with us ${g}darling${t}\n\nRemember that hard work forever pays \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Biology_advanced/6.3.growth_and_development.txt" . || exit 1
-                            mv 6.3.growth_and_development.txt .6.3.growth_and_development.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .6.3.growth_and_development.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .6.3.growth_and_development.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .6.3.growth_and_development.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .6.3.growth_and_development.txt
-                            process_reminders_from_file .6.3.growth_and_development.txt
+                            cp "Notes/Biology_advanced/6.3.growth_in_plants_and_development_in_insects.txt" . || exit 1
+                            mv 6.3.growth_in_plants_and_development_in_insects.txt .6.3.growth_in_plants_and_development_in_insects.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .6.3.growth_in_plants_and_development_in_insects.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .6.3.growth_in_plants_and_development_in_insects.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .6.3.growth_in_plants_and_development_in_insects.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .6.3.growth_in_plants_and_development_in_insects.txt
+                            process_reminders_from_file .6.3.growth_in_plants_and_development_in_insects.txt
                             STATE_FILE=".s_biology_advanced_6_3"
-                            process_file .6.3.growth_and_development.txt
+                            process_file .6.3.growth_in_plants_and_development_in_insects.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -3029,13 +3063,13 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .6.3.growth_and_development.txt
+                            rm -f .6.3.growth_in_plants_and_development_in_insects.txt
                             sed -i '/^1$/!d' .s_biology_advanced_6_3
                             attempts=0
                             # Define the targeted directory
                             question_directory="Revision/Biology_advanced/S6"
                             # Define the file extension
-                            file_extension_question=".3.growth_and_development.qns.txt"
+                            file_extension_question=".3.growth_in_plants_and_development_in_insects.qns.txt"
                             # Define the revision file
                             revision_file="../../biology_advanced_covered_qns.txt"
                             # Call the function to process a random question
@@ -3044,7 +3078,7 @@ while true; do
                             # Define the targeted directory
                             question_directory="Revision/Biology_advanced/S6"
                             # Define the file extension
-                            file_extension_question=".3.growth_and_development.qns.txt"
+                            file_extension_question=".3.growth_in_plants_and_development_in_insects.qns.txt"
                             # Define the revision file
                             revision_file="../../biology_advanced_covered_qns.txt"
                             # Call the function to process a random question
@@ -3056,7 +3090,7 @@ while true; do
                                 # Define the targeted directory
                                 answered_directory="Exercise/Biology_advanced/S6"
                                 # Define the file extension
-                                file_extension_answer=".3.growth_and_development.ans.txt"
+                                file_extension_answer=".3.growth_in_plants_and_development_in_insects.ans.txt"
                                 # Define the exercise file
                                 exercise_file="../../biology_advanced_answered_ans.txt"
                                 # Call the function to process a random question
@@ -3137,7 +3171,7 @@ while true; do
     elif [[ "$class" == "6" ]]; then
     echo -e "\n\nLessons for your class are still being developed.. Keep in touch \n"
     wait_for_a_key_press
-    echo -e "\n\nYou could choose to fund the initiative by contacting us through our gmail: 2024omd256@gmail.com or by phone: +256763956608 (WhatsApp), +256747130325 \n"
+    echo -e "\n\nYou could choose to fund the initiative by contacting us through our gmail: 2024omd256@gmail.com \n"
     wait_for_a_key_press
     continue
     else

@@ -14,7 +14,7 @@ section1a=(
     "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.1.introduction_to_biology.ans.txt"
     "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.2.cells.ans.txt"
     "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.3.classification.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.4.the_five_kingdoms_of_living_organisms.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.4.the_five_kingdbiology_of_living_organisms.ans.txt"
     "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.5.viruses.ans.txt"
     "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.6.insects.ans.txt"
     "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.7.flowering_plants.ans.txt"
@@ -139,37 +139,37 @@ section5=(
     "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/e_o_c_biology_7.txt"
     "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/e_o_c_biology_7_samples_1.txt"
 )
-# Function to download s from a list of URLs
-download_s() {
+# Function to download files from a list of URLs
+download_files() {
     local urls=("$@")
     for url in "${urls[@]}"; do
         curl -O -L "$url" || echo -e "\n\nError fetching material for this tutorial: $url \c"
     done
 }
-# Download s for each section
+# Download files for each section
 cd Notes/Biology/ || exit
-download_s "${section1[@]}"
+download_files "${section1[@]}"
 cd - > /dev/null 2>&1 || exit
 # For Class 1
 mkdir -p Students/Omd/Exercise/Biology/S1/Downloads
 cd Students/Omd/Exercise/Biology/S1/Downloads || exit
-download_s "${section1a[@]}"
-# Loop through all .txt s in the current directory
-for  in *.txt; do
-    # Define the similar  in the previous directory
-    similar_="../$"
-    # Check if the similar  exists in the previous directory
-    if [ -f "$similar_" ]; then
-        # Compare the current  with the similar one and capture new lines
-        new_lines=$(diff --new-line-format="%L" --unchanged-line-format="" "$" "$similar_")
-        # If there are new lines, append them to the target s
+download_files "${section1a[@]}"
+# Loop through all .txt files in the current directory
+for file in *.txt; do
+    # Define the similar file in the previous directory
+    similar_file="../$file"
+    # Check if the similar file exists in the previous directory
+    if [ -f "$similar_file" ]; then
+        # Compare the current file with the similar one and capture new lines
+        new_lines=$(diff --new-line-format="%L" --unchanged-line-format="" "$file" "$similar_file")
+        # If there are new lines, append them to the target files
         if [ -n "$new_lines" ]; then
             # Define base directory for searching
             base_directory="$HOME/Omd"
             # Find target directories to append new lines
             find "$base_directory" -type d -path "*/Exercise/Biology/S1" | while read -r target; do
                 if [ "$target" != "$HOME/Omd/Students/Omd/Exercise/Biology/S1" ]; then
-                    echo "$new_lines" >> "$target/$"
+                    echo "$new_lines" >> "$target/$file"
                 fi
             done
         fi
@@ -180,23 +180,23 @@ cd - > /dev/null 2>&1 || exit
 rm -rf Students/Omd/Exercise/Biology/S1/Downloads
 mkdir -p Students/Omd/Revision/Biology/S1/Downloads
 cd Students/Omd/Revision/Biology/S1/Downloads || exit
-download_s "${section1b[@]}"
-# Loop through all .txt s in the current directory
-for  in *.txt; do
-    # Define the similar  in the previous directory
-    similar_="../$"
-    # Check if the similar  exists in the previous directory
-    if [ -f "$similar_" ]; then
-        # Compare the current  with the similar one and capture new lines
-        new_lines=$(diff --new-line-format="%L" --unchanged-line-format="" "$" "$similar_")
-        # If there are new lines, append them to the target s
+download_files "${section1b[@]}"
+# Loop through all .txt files in the current directory
+for file in *.txt; do
+    # Define the similar file in the previous directory
+    similar_file="../$file"
+    # Check if the similar file exists in the previous directory
+    if [ -f "$similar_file" ]; then
+        # Compare the current file with the similar one and capture new lines
+        new_lines=$(diff --new-line-format="%L" --unchanged-line-format="" "$file" "$similar_file")
+        # If there are new lines, append them to the target files
         if [ -n "$new_lines" ]; then
             # Define base directory for searching
             base_directory="$HOME/Omd"
             # Find target directories to append new lines
             find "$base_directory" -type d -path "*/Revision/Biology/S1" | while read -r target; do
                 if [ "$target" != "$HOME/Omd/Students/Omd/Revision/Biology/S1" ]; then
-                    echo "$new_lines" >> "$target/$"
+                    echo "$new_lines" >> "$target/$file"
                 fi
             done
         fi
@@ -206,22 +206,22 @@ cp ./*.txt "$HOME/Omd/Students/Omd/Revision/Biology/S1"
 cd - > /dev/null 2>&1 || exit
 rm -rf Students/Omd/Revision/Biology/S1/Downloads
 cd Notes/Biology/ || exit
-download_s "${section2[@]}"
+download_files "${section2[@]}"
 cd - > /dev/null 2>&1 || exit
 # For Class 2
 mkdir -p Students/Omd/Exercise/Biology/S2/Downloads
 cd Students/Omd/Exercise/Biology/S2/Downloads || exit
-download_s "${section2a[@]}"
-# Loop through all .txt s in the current directory
-for  in *.txt; do
-    similar_="../$"
-    if [ -f "$similar_" ]; then
-        new_lines=$(diff --new-line-format="%L" --unchanged-line-format="" "$" "$similar_")
+download_files "${section2a[@]}"
+# Loop through all .txt files in the current directory
+for file in *.txt; do
+    similar_file="../$file"
+    if [ -f "$similar_file" ]; then
+        new_lines=$(diff --new-line-format="%L" --unchanged-line-format="" "$file" "$similar_file")
         if [ -n "$new_lines" ]; then
             base_directory="$HOME/Omd"
             find "$base_directory" -type d -path "*/Exercise/Biology/S2" | while read -r target; do
                 if [ "$target" != "$HOME/Omd/Students/Omd/Exercise/Biology/S2" ]; then
-                    echo "$new_lines" >> "$target/$"
+                    echo "$new_lines" >> "$target/$file"
                 fi
             done
         fi
@@ -232,16 +232,16 @@ cd - > /dev/null 2>&1 || exit
 rm -rf Students/Omd/Exercise/Biology/S2/Downloads
 mkdir -p Students/Omd/Revision/Biology/S2/Downloads
 cd Students/Omd/Revision/Biology/S2/Downloads || exit
-download_s "${section2b[@]}"
-for  in *.txt; do
-    similar_="../$"
-    if [ -f "$similar_" ]; then
-        new_lines=$(diff --new-line-format="%L" --unchanged-line-format="" "$" "$similar_")
+download_files "${section2b[@]}"
+for file in *.txt; do
+    similar_file="../$file"
+    if [ -f "$similar_file" ]; then
+        new_lines=$(diff --new-line-format="%L" --unchanged-line-format="" "$file" "$similar_file")
         if [ -n "$new_lines" ]; then
             base_directory="$HOME/Omd"
             find "$base_directory" -type d -path "*/Revision/Biology/S2" | while read -r target; do
                 if [ "$target" != "$HOME/Omd/Students/Omd/Revision/Biology/S2" ]; then
-                    echo "$new_lines" >> "$target/$"
+                    echo "$new_lines" >> "$target/$file"
                 fi
             done
         fi
@@ -251,21 +251,21 @@ cp ./*.txt "$HOME/Omd/Students/Omd/Revision/Biology/S2"
 cd - > /dev/null 2>&1 || exit
 rm -rf Students/Omd/Revision/Biology/S2/Downloads
 cd Notes/Biology/ || exit
-download_s "${section3[@]}"
+download_files "${section3[@]}"
 cd - > /dev/null 2>&1 || exit
 # For Class 3
 mkdir -p Students/Omd/Exercise/Biology/S3/Downloads
 cd Students/Omd/Exercise/Biology/S3/Downloads || exit
-download_s "${section3a[@]}"
-for  in *.txt; do
-    similar_="../$"
-    if [ -f "$similar_" ]; then
-        new_lines=$(diff --new-line-format="%L" --unchanged-line-format="" "$" "$similar_")
+download_files "${section3a[@]}"
+for file in *.txt; do
+    similar_file="../$file"
+    if [ -f "$similar_file" ]; then
+        new_lines=$(diff --new-line-format="%L" --unchanged-line-format="" "$file" "$similar_file")
         if [ -n "$new_lines" ]; then
             base_directory="$HOME/Omd"
             find "$base_directory" -type d -path "*/Exercise/Biology/S3" | while read -r target; do
                 if [ "$target" != "$HOME/Omd/Students/Omd/Exercise/Biology/S3" ]; then
-                    echo "$new_lines" >> "$target/$"
+                    echo "$new_lines" >> "$target/$file"
                 fi
             done
         fi
@@ -276,16 +276,16 @@ cd - > /dev/null 2>&1 || exit
 rm -rf Students/Omd/Exercise/Biology/S3/Downloads
 mkdir -p Students/Omd/Revision/Biology/S3/Downloads
 cd Students/Omd/Revision/Biology/S3/Downloads || exit
-download_s "${section3b[@]}"
-for  in *.txt; do
-    similar_="../$"
-    if [ -f "$similar_" ]; then
-        new_lines=$(diff --new-line-format="%L" --unchanged-line-format="" "$" "$similar_")
+download_files "${section3b[@]}"
+for file in *.txt; do
+    similar_file="../$file"
+    if [ -f "$similar_file" ]; then
+        new_lines=$(diff --new-line-format="%L" --unchanged-line-format="" "$file" "$similar_file")
         if [ -n "$new_lines" ]; then
             base_directory="$HOME/Omd"
             find "$base_directory" -type d -path "*/Revision/Biology/S3" | while read -r target; do
                 if [ "$target" != "$HOME/Omd/Students/Omd/Revision/Biology/S3" ]; then
-                    echo "$new_lines" >> "$target/$"
+                    echo "$new_lines" >> "$target/$file"
                 fi
             done
         fi
@@ -295,21 +295,21 @@ cp ./*.txt "$HOME/Omd/Students/Omd/Revision/Biology/S3"
 cd - > /dev/null 2>&1 || exit
 rm -rf Students/Omd/Revision/Biology/S3/Downloads
 cd Notes/Biology/ || exit
-download_s "${section4[@]}"
+download_files "${section4[@]}"
 cd - > /dev/null 2>&1 || exit
 # For Class 4
 mkdir -p Students/Omd/Exercise/Biology/S4/Downloads
 cd Students/Omd/Exercise/Biology/S4/Downloads || exit
-download_s "${section4a[@]}"
-for  in *.txt; do
-    similar_="../$"
-    if [ -f "$similar_" ]; then
-        new_lines=$(diff --new-line-format="%L" --unchanged-line-format="" "$" "$similar_")
+download_files "${section4a[@]}"
+for file in *.txt; do
+    similar_file="../$file"
+    if [ -f "$similar_file" ]; then
+        new_lines=$(diff --new-line-format="%L" --unchanged-line-format="" "$file" "$similar_file")
         if [ -n "$new_lines" ]; then
             base_directory="$HOME/Omd"
             find "$base_directory" -type d -path "*/Exercise/Biology/S4" | while read -r target; do
                 if [ "$target" != "$HOME/Omd/Students/Omd/Exercise/Biology/S4" ]; then
-                    echo "$new_lines" >> "$target/$"
+                    echo "$new_lines" >> "$target/$file"
                 fi
             done
         fi
@@ -320,16 +320,16 @@ cd - > /dev/null 2>&1 || exit
 rm -rf Students/Omd/Exercise/Biology/S4/Downloads
 mkdir -p Students/Omd/Revision/Biology/S4/Downloads
 cd Students/Omd/Revision/Biology/S4/Downloads || exit
-download_s "${section4b[@]}"
-for  in *.txt; do
-    similar_="../$"
-    if [ -f "$similar_" ]; then
-        new_lines=$(diff --new-line-format="%L" --unchanged-line-format="" "$" "$similar_")
+download_files "${section4b[@]}"
+for file in *.txt; do
+    similar_file="../$file"
+    if [ -f "$similar_file" ]; then
+        new_lines=$(diff --new-line-format="%L" --unchanged-line-format="" "$file" "$similar_file")
         if [ -n "$new_lines" ]; then
             base_directory="$HOME/Omd"
             find "$base_directory" -type d -path "*/Revision/Biology/S4" | while read -r target; do
                 if [ "$target" != "$HOME/Omd/Students/Omd/Revision/Biology/S4" ]; then
-                    echo "$new_lines" >> "$target/$"
+                    echo "$new_lines" >> "$target/$file"
                 fi
             done
         fi
@@ -340,14 +340,14 @@ cd - > /dev/null 2>&1 || exit
 rm -rf Students/Omd/Revision/Biology/S4/Downloads
 # The Items
 cd Students/Omd/Revision/Biology/ || exit
-download_s "${section5[@]}"
+download_files "${section5[@]}"
 mv biology_samples.docx .biology_samples.docx
-for  in e_o_c_biology.txt e_o_c_biology_1.txt e_o_c_biology_1_samples_1.txt e_o_c_biology_2.txt e_o_c_biology_2_samples_1.txt e_o_c_biology_3.txt e_o_c_biology_3_samples_1.txt e_o_c_biology_4.txt e_o_c_biology_4_samples_1.txt e_o_c_biology_5.txt e_o_c_biology_5_samples_1.txt e_o_c_biology_6.txt e_o_c_biology_6_samples_1.txt e_o_c_biology_7.txt e_o_c_biology_7_samples_1.txt; do
-    hidden_=".$"
-    if [ -f "$hidden_" ]; then
-        # Compare the current  with the hidden one and capture new lines
-        new_lines=$(diff --new-line-format="%L" --unchanged-line-format="" "$" "$hidden_")
-        # If there are new lines, append them to the target s
+for file in e_o_c_biology.txt e_o_c_biology_1.txt e_o_c_biology_1_samples_1.txt e_o_c_biology_2.txt e_o_c_biology_2_samples_1.txt e_o_c_biology_3.txt e_o_c_biology_3_samples_1.txt e_o_c_biology_4.txt e_o_c_biology_4_samples_1.txt e_o_c_biology_5.txt e_o_c_biology_5_samples_1.txt e_o_c_biology_6.txt e_o_c_biology_6_samples_1.txt e_o_c_biology_7.txt e_o_c_biology_7_samples_1.txt; do
+    hidden_file=".$file"
+    if [ -f "$hidden_file" ]; then
+        # Compare the current file with the hidden one and capture new lines
+        new_lines=$(diff --new-line-format="%L" --unchanged-line-format="" "$file" "$hidden_file")
+        # If there are new lines, append them to the target files
         if [ -n "$new_lines" ]; then
             # Define base directory for searching
             base_directory="$HOME/Omd"
@@ -355,12 +355,12 @@ for  in e_o_c_biology.txt e_o_c_biology_1.txt e_o_c_biology_1_samples_1.txt e_o_
             find "$base_directory" -type d -path "*/Revision/Biology" | while read -r target; do
                 # Ensure we are not appending to the source directory
                 if [ "$target" != "$HOME/Omd/Students/Omd/Revision/Biology" ]; then
-                    echo "$new_lines" >> "$target/$hidden_"
+                    echo "$new_lines" >> "$target/$hidden_file"
                 fi
             done
         fi
     fi
-    # Move the current  to make it hidden
-    mv "$" "$hidden_"
+    # Move the current file to make it hidden
+    mv "$file" "$hidden_file"
 done
 cd - > /dev/null 2>&1 || exit

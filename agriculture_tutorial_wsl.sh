@@ -73,29 +73,29 @@ function load_state {
 
 # Function to handle user input for class selection
 function handle_class_input() {
-    if { [ -n "$last_class" ] || [ -z "$last_topic" ]; } && [ -f .ict_advanced_surveyor ]; then
+    if { [ -n "$last_class" ] || [ -z "$last_topic" ]; } && [ -f .agriculture_surveyor ]; then
 		while true; do
-	        read -rp $'\n\nPlease enter '"${r}5 or 6${t}"' to go to your class or '"${r}x${t}"' to exit'$'\n\n> ' class
+	        read -rp $'\n\nPlease enter '"${r}1 or 2 or 3 or 4${t}"' to go to your class or '"${r}x${t}"' to exit'$'\n\n> ' class
             if [ "$class" == "x" ]; then
                 exit
             fi
-		    # Check if .current_ict_advanced_class is accidentally empty
-		    if [ ! -s .current_ict_advanced_class ]; then
-		        # echo 5 to .current_ict_advanced_class
-		        echo "5" > .current_ict_advanced_class
+		    # Check if .current_agriculture_class is accidentally empty
+		    if [ ! -s .current_agriculture_class ]; then
+		        # Echo 1 to .current_agriculture_class
+		        echo "1" > .current_agriculture_class
 		    fi
 		    # Read the value from the file
-		    current_ict_advanced_class=$(<.current_ict_advanced_class) 2>/dev/null
+		    current_agriculture_class=$(<.current_agriculture_class) 2>/dev/null
 		    # Check if the value is equal to $class
-		    if [ "$current_ict_advanced_class" -lt "$class" 2>/dev/null ]; then
+		    if [ "$current_agriculture_class" -lt "$class" 2>/dev/null ]; then
 		        echo -e "\n${y}Your progress can't be tracked.${t} ${g}You either havent completed your current final assignment${t} ${r}or${t}\n\nYour files have been interfered with! You need ${b}to go back${t} and progress the right way! \c"
 		        wait_for_a_key_press
 				continue
 			else
-	            rm -f "$ict_advanced_topic_selected"
+	            rm -f "$agriculture_topic_selected"
 	            # Update the state file with the class
 	            if [ "$class" != "x" ]; then
-	                echo "$class" > .ict_advanced_user_state 2>/dev/null
+	                echo "$class" > .agriculture_user_state 2>/dev/null
 	            fi
 				break
 	    	fi
@@ -103,43 +103,83 @@ function handle_class_input() {
     fi
 }
 
-# Function to handle S6 user input for topic selection
-function handle_s6_topic_input() {
+# Function to handle S4 user input for topic selection
+function handle_s4_topic_input() {
     if [ -f .resume_to_class ]; then
         rm -f .resume_to_class
-        rm -f .ict_advanced_topic_selected
+        rm -f .agriculture_topic_selected
     fi
-    if [ -z "$last_topic" ] || [ -f .ict_advanced_topic_selected ]; then
-        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. The internet and digital communications '"${r}Term1${t}"''$'\n\n2. Electronic publication '"${r}Term1${t}"''$'\n\n3. Electronic databases '"${r}Term2${t}"''$'\n\n4. Artificial intelligence and related emerging technologies '"${r}Term3${t}"''$'\n\n> ' topic
-        touch .ict_advanced_surveyor
-        touch .ict_advanced_topic_selected
+    if [ -z "$last_topic" ] || [ -f .agriculture_topic_selected ]; then
+        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4 or 5 or 6 or 7${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. Value addition to domestic milk products '"${r}Term1${t}"''$'\n\n2. Value addition to domestic meat products '"${r}Term1${t}"''$'\n\n3. Biotechnology and biosafety in agriculture '"${r}Term1${t}"''$'\n\n4. Land tenure system '"${r}Term2${t}"''$'\n\n5. Cooperatives and self-help groups '"${r}Term2${t}"''$'\n\n6. Value addition to agro-wastes and by-products '"${r}Term3${t}"''$'\n\n7. Either value addition to vegetables or value addition to fruits '"${r}Term3${t}"''$'\n\n> ' topic
+        touch .agriculture_surveyor
+        touch .agriculture_topic_selected
         # Update the state file with the topic
         # Check if the state file exists, and the topic is not "x"
-        if [ -f .ict_advanced_user_state ] && [ "$topic" != "x" ]; then
+        if [ -f .agriculture_user_state ] && [ "$topic" != "x" ]; then
             # Get the current class value from the state file
-            existing_class=$(awk '{print $1}' .ict_advanced_user_state)
+            existing_class=$(awk '{print $1}' .agriculture_user_state)
             # Update the state file with the topic, preserving the existing class value
-            echo "$existing_class $topic" > .ict_advanced_user_state 2>/dev/null
+            echo "$existing_class $topic" > .agriculture_user_state 2>/dev/null
         fi
     fi
 }
-# Function to handle S5 user input for topic selection
-function handle_s5_topic_input() {
+# Function to handle S3 user input for topic selection
+function handle_s3_topic_input() {
     if [ -f .resume_to_class ]; then
         rm -f .resume_to_class
-        rm -f .ict_advanced_topic_selected
+        rm -f .agriculture_topic_selected
     fi
-    if [ -z "$last_topic" ] || [ -f .ict_advanced_topic_selected ]; then
-        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4 or 5 or 6${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. Introduction to ICTs '"${r}Term1${t}"''$'\n\n2. Electronic presentation '"${r}Term1${t}"''$'\n\n3. Computer hardware '"${r}Term2${t}"''$'\n\n4. Computer software '"${r}Term2${t}"''$'\n\n5. Electronic word processing '"${r}Term3${t}"''$'\n\n6. Electronic spreadsheet '"${r}Term3${t}"''$'\n\n> ' topic
-        touch .ict_advanced_surveyor
-        touch .ict_advanced_topic_selected
+    if [ -z "$last_topic" ] || [ -f .agriculture_topic_selected ]; then
+        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4 or 5${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. Cattle production '"${r}Term1${t}"''$'\n\n2. Livestock feed making '"${r}Term2${t}"''$'\n\n3. Either pasture management and conservation or hydroponic farming '"${r}Term2${t}"''$'\n\n4. Financial services and money in agriculture '"${r}Term3${t}"''$'\n\n5. Farm buildings and farm structures '"${r}Term3${t}"''$'\n\n> ' topic
+        touch .agriculture_surveyor
+        touch .agriculture_topic_selected
         # Update the state file with the topic
         # Check if the state file exists, and the topic is not "x"
-        if [ -f .ict_advanced_user_state ] && [ "$topic" != "x" ]; then
+        if [ -f .agriculture_user_state ] && [ "$topic" != "x" ]; then
             # Get the current class value from the state file
-            existing_class=$(awk '{print $1}' .ict_advanced_user_state)
+            existing_class=$(awk '{print $1}' .agriculture_user_state)
             # Update the state file with the topic, preserving the existing class value
-            echo "$existing_class $topic" > .ict_advanced_user_state 2>/dev/null
+            echo "$existing_class $topic" > .agriculture_user_state 2>/dev/null
+        fi
+    fi
+}
+# Function to handle S2 user input for topic selection
+function handle_s2_topic_input() {
+    if [ -f .resume_to_class ]; then
+        rm -f .resume_to_class
+        rm -f .agriculture_topic_selected
+    fi
+    if [ -z "$last_topic" ] || [ -f .agriculture_topic_selected ]; then
+        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. Cereal growing '"${r}Term1${t}"''$'\n\n2. Either root and stem tuber growing or legume and oil seed '"${r}Term1${t}"''$'\n\n3. Domestic animal rearing '"${r}Term2${t}"''$'\n\n4. Perennial crop production '"${r}Term3${t}"''$'\n\n> ' topic
+        touch .agriculture_surveyor
+        touch .agriculture_topic_selected
+        # Update the state file with the topic
+        # Check if the state file exists, and the topic is not "x"
+        if [ -f .agriculture_user_state ] && [ "$topic" != "x" ]; then
+            # Get the current class value from the state file
+            existing_class=$(awk '{print $1}' .agriculture_user_state)
+            # Update the state file with the topic, preserving the existing class value
+            echo "$existing_class $topic" > .agriculture_user_state 2>/dev/null
+        fi
+    fi
+}
+# Function to handle S1 user input for topic selection
+function handle_s1_topic_input() {
+    if [ -f .resume_to_class ]; then
+        rm -f .resume_to_class
+        rm -f .agriculture_topic_selected
+    fi
+    if [ -z "$last_topic" ] || [ -f .agriculture_topic_selected ]; then
+        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. Introduction to agriculture '"${r}Term1${t}"''$'\n\n2. Farm tools, equipment and implements '"${r}Term2${t}"''$'\n\n3. Soil science '"${r}Term3${t}"''$'\n\n4. Vegetable growing '"${r}Term3${t}"''$'\n\n> ' topic
+        touch .agriculture_surveyor
+        touch .agriculture_topic_selected
+        # Update the state file with the topic
+        # Check if the state file exists, and the topic is not "x"
+        if [ -f .agriculture_user_state ] && [ "$topic" != "x" ]; then
+            # Get the current class value from the state file
+            existing_class=$(awk '{print $1}' .agriculture_user_state)
+            # Update the state file with the topic, preserving the existing class value
+            echo "$existing_class $topic" > .agriculture_user_state 2>/dev/null
         fi
     fi
 }
@@ -155,7 +195,7 @@ process_reminders_from_file() {
     # Read the file line by line
     prev_sentence=""
     echo_next=false
-	echo -n > .ict_advanced_reminder
+	echo -n > .agriculture_reminder
 
     while IFS= read -r line || [ -n "$line" ]; do
         # Use a semi-colon as a secondary delimiter and read into an array
@@ -170,7 +210,7 @@ process_reminders_from_file() {
                 # Split the obtained sentence into multiple sentences using a comma as the delimiter
                 IFS=',' read -ra split_sentences <<< "$sentence"
                 for split_sentence in "${split_sentences[@]}"; do
-					echo "$split_sentence" >> .ict_advanced_reminder
+					echo "$split_sentence" >> .agriculture_reminder
                 done
             echo_next=false
             fi
@@ -179,7 +219,7 @@ process_reminders_from_file() {
 
                 lower_cased_sentence=${sentence,}
 
-                echo "Did you know that $lower_cased_sentence" >> .ict_advanced_reminder
+                echo "Did you know that $lower_cased_sentence" >> .agriculture_reminder
 
                 # Set flag to echo the next sentence
                 echo_next=true
@@ -189,22 +229,22 @@ process_reminders_from_file() {
 
     			lower_cased_sentence=${sentence,}
 
- 				echo "Did you know that $lower_cased_sentence;" >> .ict_advanced_reminder
+ 				echo "Did you know that $lower_cased_sentence;" >> .agriculture_reminder
 
 			elif [[ "$sentence" =~ ^(An\ |A\ ) && "$sentence" =~ (\ is\ ) ]]; then
 
 				lower_cased_sentence=${sentence,}
 
-    			echo "Do you recall that $lower_cased_sentence;" >> .ict_advanced_reminder
+    			echo "Do you recall that $lower_cased_sentence;" >> .agriculture_reminder
 
 			elif [[ "$sentence" =~ " → " ]]; then
-    			echo "Hope you know that: $sentence;" >> .ict_advanced_reminder
+    			echo "Hope you know that: $sentence;" >> .agriculture_reminder
 
             elif [[ "$sentence" =~ " ↔ " ]]; then
-                echo "Hope you know that: $sentence;" >> .ict_advanced_reminder
+                echo "Hope you know that: $sentence;" >> .agriculture_reminder
 
             elif [[ "$sentence" =~ (Generally|general) ]]; then
-                echo "Note: $sentence;" >> .ict_advanced_reminder
+                echo "Note: $sentence;" >> .agriculture_reminder
 
 			fi
         done
@@ -222,13 +262,13 @@ process_random_reminder() {
         exit 1
     fi
 
-    # Check if .ict_advanced_reminder exists
-    if [ -f .ict_advanced_reminder ]; then
-		# Remove empty lines from .ict_advanced_reminder
-    	sed -i '/^[[:space:]]*$/d' .ict_advanced_reminder 2>/dev/null
+    # Check if .agriculture_reminder exists
+    if [ -f .agriculture_reminder ]; then
+		# Remove empty lines from .agriculture_reminder
+    	sed -i '/^[[:space:]]*$/d' .agriculture_reminder 2>/dev/null
         # Randomly select a non-empty sentence
         local reminder  # Declare the variable
-		reminder=$(awk -v RS=';' 'BEGIN{srand();}{gsub(/^[[:space:]]+|[[:space:]]+$/, ""); if (length > 0) a[++n]=$0}END{if (n > 0) print a[int(rand()*n)+1]}' .ict_advanced_reminder)
+		reminder=$(awk -v RS=';' 'BEGIN{srand();}{gsub(/^[[:space:]]+|[[:space:]]+$/, ""); if (length > 0) a[++n]=$0}END{if (n > 0) print a[int(rand()*n)+1]}' .agriculture_reminder)
         # Check if selected sentence is not empty and contains non-whitespace characters
         if [[ -n "$reminder" && "$reminder" =~ [[:graph:]] ]]; then
 			modified_reminder="\n\n$reminder"
@@ -553,8 +593,8 @@ process_file() {
                 if [[ -n "$sentence" && "$sentence" =~ [[:graph:]] ]]; then
                 if [[ $sentence == *"Figure"* ]]; then
                     modified_sentence=$(echo "$sentence" | sed 's/.*\(Figure.*\.jpg\).*$/\1/')
-                    # Change to the "Figures/Ict_advanced" directory
-                    cd Figures/Ict_advanced || { echo "Failed to change to Figures/Ict_advanced"; return; }
+                    # Change to the "Figures/Agriculture" directory
+                    cd Figures/Agriculture || { echo "Failed to change to Figures/Agriculture"; return; }
                     # Open the file using explorer.exe
                     explorer.exe "$modified_sentence" > /dev/null 2>&1 &
                     # Go back to the original directory
@@ -562,13 +602,13 @@ process_file() {
                 fi
 
                 if [[ $sentence == *"Table"* ]]; then
-                    cd Tables/Ict_advanced || { echo -e "\nFailed to change to Tables/Ict_advanced \c"; return; }
+                    cd Tables/Agriculture || { echo -e "\nFailed to change to Tables/Agriculture \c"; return; }
                     explorer.exe "$sentence" > /dev/null 2>&1 &
                     cd ../.. || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
                 fi
 
                 if [[ $sentence == *"Video"* ]]; then
-                    cd Videos/Ict_advanced || { echo -e "\nFailed to change to Videos/Ict_advanced \c"; return; }
+                    cd Videos/Agriculture || { echo -e "\nFailed to change to Videos/Agriculture \c"; return; }
                     explorer.exe "$sentence" > /dev/null 2>&1 &
                     cd ../.. || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
                 fi
@@ -612,7 +652,7 @@ process_file() {
 }
 
 contact_ai() {
-    last_topic=$(awk -F' ' '{print $2}' .ict_advanced_user_state)
+    last_topic=$(awk -F' ' '{print $2}' .agriculture_user_state)
     if [ -f .connect_to_ai ]; then
         echo ""
         # Connect to internet
@@ -638,12 +678,12 @@ while true; do
     # Check if user_input is not empty
     if [[ -n "$user_input" ]]; then
 		if [[ "$user_input" == "sh" ]]; then
-		    Response="We are looking forward to receiving your economic support, thoughts, suggestions, and any files you feel should reach out to everyone of our children. Please remember to label the files you are to attach using the format: Your_name_School_Ict_advanced_File_content (e.g., Muhumuza_Omega_Kasule_High_School_O_level_Chemistry_Answered_EOC1_Items.pdf). Thanks a lot for your contributions."    
-		    ict_advanced="$(basename "$0") - $(date +"%Y-%m-%d %H:%M:%S") - Thoughts, suggestions, and contributions"
-		    encoded_ict_advanced=$(echo "$ict_advanced" | sed 's/ /%20/g; s/\n/%0A/g')
+		    Response="We are looking forward to receiving your economic support, thoughts, suggestions, and any files you feel should reach out to everyone of our children. Please remember to label the files you are to attach using the format: Your_name_School_Agriculture_File_content (e.g., Muhumuza_Omega_Kasule_High_School_O_level_Chemistry_Answered_EOC1_Items.pdf). Thanks a lot for your contributions."    
+		    agriculture="$(basename "$0") - $(date +"%Y-%m-%d %H:%M:%S") - Thoughts, suggestions, and contributions"
+		    encoded_agriculture=$(echo "$agriculture" | sed 's/ /%20/g; s/\n/%0A/g')
 		    encoded_body=$(echo "$Response" | sed 's/ /%20/g; s/\n/%0A/g')
-		    # Open the email in the browser with the encoded ict_advanced and body
-		    powershell.exe -Command "Start-Process 'https://mail.google.com/mail/?view=cm&to=2024omd256@gmail.com&su=${encoded_ict_advanced}&body=${encoded_body}'"
+		    # Open the email in the browser with the encoded agriculture and body
+		    powershell.exe -Command "Start-Process 'https://mail.google.com/mail/?view=cm&to=2024omd256@gmail.com&su=${encoded_agriculture}&body=${encoded_body}'"
 			return
 		fi
          if [[ "$user_input" == "cl" ]]; then
@@ -665,7 +705,7 @@ while true; do
                 sleep 2
                 return
             fi
-            TEMP_FILE=$(mktemp) && curl -o "$TEMP_FILE" -L "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/ict_advanced_tutorial_wsl.sh" && mv "$TEMP_FILE" ict_advanced_tutorial_wsl.sh && chmod +x ict_advanced_tutorial_wsl.sh && echo -e "\n\n${y}Code successfully updated.. You will have to restart a new session${t} \c" && sleep 4 && exit || (echo -e "\n\n${m}Error updating code!... Please check your internet connection and try again!${t} \c" && rm -f "$TEMP_FILE" && return)
+            TEMP_FILE=$(mktemp) && curl -o "$TEMP_FILE" -L "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/agriculture_tutorial_wsl.sh" && mv "$TEMP_FILE" agriculture_tutorial_wsl.sh && chmod +x agriculture_tutorial_wsl.sh && echo -e "\n\n${y}Code successfully updated.. You will have to restart a new session${t} \c" && sleep 4 && exit || (echo -e "\n\n${m}Error updating code!... Please check your internet connection and try again!${t} \c" && rm -f "$TEMP_FILE" && return)
         fi
         if [[ "$user_input" == "xx" ]]; then
             current_datetime=$(date)
@@ -678,9 +718,9 @@ while true; do
                     sleep 2
                     return
                 fi
-                curl -O -L "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/update_ict_advanced.sh" || { echo -e "\n\n${m}Check your internet connection and try again!${t}" >&2; return; }
-                mv update_ict_advanced.sh .update_ict_advanced.sh
-                bash .update_ict_advanced.sh
+                curl -O -L "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/update_agriculture.sh" || { echo -e "\n\n${m}Check your internet connection and try again!${t}" >&2; return; }
+                mv update_agriculture.sh .update_agriculture.sh
+                bash .update_agriculture.sh
                 return
             else
                 return
@@ -697,10 +737,10 @@ while true; do
         # Use grep to find the pattern in a file
         if [[ "$user_input" == "${user_input^^}" ]]; then
             # Case-sensitive search for user input
-            result=$(grep -h -w -A 999999 "$user_input" Notes/Ict_advanced/*.txt | sed -e '1s/^/\n/' -e 's/\.\s\+/&\n\n/g' -e 's/;\s*/&\n/g' | sed '/https:/! s/^[^:]*://' | tr -d '\000' | sed 's/^ \([^ ]\)/\1/')
+            result=$(grep -h -w -A 999999 "$user_input" Notes/Agriculture/*.txt | sed -e '1s/^/\n/' -e 's/\.\s\+/&\n\n/g' -e 's/;\s*/&\n/g' | sed '/https:/! s/^[^:]*://' | tr -d '\000' | sed 's/^ \([^ ]\)/\1/')
         else
             # Case-insensitive search for user input
-            result=$(find Notes/Ict_advanced -type f -name "*.txt" -exec awk '{if (gsub(/\.\s+/,"&\n\n"FILENAME":")) print ""; print FILENAME":" $0}' {} \; | grep -i -w "$user_input" | sed -e 's/: /. /g' | awk -F: 'BEGIN {file="";} {if (file != $1) { print ""; print $1; file=$1; print ""; } print $2}' | sed -e '/https:/! s/^[^:]*://' -e '/^$/N;/^\n$/D' | sed 's/\.\s\+/&\n/g' | tr -d '\000' | grep -E "$user_input|.txt" | sed 's/$/\n/' | sed 's/;\s*/&\n/g')
+            result=$(find Notes/Agriculture -type f -name "*.txt" -exec awk '{if (gsub(/\.\s+/,"&\n\n"FILENAME":")) print ""; print FILENAME":" $0}' {} \; | grep -i -w "$user_input" | sed -e 's/: /. /g' | awk -F: 'BEGIN {file="";} {if (file != $1) { print ""; print $1; file=$1; print ""; } print $2}' | sed -e '/https:/! s/^[^:]*://' -e '/^$/N;/^\n$/D' | sed 's/\.\s\+/&\n/g' | tr -d '\000' | grep -E "$user_input|.txt" | sed 's/$/\n/' | sed 's/;\s*/&\n/g')
         fi
 
         # Check if the result is not empty
@@ -710,10 +750,10 @@ while true; do
             rm -f search.txt
             echo -e "\c"
             if echo "$result" | grep "Figure"; then
-                echo "$result" | grep -o '\bFigure[0-9]\+.*\.jpg\(\.[0-9]\+\)*\b' > Figures/Ict_advanced/figures.txt
-                sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' Figures/Ict_advanced/figures.txt
-                # Change to the "Figures/Ict_advanced" directory
-                cd Figures/Ict_advanced || { echo "Failed to change to Figures/Ict_advanced"; return; }
+                echo "$result" | grep -o '\bFigure[0-9]\+.*\.jpg\(\.[0-9]\+\)*\b' > Figures/Agriculture/figures.txt
+                sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' Figures/Agriculture/figures.txt
+                # Change to the "Figures/Agriculture" directory
+                cd Figures/Agriculture || { echo "Failed to change to Figures/Agriculture"; return; }
                 # Specify the path to the text file containing figure names
                 text_file="figures.txt"
                 # Read each line from the text file and open the corresponding figure
@@ -727,13 +767,13 @@ while true; do
                 # Go back to the original directory
                 cd ../.. || { echo "Failed to change back to the original directory \c"; exit 1; }
                 # Remove the temporary file
-                rm -f Figures/Ict_advanced/figures.txt
+                rm -f Figures/Agriculture/figures.txt
             fi
 
             if echo "$result" | grep "Table"; then
-                echo "$result" | grep -o '\bTable[0-9]\+\(\.[0-9]\+\)*\b' > Tables/Ict_advanced/tables.txt
-                sed -i -e '/^Table/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' Tables/Ict_advanced/tables.txt
-                cd Tables/Ict_advanced || { echo -e "\nFailed to change to Tables/Ict_advanced \c"; return; }
+                echo "$result" | grep -o '\bTable[0-9]\+\(\.[0-9]\+\)*\b' > Tables/Agriculture/tables.txt
+                sed -i -e '/^Table/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' Tables/Agriculture/tables.txt
+                cd Tables/Agriculture || { echo -e "\nFailed to change to Tables/Agriculture \c"; return; }
                 # Specify the path to the text file containing Table names
                 text_file="tables.txt"
                 # Read each line from the text file and open the corresponding table
@@ -747,16 +787,16 @@ while true; do
                 # Remove the temporary file
                 # Go back to the original directory
                 cd ../.. || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
-                rm -f Tables/Ict_advanced/tables.txt
+                rm -f Tables/Agriculture/tables.txt
             fi
 
             if echo "$result" | grep "Video"; then
-                #echo "$result" > Videos/Ict_advanced/videos.txt
-                echo "$result" | grep -o '\bVideo[0-9]\+\(\.[0-9]\+\)*\b' > Videos/Ict_advanced/videos.txt
+                #echo "$result" > Videos/Agriculture/videos.txt
+                echo "$result" | grep -o '\bVideo[0-9]\+\(\.[0-9]\+\)*\b' > Videos/Agriculture/videos.txt
                 # Remove lines not starting with "Video" and any leading/trailing whitespaces
-                sed -i -e '/^Video/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' Videos/Ict_advanced/videos.txt
-                # Change to the "Videos/Ict_advanced" directory
-                cd Videos/Ict_advanced || { echo -e "\nFailed to change to Videos/Ict_advanced \c"; return; }
+                sed -i -e '/^Video/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' Videos/Agriculture/videos.txt
+                # Change to the "Videos/Agriculture" directory
+                cd Videos/Agriculture || { echo -e "\nFailed to change to Videos/Agriculture \c"; return; }
                 # Specify the path to the text file containing video names
                 text_file="videos.txt"
                 while IFS= read -r video_prefix || [ -n "$video_prefix" ]; do
@@ -769,7 +809,7 @@ while true; do
                 # Go back to the original directory
                 cd ../.. || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
                 # Remove the temporary file
-                rm -f Videos/Ict_advanced/videos.txt
+                rm -f Videos/Agriculture/videos.txt
             fi
 
         else
@@ -822,10 +862,10 @@ while true; do
             echo -e "$selected_question;" >> "$revision_file"
 
             if echo "$selected_question" | grep "Figure"; then
-                echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../Figures/Ict_advanced/figures.txt
-                sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../Figures/Ict_advanced/figures.txt
-                # Change to the "Figures/Ict_advanced" directory
-                cd ../../Figures/Ict_advanced || { echo "Failed to change to Figures/Ict_advanced"; return; }
+                echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../Figures/Agriculture/figures.txt
+                sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../Figures/Agriculture/figures.txt
+                # Change to the "Figures/Agriculture" directory
+                cd ../../Figures/Agriculture || { echo "Failed to change to Figures/Agriculture"; return; }
                 # Specify the path to the text file containing figure names
                 text_file="figures.txt"
                 # Read each line from the selected question and open the corresponding figure
@@ -836,9 +876,9 @@ while true; do
                     explorer.exe "${edited_figure_prefix}"* > /dev/null 2>&1 &
                 done < "$text_file"
                 # Go back to the original directory
-                cd ../../Revision/Ict_advanced || { echo "Failed to change back to the targeted directory \c"; exit 1; }
+                cd ../../Revision/Agriculture || { echo "Failed to change back to the targeted directory \c"; exit 1; }
                 # Remove the temporary file
-                rm -f ../../Figures/Ict_advanced/figures.txt
+                rm -f ../../Figures/Agriculture/figures.txt
             fi
 
             # Create a temporary file
@@ -919,10 +959,10 @@ while true; do
             echo -e "$selected_question;" >> "$revision_file"
 
             if echo "$selected_question" | grep "Figure"; then
-                echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../Figures/Ict_advanced/figures.txt
-                sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../Figures/Ict_advanced/figures.txt
-                # Change to the "Figures/Ict_advanced" directory
-                cd ../../Figures/Ict_advanced || { echo "Failed to change to Figures/Ict_advanced"; return; }
+                echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../Figures/Agriculture/figures.txt
+                sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../Figures/Agriculture/figures.txt
+                # Change to the "Figures/Agriculture" directory
+                cd ../../Figures/Agriculture || { echo "Failed to change to Figures/Agriculture"; return; }
                 # Specify the path to the text file containing figure names
                 text_file="figures.txt"
                 # Read each line from the selected question and open the corresponding figure
@@ -933,9 +973,9 @@ while true; do
                     explorer.exe "${edited_figure_prefix}"* > /dev/null 2>&1 &
                 done < "$text_file"
                 # Go back to the original directory
-                cd ../../Revision/Ict_advanced || { echo "Failed to change back to the targeted directory \c"; exit 1; }
+                cd ../../Revision/Agriculture || { echo "Failed to change back to the targeted directory \c"; exit 1; }
                 # Remove the temporary file
-                rm -f ../../Figures/Ict_advanced/figures.txt
+                rm -f ../../Figures/Agriculture/figures.txt
             fi
 
             # Create a temporary file
@@ -1173,10 +1213,10 @@ process_question_answer() {
                 echo "${selected_question//(/$'\n'}"
 
                 if echo "$selected_question" | grep "Figure"; then
-                    echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../Figures/Ict_advanced/figures.txt
-                    sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../Figures/Ict_advanced/figures.txt
-                    # Change to the "Figures/Ict_advanced" directory
-                    cd ../../Figures/Ict_advanced || { echo "Failed to change to Figures/Ict_advanced"; return; }
+                    echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../Figures/Agriculture/figures.txt
+                    sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../Figures/Agriculture/figures.txt
+                    # Change to the "Figures/Agriculture" directory
+                    cd ../../Figures/Agriculture || { echo "Failed to change to Figures/Agriculture"; return; }
                     # Specify the path to the text file containing figure names
                     text_file="figures.txt"
                     # Read each line from the selected question and open the corresponding figure
@@ -1187,9 +1227,9 @@ process_question_answer() {
                         explorer.exe "${edited_figure_prefix}"* > /dev/null 2>&1 &
                     done < "$text_file"
                     # Go back to the original directory
-                    cd ../../Revision/Ict_advanced || { echo "Failed to change back to the targeted directory \c"; exit 1; }
+                    cd ../../Revision/Agriculture || { echo "Failed to change back to the targeted directory \c"; exit 1; }
                     # Remove the temporary file
-                    rm -f ../../Figures/Ict_advanced/figures.txt
+                    rm -f ../../Figures/Agriculture/figures.txt
                 fi
 
                 # Create a temporary file
@@ -1308,8 +1348,8 @@ process_question_answer() {
         school_name="${school_name// /_}"
         touch ../../../."$school_name"_students_file.txt
         sed -i '/^[[:space:]]*$/d' ../../../."$school_name"_students_file.txt
-        existing_class=$(awk '{print $1}' ../../../.ict_advanced_user_state)
-        existing_topic=$(awk '{print $2}' ../../../.ict_advanced_user_state)
+        existing_class=$(awk '{print $1}' ../../../.agriculture_user_state)
+        existing_topic=$(awk '{print $2}' ../../../.agriculture_user_state)
         echo ''
         if replace_prompt  'By just pressing Enter, the obtained score will be allocated to every recorded student... If otherwise, enter your Initial(s) (space-separated) to label the score' replacement; then
             replacement=${replacement^^}  # Convert to uppercase
@@ -1317,23 +1357,23 @@ process_question_answer() {
         else
             names=''
         fi
-        if grep -q "Ict_advanced" ../../../."$school_name"_students_file.txt; then
+        if grep -q "Agriculture" ../../../."$school_name"_students_file.txt; then
             sed -i -E 's/;/\n/g' ../../../."$school_name"_students_file.txt
-            # Find the line with the word Ict_advanced, replace the information below it with the already available information adding a comma existing_class_existing_topic [$percentage]
+            # Find the line with the word Agriculture, replace the information below it with the already available information adding a comma existing_class_existing_topic [$percentage]
             if [ "$existing_topic" == "r" ]; then
-                sed -i '/Ict_advanced/{n;s/\(.*\)/\1, '"$existing_class"'_'"$input"' '"$names"'['"$percentage%"']/}' ../../../."$school_name"_students_file.txt
+                sed -i '/Agriculture/{n;s/\(.*\)/\1, '"$existing_class"'_'"$input"' '"$names"'['"$percentage%"']/}' ../../../."$school_name"_students_file.txt
             else
                 (( existing_topic-- ))
-                sed -i '/Ict_advanced/{n;s/\(.*\)/\1, '"$existing_class"'_'"$existing_topic"' '"$names"'['"$percentage%"']/}' ../../../."$school_name"_students_file.txt
+                sed -i '/Agriculture/{n;s/\(.*\)/\1, '"$existing_class"'_'"$existing_topic"' '"$names"'['"$percentage%"']/}' ../../../."$school_name"_students_file.txt
             fi
         else
             if [ "$existing_topic" == "r" ]; then
-                sed -i -E '/^School/ i\Ict_advanced\n'"${existing_class} ${names}[${percentage}%]"'' ../../../."$school_name"_students_file.txt
-                echo -e "Ict_advanced\n"$existing_class"_'"$input"' "$names"["$percentage%"]" >> ../../../."$school_name"_students_file.txt
+                sed -i -E '/^School/ i\Agriculture\n'"${existing_class} ${names}[${percentage}%]"'' ../../../."$school_name"_students_file.txt
+                echo -e "Agriculture\n"$existing_class"_'"$input"' "$names"["$percentage%"]" >> ../../../."$school_name"_students_file.txt
             else
                 (( existing_topic-- ))
-                sed -i -E '/^School/ i\Ict_advanced\n'"${existing_class}_${existing_topic} ${names}[${percentage}%]"'' ../../../."$school_name"_students_file.txt
-                echo -e "Ict_advanced\n"$existing_class"_"$existing_topic" "$names"["$percentage%"]" >> ../../../."$school_name"_students_file.txt
+                sed -i -E '/^School/ i\Agriculture\n'"${existing_class}_${existing_topic} ${names}[${percentage}%]"'' ../../../."$school_name"_students_file.txt
+                echo -e "Agriculture\n"$existing_class"_"$existing_topic" "$names"["$percentage%"]" >> ../../../."$school_name"_students_file.txt
             fi
                 sed -i '1,2s/.*//g' ../../../."$school_name"_students_file.txt
                 sed -i '/^[[:space:]]*$/d' ../../../."$school_name"_students_file.txt
@@ -1417,12 +1457,12 @@ process_question_answer() {
 
 # Function to check the state file and resume from the last point
 function resume_from_last_point() {
-    if [ -f .ict_advanced_user_state ]; then
-        last_class=$(awk -F' ' '{print $1}' .ict_advanced_user_state)
-        last_topic=$(awk -F' ' '{print $2}' .ict_advanced_user_state)
+    if [ -f .agriculture_user_state ]; then
+        last_class=$(awk -F' ' '{print $1}' .agriculture_user_state)
+        last_topic=$(awk -F' ' '{print $2}' .agriculture_user_state)
         if [ -n "$last_class" ] && [ -n "$last_topic" ]; then
             echo -e "\n              Resuming from ${r}S$last_class${t} : ${g}Topic '$last_topic'${t} \c"
-            rm -f .ict_advanced_surveyor
+            rm -f .agriculture_surveyor
             clear_and_center "          ..........    Resumed from ${g}Topic $last_topic${t} (${r}S$last_class${t})    ............"
             return 0
         elif [ -n "$last_class" ] && [ -z "$last_topic" ]; then
@@ -1450,36 +1490,36 @@ function handle_resume_input() {
     read -rp $'\n\n\n   '"${y}Press Enter to resume from your last point. Otherwise, enter${t}"' (no or n) : ' resume_choice
     resume_choice=${resume_choice,,}  # Convert to lowercase
     if ! [[ "$resume_choice" == "no" || "$resume_choice" == "n" ]]; then
-        rm -f .ict_advanced_topic_selected
+        rm -f .agriculture_topic_selected
         if resume_from_last_point; then
             # User wants to resume
             class=$last_class
             topic=$last_topic
         fi
     else
-        touch .ict_advanced_surveyor
+        touch .agriculture_surveyor
     fi
 }
 
 # Function to select and process random questions with answers
 process_final_assignment() {
-    # Check if user is.ict_advanced_ready for the assignment
-    # Check if .current_ict_advanced_class is accidentally empty
-    if [ ! -s .current_ict_advanced_class ]; then
-        # echo 5 to .current_ict_advanced_class
-        echo "5" > .current_ict_advanced_class
+    # Check if user is.agriculture_ready for the assignment
+    # Check if .current_agriculture_class is accidentally empty
+    if [ ! -s .current_agriculture_class ]; then
+        # Echo 1 to .current_agriculture_class
+        echo "1" > .current_agriculture_class
     fi
-    # Read the value from the .current_ict_advanced_class file
-    current_ict_advanced_class=$(<.current_ict_advanced_class) 2>/dev/null
-    # Check if the value in the .ict_advanced_ready file is equal to $class
-    # Read the value from the .ict_advanced_ready file
-    if [ ! -s .ict_advanced_ready ]; then
-        echo "0" > .ict_advanced_ready
+    # Read the value from the .current_agriculture_class file
+    current_agriculture_class=$(<.current_agriculture_class) 2>/dev/null
+    # Check if the value in the .agriculture_ready file is equal to $class
+    # Read the value from the .agriculture_ready file
+    if [ ! -s .agriculture_ready ]; then
+        echo "0" > .agriculture_ready
     fi
-    how.ict_advanced_ready=$(<.ict_advanced_ready) 2>/dev/null
+    how.agriculture_ready=$(<.agriculture_ready) 2>/dev/null
     # Check if the value is equal to $class
-    if [ "$how.ict_advanced_ready" -lt "$current_ict_advanced_class" 2>/dev/null ]; then
-        read -rp $'\n\nYou havent done all the topic assignments for your current ict_advanced class\n\n'"${r}Proceeding from here will affect your very final score${y}"'. To go back and progress right, enter '"${y}ok${t}"'. Otherwise, press the Enter key to do the final class assignment: ' progress
+    if [ "$how.agriculture_ready" -lt "$current_agriculture_class" 2>/dev/null ]; then
+        read -rp $'\n\nYou havent done all the topic assignments for your current agriculture class\n\n'"${r}Proceeding from here will affect your very final score${y}"'. To go back and progress right, enter '"${y}ok${t}"'. Otherwise, press the Enter key to do the final class assignment: ' progress
         if [ "$progress" == "ok" ]; then
             return
         fi
@@ -1505,11 +1545,11 @@ process_final_assignment() {
             echo -e "\n\nSorry that took quite long... ${r}Exiting${t}... ${g}Please try atleast two more times${t} \c"
             exit 1
         fi
-        if [ -s ../../ict_advanced_answered_ans.txt ]; then
+        if [ -s ../../agriculture_answered_ans.txt ]; then
             # Specify the temporary file name within the current working directory
             cpd="./cpd.txt"
             # Copy answered questions to the temporary file
-            cp ../../ict_advanced_answered_ans.txt "$cpd"
+            cp ../../agriculture_answered_ans.txt "$cpd"
             sed -i 's/\(.*\)\(.\)$/\2\1/' "$cpd"
         fi
         # Remove empty lines from all text files
@@ -1548,10 +1588,10 @@ process_final_assignment() {
                     fi
 
                     if echo "$selected_question" | grep "Figure"; then
-                        echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../Figures/Ict_advanced/figures.txt
-                        sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../Figures/Ict_advanced/figures.txt
-                        # Change to the "Figures/Ict_advanced" directory
-                        cd ../../Figures/Ict_advanced || { echo "Failed to change to Figures/Ict_advanced"; return; }
+                        echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../Figures/Agriculture/figures.txt
+                        sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../Figures/Agriculture/figures.txt
+                        # Change to the "Figures/Agriculture" directory
+                        cd ../../Figures/Agriculture || { echo "Failed to change to Figures/Agriculture"; return; }
                         # Specify the path to the text file containing figure names
                         text_file="figures.txt"
                         # Read each line from the selected question and open the corresponding figure
@@ -1562,9 +1602,9 @@ process_final_assignment() {
                             explorer.exe "${edited_figure_prefix}"* > /dev/null 2>&1 &
                         done < "$text_file"
                         # Go back to the original directory
-                        cd ../../Revision/Ict_advanced || { echo "Failed to change back to the targeted directory \c"; exit 1; }
+                        cd ../../Revision/Agriculture || { echo "Failed to change back to the targeted directory \c"; exit 1; }
                         # Remove the temporary file
-                        rm -f ../../Figures/Ict_advanced/figures.txt
+                        rm -f ../../Figures/Agriculture/figures.txt
                     fi
                     # Create a temporary file
                     temp_file=$(mktemp)
@@ -1706,20 +1746,20 @@ process_final_assignment() {
                     cd ../..
                     wscript.exe //nologo sound2.vbs &
                     cd - > /dev/null 2>&1 || exit
-                    if ! [ -f .current_ict_advanced_class ]; then
+                    if ! [ -f .current_agriculture_class ]; then
                         # Echo the result to the file .current_class
-                        echo "2" > .current_ict_advanced_class
+                        echo "2" > .current_agriculture_class
                         echo -e "\n\n${g}Congratulations!${t}  You have successfully gained access to the next class (S2).\n\nHowever, if a diferrent class was expected, then something is wrong.\n\nFrom here, you will have to go back to go back to S2 and acess the next classes the right way \c"
                         wait_for_a_key_press
                     else
                         # Add 1 to $class value
                         new_class=$(($class + 1))
                         # Read the value from the file
-                        current_ict_advanced_class=$(<.current_ict_advanced_class) 2>/dev/null
-                        # Check if the new_class value is lt $current_ict_advanced_class
-                        if [ "$new_class" -gt "$current_ict_advanced_class" 2>/dev/null ]; then
+                        current_agriculture_class=$(<.current_agriculture_class) 2>/dev/null
+                        # Check if the new_class value is lt $current_agriculture_class
+                        if [ "$new_class" -gt "$current_agriculture_class" 2>/dev/null ]; then
 		                    # Echo the result to the file .current_class
-		                    echo "$new_class" > .current_ict_advanced_class
+		                    echo "$new_class" > .current_agriculture_class
                         fi
                         echo -e "\n\n${g}Congratulations!${t} You have successfully gained access to the next class! \c"
                         wait_for_a_key_press
@@ -1737,10 +1777,10 @@ process_final_assignment() {
 get_sample_items() {
 	# File to store the last echo time
     last_echo_time_file="/tmp/last_echo_time.txt"
-	rm -f .ict_advanced_topic_selected
+	rm -f .agriculture_topic_selected
     # Save the current working directory
     pushd . > /dev/null
-    cd Revision/Ict_advanced || { echo "Directory not found"; return; }
+    cd Revision/Agriculture || { echo "Directory not found"; return; }
 	if [ -f .revise.txt ] && [ ! -s .revise.txt ]; then
 	    rm -f .revise.txt
 	fi
@@ -1759,27 +1799,27 @@ get_sample_items() {
     	    time_diff=$((current_time - last_echo_time))
         	if [ $time_diff -gt 3600 ]; then
             	# Echo the message and update the last echo time
-	        	echo -e "\n\n\n${r}You are advised to not make any changes to the provided answers, instead, you can make copies that you can edit${t}\n\n${y}For a teacher willing to join us reach out to everyone of our children, please send us your questions and answers in a file labelled with your name, school, ict_advanced, and file content (e.g., Muhumuza_Omega_Kasule_High_School_O_level_Chemistry_Answered_EOC1_Items.pdf) to our contacts${t}\n\n\nEmail: ${g}2024omd256@gmail.com${t} \c"
+	        	echo -e "\n\n\n${r}You are advised to not make any changes to the provided answers, instead, you can make copies that you can edit${t}\n\n${y}For a teacher willing to join us reach out to everyone of our children, please send us your questions and answers in a file labelled with your name, school, agriculture, and file content (e.g., Muhumuza_Omega_Kasule_High_School_O_level_Chemistry_Answered_EOC1_Items.pdf) to our contacts${t}\n\n\nEmail: ${g}2024omd256@gmail.com${t} \c"
 				echo $current_time > "$last_echo_time_file"
     		fi
             read -rp $'\n\n\nEnter '"${m}any character${t}"' for access to the file of answered items or simply press '"${r}Enter${t}"' to get items to attempt : ' input
           	if [[ -n $input ]]; then
-          		explorer.exe .ict_advanced_samples* > /dev/null 2>&1 &
+          		explorer.exe .agriculture_samples* > /dev/null 2>&1 &
             	clear
             	popd > /dev/null || exit
                 return
             fi
-            if [ -f .e_o_c_ict_advanced.txt ]; then
+            if [ -f .e_o_c_agriculture.txt ]; then
                 echo -e "\n\n${y}Below is the list of the elements of construct${t} \n"
-                cat .e_o_c_ict_advanced.txt
+                cat .e_o_c_agriculture.txt
                 read -rp $'\nEnter a '"${m}specific${t}"' number or simply press '"${r}Enter${t}"' to get random sample items'$'\n> ' input
                 if [[ -n $input ]]; then
                     echo -e "\n${c}Below is the basis of assessment for the selected element of construct${t} \n"
-                    selected_file1=$(ls -a | grep -E "\.e_o_c_ict_advanced_${input}\.txt")
+                    selected_file1=$(ls -a | grep -E "\.e_o_c_agriculture_${input}\.txt")
                     cat "$selected_file1"
                     # Remove empty lines from the selected files
                     find . -type f -name "*_samples_[0-9].txt" -exec sed -i '/^[[:space:]]*$/d' {} +
-                    selected_file=$(ls -a | grep -E "\.e_o_c_ict_advanced_${input}_samples" | shuf -n 1)
+                    selected_file=$(ls -a | grep -E "\.e_o_c_agriculture_${input}_samples" | shuf -n 1)
                 else
                     # Find all files and randomly select one
                     local selected_file # Declare the variable
@@ -1833,7 +1873,7 @@ get_sample_items() {
         	        return
         	    fi
         	else
-            	explorer.exe .ict_advanced_samples* > /dev/null 2>&1 &
+            	explorer.exe .agriculture_samples* > /dev/null 2>&1 &
                 popd > /dev/null || exit
                 return
         	fi
@@ -1845,20 +1885,20 @@ get_sample_items() {
         			if [[ -n "$sentence" && "$sentence" =~ [[:graph:]] ]]; then
         	            if [[ $sentence == *"Figure"* ]]; then
         					modified_sentence=$(echo "$sentence" | sed 's/.*\(Figure.*\.jpg\).*$/\1/')
-                            # Change to the "../../Figures/Ict_advanced" directory
-                            cd ../../Figures/Ict_advanced || { echo "Failed to change to ../../Figures/Ict_advanced"; return; }
+                            # Change to the "../../Figures/Agriculture" directory
+                            cd ../../Figures/Agriculture || { echo "Failed to change to ../../Figures/Agriculture"; return; }
                             # Open the file using explorer.exe
                             explorer.exe "$modified_sentence" > /dev/null 2>&1 &
                             # Go back to the original directory
                             cd ../../../../ || { echo "Failed to change back to the original directory \c"; exit 1; }
                         fi
                         if [[ $sentence == *"Table"* ]]; then
-                            cd ../../Tables/Ict_advanced || { echo -e "\nFailed to change to ../../Tables/Ict_advanced \c"; return; }
+                            cd ../../Tables/Agriculture || { echo -e "\nFailed to change to ../../Tables/Agriculture \c"; return; }
                             explorer.exe "$sentence" > /dev/null 2>&1 &
                             cd ../../../../ || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
                         fi
                         if [[ $sentence == *"Video"* ]]; then
-                            cd ../../Videos/Ict_advanced || { echo -e "\nFailed to change to ../../Videos/Ict_advanced \c"; return; }
+                            cd ../../Videos/Agriculture || { echo -e "\nFailed to change to ../../Videos/Agriculture \c"; return; }
                             explorer.exe "$sentence" > /dev/null 2>&1 &
                             cd ../../../../ || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
                         fi
@@ -1900,20 +1940,20 @@ get_sample_items() {
         			if [[ -n "$sentence" && "$sentence" =~ [[:graph:]] ]]; then
         	            if [[ $sentence == *"Figure"* ]]; then
         					modified_sentence=$(echo "$sentence" | sed 's/.*\(Figure.*\.jpg\).*$/\1/')
-                            # Change to the "../../Figures/Ict_advanced" directory
-                            cd ../../Figures/Ict_advanced || { echo "Failed to change to ../../Figures/Ict_advanced"; return; }
+                            # Change to the "../../Figures/Agriculture" directory
+                            cd ../../Figures/Agriculture || { echo "Failed to change to ../../Figures/Agriculture"; return; }
                             # Open the file using explorer.exe
                             explorer.exe "$modified_sentence" > /dev/null 2>&1 &
                             # Go back to the original directory
                             cd ../../../../ || { echo "Failed to change back to the original directory \c"; exit 1; }
                         fi
                         if [[ $sentence == *"Table"* ]]; then
-                            cd ../../Tables/Ict_advanced || { echo -e "\nFailed to change to ../../Tables/Ict_advanced \c"; return; }
+                            cd ../../Tables/Agriculture || { echo -e "\nFailed to change to ../../Tables/Agriculture \c"; return; }
                             explorer.exe "$sentence" > /dev/null 2>&1 &
                             cd ../../../../ || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
                         fi
                         if [[ $sentence == *"Video"* ]]; then
-                            cd ../../Videos/Ict_advanced || { echo -e "\nFailed to change to ../../Videos/Ict_advanced \c"; return; }
+                            cd ../../Videos/Agriculture || { echo -e "\nFailed to change to ../../Videos/Agriculture \c"; return; }
                             explorer.exe "$sentence" > /dev/null 2>&1 &
                             cd ../../../../ || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
                         fi
@@ -1947,7 +1987,7 @@ get_sample_items() {
                 done
             done < .revise.txt
 	    fi
-        rm -f .revise.txt .ict_advanced_topic_selected 2>/dev/null
+        rm -f .revise.txt .agriculture_topic_selected 2>/dev/null
     done
     popd > /dev/null || exit
 	return
@@ -1980,8 +2020,8 @@ while true; do
     else
         mkdir "Students/$initials"
         cp -r Exercise Revision *_wsl.sh "Students/$initials"
-        echo -e "                                    $initials\n" > "Students/$initials/Exercise/ict_advanced_answered_ans.txt"
-        echo -e "                                    $initials\n" > "Students/$initials/Revision/ict_advanced_covered_qns.txt"
+        echo -e "                                    $initials\n" > "Students/$initials/Exercise/agriculture_answered_ans.txt"
+        echo -e "                                    $initials\n" > "Students/$initials/Revision/agriculture_covered_qns.txt"
         for file in "Students/$initials"/*.sh; do
             sed -i -e 's|Notes|../../Notes|g' -e 's|Videos|../../Videos|g' -e 's|Figures|../../Figures|g' -e 's|Students|../../Students|g' -e 's|Tables|../../Tables|g' -e 's#cd ../.. ||#cd - > /dev/null 2>\&1 ||#g' "$file"
             # Determining the correct path to the Desktop using the USERPROFILE environment variable
@@ -2131,13 +2171,13 @@ process_question_answer_adv() {
                     echo "${selected_question//(/$'\n'}"
                     echo "${selected_question//(/$'\n'}" > "$temp_file22"
                     if echo "$selected_question" | grep -q "Figure"; then
-                        echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../../Figures/Ict_advanced/figures.txt
-                        sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../../Figures/Ict_advanced/figures.txt
+                        echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../../Figures/Agriculture/figures.txt
+                        sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../../Figures/Agriculture/figures.txt
                         echo -e "\nNote: There is an attached figure!" >> "$temp_file22"
                         # Save the current working directory
                         pushd . > /dev/null
-                        # Change to the "Figures/Ict_advanced" directory
-                        cd ../../../Figures/Ict_advanced || { echo "Failed to change to Figures/Ict_advanced"; return; }
+                        # Change to the "Figures/Agriculture" directory
+                        cd ../../../Figures/Agriculture || { echo "Failed to change to Figures/Agriculture"; return; }
                         # Specify the path to the text file containing figure names
                         text_file="figures.txt"
                         while IFS= read -r figure_prefix || [ -n "$figure_prefix" ]; do
@@ -2269,8 +2309,8 @@ process_question_answer_adv() {
             school_name="${school_name// /_}"
             touch ../../../."$school_name"_students_file.txt
             sed -i '/^[[:space:]]*$/d' ../../../."$school_name"_students_file.txt
-            existing_class=$(awk '{print $1}' ../../../.ict_advanced_user_state)
-            existing_topic=$(awk '{print $2}' ../../../.ict_advanced_user_state)
+            existing_class=$(awk '{print $1}' ../../../.agriculture_user_state)
+            existing_topic=$(awk '{print $2}' ../../../.agriculture_user_state)
             echo ''
             if replace_prompt  'By just pressing Enter, the obtained score will be allocated to every recorded student... If otherwise, enter your Initial(s) (space-separated) to label the score' replacement; then
                 replacement=${replacement^^}  # Convert to uppercase
@@ -2278,23 +2318,23 @@ process_question_answer_adv() {
             else
                 names=''
             fi
-            if grep -q "Ict_advanced" ../../../."$school_name"_students_file.txt; then
+            if grep -q "Agriculture" ../../../."$school_name"_students_file.txt; then
                 sed -i -E 's/;/\n/g' ../../../."$school_name"_students_file.txt
-                # Find the line with the word Ict_advanced, replace the information below it with the already available information adding a comma existing_class_existing_topic [$percentage]
+                # Find the line with the word Agriculture, replace the information below it with the already available information adding a comma existing_class_existing_topic [$percentage]
                 if [ "$existing_topic" == "z" ]; then
-                    sed -i '/Ict_advanced/{n;s/\(.*\)/\1, '"$existing_class"' '"$names"'['"$percentage%"']/}' ../../../."$school_name"_students_file.txt
+                    sed -i '/Agriculture/{n;s/\(.*\)/\1, '"$existing_class"' '"$names"'['"$percentage%"']/}' ../../../."$school_name"_students_file.txt
                 else
                     (( existing_topic-- ))
-                    sed -i '/Ict_advanced/{n;s/\(.*\)/\1, '"$existing_class"'_'"$existing_topic"' '"$names"'['"$percentage%"']/}' ../../../."$school_name"_students_file.txt
+                    sed -i '/Agriculture/{n;s/\(.*\)/\1, '"$existing_class"'_'"$existing_topic"' '"$names"'['"$percentage%"']/}' ../../../."$school_name"_students_file.txt
                 fi
             else
                 if [ "$existing_topic" == "z" ]; then
-                    sed -i -E '/^School/ i\Ict_advanced\n'"${existing_class} ${names}[${percentage}%]"'' ../../../."$school_name"_students_file.txt
-                    echo -e "Ict_advanced\n"$existing_class" "$names"["$percentage%"]" >> ../../../."$school_name"_students_file.txt
+                    sed -i -E '/^School/ i\Agriculture\n'"${existing_class} ${names}[${percentage}%]"'' ../../../."$school_name"_students_file.txt
+                    echo -e "Agriculture\n"$existing_class" "$names"["$percentage%"]" >> ../../../."$school_name"_students_file.txt
                 else
                     (( existing_topic-- ))
-                    sed -i -E '/^School/ i\Ict_advanced\n'"${existing_class}_${existing_topic} ${names}[${percentage}%]"'' ../../../."$school_name"_students_file.txt
-                    echo -e "Ict_advanced\n"$existing_class"_"$existing_topic" "$names"["$percentage%"]" >> ../../../."$school_name"_students_file.txt
+                    sed -i -E '/^School/ i\Agriculture\n'"${existing_class}_${existing_topic} ${names}[${percentage}%]"'' ../../../."$school_name"_students_file.txt
+                    echo -e "Agriculture\n"$existing_class"_"$existing_topic" "$names"["$percentage%"]" >> ../../../."$school_name"_students_file.txt
                 fi
                 sed -i '1,2s/.*//g' ../../../."$school_name"_students_file.txt
                 sed -i '/^[[:space:]]*$/d' ../../../."$school_name"_students_file.txt
@@ -2379,17 +2419,17 @@ process_question_answer_adv() {
 { read -r key < "$HOME/.openai_api"; } 2>/dev/null
 export OPENAI_KEY="$key"
 
-if [ ! -f .ict_advanced_user_state ]; then
-	touch .ict_advanced_user_state
-	touch .ict_advanced_surveyor
+if [ ! -f .agriculture_user_state ]; then
+	touch .agriculture_user_state
+	touch .agriculture_surveyor
 	echo -e "\n\nYou can search your Notes by topic using uppercase letters or just feed in key words \c"
 	get_and_display_pattern
 else
-	process_random_reminder .ict_advanced_reminder
+	process_random_reminder .agriculture_reminder
 	handle_resume_input
 fi
 
-if [ -z "$class" ] && [ -s ".ict_advanced_user_state" ]; then
+if [ -z "$class" ] && [ -s ".agriculture_user_state" ]; then
     echo -e "\n\nYou can search your Notes by topic using uppercase letters or just feed in key words \c"
     get_and_display_pattern
 fi
@@ -2435,8 +2475,8 @@ if ! [ -d "Notes" ] || ! [ -d "Revision" ] || ! [ -d "Exercise" ] || ! [ -d "Vid
     cd "$dir_name" || exit
 
     # Create additional directories and files
-    mkdir -p Notes Notes/Ict_advanced Revision Revision/Ict_advanced Revision/Ict_advanced/{S5,S6} Exercise Exercise/Ict_advanced Exercise/Ict_advanced/{S5,S6} Videos Videos/Ict_advanced Figures Figures/Ict_advanced Tables Tables/Ict_advanced
-    touch Revision/ict_advanced_covered_qns.txt Exercise/ict_advanced_answered_ans.txt
+    mkdir -p Notes Notes/Agriculture Revision Revision/Agriculture Revision/Agriculture/{S1,S2,S3,S4} Exercise Exercise/Agriculture Exercise/Agriculture/{S1,S2,S3,S4} Videos Videos/Agriculture Figures Figures/Agriculture Tables Tables/Agriculture
+    touch Revision/agriculture_covered_qns.txt Exercise/agriculture_answered_ans.txt
     echo -e "\n"
     pwd
     echo -e "\n\n${t}The displayed path above is the path to your directory, please note it down \c"
@@ -2446,12 +2486,12 @@ if ! [ -d "Notes" ] || ! [ -d "Revision" ] || ! [ -d "Exercise" ] || ! [ -d "Vid
     ls "$PWD"
     wait_for_a_key_press
     echo -e "\n\n${t}For this tutorial, you will require current learning material from OMD in your current folder or directory\n\notherwise follow the procedure below to obtain the material \c"
-    cp ../ict_advanced_tutorial .
+    cp ../agriculture_tutorial .
     clear_and_center
     echo
 fi
 
-files=(Notes/Ict_advanced/*.txt)
+files=(Notes/Agriculture/*.txt)
 if [ ${#files[@]} -eq 0 ]; then
     read -rp $'\n\nTo get material for this tutorial, get your internet on and press the enter key or press any character key followed by the Enter key to exit: ' user_input
 
@@ -2468,10 +2508,10 @@ if [ ${#files[@]} -eq 0 ]; then
 
         curl -sS https://raw.githubusercontent.com/0xacx/chatGPT-shell-cli/main/install.sh | sudo -E bash > /dev/null 2>&1
 
-        curl -O -L https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.1.introduction_to_icts.txt || echo -e "\n\nError fetching material for this tutorial \c"
+        curl -O -L https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.1.introduction_to_agriculture.txt || echo -e "\n\nError fetching material for this tutorial \c"
 
         echo -e "\n\nYou got the first step covered.\n\nAs you progress, please, do all the available assignments as they will contribute to your final score.\n\nYou can get somewhere to write and we start \c"
-        cp 1.1.introduction_to_icts.txt Notes/Ict_advanced || echo -e "\n\nError copying 1.1.introduction_to_icts.txt to the Ict_advanced directory in the Notes directory \c"
+        cp 1.1.introduction_to_agriculture.txt Notes/Agriculture || echo -e "\n\nError copying 1.1.introduction_to_agriculture.txt to the Agriculture directory in the Notes directory \c"
         wait_for_a_key_press
     else
         echo -e "\n\nThere are files in the target sub directories in your Notes directory already, if it isn't intentional, please delete those files and try again \c"
@@ -2479,435 +2519,15 @@ if [ ${#files[@]} -eq 0 ]; then
         quit
     fi
 else
-    rm -f ../ict_advanced_tutorial 1.1.introduction_to_icts.txt
+    rm -f ../agriculture_tutorial 1.1.introduction_to_agriculture.txt
 fi
 
 while true; do
 
     handle_class_input
-    if [[ "$class" == "5" ]]; then
-        if ! find . -maxdepth 1 -name '.s_ict_advanced_5*' -type f -quit 2>/dev/null; then
-            echo -e "\n\n${g}Welcome to S5 Ict_advanced class${t}\n\n${y}Together, we are going to get you started${t} \c" && wait_for_a_key_press
-            echo -e "\n-------------------------------------- \c"
-            clear_and_center "There are ${r}6${t} topics to be covered. Your tasks will always expand or shrink to fit in the time you give them. For that reason, never procrastinate darling!"
-        fi
-        attempts=0
-        max_attempts=4
-        while true
-        do
-            while [ "$attempts" -lt "$max_attempts" ]
-            do
-                handle_s5_topic_input
-                touch .ict_advanced_topic_selected
-                if [[ "$topic" == "x" ]]
-                then
-                    quit
-                elif [[ "$topic" == "q" ]]
-                then
-                    attempts=0
-                    # Define the targeted directory
-                    question_directory="Revision/Ict_advanced/S5"
-                    # Define the file extension
-                    file_extension_question=".qns.txt"
-                    # Define the revision file
-                    revision_file="../../ict_advanced_covered_qns.txt"
-                    # Call the function to process a random question
-                    process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                elif [[ "$topic" == "a" ]]
-                then
-                    attempts=0
-                    # Define the targeted directory
-                    question_directory="Revision/Ict_advanced/S5"
-                    # Define the file extension
-                    file_extension_question=".qns.txt"
-                    # Define the revision file
-                    revision_file="../../ict_advanced_covered_qns.txt"
-                    # Call the function to process a random question
-                    process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                elif [[ "$topic" == "r" ]]
-                then
-                    attempts=0
-                    # Define the targeted directory
-                    answered_directory="Exercise/Ict_advanced/S5"
-                    # Define the file extension
-                    file_extension_answer=".ans.txt"
-                    # Define the exercise file
-                    exercise_file="../../ict_advanced_answered_ans.txt"
-                    # Call the function to process a random question
-                    process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                elif [[ "$topic" == "z" ]]
-                then
-                    attempts=0
-                    # Define the targeted directory
-                    answered_directory="Exercise/Ict_advanced/S5"
-                    # Define the file extension
-                    file_extension_answer=".ans.txt"
-                    # Define the exercise file
-                    exercise_file="../../ict_advanced_answered_ans.txt"
-                    # Call the function to process a random question
-                    process_question_answer_adv "$answered_directory" "$file_extension_answer" "$exercise_file"
-                elif [[ "$topic" == "s" ]]
-                then
-                    get_sample_items
-                    break
-                elif [[ "$topic" == "n" ]]
-                then
-                    attempts=0
-                    # Define the targeted directory
-                    answered_directory="Exercise/Ict_advanced/S5"
-                    # Define the file extension
-                    file_extension_answer=".ans.txt"
-                    # Define the exercise file
-                    exercise_file="../../ict_advanced_answered_ans.txt"
-                    # Call the function to process a random question
-                    process_final_assignment "$answered_directory" "$file_extension_answer" "$exercise_file"
-                elif [[ "$topic" == "p" ]]
-                then
-                    track_student_progress
-                elif [[ ! "$topic" =~ ^[1-6]$ || -z "$topic" ]]
-                then
-                    echo -e "\n\nTopic ${r}$topic not available${t}... Please choose from the available options\c"
-                    wait_for_a_key_press
-                else
-                    case "$topic" in
-                        1)
-                            if ! [ -f ".s_ict_advanced_5_1" ]; then
-                                echo -e "\n\nYou chose to explore Introduction to ICTs ...\n\nThank you for choosing to educate yourself!\n\nWe adore you ${g}darling${t} and wish you the very best! \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Ict_advanced/5.1.introduction_to_icts.txt" . || exit 1
-                            mv 5.1.introduction_to_icts.txt .5.1.introduction_to_icts.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .5.1.introduction_to_icts.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .5.1.introduction_to_icts.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .5.1.introduction_to_icts.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .5.1.introduction_to_icts.txt
-                            process_reminders_from_file .5.1.introduction_to_icts.txt
-                            STATE_FILE=".s_ict_advanced_5_1"
-                            process_file .5.1.introduction_to_icts.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .5.1.introduction_to_icts.txt
-                            sed -i '/^1$/!d' .s_ict_advanced_5_1
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Ict_advanced/S5"
-                            # Define the file extension
-                            file_extension=".1.introduction_to_icts.qns.txt"
-                            # Define the revision file
-                            revision_file="../../ict_advanced_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Ict_advanced/S5"
-                            # Define the file extension
-                            file_extension_question=".1.introduction_to_icts.qns.txt"
-                            # Define the revision file
-                            revision_file="../../ict_advanced_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        2)
-                            if ! [ -f ".ict_advanced.5.1" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Ict_advanced/S5"
-                                # Define the file extension
-                                file_extension_answer=".1.introduction_to_icts.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../ict_advanced_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .ict_advanced.5.1
-                            fi
-                            if ! [ -f ".s_ict_advanced_5_2" ]; then
-                                echo -e "\n\nYou happen to have decided to delve into Electronic presentation ...\n\nOnce again we treasure you ${g}dear one${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Ict_advanced/5.2.electronic_presentation.txt" . || exit 1
-                            mv 5.2.electronic_presentation.txt .5.2.electronic_presentation.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .5.2.electronic_presentation.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .5.2.electronic_presentation.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .5.2.electronic_presentation.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .5.2.electronic_presentation.txt
-                            process_reminders_from_file .5.2.electronic_presentation.txt
-                            STATE_FILE=".s_ict_advanced_5_2"
-                            process_file .5.2.electronic_presentation.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .5.2.electronic_presentation.txt
-                            sed -i '/^1$/!d' .s_ict_advanced_5_2
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Ict_advanced/S5"
-                            # Define the file extension
-                            file_extension_question=".2.electronic_presentation.qns.txt"
-                            # Define the revision file
-                            revision_file="../../ict_advanced_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Ict_advanced/S5"
-                            # Define the file extension
-                            file_extension_question=".2.electronic_presentation.qns.txt"
-                            # Define the revision file
-                            revision_file="../../ict_advanced_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        3)
-                            if ! [ -f ".ict_advanced.5.2" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Ict_advanced/S5"
-                                # Define the file extension
-                                file_extension_answer=".2.electronic_presentation.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../ict_advanced_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .ict_advanced.5.2
-                            fi
-                            if ! [ -f ".s_ict_advanced_5_3" ]; then
-                                echo -e "\n\nYou have made a choice to cover Computer hardware ...\n\nWe are so exited to have you with us ${g}darling${t}\n\nRemember that hard work forever pays \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Ict_advanced/5.3.computer_hardware.txt" . || exit 1
-                            mv 5.3.computer_hardware.txt .5.3.computer_hardware.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .5.3.computer_hardware.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .5.3.computer_hardware.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .5.3.computer_hardware.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .5.3.computer_hardware.txt
-                            process_reminders_from_file .5.3.computer_hardware.txt
-                            STATE_FILE=".s_ict_advanced_5_3"
-                            process_file .5.3.computer_hardware.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .5.3.computer_hardware.txt
-                            sed -i '/^1$/!d' .s_ict_advanced_5_3
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Ict_advanced/S5"
-                            # Define the file extension
-                            file_extension_question=".3.computer_hardware.qns.txt"
-                            # Define the revision file
-                            revision_file="../../ict_advanced_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Ict_advanced/S5"
-                            # Define the file extension
-                            file_extension_question=".3.computer_hardware.qns.txt"
-                            # Define the revision file
-                            revision_file="../../ict_advanced_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-						;;
-                        4)
-                            if ! [ -f ".ict_advanced.5.3" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Ict_advanced/S5"
-                                # Define the file extension
-                                file_extension_answer=".3.computer_hardware.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../ict_advanced_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .ict_advanced.5.3
-                            fi
-                            if ! [ -f ".s_ict_advanced_5_4" ]; then
-                                echo -e "\n\nYou did qualify to probe into the realm of Computer software ...\n\nWe do treasure you ${g}darling${t}. Just never forget, that no matter how prepared you are, to win gold, you have to follow instructions! \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Ict_advanced/5.4.computer_software.txt" . || exit 1
-                            mv 5.4.computer_software.txt .5.4.computer_software.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .5.4.computer_software.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .5.4.computer_software.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .5.4.computer_software.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .5.4.computer_software.txt
-                            process_reminders_from_file .5.4.computer_software.txt
-                            STATE_FILE=".s_ict_advanced_5_4"
-                            process_file .5.4.computer_software.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .5.4.computer_software.txt
-                            sed -i '/^1$/!d' .s_ict_advanced_5_4
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Ict_advanced/S5"
-                            # Define the file extension
-                            file_extension=".4.computer_software.qns.txt"
-                            # Define the revision file
-                            revision_file="../../ict_advanced_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Ict_advanced/S5"
-                            # Define the file extension
-                            file_extension_question=".4.computer_software.qns.txt"
-                            # Define the revision file
-                            revision_file="../../ict_advanced_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        5)
-                            if ! [ -f ".ict_advanced.5.4" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Ict_advanced/S5"
-                                # Define the file extension
-                                file_extension_answer=".4.computer_software.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../ict_advanced_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .ict_advanced.5.4
-                            fi
-                            if ! [ -f ".s_ict_advanced_5_5" ]; then
-                                echo -e "\n\nHere you are dear one... Stay organised as you explore Electronic word processing ...\n\n${g}Just know we are not going to leave you alone${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Ict_advanced/5.5.electronic_word_processing.txt" . || exit 1
-                            mv 5.5.electronic_word_processing.txt .5.5.electronic_word_processing.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .5.5.electronic_word_processing.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .5.5.electronic_word_processing.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .5.5.electronic_word_processing.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .5.5.electronic_word_processing.txt
-                            process_reminders_from_file .5.5.electronic_word_processing.txt
-                            STATE_FILE=".s_ict_advanced_5_5"
-                            process_file .5.5.electronic_word_processing.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .5.5.electronic_word_processing.txt
-                            sed -i '/^1$/!d' .s_ict_advanced_5_5
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Ict_advanced/S5"
-                            # Define the file extension
-                            file_extension_question=".5.electronic_word_processing.qns.txt"
-                            # Define the revision file
-                            revision_file="../../ict_advanced_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Ict_advanced/S5"
-                            # Define the file extension
-                            file_extension_question=".5.electronic_word_processing.qns.txt"
-                            # Define the revision file
-                            revision_file="../../ict_advanced_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        6)
-                            if ! [ -f ".ict_advanced.5.5" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Ict_advanced/S5"
-                                # Define the file extension
-                                file_extension_answer=".5.electronic_word_processing.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../ict_advanced_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .ict_advanced.5.5
-                            fi
-                            if ! [ -f ".s_ict_advanced_5_6" ]; then
-                                echo -e "\n\nYou have managed to make it to Electronic spreadsheet ...\n\n${g}Remember to pray always${t}\n\nThe fear of the Lord is the beginning of wisdom \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Ict_advanced/5.6.electronic_spreadsheet.txt" . || exit 1
-                            mv 5.6.electronic_spreadsheet.txt .5.6.electronic_spreadsheet.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .5.6.electronic_spreadsheet.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .5.6.electronic_spreadsheet.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .5.6.electronic_spreadsheet.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .5.6.electronic_spreadsheet.txt
-                            process_reminders_from_file .5.6.electronic_spreadsheet.txt
-                            STATE_FILE=".s_ict_advanced_5_6"
-                            process_file .5.6.electronic_spreadsheet.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .5.6.electronic_spreadsheet.txt
-                            sed -i '/^1$/!d' .s_ict_advanced_5_6
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Ict_advanced/S5"
-                            # Define the file extension
-                            file_extension_question=".6.electronic_spreadsheet.qns.txt"
-                            # Define the revision file
-                            revision_file="../../ict_advanced_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Ict_advanced/S5"
-                            # Define the file extension
-                            file_extension_question=".6.electronic_spreadsheet.qns.txt"
-                            # Define the revision file
-                            revision_file="../../ict_advanced_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                            if ! [ -f ".ict_advanced.5.6" ]; then
-	                            attempts=0
-	                            # Define the targeted directory
-	                            answered_directory="Exercise/Ict_advanced/S5"
-	                            # Define the file extension
-	                            file_extension_answer=".6.electronic_spreadsheet.ans.txt"
-	                            # Define the exercise file
-	                            exercise_file="../../ict_advanced_answered_ans.txt"
-	                            # Call the function to process a random answer
-	                            process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-								touch .ict_advanced.5.6
-								echo "5" > .ict_advanced_ready
-							fi
-                        ;;
-
-                        # Additional cases for other topics can be added here
-                        *)
-                            echo -e "\n\nInvalid topic number \c"
-                            continue
-                        ;;
-                    esac
-                    break  # Exit the inner loop after successfully handling user input
-                fi
-                ((attempts++))
-            done
-            # If the loop exits due to max_attempts, handle it
-            if [ "$attempts" -eq "$max_attempts" ]; then
-                quit1
-            fi
-        done
-    elif [[ "$class" == "6" ]]; then
-        if ! find . -maxdepth 1 -name '.s_ict_advanced_6*' -type f -quit 2>/dev/null; then
-            echo -e "\n\n${g}Welcome to S6 Ict_advanced class${t}\n\n${y}Together, we are going to get you started${t} \c" && wait_for_a_key_press
+    if [[ "$class" == "1" ]]; then
+        if ! find . -maxdepth 1 -name '.s_agriculture_1*' -type f -quit 2>/dev/null; then
+            echo -e "\n\n${g}Welcome to S1 Agriculture class${t}\n\n${y}Together, we are going to get you started${t} \c" && wait_for_a_key_press
             echo -e "\n-------------------------------------- \c"
             clear_and_center "There are ${r}4${t} topics to be covered. Your tasks will always expand or shrink to fit in the time you give them. For that reason, never procrastinate darling!"
         fi
@@ -2917,8 +2537,8 @@ while true; do
         do
             while [ "$attempts" -lt "$max_attempts" ]
             do
-                handle_s6_topic_input
-                touch .ict_advanced_topic_selected
+                handle_s1_topic_input
+                touch .agriculture_topic_selected
                 if [[ "$topic" == "x" ]]
                 then
                     quit
@@ -2926,44 +2546,44 @@ while true; do
                 then
                     attempts=0
                     # Define the targeted directory
-                    question_directory="Revision/Ict_advanced/S6"
+                    question_directory="Revision/Agriculture/S1"
                     # Define the file extension
                     file_extension_question=".qns.txt"
                     # Define the revision file
-                    revision_file="../../ict_advanced_covered_qns.txt"
+                    revision_file="../../agriculture_covered_qns.txt"
                     # Call the function to process a random question
                     process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
                 elif [[ "$topic" == "a" ]]
                 then
                     attempts=0
                     # Define the targeted directory
-                    question_directory="Revision/Ict_advanced/S6"
+                    question_directory="Revision/Agriculture/S1"
                     # Define the file extension
                     file_extension_question=".qns.txt"
                     # Define the revision file
-                    revision_file="../../ict_advanced_covered_qns.txt"
+                    revision_file="../../agriculture_covered_qns.txt"
                     # Call the function to process a random question
                     process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
                 elif [[ "$topic" == "r" ]]
                 then
                     attempts=0
                     # Define the targeted directory
-                    answered_directory="Exercise/Ict_advanced/S6"
+                    answered_directory="Exercise/Agriculture/S1"
                     # Define the file extension
                     file_extension_answer=".ans.txt"
                     # Define the exercise file
-                    exercise_file="../../ict_advanced_answered_ans.txt"
+                    exercise_file="../../agriculture_answered_ans.txt"
                     # Call the function to process a random question
                     process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
                 elif [[ "$topic" == "z" ]]
                 then
                     attempts=0
                     # Define the targeted directory
-                    answered_directory="Exercise/Ict_advanced/S6"
+                    answered_directory="Exercise/Agriculture/S1"
                     # Define the file extension
                     file_extension_answer=".ans.txt"
                     # Define the exercise file
-                    exercise_file="../../ict_advanced_answered_ans.txt"
+                    exercise_file="../../agriculture_answered_ans.txt"
                     # Call the function to process a random question
                     process_question_answer_adv "$answered_directory" "$file_extension_answer" "$exercise_file"
                 elif [[ "$topic" == "s" ]]
@@ -2974,11 +2594,11 @@ while true; do
                 then
                     attempts=0
                     # Define the targeted directory
-                    answered_directory="Exercise/Ict_advanced/S6"
+                    answered_directory="Exercise/Agriculture/S1"
                     # Define the file extension
                     file_extension_answer=".ans.txt"
                     # Define the exercise file
-                    exercise_file="../../ict_advanced_answered_ans.txt"
+                    exercise_file="../../agriculture_answered_ans.txt"
                     # Call the function to process a random question
                     process_final_assignment "$answered_directory" "$file_extension_answer" "$exercise_file"
                 elif [[ "$topic" == "p" ]]
@@ -2991,18 +2611,18 @@ while true; do
                 else
                     case "$topic" in
                         1)
-                            if ! [ -f ".s_ict_advanced_6_1" ]; then
-                                echo -e "\n\nYou chose to explore The internet and digital communications ...\n\nThank you for choosing to educate yourself!\n\nWe adore you ${g}darling${t} and wish you the very best! \c" && wait_for_a_key_press
+                            if ! [ -f ".s_agriculture_1_1" ]; then
+                                echo -e "\n\nYou chose to explore Introduction to agriculture ...\n\nThank you for choosing to educate yourself!\n\nWe adore you ${g}darling${t} and wish you the very best! \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Ict_advanced/6.1.the_internet_and_digital_communications.txt" . || exit 1
-                            mv 6.1.the_internet_and_digital_communications.txt .6.1.the_internet_and_digital_communications.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .6.1.the_internet_and_digital_communications.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .6.1.the_internet_and_digital_communications.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .6.1.the_internet_and_digital_communications.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .6.1.the_internet_and_digital_communications.txt
-                            process_reminders_from_file .6.1.the_internet_and_digital_communications.txt
-                            STATE_FILE=".s_ict_advanced_6_1"
-                            process_file .6.1.the_internet_and_digital_communications.txt
+                            cp "Notes/Agriculture/1.1.introduction_to_agriculture.txt" . || exit 1
+                            mv 1.1.introduction_to_agriculture.txt .1.1.introduction_to_agriculture.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .1.1.introduction_to_agriculture.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .1.1.introduction_to_agriculture.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .1.1.introduction_to_agriculture.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .1.1.introduction_to_agriculture.txt
+                            process_reminders_from_file .1.1.introduction_to_agriculture.txt
+                            STATE_FILE=".s_agriculture_1_1"
+                            process_file .1.1.introduction_to_agriculture.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -3010,52 +2630,52 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .6.1.the_internet_and_digital_communications.txt
-                            sed -i '/^1$/!d' .s_ict_advanced_6_1
+                            rm -f .1.1.introduction_to_agriculture.txt
+                            sed -i '/^1$/!d' .s_agriculture_1_1
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Ict_advanced/S6"
+                            question_directory="Revision/Agriculture/S1"
                             # Define the file extension
-                            file_extension=".1.the_internet_and_digital_communications.qns.txt"
+                            file_extension=".1.introduction_to_agriculture.qns.txt"
                             # Define the revision file
-                            revision_file="../../ict_advanced_covered_qns.txt"
+                            revision_file="../../agriculture_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension" "$revision_file"
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Ict_advanced/S6"
+                            question_directory="Revision/Agriculture/S1"
                             # Define the file extension
-                            file_extension_question=".1.the_internet_and_digital_communications.qns.txt"
+                            file_extension_question=".1.introduction_to_agriculture.qns.txt"
                             # Define the revision file
-                            revision_file="../../ict_advanced_covered_qns.txt"
+                            revision_file="../../agriculture_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
                         ;;
                         2)
-                            if ! [ -f ".ict_advanced.6.1" ]; then
+                            if ! [ -f ".agriculture.1.1" ]; then
                                 attempts=0
                                 # Define the targeted directory
-                                answered_directory="Exercise/Ict_advanced/S6"
+                                answered_directory="Exercise/Agriculture/S1"
                                 # Define the file extension
-                                file_extension_answer=".1.the_internet_and_digital_communications.ans.txt"
+                                file_extension_answer=".1.introduction_to_agriculture.ans.txt"
                                 # Define the exercise file
-                                exercise_file="../../ict_advanced_answered_ans.txt"
+                                exercise_file="../../agriculture_answered_ans.txt"
                                 # Call the function to process a random question
                                 process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .ict_advanced.6.1
+                                touch .agriculture.1.1
                             fi
-                            if ! [ -f ".s_ict_advanced_6_2" ]; then
-                                echo -e "\n\nYou happen to have decided to delve into Electronic publication ...\n\nOnce again we treasure you ${g}dear one${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
+                            if ! [ -f ".s_agriculture_1_2" ]; then
+                                echo -e "\n\nYou happen to have decided to delve into Farm, tools, equipment and implements ...\n\nOnce again we treasure you ${g}dear one${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Ict_advanced/6.2.electronic_publication.txt" . || exit 1
-                            mv 6.2.electronic_publication.txt .6.2.electronic_publication.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .6.2.electronic_publication.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .6.2.electronic_publication.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .6.2.electronic_publication.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .6.2.electronic_publication.txt
-                            process_reminders_from_file .6.2.electronic_publication.txt
-                            STATE_FILE=".s_ict_advanced_6_2"
-                            process_file .6.2.electronic_publication.txt
+                            cp "Notes/Agriculture/1.2.farm_tools_equipment_and_implements.txt" . || exit 1
+                            mv 1.2.farm_tools_equipment_and_implements.txt .1.2.farm_tools_equipment_and_implements.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .1.2.farm_tools_equipment_and_implements.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .1.2.farm_tools_equipment_and_implements.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .1.2.farm_tools_equipment_and_implements.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .1.2.farm_tools_equipment_and_implements.txt
+                            process_reminders_from_file .1.2.farm_tools_equipment_and_implements.txt
+                            STATE_FILE=".s_agriculture_1_2"
+                            process_file .1.2.farm_tools_equipment_and_implements.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -3063,52 +2683,52 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .6.2.electronic_publication.txt
-                            sed -i '/^1$/!d' .s_ict_advanced_6_2
+                            rm -f .1.2.farm_tools_equipment_and_implements.txt
+                            sed -i '/^1$/!d' .s_agriculture_1_2
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Ict_advanced/S6"
+                            question_directory="Revision/Agriculture/S1"
                             # Define the file extension
-                            file_extension_question=".2.electronic_publication.qns.txt"
+                            file_extension_question=".2.farm_tools_equipment_and_implements.qns.txt"
                             # Define the revision file
-                            revision_file="../../ict_advanced_covered_qns.txt"
+                            revision_file="../../agriculture_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Ict_advanced/S6"
+                            question_directory="Revision/Agriculture/S1"
                             # Define the file extension
-                            file_extension_question=".2.electronic_publication.qns.txt"
+                            file_extension_question=".2.farm_tools_equipment_and_implements.qns.txt"
                             # Define the revision file
-                            revision_file="../../ict_advanced_covered_qns.txt"
+                            revision_file="../../agriculture_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
                         ;;
                         3)
-                            if ! [ -f ".ict_advanced.6.2" ]; then
+                            if ! [ -f ".agriculture.1.2" ]; then
                                 attempts=0
                                 # Define the targeted directory
-                                answered_directory="Exercise/Ict_advanced/S6"
+                                answered_directory="Exercise/Agriculture/S1"
                                 # Define the file extension
-                                file_extension_answer=".2.electronic_publication.ans.txt"
+                                file_extension_answer=".2.farm_tools_equipment_and_implements.ans.txt"
                                 # Define the exercise file
-                                exercise_file="../../ict_advanced_answered_ans.txt"
+                                exercise_file="../../agriculture_answered_ans.txt"
                                 # Call the function to process a random question
                                 process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .ict_advanced.6.2
+                                touch .agriculture.1.2
                             fi
-                            if ! [ -f ".s_ict_advanced_6_3" ]; then
-                                echo -e "\n\nYou have made a choice to cover Electronic databases ...\n\nWe are so exited to have you with us ${g}darling${t}\n\nRemember that hard work forever pays \c" && wait_for_a_key_press
+                            if ! [ -f ".s_agriculture_1_3" ]; then
+                                echo -e "\n\nYou have made a choice to cover Soil science ...\n\nWe are so exited to have you with us ${g}darling${t}\n\nRemember that hard work forever pays \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Ict_advanced/6.3.electronic_databases.txt" . || exit 1
-                            mv 6.3.electronic_databases.txt .6.3.electronic_databases.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .6.3.electronic_databases.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .6.3.electronic_databases.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .6.3.electronic_databases.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .6.3.electronic_databases.txt
-                            process_reminders_from_file .6.3.electronic_databases.txt
-                            STATE_FILE=".s_ict_advanced_6_3"
-                            process_file .6.3.electronic_databases.txt
+                            cp "Notes/Agriculture/1.3.soil_science.txt" . || exit 1
+                            mv 1.3.soil_science.txt .1.3.soil_science.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .1.3.soil_science.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .1.3.soil_science.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .1.3.soil_science.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .1.3.soil_science.txt
+                            process_reminders_from_file .1.3.soil_science.txt
+                            STATE_FILE=".s_agriculture_1_3"
+                            process_file .1.3.soil_science.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -3116,52 +2736,52 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .6.3.electronic_databases.txt
-                            sed -i '/^1$/!d' .s_ict_advanced_6_3
+                            rm -f .1.3.soil_science.txt
+                            sed -i '/^1$/!d' .s_agriculture_1_3
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Ict_advanced/S6"
+                            question_directory="Revision/Agriculture/S1"
                             # Define the file extension
-                            file_extension_question=".3.electronic_databases.qns.txt"
+                            file_extension_question=".3.soil_science.qns.txt"
                             # Define the revision file
-                            revision_file="../../ict_advanced_covered_qns.txt"
+                            revision_file="../../agriculture_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Ict_advanced/S6"
+                            question_directory="Revision/Agriculture/S1"
                             # Define the file extension
-                            file_extension_question=".3.electronic_databases.qns.txt"
+                            file_extension_question=".3.soil_science.qns.txt"
                             # Define the revision file
-                            revision_file="../../ict_advanced_covered_qns.txt"
+                            revision_file="../../agriculture_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
 						;;
                         4)
-                            if ! [ -f ".ict_advanced.6.3" ]; then
+                            if ! [ -f ".agriculture.1.3" ]; then
                                 attempts=0
                                 # Define the targeted directory
-                                answered_directory="Exercise/Ict_advanced/S6"
+                                answered_directory="Exercise/Agriculture/S1"
                                 # Define the file extension
-                                file_extension_answer=".3.electronic_databases.ans.txt"
+                                file_extension_answer=".3.soil_science.ans.txt"
                                 # Define the exercise file
-                                exercise_file="../../ict_advanced_answered_ans.txt"
+                                exercise_file="../../agriculture_answered_ans.txt"
                                 # Call the function to process a random question
                                 process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .ict_advanced.6.3
+                                touch .agriculture.1.3
                             fi
-                            if ! [ -f ".s_ict_advanced_6_4" ]; then
-                                echo -e "\n\nYou did qualify to probe into the realm of Artificial intelligence and related emerging technologies ...\n\nWe do treasure you ${g}darling${t}. Just never forget, that no matter how prepared you are, to win gold, you have to follow instructions! \c" && wait_for_a_key_press
+                            if ! [ -f ".s_agriculture_1_4" ]; then
+                                echo -e "\n\nYou did qualify to probe into the realm of Vegetable growing ...\n\nWe do treasure you ${g}darling${t}. Just never forget, that no matter how prepared you are, to win gold, you have to follow instructions! \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Ict_advanced/6.4.artificial_intelligence_and_related_emerging_technologies.txt" . || exit 1
-                            mv 6.4.artificial_intelligence_and_related_emerging_technologies.txt .6.4.artificial_intelligence_and_related_emerging_technologies.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .6.4.artificial_intelligence_and_related_emerging_technologies.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .6.4.artificial_intelligence_and_related_emerging_technologies.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .6.4.artificial_intelligence_and_related_emerging_technologies.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .6.4.artificial_intelligence_and_related_emerging_technologies.txt
-                            process_reminders_from_file .6.4.artificial_intelligence_and_related_emerging_technologies.txt
-                            STATE_FILE=".s_ict_advanced_6_4"
-                            process_file .6.4.artificial_intelligence_and_related_emerging_technologies.txt
+                            cp "Notes/Agriculture/1.4.vegetable_growing.txt" . || exit 1
+                            mv 1.4.vegetable_growing.txt .1.4.vegetable_growing.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .1.4.vegetable_growing.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .1.4.vegetable_growing.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .1.4.vegetable_growing.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .1.4.vegetable_growing.txt
+                            process_reminders_from_file .1.4.vegetable_growing.txt
+                            STATE_FILE=".s_agriculture_1_4"
+                            process_file .1.4.vegetable_growing.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -3169,38 +2789,1192 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .6.4.artificial_intelligence_and_related_emerging_technologies.txt
-                            sed -i '/^1$/!d' .s_ict_advanced_6_4
+                            rm -f .1.4.vegetable_growing.txt
+                            sed -i '/^1$/!d' .s_agriculture_1_4
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Ict_advanced/S6"
+                            question_directory="Revision/Agriculture/S1"
                             # Define the file extension
-                            file_extension=".4.artificial_intelligence_and_related_emerging_technologies.qns.txt"
+                            file_extension=".4.vegetable_growing.qns.txt"
                             # Define the revision file
-                            revision_file="../../ict_advanced_covered_qns.txt"
+                            revision_file="../../agriculture_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension" "$revision_file"
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Ict_advanced/S6"
+                            question_directory="Revision/Agriculture/S1"
                             # Define the file extension
-                            file_extension_question=".4.artificial_intelligence_and_related_emerging_technologies.qns.txt"
+                            file_extension_question=".4.vegetable_growing.qns.txt"
                             # Define the revision file
-                            revision_file="../../ict_advanced_covered_qns.txt"
+                            revision_file="../../agriculture_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                            if ! [ -f ".ict_advanced.6.4" ]; then
+                            if ! [ -f ".agriculture.1.4" ]; then
 	                            attempts=0
 	                            # Define the targeted directory
-	                            answered_directory="Exercise/Ict_advanced/S6"
+	                            answered_directory="Exercise/Agriculture/S1"
 	                            # Define the file extension
-	                            file_extension_answer=".4.artificial_intelligence_and_related_emerging_technologies.ans.txt"
+	                            file_extension_answer=".4.vegetable_growing.ans.txt"
 	                            # Define the exercise file
-	                            exercise_file="../../ict_advanced_answered_ans.txt"
+	                            exercise_file="../../agriculture_answered_ans.txt"
 	                            # Call the function to process a random answer
 	                            process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-								touch .ict_advanced.6.4
-								echo "6" > .ict_advanced_ready
+								touch .agriculture.1.4
+								echo "1" > .agriculture_ready
+							fi
+                        ;;
+
+                        # Additional cases for other topics can be added here
+                        *)
+                            echo -e "\n\nInvalid topic number \c"
+                            continue
+                        ;;
+                    esac
+                    break  # Exit the inner loop after successfully handling user input
+                fi
+                ((attempts++))
+            done
+            # If the loop exits due to max_attempts, handle it
+            if [ "$attempts" -eq "$max_attempts" ]; then
+                quit1
+            fi
+        done
+    elif [[ "$class" == "2" ]]; then
+        if ! find . -maxdepth 1 -name '.s_agriculture_2*' -type f -quit 2>/dev/null; then
+            echo -e "\n\n${g}Welcome to S2 Agriculture class${t}\n\n${y}Together, we are going to get you started${t} \c" && wait_for_a_key_press
+            echo -e "\n-------------------------------------- \c"
+            clear_and_center "There are ${r}4${t} topics to be covered. Your tasks will always expand or shrink to fit in the time you give them. For that reason, never procrastinate darling!"
+        fi
+        attempts=0
+        max_attempts=4
+        while true
+        do
+            while [ "$attempts" -lt "$max_attempts" ]
+            do
+                handle_s2_topic_input
+                touch .agriculture_topic_selected
+                if [[ "$topic" == "x" ]]
+                then
+                    quit
+                elif [[ "$topic" == "q" ]]
+                then
+                    attempts=0
+                    # Define the targeted directory
+                    question_directory="Revision/Agriculture/S2"
+                    # Define the file extension
+                    file_extension_question=".qns.txt"
+                    # Define the revision file
+                    revision_file="../../agriculture_covered_qns.txt"
+                    # Call the function to process a random question
+                    process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
+                elif [[ "$topic" == "a" ]]
+                then
+                    attempts=0
+                    # Define the targeted directory
+                    question_directory="Revision/Agriculture/S2"
+                    # Define the file extension
+                    file_extension_question=".qns.txt"
+                    # Define the revision file
+                    revision_file="../../agriculture_covered_qns.txt"
+                    # Call the function to process a random question
+                    process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+                elif [[ "$topic" == "r" ]]
+                then
+                    attempts=0
+                    # Define the targeted directory
+                    answered_directory="Exercise/Agriculture/S2"
+                    # Define the file extension
+                    file_extension_answer=".ans.txt"
+                    # Define the exercise file
+                    exercise_file="../../agriculture_answered_ans.txt"
+                    # Call the function to process a random question
+                    process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+                elif [[ "$topic" == "z" ]]
+                then
+                    attempts=0
+                    # Define the targeted directory
+                    answered_directory="Exercise/Agriculture/S2"
+                    # Define the file extension
+                    file_extension_answer=".ans.txt"
+                    # Define the exercise file
+                    exercise_file="../../agriculture_answered_ans.txt"
+                    # Call the function to process a random question
+                    process_question_answer_adv "$answered_directory" "$file_extension_answer" "$exercise_file"
+                elif [[ "$topic" == "s" ]]
+                then
+                    get_sample_items
+                    break
+                elif [[ "$topic" == "n" ]]
+                then
+                    attempts=0
+                    # Define the targeted directory
+                    answered_directory="Exercise/Agriculture/S2"
+                    # Define the file extension
+                    file_extension_answer=".ans.txt"
+                    # Define the exercise file
+                    exercise_file="../../agriculture_answered_ans.txt"
+                    # Call the function to process a random question
+                    process_final_assignment "$answered_directory" "$file_extension_answer" "$exercise_file"
+                elif [[ "$topic" == "p" ]]
+                then
+                    track_student_progress
+                elif [[ ! "$topic" =~ ^[1-4]$ || -z "$topic" ]]
+                then
+                    echo -e "\n\nTopic ${r}$topic not available${t}... Please choose from the available options\c"
+                    wait_for_a_key_press
+                else
+                    case "$topic" in
+                        1)
+                            if ! [ -f ".s_agriculture_2_1" ]; then
+                                echo -e "\n\nYou chose to explore Cereal growing ...\n\nThank you for choosing to educate yourself!\n\nWe adore you ${g}darling${t} and wish you the very best! \c" && wait_for_a_key_press
+                            fi
+                            cp "Notes/Agriculture/2.1.cereal_growing.txt" . || exit 1
+                            mv 2.1.cereal_growing.txt .2.1.cereal_growing.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .2.1.cereal_growing.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .2.1.cereal_growing.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .2.1.cereal_growing.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .2.1.cereal_growing.txt
+                            process_reminders_from_file .2.1.cereal_growing.txt
+                            STATE_FILE=".s_agriculture_2_1"
+                            process_file .2.1.cereal_growing.txt
+                            contact_ai
+                            if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
+                                rm -f .skip_exercises && break
+                            fi
+                            rm -f .2.1.cereal_growing.txt
+                            sed -i '/^1$/!d' .s_agriculture_2_1
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Agriculture/S2"
+                            # Define the file extension
+                            file_extension=".1.cereal_growing.qns.txt"
+                            # Define the revision file
+                            revision_file="../../agriculture_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_short_answer_question "$question_directory" "$file_extension" "$revision_file"
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Agriculture/S2"
+                            # Define the file extension
+                            file_extension_question=".1.cereal_growing.qns.txt"
+                            # Define the revision file
+                            revision_file="../../agriculture_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+                        ;;
+                        2)
+                            if ! [ -f ".agriculture.2.1" ]; then
+                                attempts=0
+                                # Define the targeted directory
+                                answered_directory="Exercise/Agriculture/S2"
+                                # Define the file extension
+                                file_extension_answer=".1.cereal_growing.ans.txt"
+                                # Define the exercise file
+                                exercise_file="../../agriculture_answered_ans.txt"
+                                # Call the function to process a random question
+                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+                                touch .agriculture.2.1
+                            fi
+                            if ! [ -f ".s_agriculture_2_2" ]; then
+                                echo -e "\n\nYou happen to have decided to delve into Root and stem, tuber, growing, or, legume, and, oil, seed ...\n\nOnce again we treasure you ${g}dear one${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
+                            fi
+                            cp "Notes/Agriculture/2.2.root_and_stem_tuber_growing_or_legume_and_oil_seed.txt" . || exit 1
+                            mv 2.2.root_and_stem_tuber_growing_or_legume_and_oil_seed.txt .2.2.root_and_stem_tuber_growing_or_legume_and_oil_seed.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .2.2.root_and_stem_tuber_growing_or_legume_and_oil_seed.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .2.2.root_and_stem_tuber_growing_or_legume_and_oil_seed.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .2.2.root_and_stem_tuber_growing_or_legume_and_oil_seed.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .2.2.root_and_stem_tuber_growing_or_legume_and_oil_seed.txt
+                            process_reminders_from_file .2.2.root_and_stem_tuber_growing_or_legume_and_oil_seed.txt
+                            STATE_FILE=".s_agriculture_2_2"
+                            process_file .2.2.root_and_stem_tuber_growing_or_legume_and_oil_seed.txt
+                            contact_ai
+                            if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
+                                rm -f .skip_exercises && break
+                            fi
+                            rm -f .2.2.root_and_stem_tuber_growing_or_legume_and_oil_seed.txt
+                            sed -i '/^1$/!d' .s_agriculture_2_2
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Agriculture/S2"
+                            # Define the file extension
+                            file_extension_question=".2.root_and_stem_tuber_growing_or_legume_and_oil_seed.qns.txt"
+                            # Define the revision file
+                            revision_file="../../agriculture_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Agriculture/S2"
+                            # Define the file extension
+                            file_extension_question=".2.root_and_stem_tuber_growing_or_legume_and_oil_seed.qns.txt"
+                            # Define the revision file
+                            revision_file="../../agriculture_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+                        ;;
+                        3)
+                            if ! [ -f ".agriculture.2.2" ]; then
+                                attempts=0
+                                # Define the targeted directory
+                                answered_directory="Exercise/Agriculture/S2"
+                                # Define the file extension
+                                file_extension_answer=".2.root_and_stem_tuber_growing_or_legume_and_oil_seed.ans.txt"
+                                # Define the exercise file
+                                exercise_file="../../agriculture_answered_ans.txt"
+                                # Call the function to process a random question
+                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+                                touch .agriculture.2.2
+                            fi
+                            if ! [ -f ".s_agriculture_2_3" ]; then
+                                echo -e "\n\nYou have made a choice to cover Domestic animal rearing ...\n\nWe are so exited to have you with us ${g}darling${t}\n\nRemember that hard work forever pays \c" && wait_for_a_key_press
+                            fi
+                            cp "Notes/Agriculture/2.3.domestic_animal_rearing.txt" . || exit 1
+                            mv 2.3.domestic_animal_rearing.txt .2.3.domestic_animal_rearing.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .2.3.domestic_animal_rearing.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .2.3.domestic_animal_rearing.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .2.3.domestic_animal_rearing.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .2.3.domestic_animal_rearing.txt
+                            process_reminders_from_file .2.3.domestic_animal_rearing.txt
+                            STATE_FILE=".s_agriculture_2_3"
+                            process_file .2.3.domestic_animal_rearing.txt
+                            contact_ai
+                            if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
+                                rm -f .skip_exercises && break
+                            fi
+                            rm -f .2.3.domestic_animal_rearing.txt
+                            sed -i '/^1$/!d' .s_agriculture_2_3
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Agriculture/S2"
+                            # Define the file extension
+                            file_extension_question=".3.domestic_animal_rearing.qns.txt"
+                            # Define the revision file
+                            revision_file="../../agriculture_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Agriculture/S2"
+                            # Define the file extension
+                            file_extension_question=".3.domestic_animal_rearing.qns.txt"
+                            # Define the revision file
+                            revision_file="../../agriculture_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+						;;
+                        4)
+                            if ! [ -f ".agriculture.2.3" ]; then
+                                attempts=0
+                                # Define the targeted directory
+                                answered_directory="Exercise/Agriculture/S2"
+                                # Define the file extension
+                                file_extension_answer=".3.domestic_animal_rearing.ans.txt"
+                                # Define the exercise file
+                                exercise_file="../../agriculture_answered_ans.txt"
+                                # Call the function to process a random question
+                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+                                touch .agriculture.2.3
+                            fi
+                            if ! [ -f ".s_agriculture_2_4" ]; then
+                                echo -e "\n\nYou did qualify to probe into the realm of Perennial crop production ...\n\nWe do treasure you ${g}darling${t}. Just never forget, that no matter how prepared you are, to win gold, you have to follow instructions! \c" && wait_for_a_key_press
+                            fi
+                            cp "Notes/Agriculture/2.4.perennial_crop_production.txt" . || exit 1
+                            mv 2.4.perennial_crop_production.txt .2.4.perennial_crop_production.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .2.4.perennial_crop_production.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .2.4.perennial_crop_production.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .2.4.perennial_crop_production.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .2.4.perennial_crop_production.txt
+                            process_reminders_from_file .2.4.perennial_crop_production.txt
+                            STATE_FILE=".s_agriculture_2_4"
+                            process_file .2.4.perennial_crop_production.txt
+                            contact_ai
+                            if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
+                                rm -f .skip_exercises && break
+                            fi
+                            rm -f .2.4.perennial_crop_production.txt
+                            sed -i '/^1$/!d' .s_agriculture_2_4
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Agriculture/S2"
+                            # Define the file extension
+                            file_extension=".4.perennial_crop_production.qns.txt"
+                            # Define the revision file
+                            revision_file="../../agriculture_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_short_answer_question "$question_directory" "$file_extension" "$revision_file"
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Agriculture/S2"
+                            # Define the file extension
+                            file_extension_question=".4.perennial_crop_production.qns.txt"
+                            # Define the revision file
+                            revision_file="../../agriculture_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+                            if ! [ -f ".agriculture.2.4" ]; then
+	                            attempts=0
+	                            # Define the targeted directory
+	                            answered_directory="Exercise/Agriculture/S2"
+	                            # Define the file extension
+	                            file_extension_answer=".4.perennial_crop_production.ans.txt"
+	                            # Define the exercise file
+	                            exercise_file="../../agriculture_answered_ans.txt"
+	                            # Call the function to process a random answer
+	                            process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+								touch .agriculture.2.4
+								echo "2" > .agriculture_ready
+							fi
+                        ;;
+
+                        # Additional cases for other topics can be added here
+                        *)
+                            echo -e "\n\nInvalid topic number \c"
+                            continue
+                        ;;
+                    esac
+                    break  # Exit the inner loop after successfully handling user input
+                fi
+                ((attempts++))
+            done
+            # If the loop exits due to max_attempts, handle it
+            if [ "$attempts" -eq "$max_attempts" ]; then
+                quit1
+            fi
+        done
+    elif [[ "$class" == "3" ]]; then
+        if ! find . -maxdepth 1 -name '.s_agriculture_3*' -type f -quit 2>/dev/null; then
+            echo -e "\n\n${g}Welcome to S3 Agriculture class${t}\n\n${y}Together, we are going to get you started${t} \c" && wait_for_a_key_press
+            echo -e "\n-------------------------------------- \c"
+            clear_and_center "There are ${r}5${t} topics to be covered. Your tasks will always expand or shrink to fit in the time you give them. For that reason, never procrastinate darling!"
+        fi
+        attempts=0
+        max_attempts=4
+        while true
+        do
+            while [ "$attempts" -lt "$max_attempts" ]
+            do
+                handle_s3_topic_input
+                touch .agriculture_topic_selected
+                if [[ "$topic" == "x" ]]
+                then
+                    quit
+                elif [[ "$topic" == "q" ]]
+                then
+                    attempts=0
+                    # Define the targeted directory
+                    question_directory="Revision/Agriculture/S3"
+                    # Define the file extension
+                    file_extension_question=".qns.txt"
+                    # Define the revision file
+                    revision_file="../../agriculture_covered_qns.txt"
+                    # Call the function to process a random question
+                    process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
+                elif [[ "$topic" == "a" ]]
+                then
+                    attempts=0
+                    # Define the targeted directory
+                    question_directory="Revision/Agriculture/S3"
+                    # Define the file extension
+                    file_extension_question=".qns.txt"
+                    # Define the revision file
+                    revision_file="../../agriculture_covered_qns.txt"
+                    # Call the function to process a random question
+                    process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+                elif [[ "$topic" == "r" ]]
+                then
+                    attempts=0
+                    # Define the targeted directory
+                    answered_directory="Exercise/Agriculture/S3"
+                    # Define the file extension
+                    file_extension_answer=".ans.txt"
+                    # Define the exercise file
+                    exercise_file="../../agriculture_answered_ans.txt"
+                    # Call the function to process a random question
+                    process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+                elif [[ "$topic" == "z" ]]
+                then
+                    attempts=0
+                    # Define the targeted directory
+                    answered_directory="Exercise/Agriculture/S3"
+                    # Define the file extension
+                    file_extension_answer=".ans.txt"
+                    # Define the exercise file
+                    exercise_file="../../agriculture_answered_ans.txt"
+                    # Call the function to process a random question
+                    process_question_answer_adv "$answered_directory" "$file_extension_answer" "$exercise_file"
+                elif [[ "$topic" == "s" ]]
+                then
+                    get_sample_items
+                    break
+                elif [[ "$topic" == "n" ]]
+                then
+                    attempts=0
+                    # Define the targeted directory
+                    answered_directory="Exercise/Agriculture/S3"
+                    # Define the file extension
+                    file_extension_answer=".ans.txt"
+                    # Define the exercise file
+                    exercise_file="../../agriculture_answered_ans.txt"
+                    # Call the function to process a random question
+                    process_final_assignment "$answered_directory" "$file_extension_answer" "$exercise_file"
+                elif [[ "$topic" == "p" ]]
+                then
+                    track_student_progress
+                elif [[ ! "$topic" =~ ^[1-5]$ || -z "$topic" ]]
+                then
+                    echo -e "\n\nTopic ${r}$topic not available${t}... Please choose from the available options\c"
+                    wait_for_a_key_press
+                else
+                    case "$topic" in
+                        1)
+                            if ! [ -f ".s_agriculture_3_1" ]; then
+                                echo -e "\n\nYou chose to explore Cattle production ...\n\nThank you for choosing to educate yourself!\n\nWe adore you ${g}darling${t} and wish you the very best! \c" && wait_for_a_key_press
+                            fi
+                            cp "Notes/Agriculture/3.1.cattle_production.txt" . || exit 1
+                            mv 3.1.cattle_production.txt .3.1.cattle_production.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .3.1.cattle_production.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .3.1.cattle_production.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .3.1.cattle_production.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .3.1.cattle_production.txt
+                            process_reminders_from_file .3.1.cattle_production.txt
+                            STATE_FILE=".s_agriculture_3_1"
+                            process_file .3.1.cattle_production.txt
+                            contact_ai
+                            if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
+                                rm -f .skip_exercises && break
+                            fi
+                            rm -f .3.1.cattle_production.txt
+                            sed -i '/^1$/!d' .s_agriculture_3_1
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Agriculture/S3"
+                            # Define the file extension
+                            file_extension=".1.cattle_production.qns.txt"
+                            # Define the revision file
+                            revision_file="../../agriculture_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_short_answer_question "$question_directory" "$file_extension" "$revision_file"
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Agriculture/S3"
+                            # Define the file extension
+                            file_extension_question=".1.cattle_production.qns.txt"
+                            # Define the revision file
+                            revision_file="../../agriculture_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+                        ;;
+                        2)
+                            if ! [ -f ".agriculture.3.1" ]; then
+                                attempts=0
+                                # Define the targeted directory
+                                answered_directory="Exercise/Agriculture/S3"
+                                # Define the file extension
+                                file_extension_answer=".1.cattle_production.ans.txt"
+                                # Define the exercise file
+                                exercise_file="../../agriculture_answered_ans.txt"
+                                # Call the function to process a random question
+                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+                                touch .agriculture.3.1
+                            fi
+                            if ! [ -f ".s_agriculture_3_2" ]; then
+                                echo -e "\n\nYou happen to have decided to delve into Livestock feed making ...\n\nOnce again we treasure you ${g}dear one${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
+                            fi
+                            cp "Notes/Agriculture/3.2.livestock_feed_making.txt" . || exit 1
+                            mv 3.2.livestock_feed_making.txt .3.2.livestock_feed_making.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .3.2.livestock_feed_making.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .3.2.livestock_feed_making.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .3.2.livestock_feed_making.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .3.2.livestock_feed_making.txt
+                            process_reminders_from_file .3.2.livestock_feed_making.txt
+                            STATE_FILE=".s_agriculture_3_2"
+                            process_file .3.2.livestock_feed_making.txt
+                            contact_ai
+                            if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
+                                rm -f .skip_exercises && break
+                            fi
+                            rm -f .3.2.livestock_feed_making.txt
+                            sed -i '/^1$/!d' .s_agriculture_3_2
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Agriculture/S3"
+                            # Define the file extension
+                            file_extension_question=".2.livestock_feed_making.qns.txt"
+                            # Define the revision file
+                            revision_file="../../agriculture_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Agriculture/S3"
+                            # Define the file extension
+                            file_extension_question=".2.livestock_feed_making.qns.txt"
+                            # Define the revision file
+                            revision_file="../../agriculture_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+                        ;;
+                        3)
+                            if ! [ -f ".agriculture.3.2" ]; then
+                                attempts=0
+                                # Define the targeted directory
+                                answered_directory="Exercise/Agriculture/S3"
+                                # Define the file extension
+                                file_extension_answer=".2.livestock_feed_making.ans.txt"
+                                # Define the exercise file
+                                exercise_file="../../agriculture_answered_ans.txt"
+                                # Call the function to process a random question
+                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+                                touch .agriculture.3.2
+                            fi
+                            if ! [ -f ".s_agriculture_3_3" ]; then
+                                echo -e "\n\nYou have made a choice to cover Pasture management and conservation or hydroponic farming ...\n\nWe are so exited to have you with us ${g}darling${t}\n\nRemember that hard work forever pays \c" && wait_for_a_key_press
+                            fi
+                            cp "Notes/Agriculture/3.3.pasture_management_and_conservation_or_hydroponic_farming.txt" . || exit 1
+                            mv 3.3.pasture_management_and_conservation_or_hydroponic_farming.txt .3.3.pasture_management_and_conservation_or_hydroponic_farming.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .3.3.pasture_management_and_conservation_or_hydroponic_farming.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .3.3.pasture_management_and_conservation_or_hydroponic_farming.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .3.3.pasture_management_and_conservation_or_hydroponic_farming.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .3.3.pasture_management_and_conservation_or_hydroponic_farming.txt
+                            process_reminders_from_file .3.3.pasture_management_and_conservation_or_hydroponic_farming.txt
+                            STATE_FILE=".s_agriculture_3_3"
+                            process_file .3.3.pasture_management_and_conservation_or_hydroponic_farming.txt
+                            contact_ai
+                            if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
+                                rm -f .skip_exercises && break
+                            fi
+                            rm -f .3.3.pasture_management_and_conservation_or_hydroponic_farming.txt
+                            sed -i '/^1$/!d' .s_agriculture_3_3
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Agriculture/S3"
+                            # Define the file extension
+                            file_extension_question=".3.pasture_management_and_conservation_or_hydroponic_farming.qns.txt"
+                            # Define the revision file
+                            revision_file="../../agriculture_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Agriculture/S3"
+                            # Define the file extension
+                            file_extension_question=".3.pasture_management_and_conservation_or_hydroponic_farming.qns.txt"
+                            # Define the revision file
+                            revision_file="../../agriculture_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+						;;
+                        4)
+                            if ! [ -f ".agriculture.3.3" ]; then
+                                attempts=0
+                                # Define the targeted directory
+                                answered_directory="Exercise/Agriculture/S3"
+                                # Define the file extension
+                                file_extension_answer=".3.pasture_management_and_conservation_or_hydroponic_farming.ans.txt"
+                                # Define the exercise file
+                                exercise_file="../../agriculture_answered_ans.txt"
+                                # Call the function to process a random question
+                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+                                touch .agriculture.3.3
+                            fi
+                            if ! [ -f ".s_agriculture_3_4" ]; then
+                                echo -e "\n\nYou did qualify to probe into the realm of Financial services and money in agriculture ...\n\nWe do treasure you ${g}darling${t}. Just never forget, that no matter how prepared you are, to win gold, you have to follow instructions! \c" && wait_for_a_key_press
+                            fi
+                            cp "Notes/Agriculture/3.4.financial_services_and_money_in_agriculture.txt" . || exit 1
+                            mv 3.4.financial_services_and_money_in_agriculture.txt .3.4.financial_services_and_money_in_agriculture.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .3.4.financial_services_and_money_in_agriculture.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .3.4.financial_services_and_money_in_agriculture.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .3.4.financial_services_and_money_in_agriculture.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .3.4.financial_services_and_money_in_agriculture.txt
+                            process_reminders_from_file .3.4.financial_services_and_money_in_agriculture.txt
+                            STATE_FILE=".s_agriculture_3_4"
+                            process_file .3.4.financial_services_and_money_in_agriculture.txt
+                            contact_ai
+                            if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
+                                rm -f .skip_exercises && break
+                            fi
+                            rm -f .3.4.financial_services_and_money_in_agriculture.txt
+                            sed -i '/^1$/!d' .s_agriculture_3_4
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Agriculture/S3"
+                            # Define the file extension
+                            file_extension=".4.financial_services_and_money_in_agriculture.qns.txt"
+                            # Define the revision file
+                            revision_file="../../agriculture_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_short_answer_question "$question_directory" "$file_extension" "$revision_file"
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Agriculture/S3"
+                            # Define the file extension
+                            file_extension_question=".4.financial_services_and_money_in_agriculture.qns.txt"
+                            # Define the revision file
+                            revision_file="../../agriculture_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+                        ;;
+                        5)
+                            if ! [ -f ".agriculture.3.4" ]; then
+                                attempts=0
+                                # Define the targeted directory
+                                answered_directory="Exercise/Agriculture/S3"
+                                # Define the file extension
+                                file_extension_answer=".4.financial_services_and_money_in_agriculture.ans.txt"
+                                # Define the exercise file
+                                exercise_file="../../agriculture_answered_ans.txt"
+                                # Call the function to process a random question
+                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+                                touch .agriculture.3.4
+                            fi
+                            if ! [ -f ".s_agriculture_3_5" ]; then
+                                echo -e "\n\nHere you are dear one... Stay organised as you explore Farm buildings and farm structures ...\n\n${g}Just know we are not going to leave you alone${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
+                            fi
+                            cp "Notes/Agriculture/3.5.farm_buildings_and_farm_structures.txt" . || exit 1
+                            mv 3.5.farm_buildings_and_farm_structures.txt .3.5.farm_buildings_and_farm_structures.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .3.5.farm_buildings_and_farm_structures.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .3.5.farm_buildings_and_farm_structures.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .3.5.farm_buildings_and_farm_structures.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .3.5.farm_buildings_and_farm_structures.txt
+                            process_reminders_from_file .3.5.farm_buildings_and_farm_structures.txt
+                            STATE_FILE=".s_agriculture_3_5"
+                            process_file .3.5.farm_buildings_and_farm_structures.txt
+                            contact_ai
+                            if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
+                                rm -f .skip_exercises && break
+                            fi
+                            rm -f .3.5.farm_buildings_and_farm_structures.txt
+                            sed -i '/^1$/!d' .s_agriculture_3_5
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Agriculture/S3"
+                            # Define the file extension
+                            file_extension_question=".5.farm_buildings_and_farm_structures.qns.txt"
+                            # Define the revision file
+                            revision_file="../../agriculture_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Agriculture/S3"
+                            # Define the file extension
+                            file_extension_question=".5.farm_buildings_and_farm_structures.qns.txt"
+                            # Define the revision file
+                            revision_file="../../agriculture_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+                            if ! [ -f ".agriculture.3.5" ]; then
+	                            attempts=0
+	                            # Define the targeted directory
+	                            answered_directory="Exercise/Agriculture/S3"
+	                            # Define the file extension
+	                            file_extension_answer=".5.farm_buildings_and_farm_structures.ans.txt"
+	                            # Define the exercise file
+	                            exercise_file="../../agriculture_answered_ans.txt"
+	                            # Call the function to process a random answer
+	                            process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+								touch .agriculture.3.5
+								echo "3" > .agriculture_ready
+							fi
+                        ;;
+
+                        # Additional cases for other topics can be added here
+                        *)
+                            echo -e "\n\nInvalid topic number \c"
+                            continue
+                        ;;
+                    esac
+                    break  # Exit the inner loop after successfully handling user input
+                fi
+                ((attempts++))
+            done
+            # If the loop exits due to max_attempts, handle it
+            if [ "$attempts" -eq "$max_attempts" ]; then
+                quit1
+            fi
+        done
+    elif [[ "$class" == "4" ]]; then
+        if ! find . -maxdepth 1 -name '.s_agriculture_4*' -type f -quit 2>/dev/null; then
+            echo -e "\n\n${g}Welcome to S4 Agriculture class${t}\n\n${y}Together, we are going to get you started${t} \c" && wait_for_a_key_press
+            echo -e "\n-------------------------------------- \c"
+            clear_and_center "There are ${r}7${t} topics to be covered. Your tasks will always expand or shrink to fit in the time you give them. For that reason, never procrastinate darling!"
+        fi
+        attempts=0
+        max_attempts=4
+        while true
+        do
+            while [ "$attempts" -lt "$max_attempts" ]
+            do
+                handle_s4_topic_input
+                touch .agriculture_topic_selected
+                if [[ "$topic" == "x" ]]
+                then
+                    quit
+                elif [[ "$topic" == "q" ]]
+                then
+                    attempts=0
+                    # Define the targeted directory
+                    question_directory="Revision/Agriculture/S4"
+                    # Define the file extension
+                    file_extension_question=".qns.txt"
+                    # Define the revision file
+                    revision_file="../../agriculture_covered_qns.txt"
+                    # Call the function to process a random question
+                    process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
+                elif [[ "$topic" == "a" ]]
+                then
+                    attempts=0
+                    # Define the targeted directory
+                    question_directory="Revision/Agriculture/S4"
+                    # Define the file extension
+                    file_extension_question=".qns.txt"
+                    # Define the revision file
+                    revision_file="../../agriculture_covered_qns.txt"
+                    # Call the function to process a random question
+                    process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+                elif [[ "$topic" == "r" ]]
+                then
+                    attempts=0
+                    # Define the targeted directory
+                    answered_directory="Exercise/Agriculture/S4"
+                    # Define the file extension
+                    file_extension_answer=".ans.txt"
+                    # Define the exercise file
+                    exercise_file="../../agriculture_answered_ans.txt"
+                    # Call the function to process a random question
+                    process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+                elif [[ "$topic" == "z" ]]
+                then
+                    attempts=0
+                    # Define the targeted directory
+                    answered_directory="Exercise/Agriculture/S4"
+                    # Define the file extension
+                    file_extension_answer=".ans.txt"
+                    # Define the exercise file
+                    exercise_file="../../agriculture_answered_ans.txt"
+                    # Call the function to process a random question
+                    process_question_answer_adv "$answered_directory" "$file_extension_answer" "$exercise_file"
+                elif [[ "$topic" == "s" ]]
+                then
+                    get_sample_items
+                    break
+                elif [[ "$topic" == "n" ]]
+                then
+                    attempts=0
+                    # Define the targeted directory
+                    answered_directory="Exercise/Agriculture/S4"
+                    # Define the file extension
+                    file_extension_answer=".ans.txt"
+                    # Define the exercise file
+                    exercise_file="../../agriculture_answered_ans.txt"
+                    # Call the function to process a random question
+                    process_final_assignment "$answered_directory" "$file_extension_answer" "$exercise_file"
+                elif [[ "$topic" == "p" ]]
+                then
+                    track_student_progress
+                elif [[ ! "$topic" =~ ^[1-7]$ || -z "$topic" ]]
+                then
+                    echo -e "\n\nTopic ${r}$topic not available${t}... Please choose from the available options\c"
+                    wait_for_a_key_press
+                else
+                    case "$topic" in
+                        1)
+                            if ! [ -f ".s_agriculture_4_1" ]; then
+                                echo -e "\n\nYou chose to explore Value addition to domestic milk products ...\n\nThank you for choosing to educate yourself!\n\nWe adore you ${g}darling${t} and wish you the very best! \c" && wait_for_a_key_press
+                            fi
+                            cp "Notes/Agriculture/4.1.value_addition_to_domestic_milk_products.txt" . || exit 1
+                            mv 4.1.value_addition_to_domestic_milk_products.txt .4.1.value_addition_to_domestic_milk_products.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .4.1.value_addition_to_domestic_milk_products.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .4.1.value_addition_to_domestic_milk_products.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .4.1.value_addition_to_domestic_milk_products.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .4.1.value_addition_to_domestic_milk_products.txt
+                            process_reminders_from_file .4.1.value_addition_to_domestic_milk_products.txt
+                            STATE_FILE=".s_agriculture_4_1"
+                            process_file .4.1.value_addition_to_domestic_milk_products.txt
+                            contact_ai
+                            if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
+                                rm -f .skip_exercises && break
+                            fi
+                            rm -f .4.1.value_addition_to_domestic_milk_products.txt
+                            sed -i '/^1$/!d' .s_agriculture_4_1
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Agriculture/S4"
+                            # Define the file extension
+                            file_extension=".1.value_addition_to_domestic_milk_products.qns.txt"
+                            # Define the revision file
+                            revision_file="../../agriculture_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_short_answer_question "$question_directory" "$file_extension" "$revision_file"
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Agriculture/S4"
+                            # Define the file extension
+                            file_extension_question=".1.value_addition_to_domestic_milk_products.qns.txt"
+                            # Define the revision file
+                            revision_file="../../agriculture_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+                        ;;
+                        2)
+                            if ! [ -f ".agriculture.4.1" ]; then
+                                attempts=0
+                                # Define the targeted directory
+                                answered_directory="Exercise/Agriculture/S4"
+                                # Define the file extension
+                                file_extension_answer=".1.value_addition_to_domestic_milk_products.ans.txt"
+                                # Define the exercise file
+                                exercise_file="../../agriculture_answered_ans.txt"
+                                # Call the function to process a random question
+                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+                                touch .agriculture.4.1
+                            fi
+                            if ! [ -f ".s_agriculture_4_2" ]; then
+                                echo -e "\n\nYou happen to have decided to delve into Value addition to domestic meat products ...\n\nOnce again we treasure you ${g}dear one${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
+                            fi
+                            cp "Notes/Agriculture/4.2.value_addition_to_domestic_meat_products.txt" . || exit 1
+                            mv 4.2.value_addition_to_domestic_meat_products.txt .4.2.value_addition_to_domestic_meat_products.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .4.2.value_addition_to_domestic_meat_products.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .4.2.value_addition_to_domestic_meat_products.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .4.2.value_addition_to_domestic_meat_products.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .4.2.value_addition_to_domestic_meat_products.txt
+                            process_reminders_from_file .4.2.value_addition_to_domestic_meat_products.txt
+                            STATE_FILE=".s_agriculture_4_2"
+                            process_file .4.2.value_addition_to_domestic_meat_products.txt
+                            contact_ai
+                            if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
+                                rm -f .skip_exercises && break
+                            fi
+                            rm -f .4.2.value_addition_to_domestic_meat_products.txt
+                            sed -i '/^1$/!d' .s_agriculture_4_2
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Agriculture/S4"
+                            # Define the file extension
+                            file_extension_question=".2.value_addition_to_domestic_meat_products.qns.txt"
+                            # Define the revision file
+                            revision_file="../../agriculture_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Agriculture/S4"
+                            # Define the file extension
+                            file_extension_question=".2.value_addition_to_domestic_meat_products.qns.txt"
+                            # Define the revision file
+                            revision_file="../../agriculture_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+                        ;;
+                        3)
+                            if ! [ -f ".agriculture.4.2" ]; then
+                                attempts=0
+                                # Define the targeted directory
+                                answered_directory="Exercise/Agriculture/S4"
+                                # Define the file extension
+                                file_extension_answer=".2.value_addition_to_domestic_meat_products.ans.txt"
+                                # Define the exercise file
+                                exercise_file="../../agriculture_answered_ans.txt"
+                                # Call the function to process a random question
+                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+                                touch .agriculture.4.2
+                            fi
+                            if ! [ -f ".s_agriculture_4_3" ]; then
+                                echo -e "\n\nYou have made a choice to cover Biotechnology and biosafety in agriculture ...\n\nWe are so exited to have you with us ${g}darling${t}\n\nRemember that hard work forever pays \c" && wait_for_a_key_press
+                            fi
+                            cp "Notes/Agriculture/4.3.biotechnology_and_biosafety_in_agriculture.txt" . || exit 1
+                            mv 4.3.biotechnology_and_biosafety_in_agriculture.txt .4.3.biotechnology_and_biosafety_in_agriculture.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .4.3.biotechnology_and_biosafety_in_agriculture.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .4.3.biotechnology_and_biosafety_in_agriculture.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .4.3.biotechnology_and_biosafety_in_agriculture.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .4.3.biotechnology_and_biosafety_in_agriculture.txt
+                            process_reminders_from_file .4.3.biotechnology_and_biosafety_in_agriculture.txt
+                            STATE_FILE=".s_agriculture_4_3"
+                            process_file .4.3.biotechnology_and_biosafety_in_agriculture.txt
+                            contact_ai
+                            if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
+                                rm -f .skip_exercises && break
+                            fi
+                            rm -f .4.3.biotechnology_and_biosafety_in_agriculture.txt
+                            sed -i '/^1$/!d' .s_agriculture_4_3
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Agriculture/S4"
+                            # Define the file extension
+                            file_extension_question=".3.biotechnology_and_biosafety_in_agriculture.qns.txt"
+                            # Define the revision file
+                            revision_file="../../agriculture_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Agriculture/S4"
+                            # Define the file extension
+                            file_extension_question=".3.biotechnology_and_biosafety_in_agriculture.qns.txt"
+                            # Define the revision file
+                            revision_file="../../agriculture_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+						;;
+                        4)
+                            if ! [ -f ".agriculture.4.3" ]; then
+                                attempts=0
+                                # Define the targeted directory
+                                answered_directory="Exercise/Agriculture/S4"
+                                # Define the file extension
+                                file_extension_answer=".3.biotechnology_and_biosafety_in_agriculture.ans.txt"
+                                # Define the exercise file
+                                exercise_file="../../agriculture_answered_ans.txt"
+                                # Call the function to process a random question
+                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+                                touch .agriculture.4.3
+                            fi
+                            if ! [ -f ".s_agriculture_4_4" ]; then
+                                echo -e "\n\nYou did qualify to probe into the realm of Land tenure system ...\n\nWe do treasure you ${g}darling${t}. Just never forget, that no matter how prepared you are, to win gold, you have to follow instructions! \c" && wait_for_a_key_press
+                            fi
+                            cp "Notes/Agriculture/4.4.land_tenure_system.txt" . || exit 1
+                            mv 4.4.land_tenure_system.txt .4.4.land_tenure_system.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .4.4.land_tenure_system.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .4.4.land_tenure_system.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .4.4.land_tenure_system.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .4.4.land_tenure_system.txt
+                            process_reminders_from_file .4.4.land_tenure_system.txt
+                            STATE_FILE=".s_agriculture_4_4"
+                            process_file .4.4.land_tenure_system.txt
+                            contact_ai
+                            if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
+                                rm -f .skip_exercises && break
+                            fi
+                            rm -f .4.4.land_tenure_system.txt
+                            sed -i '/^1$/!d' .s_agriculture_4_4
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Agriculture/S4"
+                            # Define the file extension
+                            file_extension=".4.land_tenure_system.qns.txt"
+                            # Define the revision file
+                            revision_file="../../agriculture_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_short_answer_question "$question_directory" "$file_extension" "$revision_file"
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Agriculture/S4"
+                            # Define the file extension
+                            file_extension_question=".4.land_tenure_system.qns.txt"
+                            # Define the revision file
+                            revision_file="../../agriculture_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+                        ;;
+                        5)
+                            if ! [ -f ".agriculture.4.4" ]; then
+                                attempts=0
+                                # Define the targeted directory
+                                answered_directory="Exercise/Agriculture/S4"
+                                # Define the file extension
+                                file_extension_answer=".4.land_tenure_system.ans.txt"
+                                # Define the exercise file
+                                exercise_file="../../agriculture_answered_ans.txt"
+                                # Call the function to process a random question
+                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+                                touch .agriculture.4.4
+                            fi
+                            if ! [ -f ".s_agriculture_4_5" ]; then
+                                echo -e "\n\nHere you are dear one... Stay organised as you explore Cooperatives and self-help groups ...\n\n${g}Just know we are not going to leave you alone${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
+                            fi
+                            cp "Notes/Agriculture/4.5.cooperatives_and_self-help_groups.txt" . || exit 1
+                            mv 4.5.cooperatives_and_self-help_groups.txt .4.5.cooperatives_and_self-help_groups.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .4.5.cooperatives_and_self-help_groups.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .4.5.cooperatives_and_self-help_groups.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .4.5.cooperatives_and_self-help_groups.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .4.5.cooperatives_and_self-help_groups.txt
+                            process_reminders_from_file .4.5.cooperatives_and_self-help_groups.txt
+                            STATE_FILE=".s_agriculture_4_5"
+                            process_file .4.5.cooperatives_and_self-help_groups.txt
+                            contact_ai
+                            if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
+                                rm -f .skip_exercises && break
+                            fi
+                            rm -f .4.5.cooperatives_and_self-help_groups.txt
+                            sed -i '/^1$/!d' .s_agriculture_4_5
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Agriculture/S4"
+                            # Define the file extension
+                            file_extension_question=".5.cooperatives_and_self-help_groups.qns.txt"
+                            # Define the revision file
+                            revision_file="../../agriculture_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Agriculture/S4"
+                            # Define the file extension
+                            file_extension_question=".5.cooperatives_and_self-help_groups.qns.txt"
+                            # Define the revision file
+                            revision_file="../../agriculture_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+                        ;;
+                        6)
+                            if ! [ -f ".agriculture.4.5" ]; then
+                                attempts=0
+                                # Define the targeted directory
+                                answered_directory="Exercise/Agriculture/S4"
+                                # Define the file extension
+                                file_extension_answer=".5.cooperatives_and_self-help_groups.ans.txt"
+                                # Define the exercise file
+                                exercise_file="../../agriculture_answered_ans.txt"
+                                # Call the function to process a random question
+                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+                                touch .agriculture.4.5
+                            fi
+                            if ! [ -f ".s_agriculture_4_6" ]; then
+                                echo -e "\n\nYou have managed to make it to Value, addition, to, agro-wastes and by-products ...\n\n${g}Remember to pray always${t}\n\nThe fear of the Lord is the beginning of wisdom \c" && wait_for_a_key_press
+                            fi
+                            cp "Notes/Agriculture/4.6.value_addition_to_agro-wastes_and_by-products.txt" . || exit 1
+                            mv 4.6.value_addition_to_agro-wastes_and_by-products.txt .4.6.value_addition_to_agro-wastes_and_by-products.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .4.6.value_addition_to_agro-wastes_and_by-products.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .4.6.value_addition_to_agro-wastes_and_by-products.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .4.6.value_addition_to_agro-wastes_and_by-products.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .4.6.value_addition_to_agro-wastes_and_by-products.txt
+                            process_reminders_from_file .4.6.value_addition_to_agro-wastes_and_by-products.txt
+                            STATE_FILE=".s_agriculture_4_6"
+                            process_file .4.6.value_addition_to_agro-wastes_and_by-products.txt
+                            contact_ai
+                            if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
+                                rm -f .skip_exercises && break
+                            fi
+                            rm -f .4.6.value_addition_to_agro-wastes_and_by-products.txt
+                            sed -i '/^1$/!d' .s_agriculture_4_6
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Agriculture/S4"
+                            # Define the file extension
+                            file_extension_question=".6.value_addition_to_agro-wastes_and_by-products.qns.txt"
+                            # Define the revision file
+                            revision_file="../../agriculture_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Agriculture/S4"
+                            # Define the file extension
+                            file_extension_question=".6.value_addition_to_agro-wastes_and_by-products.qns.txt"
+                            # Define the revision file
+                            revision_file="../../agriculture_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+                        ;;
+                        7)
+                            if ! [ -f ".agriculture.4.6" ]; then
+                                attempts=0
+                                # Define the targeted directory
+                                answered_directory="Exercise/Agriculture/S4"
+                                # Define the file extension
+                                file_extension_answer=".6.value_addition_to_agro-wastes_and_by-products.ans.txt"
+                                # Define the exercise file
+                                exercise_file="../../agriculture_answered_ans.txt"
+                                # Call the function to process a random question
+                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+                                touch .agriculture.4.6
+                            fi
+                            if ! [ -f ".s_agriculture_4_7" ]; then
+                                echo -e "\n\nFrom here, you will be proceeding with Value addition to vegetables or value addition to fruits ...\n\n${g}Please never ever forget that your education is your future${t}\n\nFocus dear \c" && wait_for_a_key_press
+                            fi
+                            cp "Notes/Agriculture/4.7.value_addition_to_vegetables_or_value_addition_to_fruits.txt" . || exit 1
+                            mv 4.7.value_addition_to_vegetables_or_value_addition_to_fruits.txt .4.7.value_addition_to_vegetables_or_value_addition_to_fruits.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .4.7.value_addition_to_vegetables_or_value_addition_to_fruits.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .4.7.value_addition_to_vegetables_or_value_addition_to_fruits.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .4.7.value_addition_to_vegetables_or_value_addition_to_fruits.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .4.7.value_addition_to_vegetables_or_value_addition_to_fruits.txt
+                            process_reminders_from_file .4.7.value_addition_to_vegetables_or_value_addition_to_fruits.txt
+                            STATE_FILE=".s_agriculture_4_7"
+                            process_file .4.7.value_addition_to_vegetables_or_value_addition_to_fruits.txt
+                            contact_ai
+                            if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
+                                rm -f .skip_exercises && break
+                            fi
+                            rm -f .4.7.value_addition_to_vegetables_or_value_addition_to_fruits.txt
+                            sed -i '/^1$/!d' .s_agriculture_4_7
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Agriculture/S4"
+                            # Define the file extension
+                            file_extension_question=".7.value_addition_to_vegetables_or_value_addition_to_fruits.qns.txt"
+                            # Define the revision file
+                            revision_file="../../agriculture_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Agriculture/S4"
+                            # Define the file extension
+                            file_extension_question=".7.value_addition_to_vegetables_or_value_addition_to_fruits.qns.txt"
+                            # Define the revision file
+                            revision_file="../../agriculture_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+                            if ! [ -f ".agriculture.4.7" ]; then
+	                            attempts=0
+	                            # Define the targeted directory
+	                            answered_directory="Exercise/Agriculture/S4"
+	                            # Define the file extension
+	                            file_extension_answer=".7.value_addition_to_vegetables_or_value_addition_to_fruits.ans.txt"
+	                            # Define the exercise file
+	                            exercise_file="../../agriculture_answered_ans.txt"
+	                            # Call the function to process a random answer
+	                            process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+								touch .agriculture.4.7
+								echo "4" > .agriculture_ready
 							fi
                         ;;
 
@@ -3221,7 +3995,7 @@ while true; do
         done
 
 
-    elif [[ "$class" == "6" ]]; then
+    elif [[ "$class" == "2" || "$class" == "3" || "$class" == "4" ]]; then
     echo -e "\n\nLessons for your class are still being developed.. Keep in touch \n"
     wait_for_a_key_press
     echo -e "\n\nYou could choose to fund the initiative by contacting us through our gmail: 2024omd256@gmail.com \n"

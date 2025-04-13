@@ -110,7 +110,7 @@ function handle_s6_topic_input() {
         rm -f .chemistry_advanced_topic_selected
     fi
     if [ -z "$last_topic" ] || [ -f .chemistry_advanced_topic_selected ]; then
-        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4 or 5 or 6${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. Equilbria ii '"${r}Term1${t}"''$'\n\n2. Organic chemistry ii '"${r}Term1${t}"''$'\n\n3. Electrochemistry '"${r}Term2${t}"''$'\n\n4. Periodicity ii '"${r}Term2${t}"''$'\n\n5. Organic chemistry iii '"${r}Term3${t}"''$'\n\n6. Reaction kinetics '"${r}Term3${t}"''$'\n\n> ' topic
+        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4 or 5 or 6${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. Equilibria II '"${r}Term1${t}"''$'\n\n2. Organic chemistry II '"${r}Term1${t}"''$'\n\n3. Electrochemistry '"${r}Term2${t}"''$'\n\n4. Periodicity II '"${r}Term2${t}"''$'\n\n5. Organic chemistry III '"${r}Term3${t}"''$'\n\n6. Reaction kinetics '"${r}Term3${t}"''$'\n\n> ' topic
         touch .chemistry_advanced_surveyor
         touch .chemistry_advanced_topic_selected
         # Update the state file with the topic
@@ -130,7 +130,7 @@ function handle_s5_topic_input() {
         rm -f .chemistry_advanced_topic_selected
     fi
     if [ -z "$last_topic" ] || [ -f .chemistry_advanced_topic_selected ]; then
-        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4 or 5 or 6 or 7${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. Moles and equations '"${r}Term1${t}"''$'\n\n2. Atomic and electronic structure '"${r}Term1${t}"''$'\n\n3. Bonding and structure '"${r}Term1${t}"''$'\n\n4. Periodicity i '"${r}Term2${t}"''$'\n\n5. Thermochemistry '"${r}Term2${t}"''$'\n\n6. Organic chemistry i '"${r}Terms 2&3${t}"''$'\n\n7. Equilbria i '"${r}Term3${t}"''$'\n\n> ' topic
+        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4 or 5 or 6 or 7${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. Moles and equations '"${r}Term1${t}"''$'\n\n2. Atomic and electronic structure '"${r}Term1${t}"''$'\n\n3. Bonding and structure '"${r}Term1${t}"''$'\n\n4. Periodicity I '"${r}Term2${t}"''$'\n\n5. Thermochemistry '"${r}Term2${t}"''$'\n\n6. Organic chemistry I '"${r}Terms 2&3${t}"''$'\n\n7. Equilibria I '"${r}Term3${t}"''$'\n\n> ' topic
         touch .chemistry_advanced_surveyor
         touch .chemistry_advanced_topic_selected
         # Update the state file with the topic
@@ -638,12 +638,12 @@ while true; do
     # Check if user_input is not empty
     if [[ -n "$user_input" ]]; then
 		if [[ "$user_input" == "sh" ]]; then
-		    Response="We are looking forward to receiving your economic support, thoughts, suggestions, and any files you feel should reach out to everyone of our children. Please remember to label the files you are to attach using the format: Your_name_School_Subject_File_content (e.g., Muhumuza_Omega_Kasule_High_School_O_level_Chemistry_Answered_EOC1_Items.pdf). Thanks a lot for your contributions."    
-		    subject="$(basename "$0") - $(date +"%Y-%m-%d %H:%M:%S") - Thoughts, suggestions, and contributions"
-		    encoded_subject=$(echo "$subject" | sed 's/ /%20/g; s/\n/%0A/g')
+		    Response="We are looking forward to receiving your economic support, thoughts, suggestions, and any files you feel should reach out to everyone of our children. Please remember to label the files you are to attach using the format: Your_name_School_Chemistry_advanced_File_content (e.g., Muhumuza_Omega_Kasule_High_School_O_level_Chemistry_Answered_EOC1_Items.pdf). Thanks a lot for your contributions."    
+		    chemistry_advanced="$(basename "$0") - $(date +"%Y-%m-%d %H:%M:%S") - Thoughts, suggestions, and contributions"
+		    encoded_chemistry_advanced=$(echo "$chemistry_advanced" | sed 's/ /%20/g; s/\n/%0A/g')
 		    encoded_body=$(echo "$Response" | sed 's/ /%20/g; s/\n/%0A/g')
-		    # Open the email in the browser with the encoded subject and body
-		    powershell.exe -Command "Start-Process 'https://mail.google.com/mail/?view=cm&to=2024omd256@gmail.com&su=${encoded_subject}&body=${encoded_body}'"
+		    # Open the email in the browser with the encoded chemistry_advanced and body
+		    powershell.exe -Command "Start-Process 'https://mail.google.com/mail/?view=cm&to=2024omd256@gmail.com&su=${encoded_chemistry_advanced}&body=${encoded_body}'"
 			return
 		fi
          if [[ "$user_input" == "cl" ]]; then
@@ -661,11 +661,11 @@ while true; do
         if [[ "$user_input" == "zz" ]]; then
             echo -e "\n"
             if [ "$(basename "$(pwd)")" != "Omd" ]; then
-                echo -e "You can only update your code using the parent code. And then create new workspace or recreate new workspace using the very exact initials of your current workspace ... \c"
+                echo -e "You can only update your code using the parent code. And then create new workspace ... \c"
                 sleep 2
                 return
             fi
-            TEMP_FILE=$(mktemp) && curl -o "$TEMP_FILE" -L "https://github.com/Muhumuza7325/OMD/raw/main/chemistry_advanced_tutorial_wsl.sh" && mv "$TEMP_FILE" chemistry_advanced_tutorial_wsl.sh && chmod +x chemistry_advanced_tutorial_wsl.sh && cp chemistry_advanced_tutorial_wsl.sh Students/Omd && echo -e "\n\n${y}Code successfully updated.. You will have to restart a new session${t} \c" && sleep 4 && exit || (echo -e "\n\n${m}Error updating code!... Please check your internet connection and try again!${t} \c" && rm -f "$TEMP_FILE" && return)
+            TEMP_FILE=$(mktemp) && curl -o "$TEMP_FILE" -L "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/chemistry_advanced_tutorial_wsl.sh" && mv "$TEMP_FILE" chemistry_advanced_tutorial_wsl.sh && chmod +x chemistry_advanced_tutorial_wsl.sh && echo -e "\n\n${y}Code successfully updated.. You will have to restart a new session${t} \c" && sleep 4 && exit || (echo -e "\n\n${m}Error updating code!... Please check your internet connection and try again!${t} \c" && rm -f "$TEMP_FILE" && return)
         fi
         if [[ "$user_input" == "xx" ]]; then
             current_datetime=$(date)
@@ -678,7 +678,7 @@ while true; do
                     sleep 2
                     return
                 fi
-                curl -O -L "https://github.com/Muhumuza7325/OMD/raw/main/update_chemistry_advanced.sh" || { echo -e "\n\n${m}Check your internet connection and try again!${t}" >&2; return; }
+                curl -O -L "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/update_chemistry_advanced.sh" || { echo -e "\n\n${m}Check your internet connection and try again!${t}" >&2; return; }
                 mv update_chemistry_advanced.sh .update_chemistry_advanced.sh
                 bash .update_chemistry_advanced.sh
                 return
@@ -1759,7 +1759,7 @@ get_sample_items() {
     	    time_diff=$((current_time - last_echo_time))
         	if [ $time_diff -gt 3600 ]; then
             	# Echo the message and update the last echo time
-	        	echo -e "\n\n\n${r}You are advised to not make any changes to the provided answers, instead, you can make copies that you can edit${t}\n\n${y}For a teacher willing to join us reach out to everyone of our children, please send us your questions and answers in a file labelled with your name, school, subject, and file content (e.g., Muhumuza_Omega_Kasule_High_School_O_level_Chemistry_Answered_EOC1_Items.pdf) to our contacts${t}\n\n\nEmail: ${g}2024omd256@gmail.com${t} \c"
+	        	echo -e "\n\n\n${r}You are advised to not make any changes to the provided answers, instead, you can make copies that you can edit${t}\n\n${y}For a teacher willing to join us reach out to everyone of our children, please send us your questions and answers in a file labelled with your name, school, chemistry_advanced, and file content (e.g., Muhumuza_Omega_Kasule_High_School_O_level_Chemistry_Answered_EOC1_Items.pdf) to our contacts${t}\n\n\nEmail: ${g}2024omd256@gmail.com${t} \c"
 				echo $current_time > "$last_echo_time_file"
     		fi
             read -rp $'\n\n\nEnter '"${m}any character${t}"' for access to the file of answered items or simply press '"${r}Enter${t}"' to get items to attempt : ' input
@@ -1769,17 +1769,17 @@ get_sample_items() {
             	popd > /dev/null || exit
                 return
             fi
-            if [ -f .e_o_c.txt ]; then
+            if [ -f .e_o_c_chemistry_advanced.txt ]; then
                 echo -e "\n\n${y}Below is the list of the elements of construct${t} \n"
-                cat .e_o_c.txt
+                cat .e_o_c_chemistry_advanced.txt
                 read -rp $'\nEnter a '"${m}specific${t}"' number or simply press '"${r}Enter${t}"' to get random sample items'$'\n> ' input
                 if [[ -n $input ]]; then
                     echo -e "\n${c}Below is the basis of assessment for the selected element of construct${t} \n"
-                    selected_file1=$(ls -a | grep -E "\.e_o_c_${input}\.txt")
+                    selected_file1=$(ls -a | grep -E "\.e_o_c_chemistry_advanced_${input}\.txt")
                     cat "$selected_file1"
                     # Remove empty lines from the selected files
                     find . -type f -name "*_samples_[0-9].txt" -exec sed -i '/^[[:space:]]*$/d' {} +
-                    selected_file=$(ls -a | grep -E "\.e_o_c_${input}_samples" | shuf -n 1)
+                    selected_file=$(ls -a | grep -E "\.e_o_c_chemistry_advanced_${input}_samples" | shuf -n 1)
                 else
                     # Find all files and randomly select one
                     local selected_file # Declare the variable
@@ -2395,10 +2395,44 @@ if [ -z "$class" ] && [ -s ".chemistry_advanced_user_state" ]; then
 fi
 # Check for the presence of specific directories and a file
 if ! [ -d "Notes" ] || ! [ -d "Revision" ] || ! [ -d "Exercise" ] || ! [ -d "Videos" ] || ! [ -d "Figures" ] || ! [ -d "Tables" ]; then
-    echo -e "\n\nTo change to your desirable font, right click in the title bar of the terminal or click on the three lines if they are present. From the menu that appears, select properties\nSelect unnamed, check custom font, click on it and choose the size you’d like\nThen click select \c"
-    wait_for_a_key_press 
-    echo -e "\n\nAlways remember to press ${r}control and c${t} together or just close the terminal to exit a class session\n\nIf nothing goes wrong, you will always be able to continue from where you stopped. In most cases, pressing the backspace key will connect you to an AI model and entering q will always return you from the model to your current session${b} \c"
+    echo -e "\n\nTo change to your desirable font, click on the three lines in the title bar of your terminal\nFrom the menu that appears, select properties\nSelect unnamed, check custom font, click on it and choose the size you’d like\nThen click select \c"
     wait_for_a_key_press
+    clear_and_center
+    read -rp $'\n\nTo get started, enter a preferably'"${r} short name${t}"' for the directory or folder you will use for this tutorial or press '"${r}x${t}"' to exit'$'\n\n> ' dir_name
+
+    # Check if the user wants to exit
+    if [[ "$dir_name" == "x" ]]; then
+        quit
+    fi
+
+    # Validate the directory name
+    while [[ -e "$dir_name" || -z "$dir_name" ]]; do
+        echo -e "\n\nError: Either a directory or file ""${r}""$dir_name""${t}"" already exists or you pressed the Enter key\n\nPlease ensure you are following the instructions\c"
+
+        # Increment the attempt count
+        ((attempts++))
+
+        # Check if the maximum attempts are reached
+        if ((attempts >= 3)); then
+            quit1
+        fi
+
+        # Prompt the user again
+        read -rp $'\n\nTo get started, enter a preferably'"${r} short unique name${t}"' for the directory you will use for this tutorial or press '"${r}x${t}"' to exit'$'\n\n> ' dir_name
+
+        # Check if the user wants to exit
+        if [[ "$dir_name" == "x" ]]; then
+            quit
+        fi
+    done
+    # Create the directory
+    mkdir -p "$dir_name" || exit
+    echo -e "\nDirectory ${r}$dir_name${t} created successfully. ${y}Now, you can note down the name you provided and proceed with your tutorial${t} \c"
+    wait_for_a_key_press
+    clear_and_center "Please, remember to change to the directory created on your next visit;\n\n${r}Equally always remember to press ${r}control and c${t}together or just close the terminal to exit a class session\n\nIf nothing goes wrong, you will always be able to continue from where you stopped${b}"
+    wait_for_a_key_press
+    # Change to the created directory
+    cd "$dir_name" || exit
 
     # Create additional directories and files
     mkdir -p Notes Notes/Chemistry_advanced Revision Revision/Chemistry_advanced Revision/Chemistry_advanced/{S5,S6} Exercise Exercise/Chemistry_advanced Exercise/Chemistry_advanced/{S5,S6} Videos Videos/Chemistry_advanced Figures Figures/Chemistry_advanced Tables Tables/Chemistry_advanced
@@ -2407,15 +2441,18 @@ if ! [ -d "Notes" ] || ! [ -d "Revision" ] || ! [ -d "Exercise" ] || ! [ -d "Vid
     pwd
     echo -e "\n\n${t}The displayed path above is the path to your directory, please note it down \c"
     wait_for_a_key_press
-    echo -e "\n\n${y}Folders to store content generated have been created for you in the background and displayed below, along with the files you extracted from the downloaded zipped folder${t}${b} \c"
+    echo -e "\n\n${y}Folders to store content generated have been created for you in the background and displayed below${t}${b} \c"
     echo -e "\n"
     ls "$PWD"
     wait_for_a_key_press
-    echo -e "\n\n${t}For this tutorial, you will require current learning material from OMD in your current folder or directory\n\nOtherwise follow the procedure below to obtain the material \c"
+    echo -e "\n\n${t}For this tutorial, you will require current learning material from OMD in your current folder or directory\n\notherwise follow the procedure below to obtain the material \c"
+    cp ../chemistry_advanced_tutorial .
+    clear_and_center
     echo
 fi
 
-if [ -z "$(find . -mindepth 3 -maxdepth 3 -type f -name "*.txt" 2>/dev/null)" ]; then
+files=(Notes/Chemistry_advanced/*.txt)
+if [ ${#files[@]} -eq 0 ]; then
     read -rp $'\n\nTo get material for this tutorial, get your internet on and press the enter key or press any character key followed by the Enter key to exit: ' user_input
 
     if [[ -z "$user_input" ]]; then
@@ -2427,14 +2464,11 @@ if [ -z "$(find . -mindepth 3 -maxdepth 3 -type f -name "*.txt" 2>/dev/null)" ];
         fi
 
         sudo apt-get install -y jq
-        pip install -q -U google-generativeai > /dev/null 2>&1
+        pip install -q -U google-generativeai
 
         curl -sS https://raw.githubusercontent.com/0xacx/chatGPT-shell-cli/main/install.sh | sudo -E bash > /dev/null 2>&1
 
-        curl -O -L https://github.com/Muhumuza7325/OMD/raw/main/1.1.moles_and_equations.txt || echo -e "\n\nError fetching material for this tutorial \c"
-        curl -O -L "https://github.com/Muhumuza7325/OMD/raw/main/update_chemistry_advanced.sh" || { echo -e "\n\n${m}Check your internet connection and try again!${t}" >&2; sleep 10; exit 1; }
-        mv update_chemistry_advanced.sh .update_chemistry_advanced.sh
-        bash .update_chemistry_advanced.sh
+        curl -O -L https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.1.moles_and_equations.txt || echo -e "\n\nError fetching material for this tutorial \c"
 
         echo -e "\n\nYou got the first step covered.\n\nAs you progress, please, do all the available assignments as they will contribute to your final score.\n\nYou can get somewhere to write and we start \c"
         cp 1.1.moles_and_equations.txt Notes/Chemistry_advanced || echo -e "\n\nError copying 1.1.moles_and_equations.txt to the Chemistry_advanced directory in the Notes directory \c"
@@ -2445,7 +2479,7 @@ if [ -z "$(find . -mindepth 3 -maxdepth 3 -type f -name "*.txt" 2>/dev/null)" ];
         quit
     fi
 else
-    rm -f 1.1.moles_and_equations.txt
+    rm -f ../chemistry_advanced_tutorial 1.1.moles_and_equations.txt
 fi
 
 while true; do
@@ -2856,17 +2890,17 @@ while true; do
                                 touch .chemistry_advanced.5.6
                             fi
                             if ! [ -f ".s_chemistry_advanced_5_7" ]; then
-                                echo -e "\n\nFrom here, you will be proceeding with Equilbria i ...\n\n${g}Please never ever forget that your education is your future${t}\n\nFocus dear \c" && wait_for_a_key_press
+                                echo -e "\n\nFrom here, you will be proceeding with Equilibria i ...\n\n${g}Please never ever forget that your education is your future${t}\n\nFocus dear \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Chemistry_advanced/5.7.equilbria_i.txt" . || exit 1
-                            mv 5.7.equilbria_i.txt .5.7.equilbria_i.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .5.7.equilbria_i.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .5.7.equilbria_i.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .5.7.equilbria_i.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .5.7.equilbria_i.txt
-                            process_reminders_from_file .5.7.equilbria_i.txt
+                            cp "Notes/Chemistry_advanced/5.7.equilibria_i.txt" . || exit 1
+                            mv 5.7.equilibria_i.txt .5.7.equilibria_i.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .5.7.equilibria_i.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .5.7.equilibria_i.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .5.7.equilibria_i.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .5.7.equilibria_i.txt
+                            process_reminders_from_file .5.7.equilibria_i.txt
                             STATE_FILE=".s_chemistry_advanced_5_7"
-                            process_file .5.7.equilbria_i.txt
+                            process_file .5.7.equilibria_i.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -2874,13 +2908,13 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .5.7.equilbria_i.txt
+                            rm -f .5.7.equilibria_i.txt
                             sed -i '/^1$/!d' .s_chemistry_advanced_5_7
                             attempts=0
                             # Define the targeted directory
                             question_directory="Revision/Chemistry_advanced/S5"
                             # Define the file extension
-                            file_extension_question=".7.equilbria_i.qns.txt"
+                            file_extension_question=".7.equilibria_i.qns.txt"
                             # Define the revision file
                             revision_file="../../chemistry_advanced_covered_qns.txt"
                             # Call the function to process a random question
@@ -2889,7 +2923,7 @@ while true; do
                             # Define the targeted directory
                             question_directory="Revision/Chemistry_advanced/S5"
                             # Define the file extension
-                            file_extension_question=".7.equilbria_i.qns.txt"
+                            file_extension_question=".7.equilibria_i.qns.txt"
                             # Define the revision file
                             revision_file="../../chemistry_advanced_covered_qns.txt"
                             # Call the function to process a random question
@@ -2899,7 +2933,7 @@ while true; do
 	                            # Define the targeted directory
 	                            answered_directory="Exercise/Chemistry_advanced/S5"
 	                            # Define the file extension
-	                            file_extension_answer=".7.equilbria_i.ans.txt"
+	                            file_extension_answer=".7.equilibria_i.ans.txt"
 	                            # Define the exercise file
 	                            exercise_file="../../chemistry_advanced_answered_ans.txt"
 	                            # Call the function to process a random answer
@@ -3011,17 +3045,17 @@ while true; do
                     case "$topic" in
                         1)
                             if ! [ -f ".s_chemistry_advanced_6_1" ]; then
-                                echo -e "\n\nYou chose to explore Equilbria ii ...\n\nThank you for choosing to educate yourself!\n\nWe adore you ${g}darling${t} and wish you the very best! \c" && wait_for_a_key_press
+                                echo -e "\n\nYou chose to explore Equilibria ii ...\n\nThank you for choosing to educate yourself!\n\nWe adore you ${g}darling${t} and wish you the very best! \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Chemistry_advanced/6.1.equilbria_ii.txt" . || exit 1
-                            mv 6.1.equilbria_ii.txt .6.1.equilbria_ii.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .6.1.equilbria_ii.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .6.1.equilbria_ii.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .6.1.equilbria_ii.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .6.1.equilbria_ii.txt
-                            process_reminders_from_file .6.1.equilbria_ii.txt
+                            cp "Notes/Chemistry_advanced/6.1.equilibria_ii.txt" . || exit 1
+                            mv 6.1.equilibria_ii.txt .6.1.equilibria_ii.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .6.1.equilibria_ii.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .6.1.equilibria_ii.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .6.1.equilibria_ii.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .6.1.equilibria_ii.txt
+                            process_reminders_from_file .6.1.equilibria_ii.txt
                             STATE_FILE=".s_chemistry_advanced_6_1"
-                            process_file .6.1.equilbria_ii.txt
+                            process_file .6.1.equilibria_ii.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -3029,13 +3063,13 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .6.1.equilbria_ii.txt
+                            rm -f .6.1.equilibria_ii.txt
                             sed -i '/^1$/!d' .s_chemistry_advanced_6_1
                             attempts=0
                             # Define the targeted directory
                             question_directory="Revision/Chemistry_advanced/S6"
                             # Define the file extension
-                            file_extension=".1.equilbria_ii.qns.txt"
+                            file_extension=".1.equilibria_ii.qns.txt"
                             # Define the revision file
                             revision_file="../../chemistry_advanced_covered_qns.txt"
                             # Call the function to process a random question
@@ -3044,7 +3078,7 @@ while true; do
                             # Define the targeted directory
                             question_directory="Revision/Chemistry_advanced/S6"
                             # Define the file extension
-                            file_extension_question=".1.equilbria_ii.qns.txt"
+                            file_extension_question=".1.equilibria_ii.qns.txt"
                             # Define the revision file
                             revision_file="../../chemistry_advanced_covered_qns.txt"
                             # Call the function to process a random question
@@ -3056,7 +3090,7 @@ while true; do
                                 # Define the targeted directory
                                 answered_directory="Exercise/Chemistry_advanced/S6"
                                 # Define the file extension
-                                file_extension_answer=".1.equilbria_ii.ans.txt"
+                                file_extension_answer=".1.equilibria_ii.ans.txt"
                                 # Define the exercise file
                                 exercise_file="../../chemistry_advanced_answered_ans.txt"
                                 # Call the function to process a random question
@@ -3349,7 +3383,7 @@ while true; do
     elif [[ "$class" == "6" ]]; then
     echo -e "\n\nLessons for your class are still being developed.. Keep in touch \n"
     wait_for_a_key_press
-    echo -e "\n\nYou could choose to fund the initiative by contacting us through our gmail: 2024omd256@gmail.com or by phone: +256763956608 (WhatsApp), +256747130325 \n"
+    echo -e "\n\nYou could choose to fund the initiative by contacting us through our gmail: 2024omd256@gmail.com \n"
     wait_for_a_key_press
     continue
     else
