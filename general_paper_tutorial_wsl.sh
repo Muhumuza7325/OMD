@@ -30,6 +30,137 @@ wait_for_a_key_press() {
     return 1
 }
 
+# Extract subomdject name from the script name
+script_base=$(basename "$0" .sh)  # Remove .sh extension
+subomdject_raw="${script_base%%_tutorial*}"
+subomdject_cap="${subomdject_raw^}"  # Capitalise first letter
+if [ -f .skip_.omd_communication.txt ]; then
+    if grep -qF "[$subomdject_cap]" .skip_.omd_communication.txt; then
+        mv .skip_.omd_communication.txt .omd_communication.txt
+    fi
+fi
+
+# Function to process random communication
+process_random_communication() {
+    # Check if a file is provided as an argument
+    if [ $# -eq 0 ]; then
+        echo "Usage: $0 <filename>"
+        exit 1
+    fi
+    local file="$1"
+    # Check if the communication file exists
+    if [ -f "$file" ]; then
+        # Remove empty lines (including whitespace-only) from the file
+        sed -i '/^[[:space:]]*$/d' "$file" 2>/dev/null
+        # Extract subomdject name from the script name
+        script_base=$(basename "$0" .sh)  # Remove .sh extension
+        subomdject_raw="${script_base%%_tutorial*}"
+        subomdject_cap="${subomdject_raw^}"  # Capitalise first letter
+        # Extract a random matching sentence
+        communication=$(awk -v RS=';' -v subomdject="$subomdject_cap" '
+            BEGIN {
+                srand();
+                pattern = "^[[:space:]]*\\[(All|" subomdject ")\\][[:space:]]*"
+            }
+            {
+                gsub(/^[[:space:]]+|[[:space:]]+$/, "");  # Trim leading/trailing spaces
+                if ($0 ~ pattern) {
+                    a_raw[++n] = $0;                            # Original (with prefix)
+                    a_clean[n] = gensub(pattern, "", 1, $0);    # Cleaned (no prefix)
+                }
+            }
+            END {
+                if (n > 0) {
+                    pick = int(rand() * n) + 1;
+                    print a_raw[pick] > "/tmp/selected_comm_raw";
+                    print a_clean[pick];
+                }
+            }
+        ' "$file")
+        # If the selected communication is not empty and has visible characters
+        if [[ -n "$communication" && "$communication" =~ [[:graph:]] ]]; then
+            local modified_communication="\n\n$communication"
+            whiptail --msgbox "$modified_communication" 20 80
+			# Delete the selected sentence from the file (multiline-aware)
+			selected_raw=$(cat /tmp/selected_comm_raw)
+			# Escape special characters for use in a literal match
+			escaped_block=$(printf '%s\n' "$selected_raw;" | sed 's/[]\/$*.^[]/\\&/g')
+			# Delete the exact block including line breaks using awk
+			awk -v RS=';' -v ORS=';' -v target="$selected_raw" '
+			{
+			    gsub(/^[[:space:]]+|[[:space:]]+$/, "", $0)
+			    if ($0 != target) print $0
+			}
+			' "$file" > "$file.tmp" && mv "$file.tmp" "$file"
+            # Clean up temp file
+            rm -f /tmp/selected_comm_raw
+            # Check if any entries remain that start with [All] or [subomdject]
+            remaining=$(awk -v RS=';' -v subomdject="$subomdject_cap" '
+                {
+                    gsub(/^[[:space:]]+|[[:space:]]+$/, "", $0);
+                    if ($0 ~ "^[[:space:]]*\\[(All|" subomdject ")\\]") found=1;
+                }
+                END { exit !found }
+            ' "$file")
+            # If no matching entries remain, delete the file
+            if [ $? -ne 0 ]; then
+                mv "$file" .skip_"$file"
+            fi
+        fi
+    else
+        echo "File '$file' not found."
+        exit 1
+    fi
+}
+
+# Show messages before opening the file
+show_communication_info() {
+    echo -e "\n${g}A text file with communications is about to open!${t}"
+    echo -e "${r}==============================================${t}"
+    echo -e "${b} Browse for:${t}"
+    echo -e "${m}  • Zoom class times${t}"
+    echo -e "${c}  • Opportunities or offers${t}"
+    echo -e "${y}  • Something good — you never know!${t}"
+    echo -e "${r}==============================================${t}\n"
+    sleep 3
+}
+
+# Download the file if needed
+download_and_open() {
+    echo -e "\n${g}====================Trying to download the latest communication file====================${t}"
+    if curl -O -L "$github_url"; then
+        cp "$communication_file" "$backup_file" 2>/dev/null
+        show_communication_info
+        explorer.exe "$communication_file" > /dev/null 2>&1 &
+    else
+        echo -e "\n\n${m}To receive current communication, please check your internet connection and try again next time!${t}" >&2
+    fi
+}
+
+# File paths
+communication_file="omd_communication.txt"
+backup_file=".omd_communication.txt"
+github_url="https://github.com/Muhumuza7325/OMD/raw/main/omd_communication.txt"
+if [ -f "$communication_file" ]; then
+    current_time=$(date +%s)
+    # Get last modification time of the file
+    file_mtime=$(stat -c %Y "$communication_file" 2>/dev/null)
+    if [ -z "$file_mtime" ]; then
+        # If somehow we couldn't get mtime, fall back to download
+        download_and_open
+    fi
+    time_diff=$((current_time - file_mtime))
+    if [ "$time_diff" -gt 21600 ] && [ "$time_diff" -le 86400 ]; then
+        show_communication_info
+        explorer.exe "$communication_file" > /dev/null 2>&1 &
+    elif [ "$time_diff" -gt 86400 ]; then
+        rm -f "$communication_file" "$backup_file" 2>/dev/null
+        download_and_open
+    fi
+else
+    download_and_open
+fi
+
 clear_and_center() {
   if [ "$cleared" != "true" ]; then
     clear
@@ -632,7 +763,7 @@ while true; do
     if [ -z "$(find . -mindepth 3 -maxdepth 3 -type f -name "*.txt" 2>/dev/null)" ]; then
 	read -rp $'\n\nEnter '"${g}cl${t}"' to get to class or '"${r}x${t}"' to exit: ' user_input
     else
-	read -rp $'\n\nEnter '"${y}Keywords...${t}"' to search or type '"${g}cl${t}"' to get to class or '"${g}sh${t}"' to share anything with us or '"${b}ch${t}"' to connect to chatgpt or '"${r}ge${t}"' to connect to Google AI or '"${m}zz${t}"' to update the code or '"${m}xx${t}"' to update learning materials or '"${c}nw${t}"' to create new workspace or '"${r}x${t}"' to exit: ' user_input
+	read -rp $'\n\nEnter '"${y}Keywords...${t}"' to search or type '"${g}cl${t}"' to get to class or '"${g}sh${t}"' to share anything with us or '${b}sr${t}' to check out shared resources or '"${b}ch${t}"' to connect to chatgpt or '"${r}ge${t}"' to connect to Google AI or '"${m}zz${t}"' to update the code or '"${m}xx${t}"' to update learning materials or '"${c}nw${t}"' to create new workspace or '"${r}x${t}"' to exit: ' user_input
     fi
 
     # Check if user_input is not empty
@@ -648,6 +779,12 @@ while true; do
 		fi
          if [[ "$user_input" == "cl" ]]; then
             return  # Exit the loop if the user enters 'cl'
+         fi
+         if [[ "$user_input" == "sr" ]]; then
+            cd Resources || { echo "Failed to access the resources... Contact OMD for help!"; return; }
+            explorer.exe General_paper > /dev/null 2>&1 &
+            cd - > /dev/null 2>&1 || { echo "Failed to return to the original directory!"; exit 1; }
+            return
          fi
         if [[ "$user_input" == "ch" ]]; then
             chatgpt #connect to chatgpt
@@ -2385,7 +2522,11 @@ if [ ! -f .general_paper_user_state ]; then
 	echo -e "\n\nYou can search your Notes by topic using uppercase letters or just feed in key words \c"
 	get_and_display_pattern
 else
-	process_random_reminder .general_paper_reminder
+    if [ -f .omd_communication.txt ]; then
+        process_random_communication .omd_communication.txt
+    else
+        process_random_reminder .general_paper_reminder
+    fi
 	handle_resume_input
 fi
 
