@@ -808,7 +808,7 @@ while true; do
                 sleep 2
                 return
             fi
-            TEMP_FILE=$(mktemp) && curl -o "$TEMP_FILE" -L "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/literature_tutorial_wsl.sh" && mv "$TEMP_FILE" literature_tutorial_wsl.sh && chmod +x literature_tutorial_wsl.sh && echo -e "\n\n${y}Code successfully updated.. You will have to restart a new session${t} \c" && sleep 4 && exit || (echo -e "\n\n${m}Error updating code!... Please check your internet connection and try again!${t} \c" && rm -f "$TEMP_FILE" && return)
+            TEMP_FILE=$(mktemp) && curl -o "$TEMP_FILE" -L "https://github.com/Muhumuza7325/OMD/raw/main/literature_tutorial_wsl.sh" && mv "$TEMP_FILE" literature_tutorial_wsl.sh && chmod +x literature_tutorial_wsl.sh && echo -e "\n\n${y}Code successfully updated.. You will have to restart a new session${t} \c" && sleep 4 && exit || (echo -e "\n\n${m}Error updating code!... Please check your internet connection and try again!${t} \c" && rm -f "$TEMP_FILE" && return)
         fi
         if [[ "$user_input" == "xx" ]]; then
             current_datetime=$(date)
@@ -821,7 +821,7 @@ while true; do
                     sleep 2
                     return
                 fi
-                curl -O -L "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/update_literature.sh" || { echo -e "\n\n${m}Check your internet connection and try again!${t}" >&2; return; }
+                curl -O -L "https://github.com/Muhumuza7325/OMD/raw/main/update_literature.sh" || { echo -e "\n\n${m}Check your internet connection and try again!${t}" >&2; return; }
                 mv update_literature.sh .update_literature.sh
                 bash .update_literature.sh
                 return
@@ -2656,7 +2656,7 @@ if [ ${#files[@]} -eq 0 ]; then
 
         curl -sS https://raw.githubusercontent.com/0xacx/chatGPT-shell-cli/main/install.sh | sudo -E bash > /dev/null 2>&1
 
-        curl -O -L https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.1.oral_literature.txt || echo -e "\n\nError fetching material for this tutorial \c"
+        curl -O -L https://github.com/Muhumuza7325/OMD/raw/main/1.1.oral_literature.txt || echo -e "\n\nError fetching material for this tutorial \c"
 
         echo -e "\n\nYou got the first step covered.\n\nAs you progress, please, do all the available assignments as they will contribute to your final score.\n\nYou can get somewhere to write and we start \c"
         cp 1.1.oral_literature.txt Notes/Literature || echo -e "\n\nError copying 1.1.oral_literature.txt to the Literature directory in the Notes directory \c"

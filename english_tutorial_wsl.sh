@@ -153,15 +153,15 @@ if [ -f "$communication_file" ]; then
 
     if [ "$time_diff" -gt 21600 ] && [ "$time_diff" -le 86400 ]; then
         # Use hidden flag file to track if it was already opened
-        flag_file="$(dirname \"$communication_file\")/.opened_$(basename \"$communication_file\")"
+        flag_file="$(dirname "$communication_file")/.opened_$(basename "$communication_file")"
 
-        if [ ! -f "$flag_file" ] || [ "$(stat -c %Y \"$flag_file\")" -lt "$file_mtime" ]; then
+        if [ ! -f "$flag_file" ] || [ "$(stat -c %Y "$flag_file")" -lt "$file_mtime" ]; then
             show_communication_info
             explorer.exe "$communication_file" > /dev/null 2>&1 &
             touch "$flag_file"
         fi
     elif [ "$time_diff" -gt 86400 ]; then
-        rm -f "$communication_file" "$backup_file" "$(dirname \"$communication_file\")/.opened_$(basename \"$communication_file\")" 2>/dev/null
+        rm -f "$communication_file" "$backup_file" "$(dirname "$communication_file")/.opened_$(basename "$communication_file")" 2>/dev/null
         download_and_open
     fi
 else

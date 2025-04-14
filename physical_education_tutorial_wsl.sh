@@ -153,15 +153,15 @@ if [ -f "$communication_file" ]; then
 
     if [ "$time_diff" -gt 21600 ] && [ "$time_diff" -le 86400 ]; then
         # Use hidden flag file to track if it was already opened
-        flag_file="$(dirname \"$communication_file\")/.opened_$(basename \"$communication_file\")"
+        flag_file="$(dirname "$communication_file")/.opened_$(basename "$communication_file")"
 
-        if [ ! -f "$flag_file" ] || [ "$(stat -c %Y \"$flag_file\")" -lt "$file_mtime" ]; then
+        if [ ! -f "$flag_file" ] || [ "$(stat -c %Y "$flag_file")" -lt "$file_mtime" ]; then
             show_communication_info
             explorer.exe "$communication_file" > /dev/null 2>&1 &
             touch "$flag_file"
         fi
     elif [ "$time_diff" -gt 86400 ]; then
-        rm -f "$communication_file" "$backup_file" "$(dirname \"$communication_file\")/.opened_$(basename \"$communication_file\")" 2>/dev/null
+        rm -f "$communication_file" "$backup_file" "$(dirname "$communication_file")/.opened_$(basename "$communication_file")" 2>/dev/null
         download_and_open
     fi
 else
@@ -849,7 +849,7 @@ while true; do
                 sleep 2
                 return
             fi
-            TEMP_FILE=$(mktemp) && curl -o "$TEMP_FILE" -L "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/physical_education_tutorial_wsl.sh" && mv "$TEMP_FILE" physical_education_tutorial_wsl.sh && chmod +x physical_education_tutorial_wsl.sh && echo -e "\n\n${y}Code successfully updated.. You will have to restart a new session${t} \c" && sleep 4 && exit || (echo -e "\n\n${m}Error updating code!... Please check your internet connection and try again!${t} \c" && rm -f "$TEMP_FILE" && return)
+            TEMP_FILE=$(mktemp) && curl -o "$TEMP_FILE" -L "https://github.com/Muhumuza7325/OMD/raw/main/physical_education_tutorial_wsl.sh" && mv "$TEMP_FILE" physical_education_tutorial_wsl.sh && chmod +x physical_education_tutorial_wsl.sh && echo -e "\n\n${y}Code successfully updated.. You will have to restart a new session${t} \c" && sleep 4 && exit || (echo -e "\n\n${m}Error updating code!... Please check your internet connection and try again!${t} \c" && rm -f "$TEMP_FILE" && return)
         fi
         if [[ "$user_input" == "xx" ]]; then
             current_datetime=$(date)
@@ -862,7 +862,7 @@ while true; do
                     sleep 2
                     return
                 fi
-                curl -O -L "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/update_physical_education.sh" || { echo -e "\n\n${m}Check your internet connection and try again!${t}" >&2; return; }
+                curl -O -L "https://github.com/Muhumuza7325/OMD/raw/main/update_physical_education.sh" || { echo -e "\n\n${m}Check your internet connection and try again!${t}" >&2; return; }
                 mv update_physical_education.sh .update_physical_education.sh
                 bash .update_physical_education.sh
                 return
@@ -2656,7 +2656,7 @@ if [ ${#files[@]} -eq 0 ]; then
 
         curl -sS https://raw.githubusercontent.com/0xacx/chatGPT-shell-cli/main/install.sh | sudo -E bash > /dev/null 2>&1
 
-        curl -O -L https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.1.introduction_to_pe.txt || echo -e "\n\nError fetching material for this tutorial \c"
+        curl -O -L https://github.com/Muhumuza7325/OMD/raw/main/1.1.introduction_to_pe.txt || echo -e "\n\nError fetching material for this tutorial \c"
 
         echo -e "\n\nYou got the first step covered.\n\nAs you progress, please, do all the available assignments as they will contribute to your final score.\n\nYou can get somewhere to write and we start \c"
         cp 1.1.introduction_to_pe.txt Notes/Physical_education || echo -e "\n\nError copying 1.1.introduction_to_pe.txt to the Physical_education directory in the Notes directory \c"
