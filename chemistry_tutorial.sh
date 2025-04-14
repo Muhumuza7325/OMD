@@ -143,18 +143,25 @@ backup_file=".omd_communication.txt"
 github_url="https://github.com/Muhumuza7325/OMD/raw/main/omd_communication.txt"
 if [ -f "$communication_file" ]; then
     current_time=$(date +%s)
-    # Get last modification time of the file
     file_mtime=$(stat -c %Y "$communication_file" 2>/dev/null)
+
     if [ -z "$file_mtime" ]; then
-        # If somehow we couldn't get mtime, fall back to download
         download_and_open
     fi
+
     time_diff=$((current_time - file_mtime))
+
     if [ "$time_diff" -gt 21600 ] && [ "$time_diff" -le 86400 ]; then
-        show_communication_info
-        xdg-open "$communication_file" > /dev/null 2>&1 &
+        # Use hidden flag file to track if it was already opened
+        flag_file="$(dirname \"$communication_file\")/.opened_$(basename \"$communication_file\")"
+
+        if [ ! -f "$flag_file" ] || [ "$(stat -c %Y \"$flag_file\")" -lt "$file_mtime" ]; then
+            show_communication_info
+            xdg-open "$communication_file" > /dev/null 2>&1 &
+            touch "$flag_file"
+        fi
     elif [ "$time_diff" -gt 86400 ]; then
-        rm -f "$communication_file" "$backup_file" 2>/dev/null
+        rm -f "$communication_file" "$backup_file" "$(dirname \"$communication_file\")/.opened_$(basename \"$communication_file\")" 2>/dev/null
         download_and_open
     fi
 else

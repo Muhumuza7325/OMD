@@ -73,29 +73,29 @@ function load_state {
 
 # Function to handle user input for class selection
 function handle_class_input() {
-    if { [ -n "$last_class" ] || [ -z "$last_topic" ]; } && [ -f .technology_and_design_surveyor ]; then
+    if { [ -n "$last_class" ] || [ -z "$last_topic" ]; } && [ -f .literature_surveyor ]; then
 		while true; do
 	        read -rp $'\n\nPlease enter '"${r}1 or 2 or 3 or 4${t}"' to go to your class or '"${r}x${t}"' to exit'$'\n\n> ' class
             if [ "$class" == "x" ]; then
                 exit
             fi
-		    # Check if .current_technology_and_design_class is accidentally empty
-		    if [ ! -s .current_technology_and_design_class ]; then
-		        # Echo 1 to .current_technology_and_design_class
-		        echo "1" > .current_technology_and_design_class
+		    # Check if .current_literature_class is accidentally empty
+		    if [ ! -s .current_literature_class ]; then
+		        # Echo 1 to .current_literature_class
+		        echo "1" > .current_literature_class
 		    fi
 		    # Read the value from the file
-		    current_technology_and_design_class=$(<.current_technology_and_design_class) 2>/dev/null
+		    current_literature_class=$(<.current_literature_class) 2>/dev/null
 		    # Check if the value is equal to $class
-		    if [ "$current_technology_and_design_class" -lt "$class" 2>/dev/null ]; then
+		    if [ "$current_literature_class" -lt "$class" 2>/dev/null ]; then
 		        echo -e "\n${y}Your progress can't be tracked.${t} ${g}You either havent completed your current final assignment${t} ${r}or${t}\n\nYour files have been interfered with! You need ${b}to go back${t} and progress the right way! \c"
 		        wait_for_a_key_press
 				continue
 			else
-	            rm -f "$technology_and_design_topic_selected"
+	            rm -f "$literature_topic_selected"
 	            # Update the state file with the class
 	            if [ "$class" != "x" ]; then
-	                echo "$class" > .technology_and_design_user_state 2>/dev/null
+	                echo "$class" > .literature_user_state 2>/dev/null
 	            fi
 				break
 	    	fi
@@ -107,19 +107,19 @@ function handle_class_input() {
 function handle_s4_topic_input() {
     if [ -f .resume_to_class ]; then
         rm -f .resume_to_class
-        rm -f .technology_and_design_topic_selected
+        rm -f .literature_topic_selected
     fi
-    if [ -z "$last_topic" ] || [ -f .technology_and_design_topic_selected ]; then
-        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4 or 5 or 6${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. Sectioning '"${r}Term1${t}"''$'\n\n2. Surface development of solids '"${r}Term1${t}"''$'\n\n3. Electricity and electronics '"${r}Term2${t}"''$'\n\n4. Construction practice '"${r}Term2${t}"''$'\n\n5. Electronics '"${r}Term2${t}"''$'\n\n6. Maintenance and repair of simple machines '"${r}Term3${t}"''$'\n\n> ' topic
-        touch .technology_and_design_surveyor
-        touch .technology_and_design_topic_selected
+    if [ -z "$last_topic" ] || [ -f .literature_topic_selected ]; then
+        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. Poetry '"${r}Term1${t}"''$'\n\n2. Drama '"${r}Term2${t}"''$'\n\n3. Prose '"${r}Term3${t}"''$'\n\n> ' topic
+        touch .literature_surveyor
+        touch .literature_topic_selected
         # Update the state file with the topic
         # Check if the state file exists, and the topic is not "x"
-        if [ -f .technology_and_design_user_state ] && [ "$topic" != "x" ]; then
+        if [ -f .literature_user_state ] && [ "$topic" != "x" ]; then
             # Get the current class value from the state file
-            existing_class=$(awk '{print $1}' .technology_and_design_user_state)
+            existing_class=$(awk '{print $1}' .literature_user_state)
             # Update the state file with the topic, preserving the existing class value
-            echo "$existing_class $topic" > .technology_and_design_user_state 2>/dev/null
+            echo "$existing_class $topic" > .literature_user_state 2>/dev/null
         fi
     fi
 }
@@ -127,19 +127,19 @@ function handle_s4_topic_input() {
 function handle_s3_topic_input() {
     if [ -f .resume_to_class ]; then
         rm -f .resume_to_class
-        rm -f .technology_and_design_topic_selected
+        rm -f .literature_topic_selected
     fi
-    if [ -z "$last_topic" ] || [ -f .technology_and_design_topic_selected ]; then
-        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 or 10${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. Loci '"${r}Term1${t}"''$'\n\n2. Plain and diagonal scales '"${r}Term1${t}"''$'\n\n3. Further orthographic projections '"${r}Term2${t}"''$'\n\n4. Building drawing '"${r}Term2${t}"''$'\n\n5. Mechanical drawing '"${r}Term2${t}"''$'\n\n6. Material preservation and protection '"${r}Term2${t}"''$'\n\n7. Making processes '"${r}Term3${t}"''$'\n\n8. Materials joining '"${r}Term3${t}"''$'\n\n9. Renewable energy '"${r}Term3${t}"''$'\n\n10. Maintenance of simple machines '"${r}Term3${t}"' '$'\n\n> ' topic
-        touch .technology_and_design_surveyor
-        touch .technology_and_design_topic_selected
+    if [ -z "$last_topic" ] || [ -f .literature_topic_selected ]; then
+        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. Poetry '"${r}Term1${t}"''$'\n\n2. Drama '"${r}Term2${t}"''$'\n\n3. Prose '"${r}Term3${t}"''$'\n\n> ' topic
+        touch .literature_surveyor
+        touch .literature_topic_selected
         # Update the state file with the topic
         # Check if the state file exists, and the topic is not "x"
-        if [ -f .technology_and_design_user_state ] && [ "$topic" != "x" ]; then
+        if [ -f .literature_user_state ] && [ "$topic" != "x" ]; then
             # Get the current class value from the state file
-            existing_class=$(awk '{print $1}' .technology_and_design_user_state)
+            existing_class=$(awk '{print $1}' .literature_user_state)
             # Update the state file with the topic, preserving the existing class value
-            echo "$existing_class $topic" > .technology_and_design_user_state 2>/dev/null
+            echo "$existing_class $topic" > .literature_user_state 2>/dev/null
         fi
     fi
 }
@@ -147,19 +147,19 @@ function handle_s3_topic_input() {
 function handle_s2_topic_input() {
     if [ -f .resume_to_class ]; then
         rm -f .resume_to_class
-        rm -f .technology_and_design_topic_selected
+        rm -f .literature_topic_selected
     fi
-    if [ -z "$last_topic" ] || [ -f .technology_and_design_topic_selected ]; then
-        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4 or 5 or 6 or 7${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. Enlargement and reproduction '"${r}Term1${t}"''$'\n\n2. Transformation '"${r}Term1${t}"''$'\n\n3. Pictorial drawing '"${r}Term1${t}"''$'\n\n4. Orthographic projections '"${r}Term2${t}"''$'\n\n5. Mechanical systems '"${r}Term2${t}"''$'\n\n6. Tools '"${r}Term3${t}"''$'\n\n7. Engineering materials '"${r}Term3${t}"''$'\n\n> ' topic
-        touch .technology_and_design_surveyor
-        touch .technology_and_design_topic_selected
+    if [ -z "$last_topic" ] || [ -f .literature_topic_selected ]; then
+        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. Oral literature '"${r}Term1${t}"''$'\n\n2. Poetry '"${r}Term2${t}"''$'\n\n3. Drama '"${r}Term2${t}"''$'\n\n4. Prose '"${r}Term3${t}"''$'\n\n> ' topic
+        touch .literature_surveyor
+        touch .literature_topic_selected
         # Update the state file with the topic
         # Check if the state file exists, and the topic is not "x"
-        if [ -f .technology_and_design_user_state ] && [ "$topic" != "x" ]; then
+        if [ -f .literature_user_state ] && [ "$topic" != "x" ]; then
             # Get the current class value from the state file
-            existing_class=$(awk '{print $1}' .technology_and_design_user_state)
+            existing_class=$(awk '{print $1}' .literature_user_state)
             # Update the state file with the topic, preserving the existing class value
-            echo "$existing_class $topic" > .technology_and_design_user_state 2>/dev/null
+            echo "$existing_class $topic" > .literature_user_state 2>/dev/null
         fi
     fi
 }
@@ -167,19 +167,19 @@ function handle_s2_topic_input() {
 function handle_s1_topic_input() {
     if [ -f .resume_to_class ]; then
         rm -f .resume_to_class
-        rm -f .technology_and_design_topic_selected
+        rm -f .literature_topic_selected
     fi
-    if [ -z "$last_topic" ] || [ -f .technology_and_design_topic_selected ]; then
-        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. Introduction to design '"${r}Term1${t}"''$'\n\n2. The design process '"${r}Term1${t}"''$'\n\n3. Introduction to drawing '"${r}Term1${t}"''$'\n\n4. Basic shapes '"${r}Term2${t}"''$'\n\n5. Tangents to circles '"${r}Term2${t}"''$'\n\n6. Health, safety, security and environment '"${r}Term2${t}"''$'\n\n7. Tools '"${r}Term3${t}"''$'\n\n8. Materials '"${r}Term3${t}"''$'\n\n9. Making processes '"${r}Term3${t}"''$'\n\n> ' topic
-        touch .technology_and_design_surveyor
-        touch .technology_and_design_topic_selected
+    if [ -z "$last_topic" ] || [ -f .literature_topic_selected ]; then
+        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. Oral literature '"${r}Term1${t}"''$'\n\n2. Poetry '"${r}Term2${t}"''$'\n\n3. Drama '"${r}Term2${t}"''$'\n\n4. Prose '"${r}Term3${t}"''$'\n\n> ' topic
+        touch .literature_surveyor
+        touch .literature_topic_selected
         # Update the state file with the topic
         # Check if the state file exists, and the topic is not "x"
-        if [ -f .technology_and_design_user_state ] && [ "$topic" != "x" ]; then
+        if [ -f .literature_user_state ] && [ "$topic" != "x" ]; then
             # Get the current class value from the state file
-            existing_class=$(awk '{print $1}' .technology_and_design_user_state)
+            existing_class=$(awk '{print $1}' .literature_user_state)
             # Update the state file with the topic, preserving the existing class value
-            echo "$existing_class $topic" > .technology_and_design_user_state 2>/dev/null
+            echo "$existing_class $topic" > .literature_user_state 2>/dev/null
         fi
     fi
 }
@@ -195,7 +195,7 @@ process_reminders_from_file() {
     # Read the file line by line
     prev_sentence=""
     echo_next=false
-	echo -n > .technology_and_design_reminder
+	echo -n > .literature_reminder
 
     while IFS= read -r line || [ -n "$line" ]; do
         # Use a semi-colon as a secondary delimiter and read into an array
@@ -210,7 +210,7 @@ process_reminders_from_file() {
                 # Split the obtained sentence into multiple sentences using a comma as the delimiter
                 IFS=',' read -ra split_sentences <<< "$sentence"
                 for split_sentence in "${split_sentences[@]}"; do
-					echo "$split_sentence" >> .technology_and_design_reminder
+					echo "$split_sentence" >> .literature_reminder
                 done
             echo_next=false
             fi
@@ -219,7 +219,7 @@ process_reminders_from_file() {
 
                 lower_cased_sentence=${sentence,}
 
-                echo "Did you know that $lower_cased_sentence" >> .technology_and_design_reminder
+                echo "Did you know that $lower_cased_sentence" >> .literature_reminder
 
                 # Set flag to echo the next sentence
                 echo_next=true
@@ -229,22 +229,22 @@ process_reminders_from_file() {
 
     			lower_cased_sentence=${sentence,}
 
- 				echo "Did you know that $lower_cased_sentence;" >> .technology_and_design_reminder
+ 				echo "Did you know that $lower_cased_sentence;" >> .literature_reminder
 
 			elif [[ "$sentence" =~ ^(An\ |A\ ) && "$sentence" =~ (\ is\ ) ]]; then
 
 				lower_cased_sentence=${sentence,}
 
-    			echo "Do you recall that $lower_cased_sentence;" >> .technology_and_design_reminder
+    			echo "Do you recall that $lower_cased_sentence;" >> .literature_reminder
 
 			elif [[ "$sentence" =~ " → " ]]; then
-    			echo "Hope you know that: $sentence;" >> .technology_and_design_reminder
+    			echo "Hope you know that: $sentence;" >> .literature_reminder
 
             elif [[ "$sentence" =~ " ↔ " ]]; then
-                echo "Hope you know that: $sentence;" >> .technology_and_design_reminder
+                echo "Hope you know that: $sentence;" >> .literature_reminder
 
             elif [[ "$sentence" =~ (Generally|general) ]]; then
-                echo "Note: $sentence;" >> .technology_and_design_reminder
+                echo "Note: $sentence;" >> .literature_reminder
 
 			fi
         done
@@ -262,13 +262,13 @@ process_random_reminder() {
         exit 1
     fi
 
-    # Check if .technology_and_design_reminder exists
-    if [ -f .technology_and_design_reminder ]; then
-		# Remove empty lines from .technology_and_design_reminder
-    	sed -i '/^[[:space:]]*$/d' .technology_and_design_reminder 2>/dev/null
+    # Check if .literature_reminder exists
+    if [ -f .literature_reminder ]; then
+		# Remove empty lines from .literature_reminder
+    	sed -i '/^[[:space:]]*$/d' .literature_reminder 2>/dev/null
         # Randomly select a non-empty sentence
         local reminder  # Declare the variable
-		reminder=$(awk -v RS=';' 'BEGIN{srand();}{gsub(/^[[:space:]]+|[[:space:]]+$/, ""); if (length > 0) a[++n]=$0}END{if (n > 0) print a[int(rand()*n)+1]}' .technology_and_design_reminder)
+		reminder=$(awk -v RS=';' 'BEGIN{srand();}{gsub(/^[[:space:]]+|[[:space:]]+$/, ""); if (length > 0) a[++n]=$0}END{if (n > 0) print a[int(rand()*n)+1]}' .literature_reminder)
         # Check if selected sentence is not empty and contains non-whitespace characters
         if [[ -n "$reminder" && "$reminder" =~ [[:graph:]] ]]; then
 			modified_reminder="\n\n$reminder"
@@ -593,8 +593,8 @@ process_file() {
                 if [[ -n "$sentence" && "$sentence" =~ [[:graph:]] ]]; then
                 if [[ $sentence == *"Figure"* ]]; then
                     modified_sentence=$(echo "$sentence" | sed 's/.*\(Figure.*\.jpg\).*$/\1/')
-                    # Change to the "Figures/Technology_and_design" directory
-                    cd Figures/Technology_and_design || { echo "Failed to change to Figures/Technology_and_design"; return; }
+                    # Change to the "Figures/Literature" directory
+                    cd Figures/Literature || { echo "Failed to change to Figures/Literature"; return; }
                     # Open the file using explorer.exe
                     explorer.exe "$modified_sentence" > /dev/null 2>&1 &
                     # Go back to the original directory
@@ -602,13 +602,13 @@ process_file() {
                 fi
 
                 if [[ $sentence == *"Table"* ]]; then
-                    cd Tables/Technology_and_design || { echo -e "\nFailed to change to Tables/Technology_and_design \c"; return; }
+                    cd Tables/Literature || { echo -e "\nFailed to change to Tables/Literature \c"; return; }
                     explorer.exe "$sentence" > /dev/null 2>&1 &
                     cd ../.. || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
                 fi
 
                 if [[ $sentence == *"Video"* ]]; then
-                    cd Videos/Technology_and_design || { echo -e "\nFailed to change to Videos/Technology_and_design \c"; return; }
+                    cd Videos/Literature || { echo -e "\nFailed to change to Videos/Literature \c"; return; }
                     explorer.exe "$sentence" > /dev/null 2>&1 &
                     cd ../.. || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
                 fi
@@ -652,7 +652,7 @@ process_file() {
 }
 
 contact_ai() {
-    last_topic=$(awk -F' ' '{print $2}' .technology_and_design_user_state)
+    last_topic=$(awk -F' ' '{print $2}' .literature_user_state)
     if [ -f .connect_to_ai ]; then
         echo ""
         # Connect to internet
@@ -775,12 +775,12 @@ while true; do
     # Check if user_input is not empty
     if [[ -n "$user_input" ]]; then
 		if [[ "$user_input" == "sh" ]]; then
-		    Response="We are looking forward to receiving your economic support, thoughts, suggestions, and any files you feel should reach out to everyone of our children. Please remember to label the files you are to attach using the format: Your_name_School_Technology_and_design_File_content (e.g., Muhumuza_Omega_Kasule_High_School_O_level_Chemistry_Answered_EOC1_Items.pdf). Thanks a lot for your contributions."    
-		    technology_and_design="$(basename "$0") - $(date +"%Y-%m-%d %H:%M:%S") - Thoughts, suggestions, and contributions"
-		    encoded_technology_and_design=$(echo "$technology_and_design" | sed 's/ /%20/g; s/\n/%0A/g')
+		    Response="We are looking forward to receiving your economic support, thoughts, suggestions, and any files you feel should reach out to everyone of our children. Please remember to label the files you are to attach using the format: Your_name_School_Literature_File_content (e.g., Muhumuza_Omega_Kasule_High_School_O_level_Chemistry_Answered_EOC1_Items.pdf). Thanks a lot for your contributions."    
+		    literature="$(basename "$0") - $(date +"%Y-%m-%d %H:%M:%S") - Thoughts, suggestions, and contributions"
+		    encoded_literature=$(echo "$literature" | sed 's/ /%20/g; s/\n/%0A/g')
 		    encoded_body=$(echo "$Response" | sed 's/ /%20/g; s/\n/%0A/g')
-		    # Open the email in the browser with the encoded technology_and_design and body
-		    powershell.exe -Command "Start-Process 'https://mail.google.com/mail/?view=cm&to=2024omd256@gmail.com&su=${encoded_technology_and_design}&body=${encoded_body}'"
+		    # Open the email in the browser with the encoded literature and body
+		    powershell.exe -Command "Start-Process 'https://mail.google.com/mail/?view=cm&to=2024omd256@gmail.com&su=${encoded_literature}&body=${encoded_body}'"
 			return
 		fi
          if [[ "$user_input" == "cl" ]]; then
@@ -788,7 +788,7 @@ while true; do
          fi
          if [[ "$user_input" == "sr" ]]; then
             cd Resources || { echo "Failed to access the resources... Contact OMD for help!"; return; }
-            explorer.exe Technology_and_design > /dev/null 2>&1 &
+            explorer.exe Literature > /dev/null 2>&1 &
             cd - > /dev/null 2>&1 || { echo "Failed to return to the original directory!"; exit 1; }
             return
          fi
@@ -808,7 +808,7 @@ while true; do
                 sleep 2
                 return
             fi
-            TEMP_FILE=$(mktemp) && curl -o "$TEMP_FILE" -L "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/technology_and_design_tutorial_wsl.sh" && mv "$TEMP_FILE" technology_and_design_tutorial_wsl.sh && chmod +x technology_and_design_tutorial_wsl.sh && echo -e "\n\n${y}Code successfully updated.. You will have to restart a new session${t} \c" && sleep 4 && exit || (echo -e "\n\n${m}Error updating code!... Please check your internet connection and try again!${t} \c" && rm -f "$TEMP_FILE" && return)
+            TEMP_FILE=$(mktemp) && curl -o "$TEMP_FILE" -L "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/literature_tutorial_wsl.sh" && mv "$TEMP_FILE" literature_tutorial_wsl.sh && chmod +x literature_tutorial_wsl.sh && echo -e "\n\n${y}Code successfully updated.. You will have to restart a new session${t} \c" && sleep 4 && exit || (echo -e "\n\n${m}Error updating code!... Please check your internet connection and try again!${t} \c" && rm -f "$TEMP_FILE" && return)
         fi
         if [[ "$user_input" == "xx" ]]; then
             current_datetime=$(date)
@@ -821,9 +821,9 @@ while true; do
                     sleep 2
                     return
                 fi
-                curl -O -L "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/update_technology_and_design.sh" || { echo -e "\n\n${m}Check your internet connection and try again!${t}" >&2; return; }
-                mv update_technology_and_design.sh .update_technology_and_design.sh
-                bash .update_technology_and_design.sh
+                curl -O -L "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/update_literature.sh" || { echo -e "\n\n${m}Check your internet connection and try again!${t}" >&2; return; }
+                mv update_literature.sh .update_literature.sh
+                bash .update_literature.sh
                 return
             else
                 return
@@ -840,10 +840,10 @@ while true; do
         # Use grep to find the pattern in a file
         if [[ "$user_input" == "${user_input^^}" ]]; then
             # Case-sensitive search for user input
-            result=$(grep -h -w -A 999999 "$user_input" Notes/Technology_and_design/*.txt | sed -e '1s/^/\n/' -e 's/\.\s\+/&\n\n/g' -e 's/;\s*/&\n/g' | sed '/https:/! s/^[^:]*://' | tr -d '\000' | sed 's/^ \([^ ]\)/\1/')
+            result=$(grep -h -w -A 999999 "$user_input" Notes/Literature/*.txt | sed -e '1s/^/\n/' -e 's/\.\s\+/&\n\n/g' -e 's/;\s*/&\n/g' | sed '/https:/! s/^[^:]*://' | tr -d '\000' | sed 's/^ \([^ ]\)/\1/')
         else
             # Case-insensitive search for user input
-            result=$(find Notes/Technology_and_design -type f -name "*.txt" -exec awk '{if (gsub(/\.\s+/,"&\n\n"FILENAME":")) print ""; print FILENAME":" $0}' {} \; | grep -i -w "$user_input" | sed -e 's/: /. /g' | awk -F: 'BEGIN {file="";} {if (file != $1) { print ""; print $1; file=$1; print ""; } print $2}' | sed -e '/https:/! s/^[^:]*://' -e '/^$/N;/^\n$/D' | sed 's/\.\s\+/&\n/g' | tr -d '\000' | grep -E "$user_input|.txt" | sed 's/$/\n/' | sed 's/;\s*/&\n/g')
+            result=$(find Notes/Literature -type f -name "*.txt" -exec awk '{if (gsub(/\.\s+/,"&\n\n"FILENAME":")) print ""; print FILENAME":" $0}' {} \; | grep -i -w "$user_input" | sed -e 's/: /. /g' | awk -F: 'BEGIN {file="";} {if (file != $1) { print ""; print $1; file=$1; print ""; } print $2}' | sed -e '/https:/! s/^[^:]*://' -e '/^$/N;/^\n$/D' | sed 's/\.\s\+/&\n/g' | tr -d '\000' | grep -E "$user_input|.txt" | sed 's/$/\n/' | sed 's/;\s*/&\n/g')
         fi
 
         # Check if the result is not empty
@@ -853,10 +853,10 @@ while true; do
             rm -f search.txt
             echo -e "\c"
             if echo "$result" | grep "Figure"; then
-                echo "$result" | grep -o '\bFigure[0-9]\+.*\.jpg\(\.[0-9]\+\)*\b' > Figures/Technology_and_design/figures.txt
-                sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' Figures/Technology_and_design/figures.txt
-                # Change to the "Figures/Technology_and_design" directory
-                cd Figures/Technology_and_design || { echo "Failed to change to Figures/Technology_and_design"; return; }
+                echo "$result" | grep -o '\bFigure[0-9]\+.*\.jpg\(\.[0-9]\+\)*\b' > Figures/Literature/figures.txt
+                sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' Figures/Literature/figures.txt
+                # Change to the "Figures/Literature" directory
+                cd Figures/Literature || { echo "Failed to change to Figures/Literature"; return; }
                 # Specify the path to the text file containing figure names
                 text_file="figures.txt"
                 # Read each line from the text file and open the corresponding figure
@@ -870,13 +870,13 @@ while true; do
                 # Go back to the original directory
                 cd ../.. || { echo "Failed to change back to the original directory \c"; exit 1; }
                 # Remove the temporary file
-                rm -f Figures/Technology_and_design/figures.txt
+                rm -f Figures/Literature/figures.txt
             fi
 
             if echo "$result" | grep "Table"; then
-                echo "$result" | grep -o '\bTable[0-9]\+\(\.[0-9]\+\)*\b' > Tables/Technology_and_design/tables.txt
-                sed -i -e '/^Table/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' Tables/Technology_and_design/tables.txt
-                cd Tables/Technology_and_design || { echo -e "\nFailed to change to Tables/Technology_and_design \c"; return; }
+                echo "$result" | grep -o '\bTable[0-9]\+\(\.[0-9]\+\)*\b' > Tables/Literature/tables.txt
+                sed -i -e '/^Table/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' Tables/Literature/tables.txt
+                cd Tables/Literature || { echo -e "\nFailed to change to Tables/Literature \c"; return; }
                 # Specify the path to the text file containing Table names
                 text_file="tables.txt"
                 # Read each line from the text file and open the corresponding table
@@ -890,16 +890,16 @@ while true; do
                 # Remove the temporary file
                 # Go back to the original directory
                 cd ../.. || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
-                rm -f Tables/Technology_and_design/tables.txt
+                rm -f Tables/Literature/tables.txt
             fi
 
             if echo "$result" | grep "Video"; then
-                #echo "$result" > Videos/Technology_and_design/videos.txt
-                echo "$result" | grep -o '\bVideo[0-9]\+\(\.[0-9]\+\)*\b' > Videos/Technology_and_design/videos.txt
+                #echo "$result" > Videos/Literature/videos.txt
+                echo "$result" | grep -o '\bVideo[0-9]\+\(\.[0-9]\+\)*\b' > Videos/Literature/videos.txt
                 # Remove lines not starting with "Video" and any leading/trailing whitespaces
-                sed -i -e '/^Video/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' Videos/Technology_and_design/videos.txt
-                # Change to the "Videos/Technology_and_design" directory
-                cd Videos/Technology_and_design || { echo -e "\nFailed to change to Videos/Technology_and_design \c"; return; }
+                sed -i -e '/^Video/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' Videos/Literature/videos.txt
+                # Change to the "Videos/Literature" directory
+                cd Videos/Literature || { echo -e "\nFailed to change to Videos/Literature \c"; return; }
                 # Specify the path to the text file containing video names
                 text_file="videos.txt"
                 while IFS= read -r video_prefix || [ -n "$video_prefix" ]; do
@@ -912,7 +912,7 @@ while true; do
                 # Go back to the original directory
                 cd ../.. || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
                 # Remove the temporary file
-                rm -f Videos/Technology_and_design/videos.txt
+                rm -f Videos/Literature/videos.txt
             fi
 
         else
@@ -965,10 +965,10 @@ while true; do
             echo -e "$selected_question;" >> "$revision_file"
 
             if echo "$selected_question" | grep "Figure"; then
-                echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../Figures/Technology_and_design/figures.txt
-                sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../Figures/Technology_and_design/figures.txt
-                # Change to the "Figures/Technology_and_design" directory
-                cd ../../Figures/Technology_and_design || { echo "Failed to change to Figures/Technology_and_design"; return; }
+                echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../Figures/Literature/figures.txt
+                sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../Figures/Literature/figures.txt
+                # Change to the "Figures/Literature" directory
+                cd ../../Figures/Literature || { echo "Failed to change to Figures/Literature"; return; }
                 # Specify the path to the text file containing figure names
                 text_file="figures.txt"
                 # Read each line from the selected question and open the corresponding figure
@@ -979,9 +979,9 @@ while true; do
                     explorer.exe "${edited_figure_prefix}"* > /dev/null 2>&1 &
                 done < "$text_file"
                 # Go back to the original directory
-                cd ../../Revision/Technology_and_design || { echo "Failed to change back to the targeted directory \c"; exit 1; }
+                cd ../../Revision/Literature || { echo "Failed to change back to the targeted directory \c"; exit 1; }
                 # Remove the temporary file
-                rm -f ../../Figures/Technology_and_design/figures.txt
+                rm -f ../../Figures/Literature/figures.txt
             fi
 
             # Create a temporary file
@@ -1062,10 +1062,10 @@ while true; do
             echo -e "$selected_question;" >> "$revision_file"
 
             if echo "$selected_question" | grep "Figure"; then
-                echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../Figures/Technology_and_design/figures.txt
-                sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../Figures/Technology_and_design/figures.txt
-                # Change to the "Figures/Technology_and_design" directory
-                cd ../../Figures/Technology_and_design || { echo "Failed to change to Figures/Technology_and_design"; return; }
+                echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../Figures/Literature/figures.txt
+                sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../Figures/Literature/figures.txt
+                # Change to the "Figures/Literature" directory
+                cd ../../Figures/Literature || { echo "Failed to change to Figures/Literature"; return; }
                 # Specify the path to the text file containing figure names
                 text_file="figures.txt"
                 # Read each line from the selected question and open the corresponding figure
@@ -1076,9 +1076,9 @@ while true; do
                     explorer.exe "${edited_figure_prefix}"* > /dev/null 2>&1 &
                 done < "$text_file"
                 # Go back to the original directory
-                cd ../../Revision/Technology_and_design || { echo "Failed to change back to the targeted directory \c"; exit 1; }
+                cd ../../Revision/Literature || { echo "Failed to change back to the targeted directory \c"; exit 1; }
                 # Remove the temporary file
-                rm -f ../../Figures/Technology_and_design/figures.txt
+                rm -f ../../Figures/Literature/figures.txt
             fi
 
             # Create a temporary file
@@ -1316,10 +1316,10 @@ process_question_answer() {
                 echo "${selected_question//(/$'\n'}"
 
                 if echo "$selected_question" | grep "Figure"; then
-                    echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../Figures/Technology_and_design/figures.txt
-                    sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../Figures/Technology_and_design/figures.txt
-                    # Change to the "Figures/Technology_and_design" directory
-                    cd ../../Figures/Technology_and_design || { echo "Failed to change to Figures/Technology_and_design"; return; }
+                    echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../Figures/Literature/figures.txt
+                    sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../Figures/Literature/figures.txt
+                    # Change to the "Figures/Literature" directory
+                    cd ../../Figures/Literature || { echo "Failed to change to Figures/Literature"; return; }
                     # Specify the path to the text file containing figure names
                     text_file="figures.txt"
                     # Read each line from the selected question and open the corresponding figure
@@ -1330,9 +1330,9 @@ process_question_answer() {
                         explorer.exe "${edited_figure_prefix}"* > /dev/null 2>&1 &
                     done < "$text_file"
                     # Go back to the original directory
-                    cd ../../Revision/Technology_and_design || { echo "Failed to change back to the targeted directory \c"; exit 1; }
+                    cd ../../Revision/Literature || { echo "Failed to change back to the targeted directory \c"; exit 1; }
                     # Remove the temporary file
-                    rm -f ../../Figures/Technology_and_design/figures.txt
+                    rm -f ../../Figures/Literature/figures.txt
                 fi
 
                 # Create a temporary file
@@ -1451,8 +1451,8 @@ process_question_answer() {
         school_name="${school_name// /_}"
         touch ../../../."$school_name"_students_file.txt
         sed -i '/^[[:space:]]*$/d' ../../../."$school_name"_students_file.txt
-        existing_class=$(awk '{print $1}' ../../../.technology_and_design_user_state)
-        existing_topic=$(awk '{print $2}' ../../../.technology_and_design_user_state)
+        existing_class=$(awk '{print $1}' ../../../.literature_user_state)
+        existing_topic=$(awk '{print $2}' ../../../.literature_user_state)
         echo ''
         if replace_prompt  'By just pressing Enter, the obtained score will be allocated to every recorded student... If otherwise, enter your Initial(s) (space-separated) to label the score' replacement; then
             replacement=${replacement^^}  # Convert to uppercase
@@ -1460,23 +1460,23 @@ process_question_answer() {
         else
             names=''
         fi
-        if grep -q "Technology_and_design" ../../../."$school_name"_students_file.txt; then
+        if grep -q "Literature" ../../../."$school_name"_students_file.txt; then
             sed -i -E 's/;/\n/g' ../../../."$school_name"_students_file.txt
-            # Find the line with the word Technology_and_design, replace the information below it with the already available information adding a comma existing_class_existing_topic [$percentage]
+            # Find the line with the word Literature, replace the information below it with the already available information adding a comma existing_class_existing_topic [$percentage]
             if [ "$existing_topic" == "r" ]; then
-                sed -i '/Technology_and_design/{n;s/\(.*\)/\1, '"$existing_class"'_'"$input"' '"$names"'['"$percentage%"']/}' ../../../."$school_name"_students_file.txt
+                sed -i '/Literature/{n;s/\(.*\)/\1, '"$existing_class"'_'"$input"' '"$names"'['"$percentage%"']/}' ../../../."$school_name"_students_file.txt
             else
                 (( existing_topic-- ))
-                sed -i '/Technology_and_design/{n;s/\(.*\)/\1, '"$existing_class"'_'"$existing_topic"' '"$names"'['"$percentage%"']/}' ../../../."$school_name"_students_file.txt
+                sed -i '/Literature/{n;s/\(.*\)/\1, '"$existing_class"'_'"$existing_topic"' '"$names"'['"$percentage%"']/}' ../../../."$school_name"_students_file.txt
             fi
         else
             if [ "$existing_topic" == "r" ]; then
-                sed -i -E '/^School/ i\Technology_and_design\n'"${existing_class} ${names}[${percentage}%]"'' ../../../."$school_name"_students_file.txt
-                echo -e "Technology_and_design\n"$existing_class"_'"$input"' "$names"["$percentage%"]" >> ../../../."$school_name"_students_file.txt
+                sed -i -E '/^School/ i\Literature\n'"${existing_class} ${names}[${percentage}%]"'' ../../../."$school_name"_students_file.txt
+                echo -e "Literature\n"$existing_class"_'"$input"' "$names"["$percentage%"]" >> ../../../."$school_name"_students_file.txt
             else
                 (( existing_topic-- ))
-                sed -i -E '/^School/ i\Technology_and_design\n'"${existing_class}_${existing_topic} ${names}[${percentage}%]"'' ../../../."$school_name"_students_file.txt
-                echo -e "Technology_and_design\n"$existing_class"_"$existing_topic" "$names"["$percentage%"]" >> ../../../."$school_name"_students_file.txt
+                sed -i -E '/^School/ i\Literature\n'"${existing_class}_${existing_topic} ${names}[${percentage}%]"'' ../../../."$school_name"_students_file.txt
+                echo -e "Literature\n"$existing_class"_"$existing_topic" "$names"["$percentage%"]" >> ../../../."$school_name"_students_file.txt
             fi
                 sed -i '1,2s/.*//g' ../../../."$school_name"_students_file.txt
                 sed -i '/^[[:space:]]*$/d' ../../../."$school_name"_students_file.txt
@@ -1560,12 +1560,12 @@ process_question_answer() {
 
 # Function to check the state file and resume from the last point
 function resume_from_last_point() {
-    if [ -f .technology_and_design_user_state ]; then
-        last_class=$(awk -F' ' '{print $1}' .technology_and_design_user_state)
-        last_topic=$(awk -F' ' '{print $2}' .technology_and_design_user_state)
+    if [ -f .literature_user_state ]; then
+        last_class=$(awk -F' ' '{print $1}' .literature_user_state)
+        last_topic=$(awk -F' ' '{print $2}' .literature_user_state)
         if [ -n "$last_class" ] && [ -n "$last_topic" ]; then
             echo -e "\n              Resuming from ${r}S$last_class${t} : ${g}Topic '$last_topic'${t} \c"
-            rm -f .technology_and_design_surveyor
+            rm -f .literature_surveyor
             clear_and_center "          ..........    Resumed from ${g}Topic $last_topic${t} (${r}S$last_class${t})    ............"
             return 0
         elif [ -n "$last_class" ] && [ -z "$last_topic" ]; then
@@ -1593,36 +1593,36 @@ function handle_resume_input() {
     read -rp $'\n\n\n   '"${y}Press Enter to resume from your last point. Otherwise, enter${t}"' (no or n) : ' resume_choice
     resume_choice=${resume_choice,,}  # Convert to lowercase
     if ! [[ "$resume_choice" == "no" || "$resume_choice" == "n" ]]; then
-        rm -f .technology_and_design_topic_selected
+        rm -f .literature_topic_selected
         if resume_from_last_point; then
             # User wants to resume
             class=$last_class
             topic=$last_topic
         fi
     else
-        touch .technology_and_design_surveyor
+        touch .literature_surveyor
     fi
 }
 
 # Function to select and process random questions with answers
 process_final_assignment() {
-    # Check if user is.technology_and_design_ready for the assignment
-    # Check if .current_technology_and_design_class is accidentally empty
-    if [ ! -s .current_technology_and_design_class ]; then
-        # Echo 1 to .current_technology_and_design_class
-        echo "1" > .current_technology_and_design_class
+    # Check if user is.literature_ready for the assignment
+    # Check if .current_literature_class is accidentally empty
+    if [ ! -s .current_literature_class ]; then
+        # Echo 1 to .current_literature_class
+        echo "1" > .current_literature_class
     fi
-    # Read the value from the .current_technology_and_design_class file
-    current_technology_and_design_class=$(<.current_technology_and_design_class) 2>/dev/null
-    # Check if the value in the .technology_and_design_ready file is equal to $class
-    # Read the value from the .technology_and_design_ready file
-    if [ ! -s .technology_and_design_ready ]; then
-        echo "0" > .technology_and_design_ready
+    # Read the value from the .current_literature_class file
+    current_literature_class=$(<.current_literature_class) 2>/dev/null
+    # Check if the value in the .literature_ready file is equal to $class
+    # Read the value from the .literature_ready file
+    if [ ! -s .literature_ready ]; then
+        echo "0" > .literature_ready
     fi
-    how.technology_and_design_ready=$(<.technology_and_design_ready) 2>/dev/null
+    how.literature_ready=$(<.literature_ready) 2>/dev/null
     # Check if the value is equal to $class
-    if [ "$how.technology_and_design_ready" -lt "$current_technology_and_design_class" 2>/dev/null ]; then
-        read -rp $'\n\nYou havent done all the topic assignments for your current technology_and_design class\n\n'"${r}Proceeding from here will affect your very final score${y}"'. To go back and progress right, enter '"${y}ok${t}"'. Otherwise, press the Enter key to do the final class assignment: ' progress
+    if [ "$how.literature_ready" -lt "$current_literature_class" 2>/dev/null ]; then
+        read -rp $'\n\nYou havent done all the topic assignments for your current literature class\n\n'"${r}Proceeding from here will affect your very final score${y}"'. To go back and progress right, enter '"${y}ok${t}"'. Otherwise, press the Enter key to do the final class assignment: ' progress
         if [ "$progress" == "ok" ]; then
             return
         fi
@@ -1648,11 +1648,11 @@ process_final_assignment() {
             echo -e "\n\nSorry that took quite long... ${r}Exiting${t}... ${g}Please try atleast two more times${t} \c"
             exit 1
         fi
-        if [ -s ../../technology_and_design_answered_ans.txt ]; then
+        if [ -s ../../literature_answered_ans.txt ]; then
             # Specify the temporary file name within the current working directory
             cpd="./cpd.txt"
             # Copy answered questions to the temporary file
-            cp ../../technology_and_design_answered_ans.txt "$cpd"
+            cp ../../literature_answered_ans.txt "$cpd"
             sed -i 's/\(.*\)\(.\)$/\2\1/' "$cpd"
         fi
         # Remove empty lines from all text files
@@ -1691,10 +1691,10 @@ process_final_assignment() {
                     fi
 
                     if echo "$selected_question" | grep "Figure"; then
-                        echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../Figures/Technology_and_design/figures.txt
-                        sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../Figures/Technology_and_design/figures.txt
-                        # Change to the "Figures/Technology_and_design" directory
-                        cd ../../Figures/Technology_and_design || { echo "Failed to change to Figures/Technology_and_design"; return; }
+                        echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../Figures/Literature/figures.txt
+                        sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../Figures/Literature/figures.txt
+                        # Change to the "Figures/Literature" directory
+                        cd ../../Figures/Literature || { echo "Failed to change to Figures/Literature"; return; }
                         # Specify the path to the text file containing figure names
                         text_file="figures.txt"
                         # Read each line from the selected question and open the corresponding figure
@@ -1705,9 +1705,9 @@ process_final_assignment() {
                             explorer.exe "${edited_figure_prefix}"* > /dev/null 2>&1 &
                         done < "$text_file"
                         # Go back to the original directory
-                        cd ../../Revision/Technology_and_design || { echo "Failed to change back to the targeted directory \c"; exit 1; }
+                        cd ../../Revision/Literature || { echo "Failed to change back to the targeted directory \c"; exit 1; }
                         # Remove the temporary file
-                        rm -f ../../Figures/Technology_and_design/figures.txt
+                        rm -f ../../Figures/Literature/figures.txt
                     fi
                     # Create a temporary file
                     temp_file=$(mktemp)
@@ -1849,20 +1849,20 @@ process_final_assignment() {
                     cd ../..
                     wscript.exe //nologo sound2.vbs &
                     cd - > /dev/null 2>&1 || exit
-                    if ! [ -f .current_technology_and_design_class ]; then
+                    if ! [ -f .current_literature_class ]; then
                         # Echo the result to the file .current_class
-                        echo "2" > .current_technology_and_design_class
+                        echo "2" > .current_literature_class
                         echo -e "\n\n${g}Congratulations!${t}  You have successfully gained access to the next class (S2).\n\nHowever, if a diferrent class was expected, then something is wrong.\n\nFrom here, you will have to go back to go back to S2 and acess the next classes the right way \c"
                         wait_for_a_key_press
                     else
                         # Add 1 to $class value
                         new_class=$(($class + 1))
                         # Read the value from the file
-                        current_technology_and_design_class=$(<.current_technology_and_design_class) 2>/dev/null
-                        # Check if the new_class value is lt $current_technology_and_design_class
-                        if [ "$new_class" -gt "$current_technology_and_design_class" 2>/dev/null ]; then
+                        current_literature_class=$(<.current_literature_class) 2>/dev/null
+                        # Check if the new_class value is lt $current_literature_class
+                        if [ "$new_class" -gt "$current_literature_class" 2>/dev/null ]; then
 		                    # Echo the result to the file .current_class
-		                    echo "$new_class" > .current_technology_and_design_class
+		                    echo "$new_class" > .current_literature_class
                         fi
                         echo -e "\n\n${g}Congratulations!${t} You have successfully gained access to the next class! \c"
                         wait_for_a_key_press
@@ -1880,10 +1880,10 @@ process_final_assignment() {
 get_sample_items() {
 	# File to store the last echo time
     last_echo_time_file="/tmp/last_echo_time.txt"
-	rm -f .technology_and_design_topic_selected
+	rm -f .literature_topic_selected
     # Save the current working directory
     pushd . > /dev/null
-    cd Revision/Technology_and_design || { echo "Directory not found"; return; }
+    cd Revision/Literature || { echo "Directory not found"; return; }
 	if [ -f .revise.txt ] && [ ! -s .revise.txt ]; then
 	    rm -f .revise.txt
 	fi
@@ -1902,27 +1902,27 @@ get_sample_items() {
     	    time_diff=$((current_time - last_echo_time))
         	if [ $time_diff -gt 3600 ]; then
             	# Echo the message and update the last echo time
-	        	echo -e "\n\n\n${r}You are advised to not make any changes to the provided answers, instead, you can make copies that you can edit${t}\n\n${y}For a teacher willing to join us reach out to everyone of our children, please send us your questions and answers in a file labelled with your name, school, technology_and_design, and file content (e.g., Muhumuza_Omega_Kasule_High_School_O_level_Chemistry_Answered_EOC1_Items.pdf) to our contacts${t}\n\n\nEmail: ${g}2024omd256@gmail.com${t} \c"
+	        	echo -e "\n\n\n${r}You are advised to not make any changes to the provided answers, instead, you can make copies that you can edit${t}\n\n${y}For a teacher willing to join us reach out to everyone of our children, please send us your questions and answers in a file labelled with your name, school, literature, and file content (e.g., Muhumuza_Omega_Kasule_High_School_O_level_Chemistry_Answered_EOC1_Items.pdf) to our contacts${t}\n\n\nEmail: ${g}2024omd256@gmail.com${t} \c"
 				echo $current_time > "$last_echo_time_file"
     		fi
             read -rp $'\n\n\nEnter '"${m}any character${t}"' for access to the file of answered items or simply press '"${r}Enter${t}"' to get items to attempt : ' input
           	if [[ -n $input ]]; then
-          		explorer.exe .technology_and_design_samples* > /dev/null 2>&1 &
+          		explorer.exe .literature_samples* > /dev/null 2>&1 &
             	clear
             	popd > /dev/null || exit
                 return
             fi
-            if [ -f .e_o_c_technology_and_design.txt ]; then
+            if [ -f .e_o_c_literature.txt ]; then
                 echo -e "\n\n${y}Below is the list of the elements of construct${t} \n"
-                cat .e_o_c_technology_and_design.txt
+                cat .e_o_c_literature.txt
                 read -rp $'\nEnter a '"${m}specific${t}"' number or simply press '"${r}Enter${t}"' to get random sample items'$'\n> ' input
                 if [[ -n $input ]]; then
                     echo -e "\n${c}Below is the basis of assessment for the selected element of construct${t} \n"
-                    selected_file1=$(ls -a | grep -E "\.e_o_c_technology_and_design_${input}\.txt")
+                    selected_file1=$(ls -a | grep -E "\.e_o_c_literature_${input}\.txt")
                     cat "$selected_file1"
                     # Remove empty lines from the selected files
                     find . -type f -name "*_samples_[0-9].txt" -exec sed -i '/^[[:space:]]*$/d' {} +
-                    selected_file=$(ls -a | grep -E "\.e_o_c_technology_and_design_${input}_samples" | shuf -n 1)
+                    selected_file=$(ls -a | grep -E "\.e_o_c_literature_${input}_samples" | shuf -n 1)
                 else
                     # Find all files and randomly select one
                     local selected_file # Declare the variable
@@ -1976,7 +1976,7 @@ get_sample_items() {
         	        return
         	    fi
         	else
-            	explorer.exe .technology_and_design_samples* > /dev/null 2>&1 &
+            	explorer.exe .literature_samples* > /dev/null 2>&1 &
                 popd > /dev/null || exit
                 return
         	fi
@@ -1988,20 +1988,20 @@ get_sample_items() {
         			if [[ -n "$sentence" && "$sentence" =~ [[:graph:]] ]]; then
         	            if [[ $sentence == *"Figure"* ]]; then
         					modified_sentence=$(echo "$sentence" | sed 's/.*\(Figure.*\.jpg\).*$/\1/')
-                            # Change to the "../../Figures/Technology_and_design" directory
-                            cd ../../Figures/Technology_and_design || { echo "Failed to change to ../../Figures/Technology_and_design"; return; }
+                            # Change to the "../../Figures/Literature" directory
+                            cd ../../Figures/Literature || { echo "Failed to change to ../../Figures/Literature"; return; }
                             # Open the file using explorer.exe
                             explorer.exe "$modified_sentence" > /dev/null 2>&1 &
                             # Go back to the original directory
                             cd ../../../../ || { echo "Failed to change back to the original directory \c"; exit 1; }
                         fi
                         if [[ $sentence == *"Table"* ]]; then
-                            cd ../../Tables/Technology_and_design || { echo -e "\nFailed to change to ../../Tables/Technology_and_design \c"; return; }
+                            cd ../../Tables/Literature || { echo -e "\nFailed to change to ../../Tables/Literature \c"; return; }
                             explorer.exe "$sentence" > /dev/null 2>&1 &
                             cd ../../../../ || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
                         fi
                         if [[ $sentence == *"Video"* ]]; then
-                            cd ../../Videos/Technology_and_design || { echo -e "\nFailed to change to ../../Videos/Technology_and_design \c"; return; }
+                            cd ../../Videos/Literature || { echo -e "\nFailed to change to ../../Videos/Literature \c"; return; }
                             explorer.exe "$sentence" > /dev/null 2>&1 &
                             cd ../../../../ || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
                         fi
@@ -2043,20 +2043,20 @@ get_sample_items() {
         			if [[ -n "$sentence" && "$sentence" =~ [[:graph:]] ]]; then
         	            if [[ $sentence == *"Figure"* ]]; then
         					modified_sentence=$(echo "$sentence" | sed 's/.*\(Figure.*\.jpg\).*$/\1/')
-                            # Change to the "../../Figures/Technology_and_design" directory
-                            cd ../../Figures/Technology_and_design || { echo "Failed to change to ../../Figures/Technology_and_design"; return; }
+                            # Change to the "../../Figures/Literature" directory
+                            cd ../../Figures/Literature || { echo "Failed to change to ../../Figures/Literature"; return; }
                             # Open the file using explorer.exe
                             explorer.exe "$modified_sentence" > /dev/null 2>&1 &
                             # Go back to the original directory
                             cd ../../../../ || { echo "Failed to change back to the original directory \c"; exit 1; }
                         fi
                         if [[ $sentence == *"Table"* ]]; then
-                            cd ../../Tables/Technology_and_design || { echo -e "\nFailed to change to ../../Tables/Technology_and_design \c"; return; }
+                            cd ../../Tables/Literature || { echo -e "\nFailed to change to ../../Tables/Literature \c"; return; }
                             explorer.exe "$sentence" > /dev/null 2>&1 &
                             cd ../../../../ || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
                         fi
                         if [[ $sentence == *"Video"* ]]; then
-                            cd ../../Videos/Technology_and_design || { echo -e "\nFailed to change to ../../Videos/Technology_and_design \c"; return; }
+                            cd ../../Videos/Literature || { echo -e "\nFailed to change to ../../Videos/Literature \c"; return; }
                             explorer.exe "$sentence" > /dev/null 2>&1 &
                             cd ../../../../ || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
                         fi
@@ -2090,7 +2090,7 @@ get_sample_items() {
                 done
             done < .revise.txt
 	    fi
-        rm -f .revise.txt .technology_and_design_topic_selected 2>/dev/null
+        rm -f .revise.txt .literature_topic_selected 2>/dev/null
     done
     popd > /dev/null || exit
 	return
@@ -2123,8 +2123,8 @@ while true; do
     else
         mkdir "Students/$initials"
         cp -r Exercise Revision *_wsl.sh "Students/$initials"
-        echo -e "                                    $initials\n" > "Students/$initials/Exercise/technology_and_design_answered_ans.txt"
-        echo -e "                                    $initials\n" > "Students/$initials/Revision/technology_and_design_covered_qns.txt"
+        echo -e "                                    $initials\n" > "Students/$initials/Exercise/literature_answered_ans.txt"
+        echo -e "                                    $initials\n" > "Students/$initials/Revision/literature_covered_qns.txt"
         for file in "Students/$initials"/*.sh; do
             sed -i -e 's|Notes|../../Notes|g' -e 's|Videos|../../Videos|g' -e 's|Figures|../../Figures|g' -e 's|Students|../../Students|g' -e 's|Tables|../../Tables|g' -e 's#cd ../.. ||#cd - > /dev/null 2>\&1 ||#g' "$file"
             # Determining the correct path to the Desktop using the USERPROFILE environment variable
@@ -2274,13 +2274,13 @@ process_question_answer_adv() {
                     echo "${selected_question//(/$'\n'}"
                     echo "${selected_question//(/$'\n'}" > "$temp_file22"
                     if echo "$selected_question" | grep -q "Figure"; then
-                        echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../../Figures/Technology_and_design/figures.txt
-                        sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../../Figures/Technology_and_design/figures.txt
+                        echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../../Figures/Literature/figures.txt
+                        sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../../Figures/Literature/figures.txt
                         echo -e "\nNote: There is an attached figure!" >> "$temp_file22"
                         # Save the current working directory
                         pushd . > /dev/null
-                        # Change to the "Figures/Technology_and_design" directory
-                        cd ../../../Figures/Technology_and_design || { echo "Failed to change to Figures/Technology_and_design"; return; }
+                        # Change to the "Figures/Literature" directory
+                        cd ../../../Figures/Literature || { echo "Failed to change to Figures/Literature"; return; }
                         # Specify the path to the text file containing figure names
                         text_file="figures.txt"
                         while IFS= read -r figure_prefix || [ -n "$figure_prefix" ]; do
@@ -2412,8 +2412,8 @@ process_question_answer_adv() {
             school_name="${school_name// /_}"
             touch ../../../."$school_name"_students_file.txt
             sed -i '/^[[:space:]]*$/d' ../../../."$school_name"_students_file.txt
-            existing_class=$(awk '{print $1}' ../../../.technology_and_design_user_state)
-            existing_topic=$(awk '{print $2}' ../../../.technology_and_design_user_state)
+            existing_class=$(awk '{print $1}' ../../../.literature_user_state)
+            existing_topic=$(awk '{print $2}' ../../../.literature_user_state)
             echo ''
             if replace_prompt  'By just pressing Enter, the obtained score will be allocated to every recorded student... If otherwise, enter your Initial(s) (space-separated) to label the score' replacement; then
                 replacement=${replacement^^}  # Convert to uppercase
@@ -2421,23 +2421,23 @@ process_question_answer_adv() {
             else
                 names=''
             fi
-            if grep -q "Technology_and_design" ../../../."$school_name"_students_file.txt; then
+            if grep -q "Literature" ../../../."$school_name"_students_file.txt; then
                 sed -i -E 's/;/\n/g' ../../../."$school_name"_students_file.txt
-                # Find the line with the word Technology_and_design, replace the information below it with the already available information adding a comma existing_class_existing_topic [$percentage]
+                # Find the line with the word Literature, replace the information below it with the already available information adding a comma existing_class_existing_topic [$percentage]
                 if [ "$existing_topic" == "z" ]; then
-                    sed -i '/Technology_and_design/{n;s/\(.*\)/\1, '"$existing_class"' '"$names"'['"$percentage%"']/}' ../../../."$school_name"_students_file.txt
+                    sed -i '/Literature/{n;s/\(.*\)/\1, '"$existing_class"' '"$names"'['"$percentage%"']/}' ../../../."$school_name"_students_file.txt
                 else
                     (( existing_topic-- ))
-                    sed -i '/Technology_and_design/{n;s/\(.*\)/\1, '"$existing_class"'_'"$existing_topic"' '"$names"'['"$percentage%"']/}' ../../../."$school_name"_students_file.txt
+                    sed -i '/Literature/{n;s/\(.*\)/\1, '"$existing_class"'_'"$existing_topic"' '"$names"'['"$percentage%"']/}' ../../../."$school_name"_students_file.txt
                 fi
             else
                 if [ "$existing_topic" == "z" ]; then
-                    sed -i -E '/^School/ i\Technology_and_design\n'"${existing_class} ${names}[${percentage}%]"'' ../../../."$school_name"_students_file.txt
-                    echo -e "Technology_and_design\n"$existing_class" "$names"["$percentage%"]" >> ../../../."$school_name"_students_file.txt
+                    sed -i -E '/^School/ i\Literature\n'"${existing_class} ${names}[${percentage}%]"'' ../../../."$school_name"_students_file.txt
+                    echo -e "Literature\n"$existing_class" "$names"["$percentage%"]" >> ../../../."$school_name"_students_file.txt
                 else
                     (( existing_topic-- ))
-                    sed -i -E '/^School/ i\Technology_and_design\n'"${existing_class}_${existing_topic} ${names}[${percentage}%]"'' ../../../."$school_name"_students_file.txt
-                    echo -e "Technology_and_design\n"$existing_class"_"$existing_topic" "$names"["$percentage%"]" >> ../../../."$school_name"_students_file.txt
+                    sed -i -E '/^School/ i\Literature\n'"${existing_class}_${existing_topic} ${names}[${percentage}%]"'' ../../../."$school_name"_students_file.txt
+                    echo -e "Literature\n"$existing_class"_"$existing_topic" "$names"["$percentage%"]" >> ../../../."$school_name"_students_file.txt
                 fi
                 sed -i '1,2s/.*//g' ../../../."$school_name"_students_file.txt
                 sed -i '/^[[:space:]]*$/d' ../../../."$school_name"_students_file.txt
@@ -2538,15 +2538,15 @@ if [ -f "$communication_file" ]; then
 
     if [ "$time_diff" -gt 21600 ] && [ "$time_diff" -le 86400 ]; then
         # Use hidden flag file to track if it was already opened
-        flag_file="$(dirname \"$communication_file\")/.opened_$(basename \"$communication_file\")"
+        flag_file="$(dirname "$communication_file")/.opened_$(basename "$communication_file")"
 
-        if [ ! -f "$flag_file" ] || [ "$(stat -c %Y \"$flag_file\")" -lt "$file_mtime" ]; then
+        if [ ! -f "$flag_file" ] || [ "$(stat -c %Y "$flag_file")" -lt "$file_mtime" ]; then
             show_communication_info
             explorer.exe "$communication_file" > /dev/null 2>&1 &
             touch "$flag_file"
         fi
     elif [ "$time_diff" -gt 86400 ]; then
-        rm -f "$communication_file" "$backup_file" "$(dirname \"$communication_file\")/.opened_$(basename \"$communication_file\")" 2>/dev/null
+        rm -f "$communication_file" "$backup_file" "$(dirname "$communication_file")/.opened_$(basename "$communication_file")" 2>/dev/null
         download_and_open
     fi
 else
@@ -2563,21 +2563,21 @@ if [ -f .skip_.omd_communication.txt ]; then
     fi
 fi
 
-if [ ! -f .technology_and_design_user_state ]; then
-	touch .technology_and_design_user_state
-	touch .technology_and_design_surveyor
+if [ ! -f .literature_user_state ]; then
+	touch .literature_user_state
+	touch .literature_surveyor
 	echo -e "\n\nYou can search your Notes by topic using uppercase letters or just feed in key words \c"
 	get_and_display_pattern
 else
     if [ -f .omd_communication.txt ]; then
         process_random_communication .omd_communication.txt
     else
-        process_random_reminder .technology_and_design_reminder
+        process_random_reminder .literature_reminder
     fi
 	handle_resume_input
 fi
 
-if [ -z "$class" ] && [ -s ".technology_and_design_user_state" ]; then
+if [ -z "$class" ] && [ -s ".literature_user_state" ]; then
     echo -e "\n\nYou can search your Notes by topic using uppercase letters or just feed in key words \c"
     get_and_display_pattern
 fi
@@ -2623,8 +2623,8 @@ if ! [ -d "Notes" ] || ! [ -d "Revision" ] || ! [ -d "Exercise" ] || ! [ -d "Vid
     cd "$dir_name" || exit
 
     # Create additional directories and files
-    mkdir -p Notes Notes/Technology_and_design Revision Revision/Technology_and_design Revision/Technology_and_design/{S1,S2,S3,S4} Exercise Exercise/Technology_and_design Exercise/Technology_and_design/{S1,S2,S3,S4} Videos Videos/Technology_and_design Figures Figures/Technology_and_design Tables Tables/Technology_and_design
-    touch Revision/technology_and_design_covered_qns.txt Exercise/technology_and_design_answered_ans.txt
+    mkdir -p Notes Notes/Literature Revision Revision/Literature Revision/Literature/{S1,S2,S3,S4} Exercise Exercise/Literature Exercise/Literature/{S1,S2,S3,S4} Videos Videos/Literature Figures Figures/Literature Tables Tables/Literature
+    touch Revision/literature_covered_qns.txt Exercise/literature_answered_ans.txt
     echo -e "\n"
     pwd
     echo -e "\n\n${t}The displayed path above is the path to your directory, please note it down \c"
@@ -2634,12 +2634,12 @@ if ! [ -d "Notes" ] || ! [ -d "Revision" ] || ! [ -d "Exercise" ] || ! [ -d "Vid
     ls "$PWD"
     wait_for_a_key_press
     echo -e "\n\n${t}For this tutorial, you will require current learning material from OMD in your current folder or directory\n\notherwise follow the procedure below to obtain the material \c"
-    cp ../technology_and_design_tutorial .
+    cp ../literature_tutorial .
     clear_and_center
     echo
 fi
 
-files=(Notes/Technology_and_design/*.txt)
+files=(Notes/Literature/*.txt)
 if [ ${#files[@]} -eq 0 ]; then
     read -rp $'\n\nTo get material for this tutorial, get your internet on and press the enter key or press any character key followed by the Enter key to exit: ' user_input
 
@@ -2656,10 +2656,10 @@ if [ ${#files[@]} -eq 0 ]; then
 
         curl -sS https://raw.githubusercontent.com/0xacx/chatGPT-shell-cli/main/install.sh | sudo -E bash > /dev/null 2>&1
 
-        curl -O -L https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.1.introduction_to_design.txt || echo -e "\n\nError fetching material for this tutorial \c"
+        curl -O -L https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.1.oral_literature.txt || echo -e "\n\nError fetching material for this tutorial \c"
 
         echo -e "\n\nYou got the first step covered.\n\nAs you progress, please, do all the available assignments as they will contribute to your final score.\n\nYou can get somewhere to write and we start \c"
-        cp 1.1.introduction_to_design.txt Notes/Technology_and_design || echo -e "\n\nError copying 1.1.introduction_to_design.txt to the Technology_and_design directory in the Notes directory \c"
+        cp 1.1.oral_literature.txt Notes/Literature || echo -e "\n\nError copying 1.1.oral_literature.txt to the Literature directory in the Notes directory \c"
         wait_for_a_key_press
     else
         echo -e "\n\nThere are files in the target sub directories in your Notes directory already, if it isn't intentional, please delete those files and try again \c"
@@ -2667,17 +2667,17 @@ if [ ${#files[@]} -eq 0 ]; then
         quit
     fi
 else
-    rm -f ../technology_and_design_tutorial 1.1.introduction_to_design.txt
+    rm -f ../literature_tutorial 1.1.oral_literature.txt
 fi
 
 while true; do
 
     handle_class_input
     if [[ "$class" == "1" ]]; then
-        if ! find . -maxdepth 1 -name '.s_technology_and_design_1*' -type f -quit 2>/dev/null; then
-            echo -e "\n\n${g}Welcome to S1 Technology_and_design class${t}\n\n${y}Together, we are going to get you started${t} \c" && wait_for_a_key_press
+        if ! find . -maxdepth 1 -name '.s_literature_1*' -type f -quit 2>/dev/null; then
+            echo -e "\n\n${g}Welcome to S1 Literature class${t}\n\n${y}Together, we are going to get you started${t} \c" && wait_for_a_key_press
             echo -e "\n-------------------------------------- \c"
-            clear_and_center "There are ${r}9${t} topics to be covered. Your tasks will always expand or shrink to fit in the time you give them. For that reason, never procrastinate darling!"
+            clear_and_center "There are ${r}4${t} topics to be covered. Your tasks will always expand or shrink to fit in the time you give them. For that reason, never procrastinate darling!"
         fi
         attempts=0
         max_attempts=4
@@ -2686,7 +2686,7 @@ while true; do
             while [ "$attempts" -lt "$max_attempts" ]
             do
                 handle_s1_topic_input
-                touch .technology_and_design_topic_selected
+                touch .literature_topic_selected
                 if [[ "$topic" == "x" ]]
                 then
                     quit
@@ -2694,44 +2694,44 @@ while true; do
                 then
                     attempts=0
                     # Define the targeted directory
-                    question_directory="Revision/Technology_and_design/S1"
+                    question_directory="Revision/Literature/S1"
                     # Define the file extension
                     file_extension_question=".qns.txt"
                     # Define the revision file
-                    revision_file="../../technology_and_design_covered_qns.txt"
+                    revision_file="../../literature_covered_qns.txt"
                     # Call the function to process a random question
                     process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
                 elif [[ "$topic" == "a" ]]
                 then
                     attempts=0
                     # Define the targeted directory
-                    question_directory="Revision/Technology_and_design/S1"
+                    question_directory="Revision/Literature/S1"
                     # Define the file extension
                     file_extension_question=".qns.txt"
                     # Define the revision file
-                    revision_file="../../technology_and_design_covered_qns.txt"
+                    revision_file="../../literature_covered_qns.txt"
                     # Call the function to process a random question
                     process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
                 elif [[ "$topic" == "r" ]]
                 then
                     attempts=0
                     # Define the targeted directory
-                    answered_directory="Exercise/Technology_and_design/S1"
+                    answered_directory="Exercise/Literature/S1"
                     # Define the file extension
                     file_extension_answer=".ans.txt"
                     # Define the exercise file
-                    exercise_file="../../technology_and_design_answered_ans.txt"
+                    exercise_file="../../literature_answered_ans.txt"
                     # Call the function to process a random question
                     process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
                 elif [[ "$topic" == "z" ]]
                 then
                     attempts=0
                     # Define the targeted directory
-                    answered_directory="Exercise/Technology_and_design/S1"
+                    answered_directory="Exercise/Literature/S1"
                     # Define the file extension
                     file_extension_answer=".ans.txt"
                     # Define the exercise file
-                    exercise_file="../../technology_and_design_answered_ans.txt"
+                    exercise_file="../../literature_answered_ans.txt"
                     # Call the function to process a random question
                     process_question_answer_adv "$answered_directory" "$file_extension_answer" "$exercise_file"
                 elif [[ "$topic" == "s" ]]
@@ -2742,35 +2742,35 @@ while true; do
                 then
                     attempts=0
                     # Define the targeted directory
-                    answered_directory="Exercise/Technology_and_design/S1"
+                    answered_directory="Exercise/Literature/S1"
                     # Define the file extension
                     file_extension_answer=".ans.txt"
                     # Define the exercise file
-                    exercise_file="../../technology_and_design_answered_ans.txt"
+                    exercise_file="../../literature_answered_ans.txt"
                     # Call the function to process a random question
                     process_final_assignment "$answered_directory" "$file_extension_answer" "$exercise_file"
                 elif [[ "$topic" == "p" ]]
                 then
                     track_student_progress
-                elif [[ ! "$topic" =~ ^[1-9]$ || -z "$topic" ]]
+                elif [[ ! "$topic" =~ ^[1-4]$ || -z "$topic" ]]
                 then
                     echo -e "\n\nTopic ${r}$topic not available${t}... Please choose from the available options\c"
                     wait_for_a_key_press
                 else
                     case "$topic" in
                         1)
-                            if ! [ -f ".s_technology_and_design_1_1" ]; then
-                                echo -e "\n\nYou chose to explore Introduction to design ...\n\nThank you for choosing to educate yourself!\n\nWe adore you ${g}darling${t} and wish you the very best! \c" && wait_for_a_key_press
+                            if ! [ -f ".s_literature_1_1" ]; then
+                                echo -e "\n\nYou chose to explore Oral literature ...\n\nThank you for choosing to educate yourself!\n\nWe adore you ${g}darling${t} and wish you the very best! \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Technology_and_design/1.1.introduction_to_design.txt" . || exit 1
-                            mv 1.1.introduction_to_design.txt .1.1.introduction_to_design.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .1.1.introduction_to_design.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .1.1.introduction_to_design.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .1.1.introduction_to_design.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .1.1.introduction_to_design.txt
-                            process_reminders_from_file .1.1.introduction_to_design.txt
-                            STATE_FILE=".s_technology_and_design_1_1"
-                            process_file .1.1.introduction_to_design.txt
+                            cp "Notes/Literature/1.1.oral_literature.txt" . || exit 1
+                            mv 1.1.oral_literature.txt .1.1.oral_literature.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .1.1.oral_literature.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .1.1.oral_literature.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .1.1.oral_literature.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .1.1.oral_literature.txt
+                            process_reminders_from_file .1.1.oral_literature.txt
+                            STATE_FILE=".s_literature_1_1"
+                            process_file .1.1.oral_literature.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -2778,52 +2778,52 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .1.1.introduction_to_design.txt
-                            sed -i '/^1$/!d' .s_technology_and_design_1_1
+                            rm -f .1.1.oral_literature.txt
+                            sed -i '/^1$/!d' .s_literature_1_1
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S1"
+                            question_directory="Revision/Literature/S1"
                             # Define the file extension
-                            file_extension=".1.introduction_to_design.qns.txt"
+                            file_extension=".1.oral_literature.qns.txt"
                             # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
+                            revision_file="../../literature_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension" "$revision_file"
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S1"
+                            question_directory="Revision/Literature/S1"
                             # Define the file extension
-                            file_extension_question=".1.introduction_to_design.qns.txt"
+                            file_extension_question=".1.oral_literature.qns.txt"
                             # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
+                            revision_file="../../literature_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
                         ;;
                         2)
-                            if ! [ -f ".technology_and_design.1.1" ]; then
+                            if ! [ -f ".literature.1.1" ]; then
                                 attempts=0
                                 # Define the targeted directory
-                                answered_directory="Exercise/Technology_and_design/S1"
+                                answered_directory="Exercise/Literature/S1"
                                 # Define the file extension
-                                file_extension_answer=".1.introduction_to_design.ans.txt"
+                                file_extension_answer=".1.oral_literature.ans.txt"
                                 # Define the exercise file
-                                exercise_file="../../technology_and_design_answered_ans.txt"
+                                exercise_file="../../literature_answered_ans.txt"
                                 # Call the function to process a random question
                                 process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .technology_and_design.1.1
+                                touch .literature.1.1
                             fi
-                            if ! [ -f ".s_technology_and_design_1_2" ]; then
-                                echo -e "\n\nYou happen to have decided to delve into The design process ...\n\nOnce again we treasure you ${g}dear one${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
+                            if ! [ -f ".s_literature_1_2" ]; then
+                                echo -e "\n\nYou happen to have decided to delve into Poetry ...\n\nOnce again we treasure you ${g}dear one${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Technology_and_design/1.2.the_design_process.txt" . || exit 1
-                            mv 1.2.the_design_process.txt .1.2.the_design_process.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .1.2.the_design_process.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .1.2.the_design_process.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .1.2.the_design_process.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .1.2.the_design_process.txt
-                            process_reminders_from_file .1.2.the_design_process.txt
-                            STATE_FILE=".s_technology_and_design_1_2"
-                            process_file .1.2.the_design_process.txt
+                            cp "Notes/Literature/1.2.poetry.txt" . || exit 1
+                            mv 1.2.poetry.txt .1.2.poetry.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .1.2.poetry.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .1.2.poetry.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .1.2.poetry.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .1.2.poetry.txt
+                            process_reminders_from_file .1.2.poetry.txt
+                            STATE_FILE=".s_literature_1_2"
+                            process_file .1.2.poetry.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -2831,52 +2831,52 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .1.2.the_design_process.txt
-                            sed -i '/^1$/!d' .s_technology_and_design_1_2
+                            rm -f .1.2.poetry.txt
+                            sed -i '/^1$/!d' .s_literature_1_2
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S1"
+                            question_directory="Revision/Literature/S1"
                             # Define the file extension
-                            file_extension_question=".2.the_design_process.qns.txt"
+                            file_extension_question=".2.poetry.qns.txt"
                             # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
+                            revision_file="../../literature_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S1"
+                            question_directory="Revision/Literature/S1"
                             # Define the file extension
-                            file_extension_question=".2.the_design_process.qns.txt"
+                            file_extension_question=".2.poetry.qns.txt"
                             # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
+                            revision_file="../../literature_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
                         ;;
                         3)
-                            if ! [ -f ".technology_and_design.1.2" ]; then
+                            if ! [ -f ".literature.1.2" ]; then
                                 attempts=0
                                 # Define the targeted directory
-                                answered_directory="Exercise/Technology_and_design/S1"
+                                answered_directory="Exercise/Literature/S1"
                                 # Define the file extension
-                                file_extension_answer=".2.the_design_process.ans.txt"
+                                file_extension_answer=".2.poetry.ans.txt"
                                 # Define the exercise file
-                                exercise_file="../../technology_and_design_answered_ans.txt"
+                                exercise_file="../../literature_answered_ans.txt"
                                 # Call the function to process a random question
                                 process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .technology_and_design.1.2
+                                touch .literature.1.2
                             fi
-                            if ! [ -f ".s_technology_and_design_1_3" ]; then
-                                echo -e "\n\nYou have made a choice to cover Introduction to drawing ...\n\nWe are so exited to have you with us ${g}darling${t}\n\nRemember that hard work forever pays \c" && wait_for_a_key_press
+                            if ! [ -f ".s_literature_1_3" ]; then
+                                echo -e "\n\nYou have made a choice to cover Drama ...\n\nWe are so exited to have you with us ${g}darling${t}\n\nRemember that hard work forever pays \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Technology_and_design/1.3.introduction_to_drawing.txt" . || exit 1
-                            mv 1.3.introduction_to_drawing.txt .1.3.introduction_to_drawing.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .1.3.introduction_to_drawing.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .1.3.introduction_to_drawing.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .1.3.introduction_to_drawing.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .1.3.introduction_to_drawing.txt
-                            process_reminders_from_file .1.3.introduction_to_drawing.txt
-                            STATE_FILE=".s_technology_and_design_1_3"
-                            process_file .1.3.introduction_to_drawing.txt
+                            cp "Notes/Literature/1.3.drama.txt" . || exit 1
+                            mv 1.3.drama.txt .1.3.drama.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .1.3.drama.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .1.3.drama.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .1.3.drama.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .1.3.drama.txt
+                            process_reminders_from_file .1.3.drama.txt
+                            STATE_FILE=".s_literature_1_3"
+                            process_file .1.3.drama.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -2884,52 +2884,52 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .1.3.introduction_to_drawing.txt
-                            sed -i '/^1$/!d' .s_technology_and_design_1_3
+                            rm -f .1.3.drama.txt
+                            sed -i '/^1$/!d' .s_literature_1_3
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S1"
+                            question_directory="Revision/Literature/S1"
                             # Define the file extension
-                            file_extension_question=".3.introduction_to_drawing.qns.txt"
+                            file_extension_question=".3.drama.qns.txt"
                             # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
+                            revision_file="../../literature_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S1"
+                            question_directory="Revision/Literature/S1"
                             # Define the file extension
-                            file_extension_question=".3.introduction_to_drawing.qns.txt"
+                            file_extension_question=".3.drama.qns.txt"
                             # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
+                            revision_file="../../literature_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
 						;;
                         4)
-                            if ! [ -f ".technology_and_design.1.3" ]; then
+                            if ! [ -f ".literature.1.3" ]; then
                                 attempts=0
                                 # Define the targeted directory
-                                answered_directory="Exercise/Technology_and_design/S1"
+                                answered_directory="Exercise/Literature/S1"
                                 # Define the file extension
-                                file_extension_answer=".3.introduction_to_drawing.ans.txt"
+                                file_extension_answer=".3.drama.ans.txt"
                                 # Define the exercise file
-                                exercise_file="../../technology_and_design_answered_ans.txt"
+                                exercise_file="../../literature_answered_ans.txt"
                                 # Call the function to process a random question
                                 process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .technology_and_design.1.3
+                                touch .literature.1.3
                             fi
-                            if ! [ -f ".s_technology_and_design_1_4" ]; then
-                                echo -e "\n\nYou did qualify to probe into the realm of Basic shapes ...\n\nWe do treasure you ${g}darling${t}. Just never forget, that no matter how prepared you are, to win gold, you have to follow instructions! \c" && wait_for_a_key_press
+                            if ! [ -f ".s_literature_1_4" ]; then
+                                echo -e "\n\nYou did qualify to probe into the realm of Prose ...\n\nWe do treasure you ${g}darling${t}. Just never forget, that no matter how prepared you are, to win gold, you have to follow instructions! \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Technology_and_design/1.4.basic_shapes.txt" . || exit 1
-                            mv 1.4.basic_shapes.txt .1.4.basic_shapes.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .1.4.basic_shapes.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .1.4.basic_shapes.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .1.4.basic_shapes.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .1.4.basic_shapes.txt
-                            process_reminders_from_file .1.4.basic_shapes.txt
-                            STATE_FILE=".s_technology_and_design_1_4"
-                            process_file .1.4.basic_shapes.txt
+                            cp "Notes/Literature/1.4.prose.txt" . || exit 1
+                            mv 1.4.prose.txt .1.4.prose.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .1.4.prose.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .1.4.prose.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .1.4.prose.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .1.4.prose.txt
+                            process_reminders_from_file .1.4.prose.txt
+                            STATE_FILE=".s_literature_1_4"
+                            process_file .1.4.prose.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -2937,303 +2937,38 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .1.4.basic_shapes.txt
-                            sed -i '/^1$/!d' .s_technology_and_design_1_4
+                            rm -f .1.4.prose.txt
+                            sed -i '/^1$/!d' .s_literature_1_4
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S1"
+                            question_directory="Revision/Literature/S1"
                             # Define the file extension
-                            file_extension=".4.basic_shapes.qns.txt"
+                            file_extension=".4.prose.qns.txt"
                             # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
+                            revision_file="../../literature_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension" "$revision_file"
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S1"
+                            question_directory="Revision/Literature/S1"
                             # Define the file extension
-                            file_extension_question=".4.basic_shapes.qns.txt"
+                            file_extension_question=".4.prose.qns.txt"
                             # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
+                            revision_file="../../literature_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        5)
-                            if ! [ -f ".technology_and_design.1.4" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Technology_and_design/S1"
-                                # Define the file extension
-                                file_extension_answer=".4.basic_shapes.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../technology_and_design_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .technology_and_design.1.4
-                            fi
-                            if ! [ -f ".s_technology_and_design_1_5" ]; then
-                                echo -e "\n\nHere you are dear one... Stay organised as you explore Tangents to circles ...\n\n${g}Just know we are not going to leave you alone${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Technology_and_design/1.5.tangents_to_circles.txt" . || exit 1
-                            mv 1.5.tangents_to_circles.txt .1.5.tangents_to_circles.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .1.5.tangents_to_circles.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .1.5.tangents_to_circles.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .1.5.tangents_to_circles.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .1.5.tangents_to_circles.txt
-                            process_reminders_from_file .1.5.tangents_to_circles.txt
-                            STATE_FILE=".s_technology_and_design_1_5"
-                            process_file .1.5.tangents_to_circles.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .1.5.tangents_to_circles.txt
-                            sed -i '/^1$/!d' .s_technology_and_design_1_5
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S1"
-                            # Define the file extension
-                            file_extension_question=".5.tangents_to_circles.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S1"
-                            # Define the file extension
-                            file_extension_question=".5.tangents_to_circles.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        6)
-                            if ! [ -f ".technology_and_design.1.5" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Technology_and_design/S1"
-                                # Define the file extension
-                                file_extension_answer=".5.tangents_to_circles.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../technology_and_design_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .technology_and_design.1.5
-                            fi
-                            if ! [ -f ".s_technology_and_design_1_6" ]; then
-                                echo -e "\n\nYou have managed to make it to Health, safety, security and environment ...\n\n${g}Remember to pray always${t}\n\nThe fear of the Lord is the beginning of wisdom \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Technology_and_design/1.6.health_safety_security_and_environment.txt" . || exit 1
-                            mv 1.6.health_safety_security_and_environment.txt .1.6.health_safety_security_and_environment.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .1.6.health_safety_security_and_environment.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .1.6.health_safety_security_and_environment.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .1.6.health_safety_security_and_environment.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .1.6.health_safety_security_and_environment.txt
-                            process_reminders_from_file .1.6.health_safety_security_and_environment.txt
-                            STATE_FILE=".s_technology_and_design_1_6"
-                            process_file .1.6.health_safety_security_and_environment.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .1.6.health_safety_security_and_environment.txt
-                            sed -i '/^1$/!d' .s_technology_and_design_1_6
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S1"
-                            # Define the file extension
-                            file_extension_question=".6.health_safety_security_and_environment.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S1"
-                            # Define the file extension
-                            file_extension_question=".6.health_safety_security_and_environment.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        7)
-                            if ! [ -f ".technology_and_design.1.6" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Technology_and_design/S1"
-                                # Define the file extension
-                                file_extension_answer=".6.health_safety_security_and_environment.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../technology_and_design_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .technology_and_design.1.6
-                            fi
-                            if ! [ -f ".s_technology_and_design_1_7" ]; then
-                                echo -e "\n\nFrom here, you will be proceeding with Tools ...\n\n${g}Please never ever forget that your education is your future${t}\n\nFocus dear \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Technology_and_design/1.7.tools.txt" . || exit 1
-                            mv 1.7.tools.txt .1.7.tools.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .1.7.tools.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .1.7.tools.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .1.7.tools.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .1.7.tools.txt
-                            process_reminders_from_file .1.7.tools.txt
-                            STATE_FILE=".s_technology_and_design_1_7"
-                            process_file .1.7.tools.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .1.7.tools.txt
-                            sed -i '/^1$/!d' .s_technology_and_design_1_7
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S1"
-                            # Define the file extension
-                            file_extension_question=".7.tools.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S1"
-                            # Define the file extension
-                            file_extension_question=".7.tools.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        8)
-                            if ! [ -f ".technology_and_design.1.7" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Technology_and_design/S1"
-                                # Define the file extension
-                                file_extension_answer=".7.tools.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../technology_and_design_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .technology_and_design.1.7
-                            fi
-                            if ! [ -f ".s_technology_and_design_1_8" ]; then
-                                echo -e "\n\nYou are to cover Materials ...\n\n${g}Please never ever settle for less${t}\n\nPromise yourself that you wont give up \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Technology_and_design/1.8.materials.txt" . || exit 1
-                            mv 1.8.materials.txt .1.8.materials.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .1.8.materials.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .1.8.materials.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .1.8.materials.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .1.8.materials.txt
-                            process_reminders_from_file .1.8.materials.txt
-                            STATE_FILE=".s_technology_and_design_1_8"
-                            process_file .1.8.materials.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .1.8.materials.txt
-                            sed -i '/^1$/!d' .s_technology_and_design_1_8
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S1"
-                            # Define the file extension
-                            file_extension_question=".8.materials.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S1"
-                            # Define the file extension
-                            file_extension_question=".8.materials.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        9)
-                            if ! [ -f ".technology_and_design.1.8" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Technology_and_design/S1"
-                                # Define the file extension
-                                file_extension_answer=".8.materials.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../technology_and_design_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .technology_and_design.1.8
-                            fi
-                            if ! [ -f ".s_technology_and_design_1_9" ]; then
-                                echo -e "\n\nI am so happy for you dear one. You are here to cover the the 9th topic (Making processes )...\n\n${g}Just never underestimate the value of a single second${t}\n\nThat extra one second maybe all you need to fully understand a given concept \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Technology_and_design/1.9.making_processes.txt" . || exit 1
-                            mv 1.9.making_processes.txt .1.9.making_processes.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .1.9.making_processes.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .1.9.making_processes.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .1.9.making_processes.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .1.9.making_processes.txt
-                            process_reminders_from_file .1.9.making_processes.txt
-                            STATE_FILE=".s_technology_and_design_1_9"
-                            process_file .1.9.making_processes.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .1.9.making_processes.txt
-                            sed -i '/^1$/!d' .s_technology_and_design_1_9
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S1"
-                            # Define the file extension
-                            file_extension_question=".9.making_processes.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S1"
-                            # Define the file extension
-                            file_extension_question=".9.making_processes.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                            if ! [ -f ".technology_and_design.1.9" ]; then
+                            if ! [ -f ".literature.1.4" ]; then
 	                            attempts=0
 	                            # Define the targeted directory
-	                            answered_directory="Exercise/Technology_and_design/S1"
+	                            answered_directory="Exercise/Literature/S1"
 	                            # Define the file extension
-	                            file_extension_answer=".9.making_processes.ans.txt"
+	                            file_extension_answer=".4.prose.ans.txt"
 	                            # Define the exercise file
-	                            exercise_file="../../technology_and_design_answered_ans.txt"
+	                            exercise_file="../../literature_answered_ans.txt"
 	                            # Call the function to process a random answer
 	                            process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-								touch .technology_and_design.1.9
-								echo "1" > .technology_and_design_ready
+								touch .literature.1.4
+								echo "1" > .literature_ready
 							fi
                         ;;
 
@@ -3253,10 +2988,10 @@ while true; do
             fi
         done
     elif [[ "$class" == "2" ]]; then
-        if ! find . -maxdepth 1 -name '.s_technology_and_design_2*' -type f -quit 2>/dev/null; then
-            echo -e "\n\n${g}Welcome to S2 Technology_and_design class${t}\n\n${y}Together, we are going to get you started${t} \c" && wait_for_a_key_press
+        if ! find . -maxdepth 1 -name '.s_literature_2*' -type f -quit 2>/dev/null; then
+            echo -e "\n\n${g}Welcome to S2 Literature class${t}\n\n${y}Together, we are going to get you started${t} \c" && wait_for_a_key_press
             echo -e "\n-------------------------------------- \c"
-            clear_and_center "There are ${r}7${t} topics to be covered. Your tasks will always expand or shrink to fit in the time you give them. For that reason, never procrastinate darling!"
+            clear_and_center "There are ${r}4${t} topics to be covered. Your tasks will always expand or shrink to fit in the time you give them. For that reason, never procrastinate darling!"
         fi
         attempts=0
         max_attempts=4
@@ -3265,7 +3000,7 @@ while true; do
             while [ "$attempts" -lt "$max_attempts" ]
             do
                 handle_s2_topic_input
-                touch .technology_and_design_topic_selected
+                touch .literature_topic_selected
                 if [[ "$topic" == "x" ]]
                 then
                     quit
@@ -3273,44 +3008,44 @@ while true; do
                 then
                     attempts=0
                     # Define the targeted directory
-                    question_directory="Revision/Technology_and_design/S2"
+                    question_directory="Revision/Literature/S2"
                     # Define the file extension
                     file_extension_question=".qns.txt"
                     # Define the revision file
-                    revision_file="../../technology_and_design_covered_qns.txt"
+                    revision_file="../../literature_covered_qns.txt"
                     # Call the function to process a random question
                     process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
                 elif [[ "$topic" == "a" ]]
                 then
                     attempts=0
                     # Define the targeted directory
-                    question_directory="Revision/Technology_and_design/S2"
+                    question_directory="Revision/Literature/S2"
                     # Define the file extension
                     file_extension_question=".qns.txt"
                     # Define the revision file
-                    revision_file="../../technology_and_design_covered_qns.txt"
+                    revision_file="../../literature_covered_qns.txt"
                     # Call the function to process a random question
                     process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
                 elif [[ "$topic" == "r" ]]
                 then
                     attempts=0
                     # Define the targeted directory
-                    answered_directory="Exercise/Technology_and_design/S2"
+                    answered_directory="Exercise/Literature/S2"
                     # Define the file extension
                     file_extension_answer=".ans.txt"
                     # Define the exercise file
-                    exercise_file="../../technology_and_design_answered_ans.txt"
+                    exercise_file="../../literature_answered_ans.txt"
                     # Call the function to process a random question
                     process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
                 elif [[ "$topic" == "z" ]]
                 then
                     attempts=0
                     # Define the targeted directory
-                    answered_directory="Exercise/Technology_and_design/S2"
+                    answered_directory="Exercise/Literature/S2"
                     # Define the file extension
                     file_extension_answer=".ans.txt"
                     # Define the exercise file
-                    exercise_file="../../technology_and_design_answered_ans.txt"
+                    exercise_file="../../literature_answered_ans.txt"
                     # Call the function to process a random question
                     process_question_answer_adv "$answered_directory" "$file_extension_answer" "$exercise_file"
                 elif [[ "$topic" == "s" ]]
@@ -3321,35 +3056,35 @@ while true; do
                 then
                     attempts=0
                     # Define the targeted directory
-                    answered_directory="Exercise/Technology_and_design/S2"
+                    answered_directory="Exercise/Literature/S2"
                     # Define the file extension
                     file_extension_answer=".ans.txt"
                     # Define the exercise file
-                    exercise_file="../../technology_and_design_answered_ans.txt"
+                    exercise_file="../../literature_answered_ans.txt"
                     # Call the function to process a random question
                     process_final_assignment "$answered_directory" "$file_extension_answer" "$exercise_file"
                 elif [[ "$topic" == "p" ]]
                 then
                     track_student_progress
-                elif [[ ! "$topic" =~ ^[1-7]$ || -z "$topic" ]]
+                elif [[ ! "$topic" =~ ^[1-4]$ || -z "$topic" ]]
                 then
                     echo -e "\n\nTopic ${r}$topic not available${t}... Please choose from the available options\c"
                     wait_for_a_key_press
                 else
                     case "$topic" in
                         1)
-                            if ! [ -f ".s_technology_and_design_2_1" ]; then
-                                echo -e "\n\nYou chose to explore Enlargement and reproduction ...\n\nThank you for choosing to educate yourself!\n\nWe adore you ${g}darling${t} and wish you the very best! \c" && wait_for_a_key_press
+                            if ! [ -f ".s_literature_2_1" ]; then
+                                echo -e "\n\nYou chose to explore Oral literature ...\n\nThank you for choosing to educate yourself!\n\nWe adore you ${g}darling${t} and wish you the very best! \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Technology_and_design/2.1.enlargement_and_reproduction.txt" . || exit 1
-                            mv 2.1.enlargement_and_reproduction.txt .2.1.enlargement_and_reproduction.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .2.1.enlargement_and_reproduction.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .2.1.enlargement_and_reproduction.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .2.1.enlargement_and_reproduction.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .2.1.enlargement_and_reproduction.txt
-                            process_reminders_from_file .2.1.enlargement_and_reproduction.txt
-                            STATE_FILE=".s_technology_and_design_2_1"
-                            process_file .2.1.enlargement_and_reproduction.txt
+                            cp "Notes/Literature/2.1.oral_literature.txt" . || exit 1
+                            mv 2.1.oral_literature.txt .2.1.oral_literature.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .2.1.oral_literature.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .2.1.oral_literature.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .2.1.oral_literature.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .2.1.oral_literature.txt
+                            process_reminders_from_file .2.1.oral_literature.txt
+                            STATE_FILE=".s_literature_2_1"
+                            process_file .2.1.oral_literature.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -3357,52 +3092,52 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .2.1.enlargement_and_reproduction.txt
-                            sed -i '/^1$/!d' .s_technology_and_design_2_1
+                            rm -f .2.1.oral_literature.txt
+                            sed -i '/^1$/!d' .s_literature_2_1
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S2"
+                            question_directory="Revision/Literature/S2"
                             # Define the file extension
-                            file_extension=".1.enlargement_and_reproduction.qns.txt"
+                            file_extension=".1.oral_literature.qns.txt"
                             # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
+                            revision_file="../../literature_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension" "$revision_file"
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S2"
+                            question_directory="Revision/Literature/S2"
                             # Define the file extension
-                            file_extension_question=".1.enlargement_and_reproduction.qns.txt"
+                            file_extension_question=".1.oral_literature.qns.txt"
                             # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
+                            revision_file="../../literature_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
                         ;;
                         2)
-                            if ! [ -f ".technology_and_design.2.1" ]; then
+                            if ! [ -f ".literature.2.1" ]; then
                                 attempts=0
                                 # Define the targeted directory
-                                answered_directory="Exercise/Technology_and_design/S2"
+                                answered_directory="Exercise/Literature/S2"
                                 # Define the file extension
-                                file_extension_answer=".1.enlargement_and_reproduction.ans.txt"
+                                file_extension_answer=".1.oral_literature.ans.txt"
                                 # Define the exercise file
-                                exercise_file="../../technology_and_design_answered_ans.txt"
+                                exercise_file="../../literature_answered_ans.txt"
                                 # Call the function to process a random question
                                 process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .technology_and_design.2.1
+                                touch .literature.2.1
                             fi
-                            if ! [ -f ".s_technology_and_design_2_2" ]; then
-                                echo -e "\n\nYou happen to have decided to delve into Transformation ...\n\nOnce again we treasure you ${g}dear one${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
+                            if ! [ -f ".s_literature_2_2" ]; then
+                                echo -e "\n\nYou happen to have decided to delve into Poetry ...\n\nOnce again we treasure you ${g}dear one${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Technology_and_design/2.2.transformation.txt" . || exit 1
-                            mv 2.2.transformation.txt .2.2.transformation.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .2.2.transformation.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .2.2.transformation.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .2.2.transformation.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .2.2.transformation.txt
-                            process_reminders_from_file .2.2.transformation.txt
-                            STATE_FILE=".s_technology_and_design_2_2"
-                            process_file .2.2.transformation.txt
+                            cp "Notes/Literature/2.2.poetry.txt" . || exit 1
+                            mv 2.2.poetry.txt .2.2.poetry.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .2.2.poetry.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .2.2.poetry.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .2.2.poetry.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .2.2.poetry.txt
+                            process_reminders_from_file .2.2.poetry.txt
+                            STATE_FILE=".s_literature_2_2"
+                            process_file .2.2.poetry.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -3410,52 +3145,52 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .2.2.transformation.txt
-                            sed -i '/^1$/!d' .s_technology_and_design_2_2
+                            rm -f .2.2.poetry.txt
+                            sed -i '/^1$/!d' .s_literature_2_2
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S2"
+                            question_directory="Revision/Literature/S2"
                             # Define the file extension
-                            file_extension_question=".2.transformation.qns.txt"
+                            file_extension_question=".2.poetry.qns.txt"
                             # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
+                            revision_file="../../literature_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S2"
+                            question_directory="Revision/Literature/S2"
                             # Define the file extension
-                            file_extension_question=".2.transformation.qns.txt"
+                            file_extension_question=".2.poetry.qns.txt"
                             # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
+                            revision_file="../../literature_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
                         ;;
                         3)
-                            if ! [ -f ".technology_and_design.2.2" ]; then
+                            if ! [ -f ".literature.2.2" ]; then
                                 attempts=0
                                 # Define the targeted directory
-                                answered_directory="Exercise/Technology_and_design/S2"
+                                answered_directory="Exercise/Literature/S2"
                                 # Define the file extension
-                                file_extension_answer=".2.transformation.ans.txt"
+                                file_extension_answer=".2.poetry.ans.txt"
                                 # Define the exercise file
-                                exercise_file="../../technology_and_design_answered_ans.txt"
+                                exercise_file="../../literature_answered_ans.txt"
                                 # Call the function to process a random question
                                 process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .technology_and_design.2.2
+                                touch .literature.2.2
                             fi
-                            if ! [ -f ".s_technology_and_design_2_3" ]; then
-                                echo -e "\n\nYou have made a choice to cover Pictorial drawing ...\n\nWe are so exited to have you with us ${g}darling${t}\n\nRemember that hard work forever pays \c" && wait_for_a_key_press
+                            if ! [ -f ".s_literature_2_3" ]; then
+                                echo -e "\n\nYou have made a choice to cover Drama ...\n\nWe are so exited to have you with us ${g}darling${t}\n\nRemember that hard work forever pays \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Technology_and_design/2.3.pictorial_drawing.txt" . || exit 1
-                            mv 2.3.pictorial_drawing.txt .2.3.pictorial_drawing.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .2.3.pictorial_drawing.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .2.3.pictorial_drawing.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .2.3.pictorial_drawing.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .2.3.pictorial_drawing.txt
-                            process_reminders_from_file .2.3.pictorial_drawing.txt
-                            STATE_FILE=".s_technology_and_design_2_3"
-                            process_file .2.3.pictorial_drawing.txt
+                            cp "Notes/Literature/2.3.drama.txt" . || exit 1
+                            mv 2.3.drama.txt .2.3.drama.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .2.3.drama.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .2.3.drama.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .2.3.drama.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .2.3.drama.txt
+                            process_reminders_from_file .2.3.drama.txt
+                            STATE_FILE=".s_literature_2_3"
+                            process_file .2.3.drama.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -3463,52 +3198,52 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .2.3.pictorial_drawing.txt
-                            sed -i '/^1$/!d' .s_technology_and_design_2_3
+                            rm -f .2.3.drama.txt
+                            sed -i '/^1$/!d' .s_literature_2_3
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S2"
+                            question_directory="Revision/Literature/S2"
                             # Define the file extension
-                            file_extension_question=".3.pictorial_drawing.qns.txt"
+                            file_extension_question=".3.drama.qns.txt"
                             # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
+                            revision_file="../../literature_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S2"
+                            question_directory="Revision/Literature/S2"
                             # Define the file extension
-                            file_extension_question=".3.pictorial_drawing.qns.txt"
+                            file_extension_question=".3.drama.qns.txt"
                             # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
+                            revision_file="../../literature_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
 						;;
                         4)
-                            if ! [ -f ".technology_and_design.2.3" ]; then
+                            if ! [ -f ".literature.2.3" ]; then
                                 attempts=0
                                 # Define the targeted directory
-                                answered_directory="Exercise/Technology_and_design/S2"
+                                answered_directory="Exercise/Literature/S2"
                                 # Define the file extension
-                                file_extension_answer=".3.pictorial_drawing.ans.txt"
+                                file_extension_answer=".3.drama.ans.txt"
                                 # Define the exercise file
-                                exercise_file="../../technology_and_design_answered_ans.txt"
+                                exercise_file="../../literature_answered_ans.txt"
                                 # Call the function to process a random question
                                 process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .technology_and_design.2.3
+                                touch .literature.2.3
                             fi
-                            if ! [ -f ".s_technology_and_design_2_4" ]; then
-                                echo -e "\n\nYou did qualify to probe into the realm of Orthographic projections ...\n\nWe do treasure you ${g}darling${t}. Just never forget, that no matter how prepared you are, to win gold, you have to follow instructions! \c" && wait_for_a_key_press
+                            if ! [ -f ".s_literature_2_4" ]; then
+                                echo -e "\n\nYou did qualify to probe into the realm of Prose ...\n\nWe do treasure you ${g}darling${t}. Just never forget, that no matter how prepared you are, to win gold, you have to follow instructions! \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Technology_and_design/2.4.orthographic_projections.txt" . || exit 1
-                            mv 2.4.orthographic_projections.txt .2.4.orthographic_projections.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .2.4.orthographic_projections.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .2.4.orthographic_projections.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .2.4.orthographic_projections.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .2.4.orthographic_projections.txt
-                            process_reminders_from_file .2.4.orthographic_projections.txt
-                            STATE_FILE=".s_technology_and_design_2_4"
-                            process_file .2.4.orthographic_projections.txt
+                            cp "Notes/Literature/2.4.prose.txt" . || exit 1
+                            mv 2.4.prose.txt .2.4.prose.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .2.4.prose.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .2.4.prose.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .2.4.prose.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .2.4.prose.txt
+                            process_reminders_from_file .2.4.prose.txt
+                            STATE_FILE=".s_literature_2_4"
+                            process_file .2.4.prose.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -3516,197 +3251,38 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .2.4.orthographic_projections.txt
-                            sed -i '/^1$/!d' .s_technology_and_design_2_4
+                            rm -f .2.4.prose.txt
+                            sed -i '/^1$/!d' .s_literature_2_4
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S2"
+                            question_directory="Revision/Literature/S2"
                             # Define the file extension
-                            file_extension=".4.orthographic_projections.qns.txt"
+                            file_extension=".4.prose.qns.txt"
                             # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
+                            revision_file="../../literature_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension" "$revision_file"
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S2"
+                            question_directory="Revision/Literature/S2"
                             # Define the file extension
-                            file_extension_question=".4.orthographic_projections.qns.txt"
+                            file_extension_question=".4.prose.qns.txt"
                             # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
+                            revision_file="../../literature_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        5)
-                            if ! [ -f ".technology_and_design.2.4" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Technology_and_design/S2"
-                                # Define the file extension
-                                file_extension_answer=".4.orthographic_projections.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../technology_and_design_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .technology_and_design.2.4
-                            fi
-                            if ! [ -f ".s_technology_and_design_2_5" ]; then
-                                echo -e "\n\nHere you are dear one... Stay organised as you explore Mechanical systems ...\n\n${g}Just know we are not going to leave you alone${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Technology_and_design/2.5.mechanical_systems.txt" . || exit 1
-                            mv 2.5.mechanical_systems.txt .2.5.mechanical_systems.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .2.5.mechanical_systems.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .2.5.mechanical_systems.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .2.5.mechanical_systems.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .2.5.mechanical_systems.txt
-                            process_reminders_from_file .2.5.mechanical_systems.txt
-                            STATE_FILE=".s_technology_and_design_2_5"
-                            process_file .2.5.mechanical_systems.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .2.5.mechanical_systems.txt
-                            sed -i '/^1$/!d' .s_technology_and_design_2_5
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S2"
-                            # Define the file extension
-                            file_extension_question=".5.mechanical_systems.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S2"
-                            # Define the file extension
-                            file_extension_question=".5.mechanical_systems.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        6)
-                            if ! [ -f ".technology_and_design.2.5" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Technology_and_design/S2"
-                                # Define the file extension
-                                file_extension_answer=".5.mechanical_systems.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../technology_and_design_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .technology_and_design.2.5
-                            fi
-                            if ! [ -f ".s_technology_and_design_2_6" ]; then
-                                echo -e "\n\nYou have managed to make it to Tools ...\n\n${g}Remember to pray always${t}\n\nThe fear of the Lord is the beginning of wisdom \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Technology_and_design/2.6.tools.txt" . || exit 1
-                            mv 2.6.tools.txt .2.6.tools.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .2.6.tools.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .2.6.tools.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .2.6.tools.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .2.6.tools.txt
-                            process_reminders_from_file .2.6.tools.txt
-                            STATE_FILE=".s_technology_and_design_2_6"
-                            process_file .2.6.tools.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .2.6.tools.txt
-                            sed -i '/^1$/!d' .s_technology_and_design_2_6
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S2"
-                            # Define the file extension
-                            file_extension_question=".6.tools.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S2"
-                            # Define the file extension
-                            file_extension_question=".6.tools.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        7)
-                            if ! [ -f ".technology_and_design.2.6" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Technology_and_design/S2"
-                                # Define the file extension
-                                file_extension_answer=".6.tools.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../technology_and_design_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .technology_and_design.2.6
-                            fi
-                            if ! [ -f ".s_technology_and_design_2_7" ]; then
-                                echo -e "\n\nFrom here, you will be proceeding with Engineering materials ...\n\n${g}Please never ever forget that your education is your future${t}\n\nFocus dear \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Technology_and_design/2.7.engineering_materials.txt" . || exit 1
-                            mv 2.7.engineering_materials.txt .2.7.engineering_materials.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .2.7.engineering_materials.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .2.7.engineering_materials.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .2.7.engineering_materials.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .2.7.engineering_materials.txt
-                            process_reminders_from_file .2.7.engineering_materials.txt
-                            STATE_FILE=".s_technology_and_design_2_7"
-                            process_file .2.7.engineering_materials.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .2.7.engineering_materials.txt
-                            sed -i '/^1$/!d' .s_technology_and_design_2_7
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S2"
-                            # Define the file extension
-                            file_extension_question=".7.engineering_materials.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S2"
-                            # Define the file extension
-                            file_extension_question=".7.engineering_materials.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                            if ! [ -f ".technology_and_design.2.7" ]; then
+                            if ! [ -f ".literature.2.4" ]; then
 	                            attempts=0
 	                            # Define the targeted directory
-	                            answered_directory="Exercise/Technology_and_design/S2"
+	                            answered_directory="Exercise/Literature/S2"
 	                            # Define the file extension
-	                            file_extension_answer=".7.engineering_materials.ans.txt"
+	                            file_extension_answer=".4.prose.ans.txt"
 	                            # Define the exercise file
-	                            exercise_file="../../technology_and_design_answered_ans.txt"
+	                            exercise_file="../../literature_answered_ans.txt"
 	                            # Call the function to process a random answer
 	                            process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-								touch .technology_and_design.2.7
-								echo "2" > .technology_and_design_ready
+								touch .literature.2.4
+								echo "2" > .literature_ready
 							fi
                         ;;
 
@@ -3726,10 +3302,10 @@ while true; do
             fi
         done
     elif [[ "$class" == "3" ]]; then
-        if ! find . -maxdepth 1 -name '.s_technology_and_design_3*' -type f -quit 2>/dev/null; then
-            echo -e "\n\n${g}Welcome to S3 Technology_and_design class${t}\n\n${y}Together, we are going to get you started${t} \c" && wait_for_a_key_press
+        if ! find . -maxdepth 1 -name '.s_literature_3*' -type f -quit 2>/dev/null; then
+            echo -e "\n\n${g}Welcome to S3 Literature class${t}\n\n${y}Together, we are going to get you started${t} \c" && wait_for_a_key_press
             echo -e "\n-------------------------------------- \c"
-            clear_and_center "There are ${r}10${t} topics to be covered. Your tasks will always expand or shrink to fit in the time you give them. For that reason, never procrastinate darling!"
+            clear_and_center "There are ${r}3${t} topics to be covered. Your tasks will always expand or shrink to fit in the time you give them. For that reason, never procrastinate darling!"
         fi
         attempts=0
         max_attempts=4
@@ -3738,7 +3314,7 @@ while true; do
             while [ "$attempts" -lt "$max_attempts" ]
             do
                 handle_s3_topic_input
-                touch .technology_and_design_topic_selected
+                touch .literature_topic_selected
                 if [[ "$topic" == "x" ]]
                 then
                     quit
@@ -3746,44 +3322,44 @@ while true; do
                 then
                     attempts=0
                     # Define the targeted directory
-                    question_directory="Revision/Technology_and_design/S3"
+                    question_directory="Revision/Literature/S3"
                     # Define the file extension
                     file_extension_question=".qns.txt"
                     # Define the revision file
-                    revision_file="../../technology_and_design_covered_qns.txt"
+                    revision_file="../../literature_covered_qns.txt"
                     # Call the function to process a random question
                     process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
                 elif [[ "$topic" == "a" ]]
                 then
                     attempts=0
                     # Define the targeted directory
-                    question_directory="Revision/Technology_and_design/S3"
+                    question_directory="Revision/Literature/S3"
                     # Define the file extension
                     file_extension_question=".qns.txt"
                     # Define the revision file
-                    revision_file="../../technology_and_design_covered_qns.txt"
+                    revision_file="../../literature_covered_qns.txt"
                     # Call the function to process a random question
                     process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
                 elif [[ "$topic" == "r" ]]
                 then
                     attempts=0
                     # Define the targeted directory
-                    answered_directory="Exercise/Technology_and_design/S3"
+                    answered_directory="Exercise/Literature/S3"
                     # Define the file extension
                     file_extension_answer=".ans.txt"
                     # Define the exercise file
-                    exercise_file="../../technology_and_design_answered_ans.txt"
+                    exercise_file="../../literature_answered_ans.txt"
                     # Call the function to process a random question
                     process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
                 elif [[ "$topic" == "z" ]]
                 then
                     attempts=0
                     # Define the targeted directory
-                    answered_directory="Exercise/Technology_and_design/S3"
+                    answered_directory="Exercise/Literature/S3"
                     # Define the file extension
                     file_extension_answer=".ans.txt"
                     # Define the exercise file
-                    exercise_file="../../technology_and_design_answered_ans.txt"
+                    exercise_file="../../literature_answered_ans.txt"
                     # Call the function to process a random question
                     process_question_answer_adv "$answered_directory" "$file_extension_answer" "$exercise_file"
                 elif [[ "$topic" == "s" ]]
@@ -3794,35 +3370,35 @@ while true; do
                 then
                     attempts=0
                     # Define the targeted directory
-                    answered_directory="Exercise/Technology_and_design/S3"
+                    answered_directory="Exercise/Literature/S3"
                     # Define the file extension
                     file_extension_answer=".ans.txt"
                     # Define the exercise file
-                    exercise_file="../../technology_and_design_answered_ans.txt"
+                    exercise_file="../../literature_answered_ans.txt"
                     # Call the function to process a random question
                     process_final_assignment "$answered_directory" "$file_extension_answer" "$exercise_file"
                 elif [[ "$topic" == "p" ]]
                 then
                     track_student_progress
-                elif [[ ! "$topic" =~ ^[1-9]$ || -z "$topic" ]]
+                elif [[ ! "$topic" =~ ^[1-3]$ || -z "$topic" ]]
                 then
                     echo -e "\n\nTopic ${r}$topic not available${t}... Please choose from the available options\c"
                     wait_for_a_key_press
                 else
                     case "$topic" in
                         1)
-                            if ! [ -f ".s_technology_and_design_3_1" ]; then
-                                echo -e "\n\nYou chose to explore Loci ...\n\nThank you for choosing to educate yourself!\n\nWe adore you ${g}darling${t} and wish you the very best! \c" && wait_for_a_key_press
+                            if ! [ -f ".s_literature_3_1" ]; then
+                                echo -e "\n\nYou chose to explore Poetry ...\n\nThank you for choosing to educate yourself!\n\nWe adore you ${g}darling${t} and wish you the very best! \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Technology_and_design/3.1.loci.txt" . || exit 1
-                            mv 3.1.loci.txt .3.1.loci.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .3.1.loci.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .3.1.loci.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .3.1.loci.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .3.1.loci.txt
-                            process_reminders_from_file .3.1.loci.txt
-                            STATE_FILE=".s_technology_and_design_3_1"
-                            process_file .3.1.loci.txt
+                            cp "Notes/Literature/3.1.poetry.txt" . || exit 1
+                            mv 3.1.poetry.txt .3.1.poetry.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .3.1.poetry.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .3.1.poetry.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .3.1.poetry.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .3.1.poetry.txt
+                            process_reminders_from_file .3.1.poetry.txt
+                            STATE_FILE=".s_literature_3_1"
+                            process_file .3.1.poetry.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -3830,52 +3406,52 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .3.1.loci.txt
-                            sed -i '/^1$/!d' .s_technology_and_design_3_1
+                            rm -f .3.1.poetry.txt
+                            sed -i '/^1$/!d' .s_literature_3_1
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S3"
+                            question_directory="Revision/Literature/S3"
                             # Define the file extension
-                            file_extension=".1.loci.qns.txt"
+                            file_extension=".1.poetry.qns.txt"
                             # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
+                            revision_file="../../literature_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension" "$revision_file"
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S3"
+                            question_directory="Revision/Literature/S3"
                             # Define the file extension
-                            file_extension_question=".1.loci.qns.txt"
+                            file_extension_question=".1.poetry.qns.txt"
                             # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
+                            revision_file="../../literature_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
                         ;;
                         2)
-                            if ! [ -f ".technology_and_design.3.1" ]; then
+                            if ! [ -f ".literature.3.1" ]; then
                                 attempts=0
                                 # Define the targeted directory
-                                answered_directory="Exercise/Technology_and_design/S3"
+                                answered_directory="Exercise/Literature/S3"
                                 # Define the file extension
-                                file_extension_answer=".1.loci.ans.txt"
+                                file_extension_answer=".1.poetry.ans.txt"
                                 # Define the exercise file
-                                exercise_file="../../technology_and_design_answered_ans.txt"
+                                exercise_file="../../literature_answered_ans.txt"
                                 # Call the function to process a random question
                                 process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .technology_and_design.3.1
+                                touch .literature.3.1
                             fi
-                            if ! [ -f ".s_technology_and_design_3_2" ]; then
-                                echo -e "\n\nYou happen to have decided to delve into Plain and diagonal scales ...\n\nOnce again we treasure you ${g}dear one${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
+                            if ! [ -f ".s_literature_3_2" ]; then
+                                echo -e "\n\nYou happen to have decided to delve into Drama ...\n\nOnce again we treasure you ${g}dear one${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Technology_and_design/3.2.plain_and_diagonal_scales.txt" . || exit 1
-                            mv 3.2.plain_and_diagonal_scales.txt .3.2.plain_and_diagonal_scales.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .3.2.plain_and_diagonal_scales.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .3.2.plain_and_diagonal_scales.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .3.2.plain_and_diagonal_scales.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .3.2.plain_and_diagonal_scales.txt
-                            process_reminders_from_file .3.2.plain_and_diagonal_scales.txt
-                            STATE_FILE=".s_technology_and_design_3_2"
-                            process_file .3.2.plain_and_diagonal_scales.txt
+                            cp "Notes/Literature/3.2.drama.txt" . || exit 1
+                            mv 3.2.drama.txt .3.2.drama.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .3.2.drama.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .3.2.drama.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .3.2.drama.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .3.2.drama.txt
+                            process_reminders_from_file .3.2.drama.txt
+                            STATE_FILE=".s_literature_3_2"
+                            process_file .3.2.drama.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -3883,52 +3459,52 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .3.2.plain_and_diagonal_scales.txt
-                            sed -i '/^1$/!d' .s_technology_and_design_3_2
+                            rm -f .3.2.drama.txt
+                            sed -i '/^1$/!d' .s_literature_3_2
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S3"
+                            question_directory="Revision/Literature/S3"
                             # Define the file extension
-                            file_extension_question=".2.plain_and_diagonal_scales.qns.txt"
+                            file_extension_question=".2.drama.qns.txt"
                             # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
+                            revision_file="../../literature_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S3"
+                            question_directory="Revision/Literature/S3"
                             # Define the file extension
-                            file_extension_question=".2.plain_and_diagonal_scales.qns.txt"
+                            file_extension_question=".2.drama.qns.txt"
                             # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
+                            revision_file="../../literature_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
                         ;;
                         3)
-                            if ! [ -f ".technology_and_design.3.2" ]; then
+                            if ! [ -f ".literature.3.2" ]; then
                                 attempts=0
                                 # Define the targeted directory
-                                answered_directory="Exercise/Technology_and_design/S3"
+                                answered_directory="Exercise/Literature/S3"
                                 # Define the file extension
-                                file_extension_answer=".2.plain_and_diagonal_scales.ans.txt"
+                                file_extension_answer=".2.drama.ans.txt"
                                 # Define the exercise file
-                                exercise_file="../../technology_and_design_answered_ans.txt"
+                                exercise_file="../../literature_answered_ans.txt"
                                 # Call the function to process a random question
                                 process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .technology_and_design.3.2
+                                touch .literature.3.2
                             fi
-                            if ! [ -f ".s_technology_and_design_3_3" ]; then
-                                echo -e "\n\nYou have made a choice to cover Further orthographic projections ...\n\nWe are so exited to have you with us ${g}darling${t}\n\nRemember that hard work forever pays \c" && wait_for_a_key_press
+                            if ! [ -f ".s_literature_3_3" ]; then
+                                echo -e "\n\nYou have made a choice to cover Prose ...\n\nWe are so exited to have you with us ${g}darling${t}\n\nRemember that hard work forever pays \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Technology_and_design/3.3.further_orthographic_projections.txt" . || exit 1
-                            mv 3.3.further_orthographic_projections.txt .3.3.further_orthographic_projections.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .3.3.further_orthographic_projections.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .3.3.further_orthographic_projections.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .3.3.further_orthographic_projections.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .3.3.further_orthographic_projections.txt
-                            process_reminders_from_file .3.3.further_orthographic_projections.txt
-                            STATE_FILE=".s_technology_and_design_3_3"
-                            process_file .3.3.further_orthographic_projections.txt
+                            cp "Notes/Literature/3.3.prose.txt" . || exit 1
+                            mv 3.3.prose.txt .3.3.prose.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .3.3.prose.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .3.3.prose.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .3.3.prose.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .3.3.prose.txt
+                            process_reminders_from_file .3.3.prose.txt
+                            STATE_FILE=".s_literature_3_3"
+                            process_file .3.3.prose.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -3936,411 +3512,41 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .3.3.further_orthographic_projections.txt
-                            sed -i '/^1$/!d' .s_technology_and_design_3_3
+                            rm -f .3.3.prose.txt
+                            sed -i '/^1$/!d' .s_literature_3_3
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S3"
+                            question_directory="Revision/Literature/S3"
                             # Define the file extension
-                            file_extension_question=".3.further_orthographic_projections.qns.txt"
+                            file_extension_question=".3.prose.qns.txt"
                             # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
+                            revision_file="../../literature_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S3"
+                            question_directory="Revision/Literature/S3"
                             # Define the file extension
-                            file_extension_question=".3.further_orthographic_projections.qns.txt"
+                            file_extension_question=".3.prose.qns.txt"
                             # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
+                            revision_file="../../literature_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+                            if ! [ -f ".literature.3.3" ]; then
+	                            attempts=0
+	                            # Define the targeted directory
+	                            answered_directory="Exercise/Literature/S3"
+	                            # Define the file extension
+	                            file_extension_answer=".3.prose.ans.txt"
+	                            # Define the exercise file
+	                            exercise_file="../../literature_answered_ans.txt"
+	                            # Call the function to process a random answer
+	                            process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+								touch .literature.3.3
+								echo "3" > .literature_ready
+							fi
 						;;
-                        4)
-                            if ! [ -f ".technology_and_design.3.3" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Technology_and_design/S3"
-                                # Define the file extension
-                                file_extension_answer=".3.further_orthographic_projections.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../technology_and_design_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .technology_and_design.3.3
-                            fi
-                            if ! [ -f ".s_technology_and_design_3_4" ]; then
-                                echo -e "\n\nYou did qualify to probe into the realm of Building drawing ...\n\nWe do treasure you ${g}darling${t}. Just never forget, that no matter how prepared you are, to win gold, you have to follow instructions! \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Technology_and_design/3.4.building_drawing.txt" . || exit 1
-                            mv 3.4.building_drawing.txt .3.4.building_drawing.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .3.4.building_drawing.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .3.4.building_drawing.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .3.4.building_drawing.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .3.4.building_drawing.txt
-                            process_reminders_from_file .3.4.building_drawing.txt
-                            STATE_FILE=".s_technology_and_design_3_4"
-                            process_file .3.4.building_drawing.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .3.4.building_drawing.txt
-                            sed -i '/^1$/!d' .s_technology_and_design_3_4
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S3"
-                            # Define the file extension
-                            file_extension=".4.building_drawing.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S3"
-                            # Define the file extension
-                            file_extension_question=".4.building_drawing.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        5)
-                            if ! [ -f ".technology_and_design.3.4" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Technology_and_design/S3"
-                                # Define the file extension
-                                file_extension_answer=".4.building_drawing.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../technology_and_design_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .technology_and_design.3.4
-                            fi
-                            if ! [ -f ".s_technology_and_design_3_5" ]; then
-                                echo -e "\n\nHere you are dear one... Stay organised as you explore Mechanical drawing ...\n\n${g}Just know we are not going to leave you alone${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Technology_and_design/3.5.mechanical_drawing.txt" . || exit 1
-                            mv 3.5.mechanical_drawing.txt .3.5.mechanical_drawing.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .3.5.mechanical_drawing.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .3.5.mechanical_drawing.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .3.5.mechanical_drawing.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .3.5.mechanical_drawing.txt
-                            process_reminders_from_file .3.5.mechanical_drawing.txt
-                            STATE_FILE=".s_technology_and_design_3_5"
-                            process_file .3.5.mechanical_drawing.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .3.5.mechanical_drawing.txt
-                            sed -i '/^1$/!d' .s_technology_and_design_3_5
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S3"
-                            # Define the file extension
-                            file_extension_question=".5.mechanical_drawing.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S3"
-                            # Define the file extension
-                            file_extension_question=".5.mechanical_drawing.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        6)
-                            if ! [ -f ".technology_and_design.3.5" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Technology_and_design/S3"
-                                # Define the file extension
-                                file_extension_answer=".5.mechanical_drawing.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../technology_and_design_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .technology_and_design.3.5
-                            fi
-                            if ! [ -f ".s_technology_and_design_3_6" ]; then
-                                echo -e "\n\nYou have managed to make it to Material preservation and protection ...\n\n${g}Remember to pray always${t}\n\nThe fear of the Lord is the beginning of wisdom \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Technology_and_design/3.6.material_preservation_and_protection.txt" . || exit 1
-                            mv 3.6.material_preservation_and_protection.txt .3.6.material_preservation_and_protection.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .3.6.material_preservation_and_protection.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .3.6.material_preservation_and_protection.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .3.6.material_preservation_and_protection.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .3.6.material_preservation_and_protection.txt
-                            process_reminders_from_file .3.6.material_preservation_and_protection.txt
-                            STATE_FILE=".s_technology_and_design_3_6"
-                            process_file .3.6.material_preservation_and_protection.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .3.6.material_preservation_and_protection.txt
-                            sed -i '/^1$/!d' .s_technology_and_design_3_6
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S3"
-                            # Define the file extension
-                            file_extension_question=".6.material_preservation_and_protection.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S3"
-                            # Define the file extension
-                            file_extension_question=".6.material_preservation_and_protection.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        7)
-                            if ! [ -f ".technology_and_design.3.6" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Technology_and_design/S3"
-                                # Define the file extension
-                                file_extension_answer=".6.material_preservation_and_protection.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../technology_and_design_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .technology_and_design.3.6
-                            fi
-                            if ! [ -f ".s_technology_and_design_3_7" ]; then
-                                echo -e "\n\nFrom here, you will be proceeding with Making processes ...\n\n${g}Please never ever forget that your education is your future${t}\n\nFocus dear \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Technology_and_design/3.7.making_processes.txt" . || exit 1
-                            mv 3.7.making_processes.txt .3.7.making_processes.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .3.7.making_processes.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .3.7.making_processes.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .3.7.making_processes.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .3.7.making_processes.txt
-                            process_reminders_from_file .3.7.making_processes.txt
-                            STATE_FILE=".s_technology_and_design_3_7"
-                            process_file .3.7.making_processes.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .3.7.making_processes.txt
-                            sed -i '/^1$/!d' .s_technology_and_design_3_7
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S3"
-                            # Define the file extension
-                            file_extension_question=".7.making_processes.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S3"
-                            # Define the file extension
-                            file_extension_question=".7.making_processes.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        8)
-                            if ! [ -f ".technology_and_design.3.7" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Technology_and_design/S3"
-                                # Define the file extension
-                                file_extension_answer=".7.making_processes.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../technology_and_design_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .technology_and_design.3.7
-                            fi
-                            if ! [ -f ".s_technology_and_design_3_8" ]; then
-                                echo -e "\n\nYou are to cover Materials joining ...\n\n${g}Please never ever settle for less${t}\n\nPromise yourself that you wont give up \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Technology_and_design/3.8.materials_joining.txt" . || exit 1
-                            mv 3.8.materials_joining.txt .3.8.materials_joining.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .3.8.materials_joining.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .3.8.materials_joining.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .3.8.materials_joining.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .3.8.materials_joining.txt
-                            process_reminders_from_file .3.8.materials_joining.txt
-                            STATE_FILE=".s_technology_and_design_3_8"
-                            process_file .3.8.materials_joining.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .3.8.materials_joining.txt
-                            sed -i '/^1$/!d' .s_technology_and_design_3_8
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S3"
-                            # Define the file extension
-                            file_extension_question=".8.materials_joining.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S3"
-                            # Define the file extension
-                            file_extension_question=".8.materials_joining.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        9)
-                            if ! [ -f ".technology_and_design.3.8" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Technology_and_design/S3"
-                                # Define the file extension
-                                file_extension_answer=".8.materials_joining.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../technology_and_design_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .technology_and_design.3.8
-                            fi
-                            if ! [ -f ".s_technology_and_design_3_9" ]; then
-                                echo -e "\n\nI am so happy for you dear one. You are here to cover the the 9th topic (Renewable energy )...\n\n${g}Just never underestimate the value of a single second${t}\n\nThat extra one second maybe all you need to fully understand a given concept \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Technology_and_design/3.9.renewable_energy.txt" . || exit 1
-                            mv 3.9.renewable_energy.txt .3.9.renewable_energy.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .3.9.renewable_energy.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .3.9.renewable_energy.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .3.9.renewable_energy.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .3.9.renewable_energy.txt
-                            process_reminders_from_file .3.9.renewable_energy.txt
-                            STATE_FILE=".s_technology_and_design_3_9"
-                            process_file .3.9.renewable_energy.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .3.9.renewable_energy.txt
-                            sed -i '/^1$/!d' .s_technology_and_design_3_9
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S3"
-                            # Define the file extension
-                            file_extension_question=".9.renewable_energy.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S3"
-                            # Define the file extension
-                            file_extension_question=".9.renewable_energy.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        10)
-                            if ! [ -f ".technology_and_design.3.9" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Technology_and_design/S3"
-                                # Define the file extension
-                                file_extension_answer=".9.renewable_energy.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../technology_and_design_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .technology_and_design.3.9
-                            fi
-                            if ! [ -f ".s_technology_and_design_3_10" ]; then
-                                echo -e "\n\nYou happen to have chosen to explore Maintenance of simple machines ...${g}I never expected you to come this far${t}\n\nKeep believing, keep hoping! \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Technology_and_design/3.10.maintenance_of_simple_machines.txt" . || exit 1
-                            mv 3.10.maintenance_of_simple_machines.txt .3.10.maintenance_of_simple_machines.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .3.10.maintenance_of_simple_machines.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .3.10.maintenance_of_simple_machines.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .3.10.maintenance_of_simple_machines.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .3.10.maintenance_of_simple_machines.txt
-                            process_reminders_from_file .3.10.maintenance_of_simple_machines.txt
-                            STATE_FILE=".s_technology_and_design_3_10"
-                            process_file .3.10.maintenance_of_simple_machines.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .3.10.maintenance_of_simple_machines.txt
-                            sed -i '/^1$/!d' .s_technology_and_design_3_10
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S3"
-                            # Define the file extension
-                            file_extension_question=".10.maintenance_of_simple_machines.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S3"
-                            # Define the file extension
-                            file_extension_question=".10.maintenance_of_simple_machines.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-							if ! [ -f ".technology_and_design.3.10" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Technology_and_design/S3"
-                                # Define the file extension
-                                file_extension_answer=".10.maintenance_of_simple_machines.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../technology_and_design_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .technology_and_design.3.10
-								echo "3" > .technology_and_design_ready
-                            fi
-                        ;;
+
                         # Additional cases for other topics can be added here
                         *)
                             echo -e "\n\nInvalid topic number \c"
@@ -4357,10 +3563,10 @@ while true; do
             fi
         done
     elif [[ "$class" == "4" ]]; then
-        if ! find . -maxdepth 1 -name '.s_technology_and_design_4*' -type f -quit 2>/dev/null; then
-            echo -e "\n\n${g}Welcome to S4 Technology_and_design class${t}\n\n${y}Together, we are going to get you started${t} \c" && wait_for_a_key_press
+        if ! find . -maxdepth 1 -name '.s_literature_4*' -type f -quit 2>/dev/null; then
+            echo -e "\n\n${g}Welcome to S4 Literature class${t}\n\n${y}Together, we are going to get you started${t} \c" && wait_for_a_key_press
             echo -e "\n-------------------------------------- \c"
-            clear_and_center "There are ${r}6${t} topics to be covered. Your tasks will always expand or shrink to fit in the time you give them. For that reason, never procrastinate darling!"
+            clear_and_center "There are ${r}3${t} topics to be covered. Your tasks will always expand or shrink to fit in the time you give them. For that reason, never procrastinate darling!"
         fi
         attempts=0
         max_attempts=4
@@ -4369,7 +3575,7 @@ while true; do
             while [ "$attempts" -lt "$max_attempts" ]
             do
                 handle_s4_topic_input
-                touch .technology_and_design_topic_selected
+                touch .literature_topic_selected
                 if [[ "$topic" == "x" ]]
                 then
                     quit
@@ -4377,44 +3583,44 @@ while true; do
                 then
                     attempts=0
                     # Define the targeted directory
-                    question_directory="Revision/Technology_and_design/S4"
+                    question_directory="Revision/Literature/S4"
                     # Define the file extension
                     file_extension_question=".qns.txt"
                     # Define the revision file
-                    revision_file="../../technology_and_design_covered_qns.txt"
+                    revision_file="../../literature_covered_qns.txt"
                     # Call the function to process a random question
                     process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
                 elif [[ "$topic" == "a" ]]
                 then
                     attempts=0
                     # Define the targeted directory
-                    question_directory="Revision/Technology_and_design/S4"
+                    question_directory="Revision/Literature/S4"
                     # Define the file extension
                     file_extension_question=".qns.txt"
                     # Define the revision file
-                    revision_file="../../technology_and_design_covered_qns.txt"
+                    revision_file="../../literature_covered_qns.txt"
                     # Call the function to process a random question
                     process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
                 elif [[ "$topic" == "r" ]]
                 then
                     attempts=0
                     # Define the targeted directory
-                    answered_directory="Exercise/Technology_and_design/S4"
+                    answered_directory="Exercise/Literature/S4"
                     # Define the file extension
                     file_extension_answer=".ans.txt"
                     # Define the exercise file
-                    exercise_file="../../technology_and_design_answered_ans.txt"
+                    exercise_file="../../literature_answered_ans.txt"
                     # Call the function to process a random question
                     process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
                 elif [[ "$topic" == "z" ]]
                 then
                     attempts=0
                     # Define the targeted directory
-                    answered_directory="Exercise/Technology_and_design/S4"
+                    answered_directory="Exercise/Literature/S4"
                     # Define the file extension
                     file_extension_answer=".ans.txt"
                     # Define the exercise file
-                    exercise_file="../../technology_and_design_answered_ans.txt"
+                    exercise_file="../../literature_answered_ans.txt"
                     # Call the function to process a random question
                     process_question_answer_adv "$answered_directory" "$file_extension_answer" "$exercise_file"
                 elif [[ "$topic" == "s" ]]
@@ -4425,35 +3631,35 @@ while true; do
                 then
                     attempts=0
                     # Define the targeted directory
-                    answered_directory="Exercise/Technology_and_design/S4"
+                    answered_directory="Exercise/Literature/S4"
                     # Define the file extension
                     file_extension_answer=".ans.txt"
                     # Define the exercise file
-                    exercise_file="../../technology_and_design_answered_ans.txt"
+                    exercise_file="../../literature_answered_ans.txt"
                     # Call the function to process a random question
                     process_final_assignment "$answered_directory" "$file_extension_answer" "$exercise_file"
                 elif [[ "$topic" == "p" ]]
                 then
                     track_student_progress
-                elif [[ ! "$topic" =~ ^[1-6]$ || -z "$topic" ]]
+                elif [[ ! "$topic" =~ ^[1-3]$ || -z "$topic" ]]
                 then
                     echo -e "\n\nTopic ${r}$topic not available${t}... Please choose from the available options\c"
                     wait_for_a_key_press
                 else
                     case "$topic" in
                         1)
-                            if ! [ -f ".s_technology_and_design_4_1" ]; then
-                                echo -e "\n\nYou chose to explore Sectioning ...\n\nThank you for choosing to educate yourself!\n\nWe adore you ${g}darling${t} and wish you the very best! \c" && wait_for_a_key_press
+                            if ! [ -f ".s_literature_4_1" ]; then
+                                echo -e "\n\nYou chose to explore Poetry ...\n\nThank you for choosing to educate yourself!\n\nWe adore you ${g}darling${t} and wish you the very best! \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Technology_and_design/4.1.sectioning.txt" . || exit 1
-                            mv 4.1.sectioning.txt .4.1.sectioning.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .4.1.sectioning.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .4.1.sectioning.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .4.1.sectioning.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .4.1.sectioning.txt
-                            process_reminders_from_file .4.1.sectioning.txt
-                            STATE_FILE=".s_technology_and_design_4_1"
-                            process_file .4.1.sectioning.txt
+                            cp "Notes/Literature/4.1.poetry.txt" . || exit 1
+                            mv 4.1.poetry.txt .4.1.poetry.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .4.1.poetry.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .4.1.poetry.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .4.1.poetry.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .4.1.poetry.txt
+                            process_reminders_from_file .4.1.poetry.txt
+                            STATE_FILE=".s_literature_4_1"
+                            process_file .4.1.poetry.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -4461,52 +3667,52 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .4.1.sectioning.txt
-                            sed -i '/^1$/!d' .s_technology_and_design_4_1
+                            rm -f .4.1.poetry.txt
+                            sed -i '/^1$/!d' .s_literature_4_1
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S4"
+                            question_directory="Revision/Literature/S4"
                             # Define the file extension
-                            file_extension=".1.sectioning.qns.txt"
+                            file_extension=".1.poetry.qns.txt"
                             # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
+                            revision_file="../../literature_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension" "$revision_file"
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S4"
+                            question_directory="Revision/Literature/S4"
                             # Define the file extension
-                            file_extension_question=".1.sectioning.qns.txt"
+                            file_extension_question=".1.poetry.qns.txt"
                             # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
+                            revision_file="../../literature_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
                         ;;
                         2)
-                            if ! [ -f ".technology_and_design.4.1" ]; then
+                            if ! [ -f ".literature.4.1" ]; then
                                 attempts=0
                                 # Define the targeted directory
-                                answered_directory="Exercise/Technology_and_design/S4"
+                                answered_directory="Exercise/Literature/S4"
                                 # Define the file extension
-                                file_extension_answer=".1.sectioning.ans.txt"
+                                file_extension_answer=".1.poetry.ans.txt"
                                 # Define the exercise file
-                                exercise_file="../../technology_and_design_answered_ans.txt"
+                                exercise_file="../../literature_answered_ans.txt"
                                 # Call the function to process a random question
                                 process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .technology_and_design.4.1
+                                touch .literature.4.1
                             fi
-                            if ! [ -f ".s_technology_and_design_4_2" ]; then
-                                echo -e "\n\nYou happen to have decided to delve into Surface development of solids ...\n\nOnce again we treasure you ${g}dear one${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
+                            if ! [ -f ".s_literature_4_2" ]; then
+                                echo -e "\n\nYou happen to have decided to delve into Drama ...\n\nOnce again we treasure you ${g}dear one${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Technology_and_design/4.2.surface_development_of_solids.txt" . || exit 1
-                            mv 4.2.surface_development_of_solids.txt .4.2.surface_development_of_solids.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .4.2.surface_development_of_solids.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .4.2.surface_development_of_solids.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .4.2.surface_development_of_solids.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .4.2.surface_development_of_solids.txt
-                            process_reminders_from_file .4.2.surface_development_of_solids.txt
-                            STATE_FILE=".s_technology_and_design_4_2"
-                            process_file .4.2.surface_development_of_solids.txt
+                            cp "Notes/Literature/4.2.drama.txt" . || exit 1
+                            mv 4.2.drama.txt .4.2.drama.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .4.2.drama.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .4.2.drama.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .4.2.drama.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .4.2.drama.txt
+                            process_reminders_from_file .4.2.drama.txt
+                            STATE_FILE=".s_literature_4_2"
+                            process_file .4.2.drama.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -4514,52 +3720,52 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .4.2.surface_development_of_solids.txt
-                            sed -i '/^1$/!d' .s_technology_and_design_4_2
+                            rm -f .4.2.drama.txt
+                            sed -i '/^1$/!d' .s_literature_4_2
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S4"
+                            question_directory="Revision/Literature/S4"
                             # Define the file extension
-                            file_extension_question=".2.surface_development_of_solids.qns.txt"
+                            file_extension_question=".2.drama.qns.txt"
                             # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
+                            revision_file="../../literature_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S4"
+                            question_directory="Revision/Literature/S4"
                             # Define the file extension
-                            file_extension_question=".2.surface_development_of_solids.qns.txt"
+                            file_extension_question=".2.drama.qns.txt"
                             # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
+                            revision_file="../../literature_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
                         ;;
                         3)
-                            if ! [ -f ".technology_and_design.4.2" ]; then
+                            if ! [ -f ".literature.4.2" ]; then
                                 attempts=0
                                 # Define the targeted directory
-                                answered_directory="Exercise/Technology_and_design/S4"
+                                answered_directory="Exercise/Literature/S4"
                                 # Define the file extension
-                                file_extension_answer=".2.surface_development_of_solids.ans.txt"
+                                file_extension_answer=".2.drama.ans.txt"
                                 # Define the exercise file
-                                exercise_file="../../technology_and_design_answered_ans.txt"
+                                exercise_file="../../literature_answered_ans.txt"
                                 # Call the function to process a random question
                                 process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .technology_and_design.4.2
+                                touch .literature.4.2
                             fi
-                            if ! [ -f ".s_technology_and_design_4_3" ]; then
-                                echo -e "\n\nYou have made a choice to cover Electricity and electronics ...\n\nWe are so exited to have you with us ${g}darling${t}\n\nRemember that hard work forever pays \c" && wait_for_a_key_press
+                            if ! [ -f ".s_literature_4_3" ]; then
+                                echo -e "\n\nYou have made a choice to cover Prose ...\n\nWe are so exited to have you with us ${g}darling${t}\n\nRemember that hard work forever pays \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Technology_and_design/4.3.electricity_and_electronics.txt" . || exit 1
-                            mv 4.3.electricity_and_electronics.txt .4.3.electricity_and_electronics.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .4.3.electricity_and_electronics.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .4.3.electricity_and_electronics.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .4.3.electricity_and_electronics.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .4.3.electricity_and_electronics.txt
-                            process_reminders_from_file .4.3.electricity_and_electronics.txt
-                            STATE_FILE=".s_technology_and_design_4_3"
-                            process_file .4.3.electricity_and_electronics.txt
+                            cp "Notes/Literature/4.3.prose.txt" . || exit 1
+                            mv 4.3.prose.txt .4.3.prose.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .4.3.prose.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .4.3.prose.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .4.3.prose.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .4.3.prose.txt
+                            process_reminders_from_file .4.3.prose.txt
+                            STATE_FILE=".s_literature_4_3"
+                            process_file .4.3.prose.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -4567,199 +3773,40 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .4.3.electricity_and_electronics.txt
-                            sed -i '/^1$/!d' .s_technology_and_design_4_3
+                            rm -f .4.3.prose.txt
+                            sed -i '/^1$/!d' .s_literature_4_3
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S4"
+                            question_directory="Revision/Literature/S4"
                             # Define the file extension
-                            file_extension_question=".3.electricity_and_electronics.qns.txt"
+                            file_extension_question=".3.prose.qns.txt"
                             # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
+                            revision_file="../../literature_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S4"
+                            question_directory="Revision/Literature/S4"
                             # Define the file extension
-                            file_extension_question=".3.electricity_and_electronics.qns.txt"
+                            file_extension_question=".3.prose.qns.txt"
                             # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
+                            revision_file="../../literature_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-						;;
-                        4)
-                            if ! [ -f ".technology_and_design.4.3" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Technology_and_design/S4"
-                                # Define the file extension
-                                file_extension_answer=".3.electricity_and_electronics.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../technology_and_design_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .technology_and_design.4.3
-                            fi
-                            if ! [ -f ".s_technology_and_design_4_4" ]; then
-                                echo -e "\n\nYou did qualify to probe into the realm of Construction practice ...\n\nWe do treasure you ${g}darling${t}. Just never forget, that no matter how prepared you are, to win gold, you have to follow instructions! \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Technology_and_design/4.4.construction_practice.txt" . || exit 1
-                            mv 4.4.construction_practice.txt .4.4.construction_practice.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .4.4.construction_practice.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .4.4.construction_practice.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .4.4.construction_practice.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .4.4.construction_practice.txt
-                            process_reminders_from_file .4.4.construction_practice.txt
-                            STATE_FILE=".s_technology_and_design_4_4"
-                            process_file .4.4.construction_practice.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .4.4.construction_practice.txt
-                            sed -i '/^1$/!d' .s_technology_and_design_4_4
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S4"
-                            # Define the file extension
-                            file_extension=".4.construction_practice.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S4"
-                            # Define the file extension
-                            file_extension_question=".4.construction_practice.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        5)
-                            if ! [ -f ".technology_and_design.4.4" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Technology_and_design/S4"
-                                # Define the file extension
-                                file_extension_answer=".4.construction_practice.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../technology_and_design_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .technology_and_design.4.4
-                            fi
-                            if ! [ -f ".s_technology_and_design_4_5" ]; then
-                                echo -e "\n\nHere you are dear one... Stay organised as you explore Electronics ...\n\n${g}Just know we are not going to leave you alone${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Technology_and_design/4.5.electronics.txt" . || exit 1
-                            mv 4.5.electronics.txt .4.5.electronics.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .4.5.electronics.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .4.5.electronics.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .4.5.electronics.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .4.5.electronics.txt
-                            process_reminders_from_file .4.5.electronics.txt
-                            STATE_FILE=".s_technology_and_design_4_5"
-                            process_file .4.5.electronics.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .4.5.electronics.txt
-                            sed -i '/^1$/!d' .s_technology_and_design_4_5
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S4"
-                            # Define the file extension
-                            file_extension_question=".5.electronics.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S4"
-                            # Define the file extension
-                            file_extension_question=".5.electronics.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        6)
-                            if ! [ -f ".technology_and_design.4.5" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Technology_and_design/S4"
-                                # Define the file extension
-                                file_extension_answer=".5.electronics.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../technology_and_design_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .technology_and_design.4.5
-                            fi
-                            if ! [ -f ".s_technology_and_design_4_6" ]; then
-                                echo -e "\n\nYou have managed to make it to Maintenance and repair of simple machines ...\n\n${g}Remember to pray always${t}\n\nThe fear of the Lord is the beginning of wisdom \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Technology_and_design/4.6.maintenance_and_repair_of_simple_machines.txt" . || exit 1
-                            mv 4.6.maintenance_and_repair_of_simple_machines.txt .4.6.maintenance_and_repair_of_simple_machines.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .4.6.maintenance_and_repair_of_simple_machines.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .4.6.maintenance_and_repair_of_simple_machines.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .4.6.maintenance_and_repair_of_simple_machines.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .4.6.maintenance_and_repair_of_simple_machines.txt
-                            process_reminders_from_file .4.6.maintenance_and_repair_of_simple_machines.txt
-                            STATE_FILE=".s_technology_and_design_4_6"
-                            process_file .4.6.maintenance_and_repair_of_simple_machines.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .4.6.maintenance_and_repair_of_simple_machines.txt
-                            sed -i '/^1$/!d' .s_technology_and_design_4_6
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S4"
-                            # Define the file extension
-                            file_extension_question=".6.maintenance_and_repair_of_simple_machines.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Technology_and_design/S4"
-                            # Define the file extension
-                            file_extension_question=".6.maintenance_and_repair_of_simple_machines.qns.txt"
-                            # Define the revision file
-                            revision_file="../../technology_and_design_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                            if ! [ -f ".technology_and_design.4.6" ]; then
+                            if ! [ -f ".literature.4.3" ]; then
 	                            attempts=0
 	                            # Define the targeted directory
-	                            answered_directory="Exercise/Technology_and_design/S4"
+	                            answered_directory="Exercise/Literature/S4"
 	                            # Define the file extension
-	                            file_extension_answer=".6.maintenance_and_repair_of_simple_machines.ans.txt"
+	                            file_extension_answer=".3.prose.ans.txt"
 	                            # Define the exercise file
-	                            exercise_file="../../technology_and_design_answered_ans.txt"
+	                            exercise_file="../../literature_answered_ans.txt"
 	                            # Call the function to process a random answer
 	                            process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-								touch .technology_and_design.4.6
-								echo "4" > .technology_and_design_ready
+								touch .literature.4.3
+								echo "4" > .literature_ready
 							fi
-                        ;;
+						;;
 
                         # Additional cases for other topics can be added here
                         *)

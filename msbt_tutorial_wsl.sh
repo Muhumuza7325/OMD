@@ -30,59 +30,6 @@ wait_for_a_key_press() {
     return 1
 }
 
-# Extract subomdject name from the script name
-script_base=$(basename "$0" .sh)  # Remove .sh extension
-subomdject_raw="${script_base%%_tutorial*}"
-subomdject_cap="${subomdject_raw^}"  # Capitalise first letter
-if [ -f .skip_.omd_communication.txt ]; then
-    if grep -qF "[$subomdject_cap]" .skip_.omd_communication.txt; then
-        mv .skip_.omd_communication.txt .omd_communication.txt
-    fi
-fi
-
-clear_and_center() {
-  if [ "$cleared" != "true" ]; then
-    clear
-    cleared="true"
-  else
-    wait_for_a_key_press
-    clear
-  fi
-
-  local term_height
-  term_height=$(tput lines)
-  local text_height
-  text_height=$(echo -e "$1" | wc -l)
-  local start_line=$(( (term_height - text_height) / 6 ))
-
-  tput cup $start_line 0
-  echo -e "$1 \\c"
-}
-
-# File paths
-communication_file="omd_communication.txt"
-backup_file=".omd_communication.txt"
-github_url="https://github.com/Muhumuza7325/OMD/raw/main/omd_communication.txt"
-if [ -f "$communication_file" ]; then
-    current_time=$(date +%s)
-    # Get last modification time of the file
-    file_mtime=$(stat -c %Y "$communication_file" 2>/dev/null)
-    if [ -z "$file_mtime" ]; then
-        # If somehow we couldn't get mtime, fall back to download
-        download_and_open
-    fi
-    time_diff=$((current_time - file_mtime))
-    if [ "$time_diff" -gt 21600 ] && [ "$time_diff" -le 86400 ]; then
-        show_communication_info
-        explorer.exe "$communication_file" > /dev/null 2>&1 &
-    elif [ "$time_diff" -gt 86400 ]; then
-        rm -f "$communication_file" "$backup_file" 2>/dev/null
-        download_and_open
-    fi
-else
-    download_and_open
-fi
-
 # Function to handle exit
 quit() {
     echo -e "\nExiting... \n\c"
@@ -730,6 +677,66 @@ download_and_open() {
     else
         echo -e "\n\n${m}To receive current communication, please check your internet connection and try again next time!${t}" >&2
     fi
+}
+
+# Extract subomdject name from the script name
+script_base=$(basename "$0" .sh)  # Remove .sh extension
+subomdject_raw="${script_base%%_tutorial*}"
+subomdject_cap="${subomdject_raw^}"  # Capitalise first letter
+if [ -f .skip_.omd_communication.txt ]; then
+    if grep -qF "[$subomdject_cap]" .skip_.omd_communication.txt; then
+        mv .skip_.omd_communication.txt .omd_communication.txt
+    fi
+fi
+
+# File paths
+communication_file="omd_communication.txt"
+backup_file=".omd_communication.txt"
+github_url="https://github.com/Muhumuza7325/OMD/raw/main/omd_communication.txt"
+if [ -f "$communication_file" ]; then
+    current_time=$(date +%s)
+    file_mtime=$(stat -c %Y "$communication_file" 2>/dev/null)
+
+    if [ -z "$file_mtime" ]; then
+        download_and_open
+    fi
+
+    time_diff=$((current_time - file_mtime))
+
+    if [ "$time_diff" -gt 21600 ] && [ "$time_diff" -le 86400 ]; then
+        # Use hidden flag file to track if it was already opened
+        flag_file="$(dirname \"$communication_file\")/.opened_$(basename \"$communication_file\")"
+
+        if [ ! -f "$flag_file" ] || [ "$(stat -c %Y \"$flag_file\")" -lt "$file_mtime" ]; then
+            show_communication_info
+            explorer.exe "$communication_file" > /dev/null 2>&1 &
+            touch "$flag_file"
+        fi
+    elif [ "$time_diff" -gt 86400 ]; then
+        rm -f "$communication_file" "$backup_file" "$(dirname \"$communication_file\")/.opened_$(basename \"$communication_file\")" 2>/dev/null
+        download_and_open
+    fi
+else
+    download_and_open
+fi
+
+clear_and_center() {
+  if [ "$cleared" != "true" ]; then
+    clear
+    cleared="true"
+  else
+    wait_for_a_key_press
+    clear
+  fi
+
+  local term_height
+  term_height=$(tput lines)
+  local text_height
+  text_height=$(echo -e "$1" | wc -l)
+  local start_line=$(( (term_height - text_height) / 6 ))
+
+  tput cup $start_line 0
+  echo -e "$1 \\c"
 }
 
 get_and_display_pattern() {
@@ -2500,9 +2507,6 @@ process_question_answer_adv() {
     done
 }
 #####To convert to university/institution
-
-
-
 
 
 
