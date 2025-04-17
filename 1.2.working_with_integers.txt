@@ -1,7 +1,6 @@
 THEME: NUMBERS
 TOPIC 2: WORKING WITH INTEGERS 15 PERIODS
 Competency: The learner carries out calculations with positive and negative integers;
-
 LEARNING OUTCOMES SUGGESTED LEARNING ACTIVITIES SAMPLE ASSESSMENT STRATEGY
 The learner should be able to:
 a) identify, read and write natural
@@ -28,7 +27,6 @@ some numbers. (k, u, s, v/a)
 • Order numbers and locate them on a
 number line
 • Use directed number in context e.g;
-
 temperature, height above and below
 sea level, floors in a building
 • Investigate multiples on a 1-100 square
@@ -38,21 +36,16 @@ always a multiple of three, and for multiples
 of nine the digital root is a multiple of
 nine. Determine how to distinguish other
 multiples (e.g. 2 (even numbers), 5, 10);
-
 • Investigate the factors of numbers 1 to 30 –
 Which numbers have just two factors?
 Which numbers have an odd number of
 factors?
 • Use exactly four 4s to make as many whole
 number answers between 1 and 100 e.g;
-
 (4+4×4) ÷4= (4+16) ÷4=5,
 • recording the calculations correctly
 • Determine the prime factorisation of any
 integer;
-
-
-
 • Nambi has four number cards:
 She can arrange the cards to form different
 numbers. For example, she can form the
@@ -67,4 +60,3 @@ one million?
 • What are the prime factorisations of 942 and
 357? Hence find the HCF of 942 and 357, and
 the LCM;
-

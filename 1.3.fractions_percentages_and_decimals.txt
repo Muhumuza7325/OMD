@@ -1,11 +1,9 @@
 THEME: NUMBERS
 TOPIC 3: FRACTIONS, PERCENTAGES AND DECIMALS 15 PERIODS
 Competency: The learner understands and uses fractions, decimals and percentages;
-
 LEARNING OUTCOMES SUGGESTED LEARNING ACTIVITIES SAMPLE ASSESSMENT STRATEGY
 The learner should be able to:
 a) describe different types of fractions;
-
 (k)
 b) convert improper fractions to mixed
 numbers and vice versa. (k, s)
@@ -47,13 +45,9 @@ fractions produce recurring decimals?
 decimals to fractions
 • Solve problems that involve
 fractions, percentages and decimals
-
-
 a) Moses has the following cards;
-
 3 4 0 7
 He also has a card with a decimal point;
-
 What is the least number Moses can form
 using all five of his cards?
 b) How many 0.01s are there in:
@@ -63,4 +57,3 @@ a mathematics test, and a score of 31out
 of 40 in a physics test. Did she do better
 in mathematics or in physics? Justify your
 answer;
-

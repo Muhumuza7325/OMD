@@ -1,7 +1,6 @@
 THEME: PATTERNS AND ALGEBRA
 TOPIC 1: SEQUENCE AND PATTERNS 12 PERIODS
 Competency: The learners explore number patterns and sequences;
-
 LEARNING OUTCOMES SUGGESTED LEARNING ACTIVITIES SAMPLE ASSESSMENT STRATEGY
 The learner should be able to:
 a) recognise and generate number patterns. (k, u) 
@@ -11,40 +10,29 @@ d) describe a general rule when a pattern is given. (k, u, s)
 e) determine terms in a sequence. (u, s) 
 • How many different ways can you continue the sequence that begins 2, 4, …? Explain how each sequence is generated
 • Make a 1 to 100 number square;
-
 a) Shade in all the multiples of 3 on the number square;
-
 b) Describe the pattern you have shaded on the number square;
-
 c) Sulai wants to shade some multiples to
 make a pattern of vertical lines. Which set
 of multiples could he use? Find as many
 different sets as you can;
-
 d) 3, 6 and 9 are the 1st , 2nd and 3rd multiples
 of 3;
-
 i) Which position in the multiples of 3 is 93?
 ii) Which position in the multiples of 3 is 3n?
 • Put the numbers 1, 2, 3, 4, 5... into this
 number machine to generate a sequence;
-
 ×3 -2
 a) Write down the first five members of the
 sequence;
-
 b What is the formula for the nth term in the
 sequence?
 Sharon wants to shade some multiples
 on a 1 to 100 square to make a pattern of
 horizontal lines. Can she do this? Explain
 your answer;
-
 • Draw a double machine that could be used
 to generate the sequence 5, 8, 11, 14, 17…
-
-
 • Write a formula for the nth term in a
 sequence starting
 1/4, 1/9, 1/16, 1/25;
-
