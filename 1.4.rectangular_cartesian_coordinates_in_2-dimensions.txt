@@ -1,14 +1,17 @@
 THEME: NUMBERS
 TOPIC 4: RECTANGULAR CARTESIAN COORDINATES IN 2 DIMENSIONS 15 PERIODS
-Competency: The learner plots and interprets points in a range of contexts.
+Competency: The learner plots and interprets points in a range of contexts;
+
 LEARNING OUTCOMES SUGGESTED LEARNING
 ACTIVITIES SAMPLE ASSESSMENT STRATEGY
 The learner should be able to: 
-a) draw and label the Cartesian plane.
+a) draw and label the Cartesian plane;
+
 (k, s)
 b) identify the x– and y-axis. (k)
 c) read and plot points on the
-Cartesian plane/coordinate grid.
+Cartesian plane/coordinate grid;
+
 (k, s)
 d) complete shapes on a coordinate
 grid. (k, u, s)
@@ -23,11 +26,13 @@ one or more
 • Collect data (e.g. height and
 head circumference) from
 your class and plot a scatter
-graph.
+graph;
+
 
 
 1. The heights and ages of five girls have been plotted on the
-scatter graph.
+scatter graph;
+
 a) Who is the tallest and how tall is she?
 b) Who is the same age in years as Dembe?
 c) How much taller is Faith than Joan?
@@ -45,4 +50,5 @@ h (cm) scatter graph of height (cm) and age (years)
 2. Two vertices of a square are at the points
 (2, 1) and (6, 3). What are the coordinates of the other two
 vertices of the square?
-There are three possible answers. Find all three. Vertices.
+There are three possible answers. Find all three. Vertices;
+

@@ -1,6 +1,7 @@
 THEME: GEOMETRY AND MEASURES
 TOPIC 2: BEARINGS 12 PERIODS
-Competency: The learner uses compass points, bearings and scale drawings.
+Competency: The learner uses compass points, bearings and scale drawings;
+
 LEARNING OUTCOMES SUGGESTED LEARNING ACTIVITIES SAMPLE ASSESSMENT STRATEGY
 The learner should be able to:
 a) know the compass points. (k)
@@ -9,10 +10,12 @@ from a given point using
 compass points. (u s)
 c) describe the bearing of a place from
 a given point. (k s)
-d) apply bearings in real life situations.
+d) apply bearings in real life situations;
+
 (u s)
 e) choose and uses an appropriate
-scale to make an accurate drawing.
+scale to make an accurate drawing;
+
 (k u)
 f) differentiate between a sketch and
 a scale drawing. (u, v)
@@ -29,16 +32,19 @@ hospital is 6km away from the market, on a
 bearing of 310°. What is the bearing of the
 hospital from Henry's home?
 • Make a scale drawing to find the distance and
-bearing of the hospital from Henry’s home.
+bearing of the hospital from Henry’s home;
+
 Remember to state the scale you use on your
 drawing, and give your answer to a sensible
-degree of accuracy.
+degree of accuracy;
+
 
 
 Two Ships leave Port Bell at the same time. One
 ship sails 80km on a bearing of 0300 to position
 A. The other ship sails 160km on a bearing of
-1100 to position B.
+1100 to position B;
+
 Use a scale drawing to find:
 a) the distance AB
 c) the bearing of B from A

@@ -1,6 +1,7 @@
 THEME: NUMBERS
 TOPIC 1: NUMBER BASES 15 PERIODS
-Competency: The learner uses decimal place value to develop understanding of numbers written in other bases.
+Competency: The learner uses decimal place value to develop understanding of numbers written in other bases;
+
 LEARNING OUTCOMES SUGGESTED LEARNING ACTIVITIES SAMPLE ASSESSMENT STRATEGY
 The learner should be able to:
 • identify numbers in any base using
@@ -9,7 +10,8 @@ abacus. (k)
 • convert numbers from one base to
 another. (u)
 numbers in base ten e.g. 1111 base two is
-matched to 15 base ten.
+matched to 15 base ten;
+
 • Imagine living in cartoon world where
 people have just eight digits rather than ten
 – what would their arithmetic be like?
@@ -20,7 +22,8 @@ through card so a single number on each
 number is displayed, use to make different
 numbers. Change the length of the strips to
 investigate different number bases (e.g. 2222
-in base 8).
+in base 8);
+
 
 
 How

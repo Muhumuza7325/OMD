@@ -97,7 +97,7 @@ section4=(
     "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.3.electromagnetic_effects.txt"
     "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.4.electric_energy_distribution_and_consumption.txt"
     "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.5.atomic_models.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.6.nuclear_processes.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.6.nuclear_processes_phy.txt"
     "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.7.digital_electronics.txt"
 )
 section4a=(
@@ -106,7 +106,7 @@ section4a=(
     "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.3.electromagnetic_effects.ans.txt"
     "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.4.electric_energy_distribution_and_consumption.ans.txt"
     "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.5.atomic_models.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.6.nuclear_processes.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.6.nuclear_processes_phy.ans.txt"
     "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.7.digital_electronics.ans.txt"
 )
 section4b=(
@@ -115,7 +115,7 @@ section4b=(
     "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.3.electromagnetic_effects.qns.txt"
     "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.4.electric_energy_distribution_and_consumption.qns.txt"
     "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.5.atomic_models.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.6.nuclear_processes.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.6.nuclear_processes_phy.qns.txt"
     "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.7.digital_electronics.qns.txt"
 )
 section5=(

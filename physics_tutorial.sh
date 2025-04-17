@@ -4365,15 +4365,15 @@ while true; do
                             if ! [ -f ".s_physics_4_6" ]; then
                                 echo -e "\n\nYou have managed to make it to Nuclear processes ...\n\n${g}Remember to pray always${t}\n\nThe fear of the Lord is the beginning of wisdom \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Physics/4.6.nuclear_processes.txt" . || exit 1
-                            mv 4.6.nuclear_processes.txt .4.6.nuclear_processes.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .4.6.nuclear_processes.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .4.6.nuclear_processes.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .4.6.nuclear_processes.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .4.6.nuclear_processes.txt
-                            process_reminders_from_file .4.6.nuclear_processes.txt
+                            cp "Notes/Physics/4.6.nuclear_processes_phy.txt" . || exit 1
+                            mv 4.6.nuclear_processes_phy.txt .4.6.nuclear_processes_phy.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .4.6.nuclear_processes_phy.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .4.6.nuclear_processes_phy.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .4.6.nuclear_processes_phy.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .4.6.nuclear_processes_phy.txt
+                            process_reminders_from_file .4.6.nuclear_processes_phy.txt
                             STATE_FILE=".s_physics_4_6"
-                            process_file .4.6.nuclear_processes.txt
+                            process_file .4.6.nuclear_processes_phy.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -4381,13 +4381,13 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .4.6.nuclear_processes.txt
+                            rm -f .4.6.nuclear_processes_phy.txt
                             sed -i '/^1$/!d' .s_physics_4_6
                             attempts=0
                             # Define the targeted directory
                             question_directory="Revision/Physics/S4"
                             # Define the file extension
-                            file_extension_question=".6.nuclear_processes.qns.txt"
+                            file_extension_question=".6.nuclear_processes_phy.qns.txt"
                             # Define the revision file
                             revision_file="../../physics_covered_qns.txt"
                             # Call the function to process a random question
@@ -4396,7 +4396,7 @@ while true; do
                             # Define the targeted directory
                             question_directory="Revision/Physics/S4"
                             # Define the file extension
-                            file_extension_question=".6.nuclear_processes.qns.txt"
+                            file_extension_question=".6.nuclear_processes_phy.qns.txt"
                             # Define the revision file
                             revision_file="../../physics_covered_qns.txt"
                             # Call the function to process a random question
@@ -4408,7 +4408,7 @@ while true; do
                                 # Define the targeted directory
                                 answered_directory="Exercise/Physics/S4"
                                 # Define the file extension
-                                file_extension_answer=".6.nuclear_processes.ans.txt"
+                                file_extension_answer=".6.nuclear_processes_phy.ans.txt"
                                 # Define the exercise file
                                 exercise_file="../../physics_answered_ans.txt"
                                 # Call the function to process a random question

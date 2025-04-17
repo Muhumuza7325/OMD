@@ -2,76 +2,76 @@
 # set -x
 # List of URLs for each section
 section1=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.1.worship.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.2.islamic_rituals_and_celebrations.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.3.islam_and_values_in_christianity_and_african_traditional_religion.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/1.1.worship.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/1.2.islamic_rituals_and_celebrations.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/1.3.islam_and_values_in_christianity_and_african_traditional_religion.txt"
 )
 section1a=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.1.worship.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.2.islamic_rituals_and_celebrations.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.3.islam_and_values_in_christianity_and_african_traditional_religion.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/1.1.worship.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/1.2.islamic_rituals_and_celebrations.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/1.3.islam_and_values_in_christianity_and_african_traditional_religion.ans.txt"
 )
 section1b=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.1.worship.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.2.islamic_rituals_and_celebrations.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.3.islam_and_values_in_christianity_and_african_traditional_religion.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/1.1.worship.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/1.2.islamic_rituals_and_celebrations.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/1.3.islam_and_values_in_christianity_and_african_traditional_religion.qns.txt"
 )
 section2=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.1.respect_for_human_life.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.2.marriage.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.3.family.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/2.1.respect_for_human_life.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/2.2.marriage.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/2.3.family.txt"
 )
 section2a=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.1.respect_for_human_life.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.2.marriage.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.3.family.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/2.1.respect_for_human_life.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/2.2.marriage.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/2.3.family.ans.txt"
 )
 section2b=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.1.respect_for_human_life.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.2.marriage.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.3.family.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/2.1.respect_for_human_life.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/2.2.marriage.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/2.3.family.qns.txt"
 )
 section3=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.1.work.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.2.wealth_and_development.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.3.leisure.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/3.1.work.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/3.2.wealth_and_development.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/3.3.leisure.txt"
 )
 section3a=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.1.work.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.2.wealth_and_development.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.3.leisure.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/3.1.work.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/3.2.wealth_and_development.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/3.3.leisure.ans.txt"
 )
 section3b=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.1.work.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.2.wealth_and_development.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.3.leisure.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/3.1.work.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/3.2.wealth_and_development.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/3.3.leisure.qns.txt"
 )
 section4=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.1.peace.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.2.justice.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.3.conflict_resolution.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/4.1.peace.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/4.2.justice.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/4.3.conflict_resolution.txt"
 )
 section4a=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.1.peace.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.2.justice.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.3.conflict_resolution.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/4.1.peace.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/4.2.justice.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/4.3.conflict_resolution.ans.txt"
 )
 section4b=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.1.peace.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.2.justice.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.3.conflict_resolution.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/4.1.peace.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/4.2.justice.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/4.3.conflict_resolution.qns.txt"
 )
 section5=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/ire_samples.docx"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/e_o_c_ire.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/e_o_c_ire_1.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/e_o_c_ire_1_samples_1.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/e_o_c_ire_2.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/e_o_c_ire_2_samples_1.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/e_o_c_ire_3.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/e_o_c_ire_3_samples_1.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/e_o_c_ire_4.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/e_o_c_ire_4_samples_1.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/ire_samples.docx"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/e_o_c_ire.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/e_o_c_ire_1.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/e_o_c_ire_1_samples_1.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/e_o_c_ire_2.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/e_o_c_ire_2_samples_1.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/e_o_c_ire_3.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/e_o_c_ire_3_samples_1.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/e_o_c_ire_4.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/IRE/e_o_c_ire_4_samples_1.txt"
 )
 # Function to download files from a list of URLs
 download_files() {

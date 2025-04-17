@@ -1,6 +1,7 @@
 THEME: GEOMETRY AND MEASURES
 TOPIC 1: GEOMETRIC CONSTRUCTION SKILLS 12 PERIODS
-Competency: The learner uses the angle properties of lines and shapes to solve problems.
+Competency: The learner uses the angle properties of lines and shapes to solve problems;
+
 LEARNING OUTCOMES SUGGESTED LEARNING ACTIVITIES SAMPLE ASSESSMENT STRATEGY
 The learner should be able to:
 a) draw perpendicular and parallel
@@ -38,7 +39,8 @@ designs using geometric equipment
 
 • In your exercise book, construct the
 following angles by using a pair of
-compasses, ruler and pencil only.
+compasses, ruler and pencil only;
+
 a) 30 0 f) 15 0
 b) 45 0 g) 105 0
 c) 60 0 h) 135 0
