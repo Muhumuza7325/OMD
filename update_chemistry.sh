@@ -3,135 +3,135 @@
 
 # List of URLs for each section
 section1=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.1.chemistry_and_society.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.2.experimental_chemistry.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.3.states_and_changes_of_states_of_matter.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.4.using_materials.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.5.temporary_and_permanent_changes.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.6.mixtures_elements_and_compounds.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.7.air.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.8.water.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.9.rocks_and_minerals.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/1.1.chemistry_and_society.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/1.2.experimental_chemistry.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/1.3.states_and_changes_of_states_of_matter.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/1.4.using_materials.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/1.5.temporary_and_permanent_changes.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/1.6.mixtures_elements_and_compounds.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/1.7.air.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/1.8.water.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/1.9.rocks_and_minerals.txt"
 )
 
 section1a=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.1.chemistry_and_society.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.2.experimental_chemistry.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.3.states_and_changes_of_states_of_matter.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.4.using_materials.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.5.temporary_and_permanent_changes.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.6.mixtures_elements_and_compounds.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.7.air.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.8.water.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.9.rocks_and_minerals.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/1.1.chemistry_and_society.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/1.2.experimental_chemistry.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/1.3.states_and_changes_of_states_of_matter.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/1.4.using_materials.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/1.5.temporary_and_permanent_changes.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/1.6.mixtures_elements_and_compounds.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/1.7.air.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/1.8.water.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/1.9.rocks_and_minerals.ans.txt"
 )
 
 section1b=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.1.chemistry_and_society.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.2.experimental_chemistry.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.3.states_and_changes_of_states_of_matter.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.4.using_materials.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.5.temporary_and_permanent_changes.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.6.mixtures_elements_and_compounds.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.7.air.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.8.water.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.9.rocks_and_minerals.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/1.1.chemistry_and_society.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/1.2.experimental_chemistry.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/1.3.states_and_changes_of_states_of_matter.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/1.4.using_materials.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/1.5.temporary_and_permanent_changes.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/1.6.mixtures_elements_and_compounds.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/1.7.air.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/1.8.water.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/1.9.rocks_and_minerals.qns.txt"
 )
 
 section2=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.1.acids_and_alkalis.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.2.salts.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.3.the_periodic_table.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.4.carbon_in_the_environment.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.5.the_reactivity_series.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/2.1.acids_and_alkalis.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/2.2.salts.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/2.3.the_periodic_table.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/2.4.carbon_in_the_environment.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/2.5.the_reactivity_series.txt"
 )
 
 section2a=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.1.acids_and_alkalis.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.2.salts.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.3.the_periodic_table.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.4.carbon_in_the_environment.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.5.the_reactivity_series.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/2.1.acids_and_alkalis.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/2.2.salts.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/2.3.the_periodic_table.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/2.4.carbon_in_the_environment.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/2.5.the_reactivity_series.ans.txt"
 )
 
 section2b=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.1.acids_and_alkalis.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.2.salts.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.3.the_periodic_table.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.4.carbon_in_the_environment.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.5.the_reactivity_series.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/2.1.acids_and_alkalis.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/2.2.salts.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/2.3.the_periodic_table.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/2.4.carbon_in_the_environment.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/2.5.the_reactivity_series.qns.txt"
 )
 
 section3=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.1.carbon_in_life.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.2.structures_and_bonds.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.3.formulae_stoichiometry_and_mole_concept.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.4.properties_and_structures_of_substances.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.5.fossil_fuels.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.6.chemical_reactions.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/3.1.carbon_in_life.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/3.2.structures_and_bonds.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/3.3.formulae_stoichiometry_and_mole_concept.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/3.4.properties_and_structures_of_substances.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/3.5.fossil_fuels.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/3.6.chemical_reactions.txt"
 )
 
 section3a=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.1.carbon_in_life.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.2.structures_and_bonds.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.3.formulae_stoichiometry_and_mole_concept.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.4.properties_and_structures_of_substances.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.5.fossil_fuels.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.6.chemical_reactions.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/3.1.carbon_in_life.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/3.2.structures_and_bonds.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/3.3.formulae_stoichiometry_and_mole_concept.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/3.4.properties_and_structures_of_substances.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/3.5.fossil_fuels.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/3.6.chemical_reactions.ans.txt"
 )
 
 section3b=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.1.carbon_in_life.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.2.structures_and_bonds.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.3.formulae_stoichiometry_and_mole_concept.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.4.properties_and_structures_of_substances.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.5.fossil_fuels.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.6.chemical_reactions.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/3.1.carbon_in_life.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/3.2.structures_and_bonds.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/3.3.formulae_stoichiometry_and_mole_concept.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/3.4.properties_and_structures_of_substances.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/3.5.fossil_fuels.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/3.6.chemical_reactions.qns.txt"
 )
 
 section4=(
 
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.1.oxidation_and_reduction_reactions.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.2.industrial_processes.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.3.trends_in_the_periodic_table.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.4.energy_changes_during_chemical_reactions.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.5.chemicals_for_consumers.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.6.nuclear_processes.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/4.1.oxidation_and_reduction_reactions.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/4.2.industrial_processes.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/4.3.trends_in_the_periodic_table.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/4.4.energy_changes_during_chemical_reactions.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/4.5.chemicals_for_consumers.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/4.6.nuclear_processes.txt"
 )
 
 section4a=(
 
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.1.oxidation_and_reduction_reactions.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.2.industrial_processes.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.3.trends_in_the_periodic_table.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.4.energy_changes_during_chemical_reactions.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.5.chemicals_for_consumers.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.6.nuclear_processes.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/4.1.oxidation_and_reduction_reactions.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/4.2.industrial_processes.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/4.3.trends_in_the_periodic_table.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/4.4.energy_changes_during_chemical_reactions.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/4.5.chemicals_for_consumers.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/4.6.nuclear_processes.ans.txt"
 )
 
 section4b=(
 
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.1.oxidation_and_reduction_reactions.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.2.industrial_processes.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.3.trends_in_the_periodic_table.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.4.energy_changes_during_chemical_reactions.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.5.chemicals_for_consumers.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.6.nuclear_processes.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/4.1.oxidation_and_reduction_reactions.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/4.2.industrial_processes.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/4.3.trends_in_the_periodic_table.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/4.4.energy_changes_during_chemical_reactions.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/4.5.chemicals_for_consumers.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/4.6.nuclear_processes.qns.txt"
 )
 
 section5=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/chemistry_samples.docx"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/e_o_c.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/e_o_c_1.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/e_o_c_1_samples_1.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/e_o_c_2.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/e_o_c_2_samples_1.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/e_o_c_3.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/e_o_c_3_samples_1.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/e_o_c_4.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/e_o_c_4_samples_1.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/e_o_c_5.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/e_o_c_5_samples_1.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/chemistry_samples.docx"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/e_o_c.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/e_o_c_1.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/e_o_c_1_samples_1.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/e_o_c_2.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/e_o_c_2_samples_1.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/e_o_c_3.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/e_o_c_3_samples_1.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/e_o_c_4.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/e_o_c_4_samples_1.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/e_o_c_5.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/CHEM/e_o_c_5_samples_1.txt"
 )
 
 # Function to download files from a list of URLs

@@ -1,0 +1,10 @@
+Qn. A local community is facing increased malnutrition due to imbalanced diets and reduced agricultural productivity from soils deficient in essential plant nutrients (N, P, K, Mg, Ca, and S). 
+Task:
+Explain to the community how each of these challenges have emerged, detailing the underlying reasons for the observed signs and symptoms, and provide practical advice on how to mitigate each of these issues (30 scores)
+
+
+EXPECTED RESPONSES
+
+a) Explain how imbalanced diets contribute to malnutrition, detail the specific health effects that are as a result of consuming nutrient-poor food and advise on how to mitigate each effect (20 scores)
+
+b) Describe how soil lacking essential nutrients affects agricultural productivity, detail the specific symptoms of nutrient deficiencies in plants, suggest strategies for managing nutrient deficiencies in plants (10 scores);

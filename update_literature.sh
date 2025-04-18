@@ -2,78 +2,78 @@
 # set -x
 # List of URLs for each section
 section1=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.1.oral_literature.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.2.poetry.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.3.drama.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.4.prose.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/1.1.oral_literature.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/1.2.poetry.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/1.3.drama.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/1.4.prose.txt"
 )
 section1a=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.1.oral_literature.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.2.poetry.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.3.drama.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.4.prose.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/1.1.oral_literature.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/1.2.poetry.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/1.3.drama.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/1.4.prose.ans.txt"
 )
 section1b=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.1.oral_literature.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.2.poetry.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.3.drama.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.4.prose.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/1.1.oral_literature.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/1.2.poetry.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/1.3.drama.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/1.4.prose.qns.txt"
 )
 section2=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.1.oral_literature.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.2.poetry.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.3.drama.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.4.prose.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/2.1.oral_literature.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/2.2.poetry.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/2.3.drama.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/2.4.prose.txt"
 )
 section2a=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.1.oral_literature.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.2.poetry.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.3.drama.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.4.prose.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/2.1.oral_literature.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/2.2.poetry.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/2.3.drama.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/2.4.prose.ans.txt"
 )
 section2b=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.1.oral_literature.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.2.poetry.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.3.drama.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/2.4.prose.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/2.1.oral_literature.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/2.2.poetry.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/2.3.drama.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/2.4.prose.qns.txt"
 )
 section3=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.1.poetry.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.2.drama.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.3.prose.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/3.1.poetry.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/3.2.drama.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/3.3.prose.txt"
 )
 section3a=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.1.poetry.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.2.drama.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.3.prose.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/3.1.poetry.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/3.2.drama.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/3.3.prose.ans.txt"
 )
 section3b=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.1.poetry.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.2.drama.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/3.3.prose.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/3.1.poetry.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/3.2.drama.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/3.3.prose.qns.txt"
 )
 section4=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.1.poetry.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.2.drama.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.3.prose.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/4.1.poetry.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/4.2.drama.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/4.3.prose.txt"
 )
 section4a=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.1.poetry.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.2.drama.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.3.prose.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/4.1.poetry.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/4.2.drama.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/4.3.prose.ans.txt"
 )
 section4b=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.1.poetry.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.2.drama.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/4.3.prose.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/4.1.poetry.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/4.2.drama.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/4.3.prose.qns.txt"
 )
 section5=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/literature_samples.docx"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/e_o_c_literature.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/e_o_c_literature_1.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/e_o_c_literature_1_samples_1.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/e_o_c_literature_2.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/e_o_c_literature_2_samples_1.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/literature_samples.docx"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/e_o_c_literature.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/e_o_c_literature_1.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/e_o_c_literature_1_samples_1.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/e_o_c_literature_2.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/LIT/e_o_c_literature_2_samples_1.txt"
 )
 # Function to download files from a list of URLs
 download_files() {

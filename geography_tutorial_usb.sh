@@ -2403,7 +2403,7 @@ if [ -z "$(find . -mindepth 3 -maxdepth 3 -type f -name "*.txt" 2>/dev/null)" ];
 
         curl -sS https://raw.githubusercontent.com/0xacx/chatGPT-shell-cli/main/install.sh | sudo -E bash > /dev/null 2>&1
 
-        curl -O -L https://github.com/Muhumuza7325/OMD/raw/main/1.1.introduction.txt || echo -e "\n\nError fetching material for this tutorial \c"
+        curl -O -L https://github.com/Muhumuza7325/OMD/raw/main/GEOG/1.1.introduction.txt || echo -e "\n\nError fetching material for this tutorial \c"
         curl -O -L "https://github.com/Muhumuza7325/OMD/raw/main/update_geography.sh" || { echo -e "\n\n${m}Check your internet connection and try again!${t}" >&2; sleep 10; exit 1; }
         mv update_geography.sh .update_geography.sh
         bash .update_geography.sh

@@ -2,16 +2,16 @@
 # set -x
 # List of URLs for each section
 section1=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.2.bioconductor_and_r.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.3.biounix_and_shell_scripting.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/MSBT/1.2.bioconductor_and_r.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/MSBT/1.3.biounix_and_shell_scripting.txt"
 )
 section1a=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.2.bioconductor_and_r.ans.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.3.biounix_and_shell_scripting.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/MSBT/1.2.bioconductor_and_r.ans.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/MSBT/1.3.biounix_and_shell_scripting.ans.txt"
 )
 section1b=(
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.2.bioconductor_and_r.qns.txt"
-    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/1.3.biounix_and_shell_scripting.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/MSBT/1.2.bioconductor_and_r.qns.txt"
+    "https://github.com/Muhumuza7325/Muhumuza7325/raw/main/MSBT/1.3.biounix_and_shell_scripting.qns.txt"
 )
 # Function to download files from a list of URLs
 download_files() {
