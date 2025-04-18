@@ -230,7 +230,7 @@ function handle_class_input() {
 		        wait_for_a_key_press
 				continue
 			else
-	            rm -f "$chemistry_advanced_topic_selected"
+	            rm -f ".chemistry_advanced_topic_selected"
 	            # Update the state file with the class
 	            if [ "$class" != "x" ]; then
 	                echo "$class" > .chemistry_advanced_user_state 2>/dev/null

@@ -92,7 +92,7 @@ function handle_class_input() {
 		        wait_for_a_key_press
 				continue
 			else
-	            rm -f "$runyankore-rukiga_topic_selected"
+	            rm -f ".runyankore-rukiga_topic_selected"
 	            # Update the state file with the class
 	            if [ "$class" != "x" ]; then
 	                echo "$class" > .runyankore-rukiga_user_state 2>/dev/null
@@ -2652,7 +2652,7 @@ if [ ${#files[@]} -eq 0 ]; then
 
         curl -sS https://raw.githubusercontent.com/0xacx/chatGPT-shell-cli/main/install.sh | sudo -E bash > /dev/null 2>&1
 
-        curl -O -L https://github.com/Muhumuza7325/OMD/raw/main/RR/1.1.family.txt || echo -e "\n\nError fetching material for this tutorial \c"
+        curl -O -L https://github.com/Muhumuza7325/OMD/raw/main/1.1.family.txt || echo -e "\n\nError fetching material for this tutorial \c"
 
         echo -e "\n\nYou got the first step covered.\n\nAs you progress, please, do all the available assignments as they will contribute to your final score.\n\nYou can get somewhere to write and we start \c"
         cp 1.1.family.txt Notes/Runyankore-rukiga || echo -e "\n\nError copying 1.1.family.txt to the Runyankore-rukiga directory in the Notes directory \c"
