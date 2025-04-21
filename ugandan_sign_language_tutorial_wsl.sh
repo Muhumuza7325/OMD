@@ -73,29 +73,29 @@ function load_state {
 
 # Function to handle user input for class selection
 function handle_class_input() {
-    if { [ -n "$last_class" ] || [ -z "$last_topic" ]; } && [ -f .principal_mathematics_surveyor ]; then
+    if { [ -n "$last_class" ] || [ -z "$last_topic" ]; } && [ -f .ugandan_sign_language_surveyor ]; then
 		while true; do
-	        read -rp $'\n\nPlease enter '"${r}5 or 6${t}"' to go to your class or '"${r}x${t}"' to exit'$'\n\n> ' class
+	        read -rp $'\n\nPlease enter '"${r}1 or 2 or 3 or 4${t}"' to go to your class or '"${r}x${t}"' to exit'$'\n\n> ' class
             if [ "$class" == "x" ]; then
                 exit
             fi
-		    # Check if .current_principal_mathematics_class is accidentally empty
-		    if [ ! -s .current_principal_mathematics_class ]; then
-		        # echo 5 to .current_principal_mathematics_class
-		        echo "5" > .current_principal_mathematics_class
+		    # Check if .current_ugandan_sign_language_class is accidentally empty
+		    if [ ! -s .current_ugandan_sign_language_class ]; then
+		        # Echo 1 to .current_ugandan_sign_language_class
+		        echo "1" > .current_ugandan_sign_language_class
 		    fi
 		    # Read the value from the file
-		    current_principal_mathematics_class=$(<.current_principal_mathematics_class) 2>/dev/null
+		    current_ugandan_sign_language_class=$(<.current_ugandan_sign_language_class) 2>/dev/null
 		    # Check if the value is equal to $class
-		    if [ "$current_principal_mathematics_class" -lt "$class" 2>/dev/null ]; then
+		    if [ "$current_ugandan_sign_language_class" -lt "$class" 2>/dev/null ]; then
 		        echo -e "\n${y}Your progress can't be tracked.${t} ${g}You either havent completed your current final assignment${t} ${r}or${t}\n\nYour files have been interfered with! You need ${b}to go back${t} and progress the right way! \c"
 		        wait_for_a_key_press
 				continue
 			else
-	            rm -f ".principal_mathematics_topic_selected"
+	            rm -f ".ugandan_sign_language_topic_selected"
 	            # Update the state file with the class
 	            if [ "$class" != "x" ]; then
-	                echo "$class" > .principal_mathematics_user_state 2>/dev/null
+	                echo "$class" > .ugandan_sign_language_user_state 2>/dev/null
 	            fi
 				break
 	    	fi
@@ -103,43 +103,83 @@ function handle_class_input() {
     fi
 }
 
-# Function to handle S6 user input for topic selection
-function handle_s6_topic_input() {
+# Function to handle S4 user input for topic selection
+function handle_s4_topic_input() {
     if [ -f .resume_to_class ]; then
         rm -f .resume_to_class
-        rm -f .principal_mathematics_topic_selected
+        rm -f .ugandan_sign_language_topic_selected
     fi
-    if [ -z "$last_topic" ] || [ -f .principal_mathematics_topic_selected ]; then
-        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 or 10 or 11${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. Vectors '"${r}Term1${t}"''$'\n\n2. Differentiation 2 '"${r}Term1${t}"''$'\n\n3. Integration 2 '"${r}Term1${t}"''$'\n\n4. Dynamics 2 '"${r}Term2${t}"''$'\n\n5. Trapezium rule '"${r}Term2${t}"''$'\n\n6. Sampling distribution '"${r}Term2${t}"''$'\n\n7. Iterative methods '"${r}Term2${t}"''$'\n\n8. Coordinate geometry 2 '"${r}Term2${t}"''$'\n\n9. Complex numbers '"${r}Term3${t}"''$'\n\n10. Differential equations '"${r}Term3${t}"''$'\n\n11. Flow charts '"${r}Term3${t}"' '$'\n\n> ' topic
-        touch .principal_mathematics_surveyor
-        touch .principal_mathematics_topic_selected
+    if [ -z "$last_topic" ] || [ -f .ugandan_sign_language_topic_selected ]; then
+        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4 or 5${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. Migration and settlement '"${r}Term1${t}"''$'\n\n2. Traditional ceremonies (initiation, marriage and funeral rites) '"${r}Term1${t}"''$'\n\n3. Cultural values, morals and ethics '"${r}Term2${t}"''$'\n\n4. Leadership and citizenship '"${r}Term2${t}"''$'\n\n5. Human rights '"${r}Term3${t}"''$'\n\n> ' topic
+        touch .ugandan_sign_language_surveyor
+        touch .ugandan_sign_language_topic_selected
         # Update the state file with the topic
         # Check if the state file exists, and the topic is not "x"
-        if [ -f .principal_mathematics_user_state ] && [ "$topic" != "x" ]; then
+        if [ -f .ugandan_sign_language_user_state ] && [ "$topic" != "x" ]; then
             # Get the current class value from the state file
-            existing_class=$(awk '{print $1}' .principal_mathematics_user_state)
+            existing_class=$(awk '{print $1}' .ugandan_sign_language_user_state)
             # Update the state file with the topic, preserving the existing class value
-            echo "$existing_class $topic" > .principal_mathematics_user_state 2>/dev/null
+            echo "$existing_class $topic" > .ugandan_sign_language_user_state 2>/dev/null
         fi
     fi
 }
-# Function to handle S5 user input for topic selection
-function handle_s5_topic_input() {
+# Function to handle S3 user input for topic selection
+function handle_s3_topic_input() {
     if [ -f .resume_to_class ]; then
         rm -f .resume_to_class
-        rm -f .principal_mathematics_topic_selected
+        rm -f .ugandan_sign_language_topic_selected
     fi
-    if [ -z "$last_topic" ] || [ -f .principal_mathematics_topic_selected ]; then
-        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 or 10 or 11 or 12 or 13 or 14 or 15 or 16 or 17 or 18 or 19${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. Numerical concepts '"${r}Term1${t}"''$'\n\n2. Equations and inequalities '"${r}Term1${t}"''$'\n\n3. Coordinate geometry 1 '"${r}Term1${t}"''$'\n\n4. Partial fractions '"${r}Term1${t}"''$'\n\n5. Trigonometry '"${r}Term1${t}"''$'\n\n6. Descriptive statistics '"${r}Term1${t}"''$'\n\n7. Scatter diagrams and correlations '"${r}Term2${t}"''$'\n\n8. Dynamics 1 '"${r}Term2${t}"''$'\n\n9. Probability theory '"${r}Term2${t}"''$'\n\n10. Differentiation 1 '"${r}Term2${t}"''$'\n\n11. Integration 1 '"${r}Term2${t}"''$'\n\n12. Permutations and combinations '"${r}Term2${t}"''$'\n\n13. Series '"${r}Term3${t}"''$'\n\n14. Random variables '"${r}Term3${t}"''$'\n\n15. Probability distributions '"${r}Term3${t}"''$'\n\n16. Error analysis '"${r}Term3${t}"''$'\n\n17. Vectors '"${r}Term3${t}"''$'\n\n18. Differentiation 2 '"${r}Term3${t}"''$'\n\n19. Integration 2 '"${r}Term3${t}"' '$'\n\n> ' topic
-        touch .principal_mathematics_surveyor
-        touch .principal_mathematics_topic_selected
+    if [ -z "$last_topic" ] || [ -f .ugandan_sign_language_topic_selected ]; then
+        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4 or 5 or 6${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. Games, sports and leisure '"${r}Term1${t}"''$'\n\n2. Indigenous tourism '"${r}Term1${t}"''$'\n\n3. Clans '"${r}Term2${t}"''$'\n\n4. Wealth creation '"${r}Term2${t}"''$'\n\n5. Environmental awareness '"${r}Term3${t}"''$'\n\n6. Water '"${r}Term3${t}"''$'\n\n> ' topic
+        touch .ugandan_sign_language_surveyor
+        touch .ugandan_sign_language_topic_selected
         # Update the state file with the topic
         # Check if the state file exists, and the topic is not "x"
-        if [ -f .principal_mathematics_user_state ] && [ "$topic" != "x" ]; then
+        if [ -f .ugandan_sign_language_user_state ] && [ "$topic" != "x" ]; then
             # Get the current class value from the state file
-            existing_class=$(awk '{print $1}' .principal_mathematics_user_state)
+            existing_class=$(awk '{print $1}' .ugandan_sign_language_user_state)
             # Update the state file with the topic, preserving the existing class value
-            echo "$existing_class $topic" > .principal_mathematics_user_state 2>/dev/null
+            echo "$existing_class $topic" > .ugandan_sign_language_user_state 2>/dev/null
+        fi
+    fi
+}
+# Function to handle S2 user input for topic selection
+function handle_s2_topic_input() {
+    if [ -f .resume_to_class ]; then
+        rm -f .resume_to_class
+        rm -f .ugandan_sign_language_topic_selected
+    fi
+    if [ -z "$last_topic" ] || [ -f .ugandan_sign_language_topic_selected ]; then
+        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4 or 5${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. Establishing and managing relationships '"${r}Term1${t}"''$'\n\n2. School environment '"${r}Term1${t}"''$'\n\n3. Traditional ceremonies '"${r}Term2${t}"''$'\n\n4. Occupations and careers '"${r}Term2${t}"''$'\n\n5. Public places '"${r}Term3${t}"''$'\n\n> ' topic
+        touch .ugandan_sign_language_surveyor
+        touch .ugandan_sign_language_topic_selected
+        # Update the state file with the topic
+        # Check if the state file exists, and the topic is not "x"
+        if [ -f .ugandan_sign_language_user_state ] && [ "$topic" != "x" ]; then
+            # Get the current class value from the state file
+            existing_class=$(awk '{print $1}' .ugandan_sign_language_user_state)
+            # Update the state file with the topic, preserving the existing class value
+            echo "$existing_class $topic" > .ugandan_sign_language_user_state 2>/dev/null
+        fi
+    fi
+}
+# Function to handle S1 user input for topic selection
+function handle_s1_topic_input() {
+    if [ -f .resume_to_class ]; then
+        rm -f .resume_to_class
+        rm -f .ugandan_sign_language_topic_selected
+    fi
+    if [ -z "$last_topic" ] || [ -f .ugandan_sign_language_topic_selected ]; then
+        read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4 or 5 or 6 or 7${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. Introduction to Ugandan sign language '"${r}Term1${t}"''$'\n\n2. Number, time and dates '"${r}Term1${t}"''$'\n\n3. Family '"${r}Term1${t}"''$'\n\n4. Life at home '"${r}Term1${t}"''$'\n\n5. Plants in our area '"${r}Term2${t}"''$'\n\n6. Animals and birds '"${r}Term2${t}"''$'\n\n7. Personal and community hygiene '"${r}Term3${t}"''$'\n\n> ' topic
+        touch .ugandan_sign_language_surveyor
+        touch .ugandan_sign_language_topic_selected
+        # Update the state file with the topic
+        # Check if the state file exists, and the topic is not "x"
+        if [ -f .ugandan_sign_language_user_state ] && [ "$topic" != "x" ]; then
+            # Get the current class value from the state file
+            existing_class=$(awk '{print $1}' .ugandan_sign_language_user_state)
+            # Update the state file with the topic, preserving the existing class value
+            echo "$existing_class $topic" > .ugandan_sign_language_user_state 2>/dev/null
         fi
     fi
 }
@@ -155,7 +195,7 @@ process_reminders_from_file() {
     # Read the file line by line
     prev_sentence=""
     echo_next=false
-	echo -n > .principal_mathematics_reminder
+	echo -n > .ugandan_sign_language_reminder
 
     while IFS= read -r line || [ -n "$line" ]; do
         # Use a semi-colon as a secondary delimiter and read into an array
@@ -170,7 +210,7 @@ process_reminders_from_file() {
                 # Split the obtained sentence into multiple sentences using a comma as the delimiter
                 IFS=',' read -ra split_sentences <<< "$sentence"
                 for split_sentence in "${split_sentences[@]}"; do
-					echo "$split_sentence" >> .principal_mathematics_reminder
+					echo "$split_sentence" >> .ugandan_sign_language_reminder
                 done
             echo_next=false
             fi
@@ -179,7 +219,7 @@ process_reminders_from_file() {
 
                 lower_cased_sentence=${sentence,}
 
-                echo "Did you know that $lower_cased_sentence" >> .principal_mathematics_reminder
+                echo "Did you know that $lower_cased_sentence" >> .ugandan_sign_language_reminder
 
                 # Set flag to echo the next sentence
                 echo_next=true
@@ -189,22 +229,22 @@ process_reminders_from_file() {
 
     			lower_cased_sentence=${sentence,}
 
- 				echo "Did you know that $lower_cased_sentence;" >> .principal_mathematics_reminder
+ 				echo "Did you know that $lower_cased_sentence;" >> .ugandan_sign_language_reminder
 
 			elif [[ "$sentence" =~ ^(An\ |A\ ) && "$sentence" =~ (\ is\ ) ]]; then
 
 				lower_cased_sentence=${sentence,}
 
-    			echo "Do you recall that $lower_cased_sentence;" >> .principal_mathematics_reminder
+    			echo "Do you recall that $lower_cased_sentence;" >> .ugandan_sign_language_reminder
 
 			elif [[ "$sentence" =~ " → " ]]; then
-    			echo "Hope you know that: $sentence;" >> .principal_mathematics_reminder
+    			echo "Hope you know that: $sentence;" >> .ugandan_sign_language_reminder
 
             elif [[ "$sentence" =~ " ↔ " ]]; then
-                echo "Hope you know that: $sentence;" >> .principal_mathematics_reminder
+                echo "Hope you know that: $sentence;" >> .ugandan_sign_language_reminder
 
             elif [[ "$sentence" =~ (Generally|general) ]]; then
-                echo "Note: $sentence;" >> .principal_mathematics_reminder
+                echo "Note: $sentence;" >> .ugandan_sign_language_reminder
 
 			fi
         done
@@ -222,13 +262,13 @@ process_random_reminder() {
         exit 1
     fi
 
-    # Check if .principal_mathematics_reminder exists
-    if [ -f .principal_mathematics_reminder ]; then
-		# Remove empty lines from .principal_mathematics_reminder
-    	sed -i '/^[[:space:]]*$/d' .principal_mathematics_reminder 2>/dev/null
+    # Check if .ugandan_sign_language_reminder exists
+    if [ -f .ugandan_sign_language_reminder ]; then
+		# Remove empty lines from .ugandan_sign_language_reminder
+    	sed -i '/^[[:space:]]*$/d' .ugandan_sign_language_reminder 2>/dev/null
         # Randomly select a non-empty sentence
         local reminder  # Declare the variable
-		reminder=$(awk -v RS=';' 'BEGIN{srand();}{gsub(/^[[:space:]]+|[[:space:]]+$/, ""); if (length > 0) a[++n]=$0}END{if (n > 0) print a[int(rand()*n)+1]}' .principal_mathematics_reminder)
+		reminder=$(awk -v RS=';' 'BEGIN{srand();}{gsub(/^[[:space:]]+|[[:space:]]+$/, ""); if (length > 0) a[++n]=$0}END{if (n > 0) print a[int(rand()*n)+1]}' .ugandan_sign_language_reminder)
         # Check if selected sentence is not empty and contains non-whitespace characters
         if [[ -n "$reminder" && "$reminder" =~ [[:graph:]] ]]; then
 			modified_reminder="\n\n$reminder"
@@ -553,8 +593,8 @@ process_file() {
                 if [[ -n "$sentence" && "$sentence" =~ [[:graph:]] ]]; then
                 if [[ $sentence == *"Figure"* ]]; then
                     modified_sentence=$(echo "$sentence" | sed 's/.*\(Figure.*\.jpg\).*$/\1/')
-                    # Change to the "Figures/Principal_mathematics" directory
-                    cd Figures/Principal_mathematics || { echo "Failed to change to Figures/Principal_mathematics"; return; }
+                    # Change to the "Figures/Ugandan_sign_language" directory
+                    cd Figures/Ugandan_sign_language || { echo "Failed to change to Figures/Ugandan_sign_language"; return; }
                     # Open the file using explorer.exe
                     explorer.exe "$modified_sentence" > /dev/null 2>&1 &
                     # Go back to the original directory
@@ -562,13 +602,13 @@ process_file() {
                 fi
 
                 if [[ $sentence == *"Table"* ]]; then
-                    cd Tables/Principal_mathematics || { echo -e "\nFailed to change to Tables/Principal_mathematics \c"; return; }
+                    cd Tables/Ugandan_sign_language || { echo -e "\nFailed to change to Tables/Ugandan_sign_language \c"; return; }
                     explorer.exe "$sentence" > /dev/null 2>&1 &
                     cd ../.. || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
                 fi
 
                 if [[ $sentence == *"Video"* ]]; then
-                    cd Videos/Principal_mathematics || { echo -e "\nFailed to change to Videos/Principal_mathematics \c"; return; }
+                    cd Videos/Ugandan_sign_language || { echo -e "\nFailed to change to Videos/Ugandan_sign_language \c"; return; }
                     explorer.exe "$sentence" > /dev/null 2>&1 &
                     cd ../.. || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
                 fi
@@ -612,7 +652,7 @@ process_file() {
 }
 
 contact_ai() {
-    last_topic=$(awk -F' ' '{print $2}' .principal_mathematics_user_state)
+    last_topic=$(awk -F' ' '{print $2}' .ugandan_sign_language_user_state)
     if [ -f .connect_to_ai ]; then
         echo ""
         # Connect to internet
@@ -735,12 +775,12 @@ while true; do
     # Check if user_input is not empty
     if [[ -n "$user_input" ]]; then
 		if [[ "$user_input" == "sh" ]]; then
-		    Response="We are looking forward to receiving your economic support, thoughts, suggestions, and any files you feel should reach out to everyone of our children. Please remember to label the files you are to attach using the format: Your_name_School_Principal_mathematics_File_content (e.g., Muhumuza_Omega_Kasule_High_School_O_level_Chemistry_Answered_EOC1_Items.pdf). Thanks a lot for your contributions."    
-		    principal_mathematics="$(basename "$0") - $(date +"%Y-%m-%d %H:%M:%S") - Thoughts, suggestions, and contributions"
-		    encoded_principal_mathematics=$(echo "$principal_mathematics" | sed 's/ /%20/g; s/\n/%0A/g')
+		    Response="We are looking forward to receiving your economic support, thoughts, suggestions, and any files you feel should reach out to everyone of our children. Please remember to label the files you are to attach using the format: Your_name_School_Ugandan_sign_language_File_content (e.g., Muhumuza_Omega_Kasule_High_School_O_level_Chemistry_Answered_EOC1_Items.pdf). Thanks a lot for your contributions."    
+		    ugandan_sign_language="$(basename "$0") - $(date +"%Y-%m-%d %H:%M:%S") - Thoughts, suggestions, and contributions"
+		    encoded_ugandan_sign_language=$(echo "$ugandan_sign_language" | sed 's/ /%20/g; s/\n/%0A/g')
 		    encoded_body=$(echo "$Response" | sed 's/ /%20/g; s/\n/%0A/g')
-		    # Open the email in the browser with the encoded principal_mathematics and body
-		    powershell.exe -Command "Start-Process 'https://mail.google.com/mail/?view=cm&to=2024omd256@gmail.com&su=${encoded_principal_mathematics}&body=${encoded_body}'"
+		    # Open the email in the browser with the encoded ugandan_sign_language and body
+		    powershell.exe -Command "Start-Process 'https://mail.google.com/mail/?view=cm&to=2024omd256@gmail.com&su=${encoded_ugandan_sign_language}&body=${encoded_body}'"
 			return
 		fi
          if [[ "$user_input" == "cl" ]]; then
@@ -748,7 +788,7 @@ while true; do
          fi
          if [[ "$user_input" == "sr" ]]; then
             cd Resources || { echo "Failed to access the resources... Contact OMD for help!"; return; }
-            explorer.exe Principal_mathematics > /dev/null 2>&1 &
+            explorer.exe Ugandan_sign_language > /dev/null 2>&1 &
             cd - > /dev/null 2>&1 || { echo "Failed to return to the original directory!"; exit 1; }
             return
          fi
@@ -768,7 +808,7 @@ while true; do
                 sleep 2
                 return
             fi
-            TEMP_FILE=$(mktemp) && curl -o "$TEMP_FILE" -L "https://github.com/Muhumuza7325/OMD/raw/main/principal_mathematics_tutorial_wsl.sh" && mv "$TEMP_FILE" principal_mathematics_tutorial_wsl.sh && chmod +x principal_mathematics_tutorial_wsl.sh && echo -e "\n\n${y}Code successfully updated.. You will have to restart a new session${t} \c" && sleep 4 && exit || (echo -e "\n\n${m}Error updating code!... Please check your internet connection and try again!${t} \c" && rm -f "$TEMP_FILE" && return)
+            TEMP_FILE=$(mktemp) && curl -o "$TEMP_FILE" -L "https://github.com/Muhumuza7325/OMD/raw/main/ugandan_sign_language_tutorial_wsl.sh" && mv "$TEMP_FILE" ugandan_sign_language_tutorial_wsl.sh && chmod +x ugandan_sign_language_tutorial_wsl.sh && echo -e "\n\n${y}Code successfully updated.. You will have to restart a new session${t} \c" && sleep 4 && exit || (echo -e "\n\n${m}Error updating code!... Please check your internet connection and try again!${t} \c" && rm -f "$TEMP_FILE" && return)
         fi
         if [[ "$user_input" == "xx" ]]; then
             current_datetime=$(date)
@@ -781,9 +821,9 @@ while true; do
                     sleep 2
                     return
                 fi
-                curl -O -L "https://github.com/Muhumuza7325/OMD/raw/main/update_principal_mathematics.sh" || { echo -e "\n\n${m}Check your internet connection and try again!${t}" >&2; return; }
-                mv update_principal_mathematics.sh .update_principal_mathematics.sh
-                bash .update_principal_mathematics.sh
+                curl -O -L "https://github.com/Muhumuza7325/OMD/raw/main/update_ugandan_sign_language.sh" || { echo -e "\n\n${m}Check your internet connection and try again!${t}" >&2; return; }
+                mv update_ugandan_sign_language.sh .update_ugandan_sign_language.sh
+                bash .update_ugandan_sign_language.sh
                 return
             else
                 return
@@ -800,10 +840,10 @@ while true; do
         # Use grep to find the pattern in a file
         if [[ "$user_input" == "${user_input^^}" ]]; then
             # Case-sensitive search for user input
-            result=$(grep -h -w -A 999999 "$user_input" Notes/Principal_mathematics/*.txt | sed -e '1s/^/\n/' -e 's/\.\s\+/&\n\n/g' -e 's/;\s*/&\n/g' | sed '/https:/! s/^[^:]*://' | tr -d '\000' | sed 's/^ \([^ ]\)/\1/')
+            result=$(grep -h -w -A 999999 "$user_input" Notes/Ugandan_sign_language/*.txt | sed -e '1s/^/\n/' -e 's/\.\s\+/&\n\n/g' -e 's/;\s*/&\n/g' | sed '/https:/! s/^[^:]*://' | tr -d '\000' | sed 's/^ \([^ ]\)/\1/')
         else
             # Case-insensitive search for user input
-            result=$(find Notes/Principal_mathematics -type f -name "*.txt" -exec awk '{if (gsub(/\.\s+/,"&\n\n"FILENAME":")) print ""; print FILENAME":" $0}' {} \; | grep -i -w "$user_input" | sed -e 's/: /. /g' | awk -F: 'BEGIN {file="";} {if (file != $1) { print ""; print $1; file=$1; print ""; } print $2}' | sed -e '/https:/! s/^[^:]*://' -e '/^$/N;/^\n$/D' | sed 's/\.\s\+/&\n/g' | tr -d '\000' | grep -E "$user_input|.txt" | sed 's/$/\n/' | sed 's/;\s*/&\n/g')
+            result=$(find Notes/Ugandan_sign_language -type f -name "*.txt" -exec awk '{if (gsub(/\.\s+/,"&\n\n"FILENAME":")) print ""; print FILENAME":" $0}' {} \; | grep -i -w "$user_input" | sed -e 's/: /. /g' | awk -F: 'BEGIN {file="";} {if (file != $1) { print ""; print $1; file=$1; print ""; } print $2}' | sed -e '/https:/! s/^[^:]*://' -e '/^$/N;/^\n$/D' | sed 's/\.\s\+/&\n/g' | tr -d '\000' | grep -E "$user_input|.txt" | sed 's/$/\n/' | sed 's/;\s*/&\n/g')
         fi
 
         # Check if the result is not empty
@@ -813,10 +853,10 @@ while true; do
             rm -f search.txt
             echo -e "\c"
             if echo "$result" | grep "Figure"; then
-                echo "$result" | grep -o '\bFigure[0-9]\+.*\.jpg\(\.[0-9]\+\)*\b' > Figures/Principal_mathematics/figures.txt
-                sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' Figures/Principal_mathematics/figures.txt
-                # Change to the "Figures/Principal_mathematics" directory
-                cd Figures/Principal_mathematics || { echo "Failed to change to Figures/Principal_mathematics"; return; }
+                echo "$result" | grep -o '\bFigure[0-9]\+.*\.jpg\(\.[0-9]\+\)*\b' > Figures/Ugandan_sign_language/figures.txt
+                sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' Figures/Ugandan_sign_language/figures.txt
+                # Change to the "Figures/Ugandan_sign_language" directory
+                cd Figures/Ugandan_sign_language || { echo "Failed to change to Figures/Ugandan_sign_language"; return; }
                 # Specify the path to the text file containing figure names
                 text_file="figures.txt"
                 # Read each line from the text file and open the corresponding figure
@@ -830,13 +870,13 @@ while true; do
                 # Go back to the original directory
                 cd ../.. || { echo "Failed to change back to the original directory \c"; exit 1; }
                 # Remove the temporary file
-                rm -f Figures/Principal_mathematics/figures.txt
+                rm -f Figures/Ugandan_sign_language/figures.txt
             fi
 
             if echo "$result" | grep "Table"; then
-                echo "$result" | grep -o '\bTable[0-9]\+\(\.[0-9]\+\)*\b' > Tables/Principal_mathematics/tables.txt
-                sed -i -e '/^Table/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' Tables/Principal_mathematics/tables.txt
-                cd Tables/Principal_mathematics || { echo -e "\nFailed to change to Tables/Principal_mathematics \c"; return; }
+                echo "$result" | grep -o '\bTable[0-9]\+\(\.[0-9]\+\)*\b' > Tables/Ugandan_sign_language/tables.txt
+                sed -i -e '/^Table/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' Tables/Ugandan_sign_language/tables.txt
+                cd Tables/Ugandan_sign_language || { echo -e "\nFailed to change to Tables/Ugandan_sign_language \c"; return; }
                 # Specify the path to the text file containing Table names
                 text_file="tables.txt"
                 # Read each line from the text file and open the corresponding table
@@ -850,16 +890,16 @@ while true; do
                 # Remove the temporary file
                 # Go back to the original directory
                 cd ../.. || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
-                rm -f Tables/Principal_mathematics/tables.txt
+                rm -f Tables/Ugandan_sign_language/tables.txt
             fi
 
             if echo "$result" | grep "Video"; then
-                #echo "$result" > Videos/Principal_mathematics/videos.txt
-                echo "$result" | grep -o '\bVideo[0-9]\+\(\.[0-9]\+\)*\b' > Videos/Principal_mathematics/videos.txt
+                #echo "$result" > Videos/Ugandan_sign_language/videos.txt
+                echo "$result" | grep -o '\bVideo[0-9]\+\(\.[0-9]\+\)*\b' > Videos/Ugandan_sign_language/videos.txt
                 # Remove lines not starting with "Video" and any leading/trailing whitespaces
-                sed -i -e '/^Video/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' Videos/Principal_mathematics/videos.txt
-                # Change to the "Videos/Principal_mathematics" directory
-                cd Videos/Principal_mathematics || { echo -e "\nFailed to change to Videos/Principal_mathematics \c"; return; }
+                sed -i -e '/^Video/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' Videos/Ugandan_sign_language/videos.txt
+                # Change to the "Videos/Ugandan_sign_language" directory
+                cd Videos/Ugandan_sign_language || { echo -e "\nFailed to change to Videos/Ugandan_sign_language \c"; return; }
                 # Specify the path to the text file containing video names
                 text_file="videos.txt"
                 while IFS= read -r video_prefix || [ -n "$video_prefix" ]; do
@@ -872,7 +912,7 @@ while true; do
                 # Go back to the original directory
                 cd ../.. || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
                 # Remove the temporary file
-                rm -f Videos/Principal_mathematics/videos.txt
+                rm -f Videos/Ugandan_sign_language/videos.txt
             fi
 
         else
@@ -925,10 +965,10 @@ while true; do
             echo -e "$selected_question;" >> "$revision_file"
 
             if echo "$selected_question" | grep "Figure"; then
-                echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../Figures/Principal_mathematics/figures.txt
-                sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../Figures/Principal_mathematics/figures.txt
-                # Change to the "Figures/Principal_mathematics" directory
-                cd ../../Figures/Principal_mathematics || { echo "Failed to change to Figures/Principal_mathematics"; return; }
+                echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../Figures/Ugandan_sign_language/figures.txt
+                sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../Figures/Ugandan_sign_language/figures.txt
+                # Change to the "Figures/Ugandan_sign_language" directory
+                cd ../../Figures/Ugandan_sign_language || { echo "Failed to change to Figures/Ugandan_sign_language"; return; }
                 # Specify the path to the text file containing figure names
                 text_file="figures.txt"
                 # Read each line from the selected question and open the corresponding figure
@@ -939,9 +979,9 @@ while true; do
                     explorer.exe "${edited_figure_prefix}"* > /dev/null 2>&1 &
                 done < "$text_file"
                 # Go back to the original directory
-                cd ../../Revision/Principal_mathematics || { echo "Failed to change back to the targeted directory \c"; exit 1; }
+                cd ../../Revision/Ugandan_sign_language || { echo "Failed to change back to the targeted directory \c"; exit 1; }
                 # Remove the temporary file
-                rm -f ../../Figures/Principal_mathematics/figures.txt
+                rm -f ../../Figures/Ugandan_sign_language/figures.txt
             fi
 
             # Create a temporary file
@@ -1022,10 +1062,10 @@ while true; do
             echo -e "$selected_question;" >> "$revision_file"
 
             if echo "$selected_question" | grep "Figure"; then
-                echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../Figures/Principal_mathematics/figures.txt
-                sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../Figures/Principal_mathematics/figures.txt
-                # Change to the "Figures/Principal_mathematics" directory
-                cd ../../Figures/Principal_mathematics || { echo "Failed to change to Figures/Principal_mathematics"; return; }
+                echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../Figures/Ugandan_sign_language/figures.txt
+                sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../Figures/Ugandan_sign_language/figures.txt
+                # Change to the "Figures/Ugandan_sign_language" directory
+                cd ../../Figures/Ugandan_sign_language || { echo "Failed to change to Figures/Ugandan_sign_language"; return; }
                 # Specify the path to the text file containing figure names
                 text_file="figures.txt"
                 # Read each line from the selected question and open the corresponding figure
@@ -1036,9 +1076,9 @@ while true; do
                     explorer.exe "${edited_figure_prefix}"* > /dev/null 2>&1 &
                 done < "$text_file"
                 # Go back to the original directory
-                cd ../../Revision/Principal_mathematics || { echo "Failed to change back to the targeted directory \c"; exit 1; }
+                cd ../../Revision/Ugandan_sign_language || { echo "Failed to change back to the targeted directory \c"; exit 1; }
                 # Remove the temporary file
-                rm -f ../../Figures/Principal_mathematics/figures.txt
+                rm -f ../../Figures/Ugandan_sign_language/figures.txt
             fi
 
             # Create a temporary file
@@ -1276,10 +1316,10 @@ process_question_answer() {
                 echo "${selected_question//(/$'\n'}"
 
                 if echo "$selected_question" | grep "Figure"; then
-                    echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../Figures/Principal_mathematics/figures.txt
-                    sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../Figures/Principal_mathematics/figures.txt
-                    # Change to the "Figures/Principal_mathematics" directory
-                    cd ../../Figures/Principal_mathematics || { echo "Failed to change to Figures/Principal_mathematics"; return; }
+                    echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../Figures/Ugandan_sign_language/figures.txt
+                    sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../Figures/Ugandan_sign_language/figures.txt
+                    # Change to the "Figures/Ugandan_sign_language" directory
+                    cd ../../Figures/Ugandan_sign_language || { echo "Failed to change to Figures/Ugandan_sign_language"; return; }
                     # Specify the path to the text file containing figure names
                     text_file="figures.txt"
                     # Read each line from the selected question and open the corresponding figure
@@ -1290,9 +1330,9 @@ process_question_answer() {
                         explorer.exe "${edited_figure_prefix}"* > /dev/null 2>&1 &
                     done < "$text_file"
                     # Go back to the original directory
-                    cd ../../Revision/Principal_mathematics || { echo "Failed to change back to the targeted directory \c"; exit 1; }
+                    cd ../../Revision/Ugandan_sign_language || { echo "Failed to change back to the targeted directory \c"; exit 1; }
                     # Remove the temporary file
-                    rm -f ../../Figures/Principal_mathematics/figures.txt
+                    rm -f ../../Figures/Ugandan_sign_language/figures.txt
                 fi
 
                 # Create a temporary file
@@ -1411,8 +1451,8 @@ process_question_answer() {
         school_name="${school_name// /_}"
         touch ../../../."$school_name"_students_file.txt
         sed -i '/^[[:space:]]*$/d' ../../../."$school_name"_students_file.txt
-        existing_class=$(awk '{print $1}' ../../../.principal_mathematics_user_state)
-        existing_topic=$(awk '{print $2}' ../../../.principal_mathematics_user_state)
+        existing_class=$(awk '{print $1}' ../../../.ugandan_sign_language_user_state)
+        existing_topic=$(awk '{print $2}' ../../../.ugandan_sign_language_user_state)
         echo ''
         if replace_prompt  'By just pressing Enter, the obtained score will be allocated to every recorded student... If otherwise, enter your Initial(s) (space-separated) to label the score' replacement; then
             replacement=${replacement^^}  # Convert to uppercase
@@ -1420,23 +1460,23 @@ process_question_answer() {
         else
             names=''
         fi
-        if grep -q "Principal_mathematics" ../../../."$school_name"_students_file.txt; then
+        if grep -q "Ugandan_sign_language" ../../../."$school_name"_students_file.txt; then
             sed -i -E 's/;/\n/g' ../../../."$school_name"_students_file.txt
-            # Find the line with the word Principal_mathematics, replace the information below it with the already available information adding a comma existing_class_existing_topic [$percentage]
+            # Find the line with the word Ugandan_sign_language, replace the information below it with the already available information adding a comma existing_class_existing_topic [$percentage]
             if [ "$existing_topic" == "r" ]; then
-                sed -i '/Principal_mathematics/{n;s/\(.*\)/\1, '"$existing_class"'_'"$input"' '"$names"'['"$percentage%"']/}' ../../../."$school_name"_students_file.txt
+                sed -i '/Ugandan_sign_language/{n;s/\(.*\)/\1, '"$existing_class"'_'"$input"' '"$names"'['"$percentage%"']/}' ../../../."$school_name"_students_file.txt
             else
                 (( existing_topic-- ))
-                sed -i '/Principal_mathematics/{n;s/\(.*\)/\1, '"$existing_class"'_'"$existing_topic"' '"$names"'['"$percentage%"']/}' ../../../."$school_name"_students_file.txt
+                sed -i '/Ugandan_sign_language/{n;s/\(.*\)/\1, '"$existing_class"'_'"$existing_topic"' '"$names"'['"$percentage%"']/}' ../../../."$school_name"_students_file.txt
             fi
         else
             if [ "$existing_topic" == "r" ]; then
-                sed -i -E '/^School/ i\Principal_mathematics\n'"${existing_class} ${names}[${percentage}%]"'' ../../../."$school_name"_students_file.txt
-                echo -e "Principal_mathematics\n"$existing_class"_'"$input"' "$names"["$percentage%"]" >> ../../../."$school_name"_students_file.txt
+                sed -i -E '/^School/ i\Ugandan_sign_language\n'"${existing_class} ${names}[${percentage}%]"'' ../../../."$school_name"_students_file.txt
+                echo -e "Ugandan_sign_language\n"$existing_class"_'"$input"' "$names"["$percentage%"]" >> ../../../."$school_name"_students_file.txt
             else
                 (( existing_topic-- ))
-                sed -i -E '/^School/ i\Principal_mathematics\n'"${existing_class}_${existing_topic} ${names}[${percentage}%]"'' ../../../."$school_name"_students_file.txt
-                echo -e "Principal_mathematics\n"$existing_class"_"$existing_topic" "$names"["$percentage%"]" >> ../../../."$school_name"_students_file.txt
+                sed -i -E '/^School/ i\Ugandan_sign_language\n'"${existing_class}_${existing_topic} ${names}[${percentage}%]"'' ../../../."$school_name"_students_file.txt
+                echo -e "Ugandan_sign_language\n"$existing_class"_"$existing_topic" "$names"["$percentage%"]" >> ../../../."$school_name"_students_file.txt
             fi
                 sed -i '1,2s/.*//g' ../../../."$school_name"_students_file.txt
                 sed -i '/^[[:space:]]*$/d' ../../../."$school_name"_students_file.txt
@@ -1520,12 +1560,12 @@ process_question_answer() {
 
 # Function to check the state file and resume from the last point
 function resume_from_last_point() {
-    if [ -f .principal_mathematics_user_state ]; then
-        last_class=$(awk -F' ' '{print $1}' .principal_mathematics_user_state)
-        last_topic=$(awk -F' ' '{print $2}' .principal_mathematics_user_state)
+    if [ -f .ugandan_sign_language_user_state ]; then
+        last_class=$(awk -F' ' '{print $1}' .ugandan_sign_language_user_state)
+        last_topic=$(awk -F' ' '{print $2}' .ugandan_sign_language_user_state)
         if [ -n "$last_class" ] && [ -n "$last_topic" ]; then
             echo -e "\n              Resuming from ${r}S$last_class${t} : ${g}Topic '$last_topic'${t} \c"
-            rm -f .principal_mathematics_surveyor
+            rm -f .ugandan_sign_language_surveyor
             clear_and_center "          ..........    Resumed from ${g}Topic $last_topic${t} (${r}S$last_class${t})    ............"
             return 0
         elif [ -n "$last_class" ] && [ -z "$last_topic" ]; then
@@ -1553,36 +1593,36 @@ function handle_resume_input() {
     read -rp $'\n\n\n   '"${y}Press Enter to resume from your last point. Otherwise, enter${t}"' (no or n) : ' resume_choice
     resume_choice=${resume_choice,,}  # Convert to lowercase
     if ! [[ "$resume_choice" == "no" || "$resume_choice" == "n" ]]; then
-        rm -f .principal_mathematics_topic_selected
+        rm -f .ugandan_sign_language_topic_selected
         if resume_from_last_point; then
             # User wants to resume
             class=$last_class
             topic=$last_topic
         fi
     else
-        touch .principal_mathematics_surveyor
+        touch .ugandan_sign_language_surveyor
     fi
 }
 
 # Function to select and process random questions with answers
 process_final_assignment() {
-    # Check if user is.principal_mathematics_ready for the assignment
-    # Check if .current_principal_mathematics_class is accidentally empty
-    if [ ! -s .current_principal_mathematics_class ]; then
-        # echo 5 to .current_principal_mathematics_class
-        echo "5" > .current_principal_mathematics_class
+    # Check if user is.ugandan_sign_language_ready for the assignment
+    # Check if .current_ugandan_sign_language_class is accidentally empty
+    if [ ! -s .current_ugandan_sign_language_class ]; then
+        # Echo 1 to .current_ugandan_sign_language_class
+        echo "1" > .current_ugandan_sign_language_class
     fi
-    # Read the value from the .current_principal_mathematics_class file
-    current_principal_mathematics_class=$(<.current_principal_mathematics_class) 2>/dev/null
-    # Check if the value in the .principal_mathematics_ready file is equal to $class
-    # Read the value from the .principal_mathematics_ready file
-    if [ ! -s .principal_mathematics_ready ]; then
-        echo "0" > .principal_mathematics_ready
+    # Read the value from the .current_ugandan_sign_language_class file
+    current_ugandan_sign_language_class=$(<.current_ugandan_sign_language_class) 2>/dev/null
+    # Check if the value in the .ugandan_sign_language_ready file is equal to $class
+    # Read the value from the .ugandan_sign_language_ready file
+    if [ ! -s .ugandan_sign_language_ready ]; then
+        echo "0" > .ugandan_sign_language_ready
     fi
-    how.principal_mathematics_ready=$(<.principal_mathematics_ready) 2>/dev/null
+    how.ugandan_sign_language_ready=$(<.ugandan_sign_language_ready) 2>/dev/null
     # Check if the value is equal to $class
-    if [ "$how.principal_mathematics_ready" -lt "$current_principal_mathematics_class" 2>/dev/null ]; then
-        read -rp $'\n\nYou havent done all the topic assignments for your current principal_mathematics class\n\n'"${r}Proceeding from here will affect your very final score${y}"'. To go back and progress right, enter '"${y}ok${t}"'. Otherwise, press the Enter key to do the final class assignment: ' progress
+    if [ "$how.ugandan_sign_language_ready" -lt "$current_ugandan_sign_language_class" 2>/dev/null ]; then
+        read -rp $'\n\nYou havent done all the topic assignments for your current ugandan_sign_language class\n\n'"${r}Proceeding from here will affect your very final score${y}"'. To go back and progress right, enter '"${y}ok${t}"'. Otherwise, press the Enter key to do the final class assignment: ' progress
         if [ "$progress" == "ok" ]; then
             return
         fi
@@ -1608,11 +1648,11 @@ process_final_assignment() {
             echo -e "\n\nSorry that took quite long... ${r}Exiting${t}... ${g}Please try atleast two more times${t} \c"
             exit 1
         fi
-        if [ -s ../../principal_mathematics_answered_ans.txt ]; then
+        if [ -s ../../ugandan_sign_language_answered_ans.txt ]; then
             # Specify the temporary file name within the current working directory
             cpd="./cpd.txt"
             # Copy answered questions to the temporary file
-            cp ../../principal_mathematics_answered_ans.txt "$cpd"
+            cp ../../ugandan_sign_language_answered_ans.txt "$cpd"
             sed -i 's/\(.*\)\(.\)$/\2\1/' "$cpd"
         fi
         # Remove empty lines from all text files
@@ -1651,10 +1691,10 @@ process_final_assignment() {
                     fi
 
                     if echo "$selected_question" | grep "Figure"; then
-                        echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../Figures/Principal_mathematics/figures.txt
-                        sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../Figures/Principal_mathematics/figures.txt
-                        # Change to the "Figures/Principal_mathematics" directory
-                        cd ../../Figures/Principal_mathematics || { echo "Failed to change to Figures/Principal_mathematics"; return; }
+                        echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../Figures/Ugandan_sign_language/figures.txt
+                        sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../Figures/Ugandan_sign_language/figures.txt
+                        # Change to the "Figures/Ugandan_sign_language" directory
+                        cd ../../Figures/Ugandan_sign_language || { echo "Failed to change to Figures/Ugandan_sign_language"; return; }
                         # Specify the path to the text file containing figure names
                         text_file="figures.txt"
                         # Read each line from the selected question and open the corresponding figure
@@ -1665,9 +1705,9 @@ process_final_assignment() {
                             explorer.exe "${edited_figure_prefix}"* > /dev/null 2>&1 &
                         done < "$text_file"
                         # Go back to the original directory
-                        cd ../../Revision/Principal_mathematics || { echo "Failed to change back to the targeted directory \c"; exit 1; }
+                        cd ../../Revision/Ugandan_sign_language || { echo "Failed to change back to the targeted directory \c"; exit 1; }
                         # Remove the temporary file
-                        rm -f ../../Figures/Principal_mathematics/figures.txt
+                        rm -f ../../Figures/Ugandan_sign_language/figures.txt
                     fi
                     # Create a temporary file
                     temp_file=$(mktemp)
@@ -1809,20 +1849,20 @@ process_final_assignment() {
                     cd ../..
                     wscript.exe //nologo sound2.vbs &
                     cd - > /dev/null 2>&1 || exit
-                    if ! [ -f .current_principal_mathematics_class ]; then
+                    if ! [ -f .current_ugandan_sign_language_class ]; then
                         # Echo the result to the file .current_class
-                        echo "2" > .current_principal_mathematics_class
+                        echo "2" > .current_ugandan_sign_language_class
                         echo -e "\n\n${g}Congratulations!${t}  You have successfully gained access to the next class (S2).\n\nHowever, if a diferrent class was expected, then something is wrong.\n\nFrom here, you will have to go back to go back to S2 and acess the next classes the right way \c"
                         wait_for_a_key_press
                     else
                         # Add 1 to $class value
                         new_class=$(($class + 1))
                         # Read the value from the file
-                        current_principal_mathematics_class=$(<.current_principal_mathematics_class) 2>/dev/null
-                        # Check if the new_class value is lt $current_principal_mathematics_class
-                        if [ "$new_class" -gt "$current_principal_mathematics_class" 2>/dev/null ]; then
+                        current_ugandan_sign_language_class=$(<.current_ugandan_sign_language_class) 2>/dev/null
+                        # Check if the new_class value is lt $current_ugandan_sign_language_class
+                        if [ "$new_class" -gt "$current_ugandan_sign_language_class" 2>/dev/null ]; then
 		                    # Echo the result to the file .current_class
-		                    echo "$new_class" > .current_principal_mathematics_class
+		                    echo "$new_class" > .current_ugandan_sign_language_class
                         fi
                         echo -e "\n\n${g}Congratulations!${t} You have successfully gained access to the next class! \c"
                         wait_for_a_key_press
@@ -1840,10 +1880,10 @@ process_final_assignment() {
 get_sample_items() {
 	# File to store the last echo time
     last_echo_time_file="/tmp/last_echo_time.txt"
-	rm -f .principal_mathematics_topic_selected
+	rm -f .ugandan_sign_language_topic_selected
     # Save the current working directory
     pushd . > /dev/null
-    cd Revision/Principal_mathematics || { echo "Directory not found"; return; }
+    cd Revision/Ugandan_sign_language || { echo "Directory not found"; return; }
 	if [ -f .revise.txt ] && [ ! -s .revise.txt ]; then
 	    rm -f .revise.txt
 	fi
@@ -1862,27 +1902,27 @@ get_sample_items() {
     	    time_diff=$((current_time - last_echo_time))
         	if [ $time_diff -gt 3600 ]; then
             	# Echo the message and update the last echo time
-	        	echo -e "\n\n\n${r}You are advised to not make any changes to the provided answers, instead, you can make copies that you can edit${t}\n\n${y}For a teacher willing to join us reach out to everyone of our children, please send us your questions and answers in a file labelled with your name, school, principal_mathematics, and file content (e.g., Muhumuza_Omega_Kasule_High_School_O_level_Chemistry_Answered_EOC1_Items.pdf) to our contacts${t}\n\n\nEmail: ${g}2024omd256@gmail.com${t} \c"
+	        	echo -e "\n\n\n${r}You are advised to not make any changes to the provided answers, instead, you can make copies that you can edit${t}\n\n${y}For a teacher willing to join us reach out to everyone of our children, please send us your questions and answers in a file labelled with your name, school, ugandan_sign_language, and file content (e.g., Muhumuza_Omega_Kasule_High_School_O_level_Chemistry_Answered_EOC1_Items.pdf) to our contacts${t}\n\n\nEmail: ${g}2024omd256@gmail.com${t} \c"
 				echo $current_time > "$last_echo_time_file"
     		fi
             read -rp $'\n\n\nEnter '"${m}any character${t}"' for access to the file of answered items or simply press '"${r}Enter${t}"' to get items to attempt : ' input
           	if [[ -n $input ]]; then
-          		explorer.exe .principal_mathematics_samples* > /dev/null 2>&1 &
+          		explorer.exe .ugandan_sign_language_samples* > /dev/null 2>&1 &
             	clear
             	popd > /dev/null || exit
                 return
             fi
-            if [ -f .e_o_c_principal_mathematics.txt ]; then
+            if [ -f .e_o_c_ugandan_sign_language.txt ]; then
                 echo -e "\n\n${y}Below is the list of the elements of construct${t} \n"
-                cat .e_o_c_principal_mathematics.txt
+                cat .e_o_c_ugandan_sign_language.txt
                 read -rp $'\nEnter a '"${m}specific${t}"' number or simply press '"${r}Enter${t}"' to get random sample items'$'\n> ' input
                 if [[ -n $input ]]; then
                     echo -e "\n${c}Below is the basis of assessment for the selected element of construct${t} \n"
-                    selected_file1=$(ls -a | grep -E "\.e_o_c_principal_mathematics_${input}\.txt")
+                    selected_file1=$(ls -a | grep -E "\.e_o_c_ugandan_sign_language_${input}\.txt")
                     cat "$selected_file1"
                     # Remove empty lines from the selected files
                     find . -type f -name "*_samples_[0-9].txt" -exec sed -i '/^[[:space:]]*$/d' {} +
-                    selected_file=$(ls -a | grep -E "\.e_o_c_principal_mathematics_${input}_samples" | shuf -n 1)
+                    selected_file=$(ls -a | grep -E "\.e_o_c_ugandan_sign_language_${input}_samples" | shuf -n 1)
                 else
                     # Find all files and randomly select one
                     local selected_file # Declare the variable
@@ -1936,7 +1976,7 @@ get_sample_items() {
         	        return
         	    fi
         	else
-            	explorer.exe .principal_mathematics_samples* > /dev/null 2>&1 &
+            	explorer.exe .ugandan_sign_language_samples* > /dev/null 2>&1 &
                 popd > /dev/null || exit
                 return
         	fi
@@ -1948,20 +1988,20 @@ get_sample_items() {
         			if [[ -n "$sentence" && "$sentence" =~ [[:graph:]] ]]; then
         	            if [[ $sentence == *"Figure"* ]]; then
         					modified_sentence=$(echo "$sentence" | sed 's/.*\(Figure.*\.jpg\).*$/\1/')
-                            # Change to the "../../Figures/Principal_mathematics" directory
-                            cd ../../Figures/Principal_mathematics || { echo "Failed to change to ../../Figures/Principal_mathematics"; return; }
+                            # Change to the "../../Figures/Ugandan_sign_language" directory
+                            cd ../../Figures/Ugandan_sign_language || { echo "Failed to change to ../../Figures/Ugandan_sign_language"; return; }
                             # Open the file using explorer.exe
                             explorer.exe "$modified_sentence" > /dev/null 2>&1 &
                             # Go back to the original directory
                             cd ../../../../ || { echo "Failed to change back to the original directory \c"; exit 1; }
                         fi
                         if [[ $sentence == *"Table"* ]]; then
-                            cd ../../Tables/Principal_mathematics || { echo -e "\nFailed to change to ../../Tables/Principal_mathematics \c"; return; }
+                            cd ../../Tables/Ugandan_sign_language || { echo -e "\nFailed to change to ../../Tables/Ugandan_sign_language \c"; return; }
                             explorer.exe "$sentence" > /dev/null 2>&1 &
                             cd ../../../../ || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
                         fi
                         if [[ $sentence == *"Video"* ]]; then
-                            cd ../../Videos/Principal_mathematics || { echo -e "\nFailed to change to ../../Videos/Principal_mathematics \c"; return; }
+                            cd ../../Videos/Ugandan_sign_language || { echo -e "\nFailed to change to ../../Videos/Ugandan_sign_language \c"; return; }
                             explorer.exe "$sentence" > /dev/null 2>&1 &
                             cd ../../../../ || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
                         fi
@@ -2003,20 +2043,20 @@ get_sample_items() {
         			if [[ -n "$sentence" && "$sentence" =~ [[:graph:]] ]]; then
         	            if [[ $sentence == *"Figure"* ]]; then
         					modified_sentence=$(echo "$sentence" | sed 's/.*\(Figure.*\.jpg\).*$/\1/')
-                            # Change to the "../../Figures/Principal_mathematics" directory
-                            cd ../../Figures/Principal_mathematics || { echo "Failed to change to ../../Figures/Principal_mathematics"; return; }
+                            # Change to the "../../Figures/Ugandan_sign_language" directory
+                            cd ../../Figures/Ugandan_sign_language || { echo "Failed to change to ../../Figures/Ugandan_sign_language"; return; }
                             # Open the file using explorer.exe
                             explorer.exe "$modified_sentence" > /dev/null 2>&1 &
                             # Go back to the original directory
                             cd ../../../../ || { echo "Failed to change back to the original directory \c"; exit 1; }
                         fi
                         if [[ $sentence == *"Table"* ]]; then
-                            cd ../../Tables/Principal_mathematics || { echo -e "\nFailed to change to ../../Tables/Principal_mathematics \c"; return; }
+                            cd ../../Tables/Ugandan_sign_language || { echo -e "\nFailed to change to ../../Tables/Ugandan_sign_language \c"; return; }
                             explorer.exe "$sentence" > /dev/null 2>&1 &
                             cd ../../../../ || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
                         fi
                         if [[ $sentence == *"Video"* ]]; then
-                            cd ../../Videos/Principal_mathematics || { echo -e "\nFailed to change to ../../Videos/Principal_mathematics \c"; return; }
+                            cd ../../Videos/Ugandan_sign_language || { echo -e "\nFailed to change to ../../Videos/Ugandan_sign_language \c"; return; }
                             explorer.exe "$sentence" > /dev/null 2>&1 &
                             cd ../../../../ || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
                         fi
@@ -2050,7 +2090,7 @@ get_sample_items() {
                 done
             done < .revise.txt
 	    fi
-        rm -f .revise.txt .principal_mathematics_topic_selected 2>/dev/null
+        rm -f .revise.txt .ugandan_sign_language_topic_selected 2>/dev/null
     done
     popd > /dev/null || exit
 	return
@@ -2083,8 +2123,8 @@ while true; do
     else
         mkdir "Students/$initials"
         cp -r Exercise Revision *_wsl.sh "Students/$initials"
-        echo -e "                                    $initials\n" > "Students/$initials/Exercise/principal_mathematics_answered_ans.txt"
-        echo -e "                                    $initials\n" > "Students/$initials/Revision/principal_mathematics_covered_qns.txt"
+        echo -e "                                    $initials\n" > "Students/$initials/Exercise/ugandan_sign_language_answered_ans.txt"
+        echo -e "                                    $initials\n" > "Students/$initials/Revision/ugandan_sign_language_covered_qns.txt"
         for file in "Students/$initials"/*.sh; do
             sed -i -e 's|Notes|../../Notes|g' -e 's|Videos|../../Videos|g' -e 's|Figures|../../Figures|g' -e 's|Students|../../Students|g' -e 's|Tables|../../Tables|g' -e 's#cd ../.. ||#cd - > /dev/null 2>\&1 ||#g' "$file"
             # Determining the correct path to the Desktop using the USERPROFILE environment variable
@@ -2234,13 +2274,13 @@ process_question_answer_adv() {
                     echo "${selected_question//(/$'\n'}"
                     echo "${selected_question//(/$'\n'}" > "$temp_file22"
                     if echo "$selected_question" | grep -q "Figure"; then
-                        echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../../Figures/Principal_mathematics/figures.txt
-                        sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../../Figures/Principal_mathematics/figures.txt
+                        echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../../Figures/Ugandan_sign_language/figures.txt
+                        sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../../Figures/Ugandan_sign_language/figures.txt
                         echo -e "\nNote: There is an attached figure!" >> "$temp_file22"
                         # Save the current working directory
                         pushd . > /dev/null
-                        # Change to the "Figures/Principal_mathematics" directory
-                        cd ../../../Figures/Principal_mathematics || { echo "Failed to change to Figures/Principal_mathematics"; return; }
+                        # Change to the "Figures/Ugandan_sign_language" directory
+                        cd ../../../Figures/Ugandan_sign_language || { echo "Failed to change to Figures/Ugandan_sign_language"; return; }
                         # Specify the path to the text file containing figure names
                         text_file="figures.txt"
                         while IFS= read -r figure_prefix || [ -n "$figure_prefix" ]; do
@@ -2372,8 +2412,8 @@ process_question_answer_adv() {
             school_name="${school_name// /_}"
             touch ../../../."$school_name"_students_file.txt
             sed -i '/^[[:space:]]*$/d' ../../../."$school_name"_students_file.txt
-            existing_class=$(awk '{print $1}' ../../../.principal_mathematics_user_state)
-            existing_topic=$(awk '{print $2}' ../../../.principal_mathematics_user_state)
+            existing_class=$(awk '{print $1}' ../../../.ugandan_sign_language_user_state)
+            existing_topic=$(awk '{print $2}' ../../../.ugandan_sign_language_user_state)
             echo ''
             if replace_prompt  'By just pressing Enter, the obtained score will be allocated to every recorded student... If otherwise, enter your Initial(s) (space-separated) to label the score' replacement; then
                 replacement=${replacement^^}  # Convert to uppercase
@@ -2381,23 +2421,23 @@ process_question_answer_adv() {
             else
                 names=''
             fi
-            if grep -q "Principal_mathematics" ../../../."$school_name"_students_file.txt; then
+            if grep -q "Ugandan_sign_language" ../../../."$school_name"_students_file.txt; then
                 sed -i -E 's/;/\n/g' ../../../."$school_name"_students_file.txt
-                # Find the line with the word Principal_mathematics, replace the information below it with the already available information adding a comma existing_class_existing_topic [$percentage]
+                # Find the line with the word Ugandan_sign_language, replace the information below it with the already available information adding a comma existing_class_existing_topic [$percentage]
                 if [ "$existing_topic" == "z" ]; then
-                    sed -i '/Principal_mathematics/{n;s/\(.*\)/\1, '"$existing_class"' '"$names"'['"$percentage%"']/}' ../../../."$school_name"_students_file.txt
+                    sed -i '/Ugandan_sign_language/{n;s/\(.*\)/\1, '"$existing_class"' '"$names"'['"$percentage%"']/}' ../../../."$school_name"_students_file.txt
                 else
                     (( existing_topic-- ))
-                    sed -i '/Principal_mathematics/{n;s/\(.*\)/\1, '"$existing_class"'_'"$existing_topic"' '"$names"'['"$percentage%"']/}' ../../../."$school_name"_students_file.txt
+                    sed -i '/Ugandan_sign_language/{n;s/\(.*\)/\1, '"$existing_class"'_'"$existing_topic"' '"$names"'['"$percentage%"']/}' ../../../."$school_name"_students_file.txt
                 fi
             else
                 if [ "$existing_topic" == "z" ]; then
-                    sed -i -E '/^School/ i\Principal_mathematics\n'"${existing_class} ${names}[${percentage}%]"'' ../../../."$school_name"_students_file.txt
-                    echo -e "Principal_mathematics\n"$existing_class" "$names"["$percentage%"]" >> ../../../."$school_name"_students_file.txt
+                    sed -i -E '/^School/ i\Ugandan_sign_language\n'"${existing_class} ${names}[${percentage}%]"'' ../../../."$school_name"_students_file.txt
+                    echo -e "Ugandan_sign_language\n"$existing_class" "$names"["$percentage%"]" >> ../../../."$school_name"_students_file.txt
                 else
                     (( existing_topic-- ))
-                    sed -i -E '/^School/ i\Principal_mathematics\n'"${existing_class}_${existing_topic} ${names}[${percentage}%]"'' ../../../."$school_name"_students_file.txt
-                    echo -e "Principal_mathematics\n"$existing_class"_"$existing_topic" "$names"["$percentage%"]" >> ../../../."$school_name"_students_file.txt
+                    sed -i -E '/^School/ i\Ugandan_sign_language\n'"${existing_class}_${existing_topic} ${names}[${percentage}%]"'' ../../../."$school_name"_students_file.txt
+                    echo -e "Ugandan_sign_language\n"$existing_class"_"$existing_topic" "$names"["$percentage%"]" >> ../../../."$school_name"_students_file.txt
                 fi
                 sed -i '1,2s/.*//g' ../../../."$school_name"_students_file.txt
                 sed -i '/^[[:space:]]*$/d' ../../../."$school_name"_students_file.txt
@@ -2519,21 +2559,21 @@ if [ -f .skip_.omd_communication.txt ]; then
     fi
 fi
 
-if [ ! -f .principal_mathematics_user_state ]; then
-	touch .principal_mathematics_user_state
-	touch .principal_mathematics_surveyor
+if [ ! -f .ugandan_sign_language_user_state ]; then
+	touch .ugandan_sign_language_user_state
+	touch .ugandan_sign_language_surveyor
 	echo -e "\n\nYou can search your Notes by topic using uppercase letters or just feed in key words \c"
 	get_and_display_pattern
 else
     if [ -f .omd_communication.txt ]; then
         process_random_communication .omd_communication.txt
     else
-        process_random_reminder .principal_mathematics_reminder
+        process_random_reminder .ugandan_sign_language_reminder
     fi
 	handle_resume_input
 fi
 
-if [ -z "$class" ] && [ -s ".principal_mathematics_user_state" ]; then
+if [ -z "$class" ] && [ -s ".ugandan_sign_language_user_state" ]; then
     echo -e "\n\nYou can search your Notes by topic using uppercase letters or just feed in key words \c"
     get_and_display_pattern
 fi
@@ -2579,8 +2619,8 @@ if ! [ -d "Notes" ] || ! [ -d "Revision" ] || ! [ -d "Exercise" ] || ! [ -d "Vid
     cd "$dir_name" || exit
 
     # Create additional directories and files
-    mkdir -p Notes Notes/Principal_mathematics Revision Revision/Principal_mathematics Revision/Principal_mathematics/{S5,S6} Exercise Exercise/Principal_mathematics Exercise/Principal_mathematics/{S5,S6} Videos Videos/Principal_mathematics Figures Figures/Principal_mathematics Tables Tables/Principal_mathematics
-    touch Revision/principal_mathematics_covered_qns.txt Exercise/principal_mathematics_answered_ans.txt
+    mkdir -p Notes Notes/Ugandan_sign_language Revision Revision/Ugandan_sign_language Revision/Ugandan_sign_language/{S1,S2,S3,S4} Exercise Exercise/Ugandan_sign_language Exercise/Ugandan_sign_language/{S1,S2,S3,S4} Videos Videos/Ugandan_sign_language Figures Figures/Ugandan_sign_language Tables Tables/Ugandan_sign_language
+    touch Revision/ugandan_sign_language_covered_qns.txt Exercise/ugandan_sign_language_answered_ans.txt
     echo -e "\n"
     pwd
     echo -e "\n\n${t}The displayed path above is the path to your directory, please note it down \c"
@@ -2590,12 +2630,12 @@ if ! [ -d "Notes" ] || ! [ -d "Revision" ] || ! [ -d "Exercise" ] || ! [ -d "Vid
     ls "$PWD"
     wait_for_a_key_press
     echo -e "\n\n${t}For this tutorial, you will require current learning material from OMD in your current folder or directory\n\notherwise follow the procedure below to obtain the material \c"
-    cp ../principal_mathematics_tutorial .
+    cp ../ugandan_sign_language_tutorial .
     clear_and_center
     echo
 fi
 
-files=(Notes/Principal_mathematics/*.txt)
+files=(Notes/Ugandan_sign_language/*.txt)
 if [ ${#files[@]} -eq 0 ]; then
     read -rp $'\n\nTo get material for this tutorial, get your internet on and press the enter key or press any character key followed by the Enter key to exit: ' user_input
 
@@ -2612,10 +2652,10 @@ if [ ${#files[@]} -eq 0 ]; then
 
         curl -sS https://raw.githubusercontent.com/0xacx/chatGPT-shell-cli/main/install.sh | sudo -E bash > /dev/null 2>&1
 
-        curl -O -L https://github.com/Muhumuza7325/OMD/raw/main/MTC/1.1.numerical_concepts.txt || echo -e "\n\nError fetching material for this tutorial \c"
+        curl -O -L https://github.com/Muhumuza7325/OMD/raw/main/SIGN/1.1.introduction_to_ugandan_sign_language.txt || echo -e "\n\nError fetching material for this tutorial \c"
 
         echo -e "\n\nYou got the first step covered.\n\nAs you progress, please, do all the available assignments as they will contribute to your final score.\n\nYou can get somewhere to write and we start \c"
-        cp 1.1.numerical_concepts.txt Notes/Principal_mathematics || echo -e "\n\nError copying 1.1.numerical_concepts.txt to the Principal_mathematics directory in the Notes directory \c"
+        cp 1.1.introduction_to_ugandan_sign_language.txt Notes/Ugandan_sign_language || echo -e "\n\nError copying 1.1.introduction_to_ugandan_sign_language.txt to the Ugandan_sign_language directory in the Notes directory \c"
         wait_for_a_key_press
     else
         echo -e "\n\nThere are files in the target sub directories in your Notes directory already, if it isn't intentional, please delete those files and try again \c"
@@ -2623,17 +2663,17 @@ if [ ${#files[@]} -eq 0 ]; then
         quit
     fi
 else
-    rm -f ../principal_mathematics_tutorial 1.1.numerical_concepts.txt
+    rm -f ../ugandan_sign_language_tutorial 1.1.introduction_to_ugandan_sign_language.txt
 fi
 
 while true; do
 
     handle_class_input
-    if [[ "$class" == "5" ]]; then
-        if ! find . -maxdepth 1 -name '.s_principal_mathematics_5*' -type f -quit 2>/dev/null; then
-            echo -e "\n\n${g}Welcome to the S5 Principal Mathematics class${t}\n\n${y}Together, we are going to get you started${t} \c" && wait_for_a_key_press
+    if [[ "$class" == "1" ]]; then
+        if ! find . -maxdepth 1 -name '.s_ugandan_sign_language_1*' -type f -quit 2>/dev/null; then
+            echo -e "\n\n${g}Welcome to the S1 Ugandan_sign_language class${t}\n\n${y}Together, we are going to get you started${t} \c" && wait_for_a_key_press
             echo -e "\n-------------------------------------- \c"
-            clear_and_center "There are ${r}19${t} topics to be covered. Your tasks will always expand or shrink to fit in the time you give them. For that reason, never procrastinate darling!"
+            clear_and_center "There are ${r}7${t} topics to be covered. Your tasks will always expand or shrink to fit in the time you give them. For that reason, never procrastinate darling!"
         fi
         attempts=0
         max_attempts=4
@@ -2641,8 +2681,8 @@ while true; do
         do
             while [ "$attempts" -lt "$max_attempts" ]
             do
-                handle_s5_topic_input
-                touch .principal_mathematics_topic_selected
+                handle_s1_topic_input
+                touch .ugandan_sign_language_topic_selected
                 if [[ "$topic" == "x" ]]
                 then
                     quit
@@ -2650,44 +2690,44 @@ while true; do
                 then
                     attempts=0
                     # Define the targeted directory
-                    question_directory="Revision/Principal_mathematics/S5"
+                    question_directory="Revision/Ugandan_sign_language/S1"
                     # Define the file extension
                     file_extension_question=".qns.txt"
                     # Define the revision file
-                    revision_file="../../principal_mathematics_covered_qns.txt"
+                    revision_file="../../ugandan_sign_language_covered_qns.txt"
                     # Call the function to process a random question
                     process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
                 elif [[ "$topic" == "a" ]]
                 then
                     attempts=0
                     # Define the targeted directory
-                    question_directory="Revision/Principal_mathematics/S5"
+                    question_directory="Revision/Ugandan_sign_language/S1"
                     # Define the file extension
                     file_extension_question=".qns.txt"
                     # Define the revision file
-                    revision_file="../../principal_mathematics_covered_qns.txt"
+                    revision_file="../../ugandan_sign_language_covered_qns.txt"
                     # Call the function to process a random question
                     process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
                 elif [[ "$topic" == "r" ]]
                 then
                     attempts=0
                     # Define the targeted directory
-                    answered_directory="Exercise/Principal_mathematics/S5"
+                    answered_directory="Exercise/Ugandan_sign_language/S1"
                     # Define the file extension
                     file_extension_answer=".ans.txt"
                     # Define the exercise file
-                    exercise_file="../../principal_mathematics_answered_ans.txt"
+                    exercise_file="../../ugandan_sign_language_answered_ans.txt"
                     # Call the function to process a random question
                     process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
                 elif [[ "$topic" == "z" ]]
                 then
                     attempts=0
                     # Define the targeted directory
-                    answered_directory="Exercise/Principal_mathematics/S5"
+                    answered_directory="Exercise/Ugandan_sign_language/S1"
                     # Define the file extension
                     file_extension_answer=".ans.txt"
                     # Define the exercise file
-                    exercise_file="../../principal_mathematics_answered_ans.txt"
+                    exercise_file="../../ugandan_sign_language_answered_ans.txt"
                     # Call the function to process a random question
                     process_question_answer_adv "$answered_directory" "$file_extension_answer" "$exercise_file"
                 elif [[ "$topic" == "s" ]]
@@ -2698,35 +2738,35 @@ while true; do
                 then
                     attempts=0
                     # Define the targeted directory
-                    answered_directory="Exercise/Principal_mathematics/S5"
+                    answered_directory="Exercise/Ugandan_sign_language/S1"
                     # Define the file extension
                     file_extension_answer=".ans.txt"
                     # Define the exercise file
-                    exercise_file="../../principal_mathematics_answered_ans.txt"
+                    exercise_file="../../ugandan_sign_language_answered_ans.txt"
                     # Call the function to process a random question
                     process_final_assignment "$answered_directory" "$file_extension_answer" "$exercise_file"
                 elif [[ "$topic" == "p" ]]
                 then
                     track_student_progress
-                elif [[ -z "$topic" || ! "$topic" =~ ^([1-9]|1[0-9])$ ]]
+                elif [[ ! "$topic" =~ ^[1-7]$ || -z "$topic" ]]
                 then
                     echo -e "\n\nTopic ${r}$topic not available${t}... Please choose from the available options\c"
                     wait_for_a_key_press
                 else
                     case "$topic" in
                         1)
-                            if ! [ -f ".s_principal_mathematics_5_1" ]; then
-                                echo -e "\n\nYou chose to explore Numerical concepts ...\n\nThank you for choosing to educate yourself!\n\nWe adore you ${g}darling${t} and wish you the very best! \c" && wait_for_a_key_press
+                            if ! [ -f ".s_ugandan_sign_language_1_1" ]; then
+                                echo -e "\n\nYou chose to explore Introduction to Ugandan sign language ...\n\nThank you for choosing to educate yourself!\n\nWe adore you ${g}darling${t} and wish you the very best! \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Principal_mathematics/5.1.numerical_concepts.txt" . || exit 1
-                            mv 5.1.numerical_concepts.txt .5.1.numerical_concepts.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .5.1.numerical_concepts.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .5.1.numerical_concepts.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .5.1.numerical_concepts.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .5.1.numerical_concepts.txt
-                            process_reminders_from_file .5.1.numerical_concepts.txt
-                            STATE_FILE=".s_principal_mathematics_5_1"
-                            process_file .5.1.numerical_concepts.txt
+                            cp "Notes/Ugandan_sign_language/1.1.introduction_to_ugandan_sign_language.txt" . || exit 1
+                            mv 1.1.introduction_to_ugandan_sign_language.txt .1.1.introduction_to_ugandan_sign_language.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .1.1.introduction_to_ugandan_sign_language.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .1.1.introduction_to_ugandan_sign_language.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .1.1.introduction_to_ugandan_sign_language.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .1.1.introduction_to_ugandan_sign_language.txt
+                            process_reminders_from_file .1.1.introduction_to_ugandan_sign_language.txt
+                            STATE_FILE=".s_ugandan_sign_language_1_1"
+                            process_file .1.1.introduction_to_ugandan_sign_language.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -2734,52 +2774,52 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .5.1.numerical_concepts.txt
-                            sed -i '/^1$/!d' .s_principal_mathematics_5_1
+                            rm -f .1.1.introduction_to_ugandan_sign_language.txt
+                            sed -i '/^1$/!d' .s_ugandan_sign_language_1_1
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
+                            question_directory="Revision/Ugandan_sign_language/S1"
                             # Define the file extension
-                            file_extension=".1.numerical_concepts.qns.txt"
+                            file_extension=".1.introduction_to_ugandan_sign_language.qns.txt"
                             # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension" "$revision_file"
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
+                            question_directory="Revision/Ugandan_sign_language/S1"
                             # Define the file extension
-                            file_extension_question=".1.numerical_concepts.qns.txt"
+                            file_extension_question=".1.introduction_to_ugandan_sign_language.qns.txt"
                             # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
                         ;;
                         2)
-                            if ! [ -f ".principal_mathematics.5.1" ]; then
+                            if ! [ -f ".ugandan_sign_language.1.1" ]; then
                                 attempts=0
                                 # Define the targeted directory
-                                answered_directory="Exercise/Principal_mathematics/S5"
+                                answered_directory="Exercise/Ugandan_sign_language/S1"
                                 # Define the file extension
-                                file_extension_answer=".1.numerical_concepts.ans.txt"
+                                file_extension_answer=".1.introduction_to_ugandan_sign_language.ans.txt"
                                 # Define the exercise file
-                                exercise_file="../../principal_mathematics_answered_ans.txt"
+                                exercise_file="../../ugandan_sign_language_answered_ans.txt"
                                 # Call the function to process a random question
                                 process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .principal_mathematics.5.1
+                                touch .ugandan_sign_language.1.1
                             fi
-                            if ! [ -f ".s_principal_mathematics_5_2" ]; then
-                                echo -e "\n\nYou happen to have decided to delve into Equations and inequalities ...\n\nOnce again we treasure you ${g}dear one${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
+                            if ! [ -f ".s_ugandan_sign_language_1_2" ]; then
+                                echo -e "\n\nYou happen to have decided to delve into Number, time and dates ...\n\nOnce again we treasure you ${g}dear one${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Principal_mathematics/5.2.equations_and_inequalities.txt" . || exit 1
-                            mv 5.2.equations_and_inequalities.txt .5.2.equations_and_inequalities.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .5.2.equations_and_inequalities.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .5.2.equations_and_inequalities.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .5.2.equations_and_inequalities.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .5.2.equations_and_inequalities.txt
-                            process_reminders_from_file .5.2.equations_and_inequalities.txt
-                            STATE_FILE=".s_principal_mathematics_5_2"
-                            process_file .5.2.equations_and_inequalities.txt
+                            cp "Notes/Ugandan_sign_language/1.2.number_time_and_dates.txt" . || exit 1
+                            mv 1.2.number_time_and_dates.txt .1.2.number_time_and_dates.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .1.2.number_time_and_dates.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .1.2.number_time_and_dates.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .1.2.number_time_and_dates.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .1.2.number_time_and_dates.txt
+                            process_reminders_from_file .1.2.number_time_and_dates.txt
+                            STATE_FILE=".s_ugandan_sign_language_1_2"
+                            process_file .1.2.number_time_and_dates.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -2787,52 +2827,52 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .5.2.equations_and_inequalities.txt
-                            sed -i '/^1$/!d' .s_principal_mathematics_5_2
+                            rm -f .1.2.number_time_and_dates.txt
+                            sed -i '/^1$/!d' .s_ugandan_sign_language_1_2
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
+                            question_directory="Revision/Ugandan_sign_language/S1"
                             # Define the file extension
-                            file_extension_question=".2.equations_and_inequalities.qns.txt"
+                            file_extension_question=".2.number_time_and_dates.qns.txt"
                             # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
+                            question_directory="Revision/Ugandan_sign_language/S1"
                             # Define the file extension
-                            file_extension_question=".2.equations_and_inequalities.qns.txt"
+                            file_extension_question=".2.number_time_and_dates.qns.txt"
                             # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
                         ;;
                         3)
-                            if ! [ -f ".principal_mathematics.5.2" ]; then
+                            if ! [ -f ".ugandan_sign_language.1.2" ]; then
                                 attempts=0
                                 # Define the targeted directory
-                                answered_directory="Exercise/Principal_mathematics/S5"
+                                answered_directory="Exercise/Ugandan_sign_language/S1"
                                 # Define the file extension
-                                file_extension_answer=".2.equations_and_inequalities.ans.txt"
+                                file_extension_answer=".2.number_time_and_dates.ans.txt"
                                 # Define the exercise file
-                                exercise_file="../../principal_mathematics_answered_ans.txt"
+                                exercise_file="../../ugandan_sign_language_answered_ans.txt"
                                 # Call the function to process a random question
                                 process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .principal_mathematics.5.2
+                                touch .ugandan_sign_language.1.2
                             fi
-                            if ! [ -f ".s_principal_mathematics_5_3" ]; then
-                                echo -e "\n\nYou have made a choice to cover Coordinate Geometry 1 ...\n\nWe are so exited to have you with us ${g}darling${t}\n\nRemember that hard work forever pays \c" && wait_for_a_key_press
+                            if ! [ -f ".s_ugandan_sign_language_1_3" ]; then
+                                echo -e "\n\nYou have made a choice to cover Family ...\n\nWe are so exited to have you with us ${g}darling${t}\n\nRemember that hard work forever pays \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Principal_mathematics/5.3.coordinate_geometry_1.txt" . || exit 1
-                            mv 5.3.coordinate_geometry_1.txt .5.3.coordinate_geometry_1.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .5.3.coordinate_geometry_1.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .5.3.coordinate_geometry_1.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .5.3.coordinate_geometry_1.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .5.3.coordinate_geometry_1.txt
-                            process_reminders_from_file .5.3.coordinate_geometry_1.txt
-                            STATE_FILE=".s_principal_mathematics_5_3"
-                            process_file .5.3.coordinate_geometry_1.txt
+                            cp "Notes/Ugandan_sign_language/1.3.family.txt" . || exit 1
+                            mv 1.3.family.txt .1.3.family.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .1.3.family.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .1.3.family.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .1.3.family.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .1.3.family.txt
+                            process_reminders_from_file .1.3.family.txt
+                            STATE_FILE=".s_ugandan_sign_language_1_3"
+                            process_file .1.3.family.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -2840,52 +2880,52 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .5.3.coordinate_geometry_1.txt
-                            sed -i '/^1$/!d' .s_principal_mathematics_5_3
+                            rm -f .1.3.family.txt
+                            sed -i '/^1$/!d' .s_ugandan_sign_language_1_3
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
+                            question_directory="Revision/Ugandan_sign_language/S1"
                             # Define the file extension
-                            file_extension_question=".3.coordinate_geometry_1.qns.txt"
+                            file_extension_question=".3.family.qns.txt"
                             # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
+                            question_directory="Revision/Ugandan_sign_language/S1"
                             # Define the file extension
-                            file_extension_question=".3.coordinate_geometry_1.qns.txt"
+                            file_extension_question=".3.family.qns.txt"
                             # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
 						;;
                         4)
-                            if ! [ -f ".principal_mathematics.5.3" ]; then
+                            if ! [ -f ".ugandan_sign_language.1.3" ]; then
                                 attempts=0
                                 # Define the targeted directory
-                                answered_directory="Exercise/Principal_mathematics/S5"
+                                answered_directory="Exercise/Ugandan_sign_language/S1"
                                 # Define the file extension
-                                file_extension_answer=".3.coordinate_geometry_1.ans.txt"
+                                file_extension_answer=".3.family.ans.txt"
                                 # Define the exercise file
-                                exercise_file="../../principal_mathematics_answered_ans.txt"
+                                exercise_file="../../ugandan_sign_language_answered_ans.txt"
                                 # Call the function to process a random question
                                 process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .principal_mathematics.5.3
+                                touch .ugandan_sign_language.1.3
                             fi
-                            if ! [ -f ".s_principal_mathematics_5_4" ]; then
-                                echo -e "\n\nYou did qualify to probe into the realm of Partial fractions ...\n\nWe do treasure you ${g}darling${t}. Just never forget, that no matter how prepared you are, to win gold, you have to follow instructions! \c" && wait_for_a_key_press
+                            if ! [ -f ".s_ugandan_sign_language_1_4" ]; then
+                                echo -e "\n\nYou did qualify to probe into the realm of Life at home ...\n\nWe do treasure you ${g}darling${t}. Just never forget, that no matter how prepared you are, to win gold, you have to follow instructions! \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Principal_mathematics/5.4.partial_fractions.txt" . || exit 1
-                            mv 5.4.partial_fractions.txt .5.4.partial_fractions.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .5.4.partial_fractions.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .5.4.partial_fractions.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .5.4.partial_fractions.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .5.4.partial_fractions.txt
-                            process_reminders_from_file .5.4.partial_fractions.txt
-                            STATE_FILE=".s_principal_mathematics_5_4"
-                            process_file .5.4.partial_fractions.txt
+                            cp "Notes/Ugandan_sign_language/1.4.life_at_home.txt" . || exit 1
+                            mv 1.4.life_at_home.txt .1.4.life_at_home.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .1.4.life_at_home.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .1.4.life_at_home.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .1.4.life_at_home.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .1.4.life_at_home.txt
+                            process_reminders_from_file .1.4.life_at_home.txt
+                            STATE_FILE=".s_ugandan_sign_language_1_4"
+                            process_file .1.4.life_at_home.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -2893,52 +2933,52 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .5.4.partial_fractions.txt
-                            sed -i '/^1$/!d' .s_principal_mathematics_5_4
+                            rm -f .1.4.life_at_home.txt
+                            sed -i '/^1$/!d' .s_ugandan_sign_language_1_4
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
+                            question_directory="Revision/Ugandan_sign_language/S1"
                             # Define the file extension
-                            file_extension=".4.partial_fractions.qns.txt"
+                            file_extension=".4.life_at_home.qns.txt"
                             # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension" "$revision_file"
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
+                            question_directory="Revision/Ugandan_sign_language/S1"
                             # Define the file extension
-                            file_extension_question=".4.partial_fractions.qns.txt"
+                            file_extension_question=".4.life_at_home.qns.txt"
                             # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
                         ;;
                         5)
-                            if ! [ -f ".principal_mathematics.5.4" ]; then
+                            if ! [ -f ".ugandan_sign_language.1.4" ]; then
                                 attempts=0
                                 # Define the targeted directory
-                                answered_directory="Exercise/Principal_mathematics/S5"
+                                answered_directory="Exercise/Ugandan_sign_language/S1"
                                 # Define the file extension
-                                file_extension_answer=".4.partial_fractions.ans.txt"
+                                file_extension_answer=".4.life_at_home.ans.txt"
                                 # Define the exercise file
-                                exercise_file="../../principal_mathematics_answered_ans.txt"
+                                exercise_file="../../ugandan_sign_language_answered_ans.txt"
                                 # Call the function to process a random question
                                 process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .principal_mathematics.5.4
+                                touch .ugandan_sign_language.1.4
                             fi
-                            if ! [ -f ".s_principal_mathematics_5_5" ]; then
-                                echo -e "\n\nHere you are dear one... Stay organised as you explore Trigonometry ...\n\n${g}Just know we are not going to leave you alone${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
+                            if ! [ -f ".s_ugandan_sign_language_1_5" ]; then
+                                echo -e "\n\nHere you are dear one... Stay organised as you explore Plants in our area ...\n\n${g}Just know we are not going to leave you alone${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Principal_mathematics/5.5.trigonometry.txt" . || exit 1
-                            mv 5.5.trigonometry.txt .5.5.trigonometry.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .5.5.trigonometry.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .5.5.trigonometry.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .5.5.trigonometry.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .5.5.trigonometry.txt
-                            process_reminders_from_file .5.5.trigonometry.txt
-                            STATE_FILE=".s_principal_mathematics_5_5"
-                            process_file .5.5.trigonometry.txt
+                            cp "Notes/Ugandan_sign_language/1.5.plants_in_our_area.txt" . || exit 1
+                            mv 1.5.plants_in_our_area.txt .1.5.plants_in_our_area.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .1.5.plants_in_our_area.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .1.5.plants_in_our_area.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .1.5.plants_in_our_area.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .1.5.plants_in_our_area.txt
+                            process_reminders_from_file .1.5.plants_in_our_area.txt
+                            STATE_FILE=".s_ugandan_sign_language_1_5"
+                            process_file .1.5.plants_in_our_area.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -2946,52 +2986,52 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .5.5.trigonometry.txt
-                            sed -i '/^1$/!d' .s_principal_mathematics_5_5
+                            rm -f .1.5.plants_in_our_area.txt
+                            sed -i '/^1$/!d' .s_ugandan_sign_language_1_5
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
+                            question_directory="Revision/Ugandan_sign_language/S1"
                             # Define the file extension
-                            file_extension_question=".5.trigonometry.qns.txt"
+                            file_extension_question=".5.plants_in_our_area.qns.txt"
                             # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
+                            question_directory="Revision/Ugandan_sign_language/S1"
                             # Define the file extension
-                            file_extension_question=".5.trigonometry.qns.txt"
+                            file_extension_question=".5.plants_in_our_area.qns.txt"
                             # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
                         ;;
                         6)
-                            if ! [ -f ".principal_mathematics.5.5" ]; then
+                            if ! [ -f ".ugandan_sign_language.1.5" ]; then
                                 attempts=0
                                 # Define the targeted directory
-                                answered_directory="Exercise/Principal_mathematics/S5"
+                                answered_directory="Exercise/Ugandan_sign_language/S1"
                                 # Define the file extension
-                                file_extension_answer=".5.trigonometry.ans.txt"
+                                file_extension_answer=".5.plants_in_our_area.ans.txt"
                                 # Define the exercise file
-                                exercise_file="../../principal_mathematics_answered_ans.txt"
+                                exercise_file="../../ugandan_sign_language_answered_ans.txt"
                                 # Call the function to process a random question
                                 process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .principal_mathematics.5.5
+                                touch .ugandan_sign_language.1.5
                             fi
-                            if ! [ -f ".s_principal_mathematics_5_6" ]; then
-                                echo -e "\n\nYou have managed to make it to Descriptive statistics ...\n\n${g}Remember to pray always${t}\n\nThe fear of the Lord is the beginning of wisdom \c" && wait_for_a_key_press
+                            if ! [ -f ".s_ugandan_sign_language_1_6" ]; then
+                                echo -e "\n\nYou have managed to make it to Animals and birds ...\n\n${g}Remember to pray always${t}\n\nThe fear of the Lord is the beginning of wisdom \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Principal_mathematics/5.6.descriptive_statistics.txt" . || exit 1
-                            mv 5.6.descriptive_statistics.txt .5.6.descriptive_statistics.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .5.6.descriptive_statistics.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .5.6.descriptive_statistics.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .5.6.descriptive_statistics.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .5.6.descriptive_statistics.txt
-                            process_reminders_from_file .5.6.descriptive_statistics.txt
-                            STATE_FILE=".s_principal_mathematics_5_6"
-                            process_file .5.6.descriptive_statistics.txt
+                            cp "Notes/Ugandan_sign_language/1.6.animals_and_birds.txt" . || exit 1
+                            mv 1.6.animals_and_birds.txt .1.6.animals_and_birds.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .1.6.animals_and_birds.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .1.6.animals_and_birds.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .1.6.animals_and_birds.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .1.6.animals_and_birds.txt
+                            process_reminders_from_file .1.6.animals_and_birds.txt
+                            STATE_FILE=".s_ugandan_sign_language_1_6"
+                            process_file .1.6.animals_and_birds.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -2999,52 +3039,52 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .5.6.descriptive_statistics.txt
-                            sed -i '/^1$/!d' .s_principal_mathematics_5_6
+                            rm -f .1.6.animals_and_birds.txt
+                            sed -i '/^1$/!d' .s_ugandan_sign_language_1_6
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
+                            question_directory="Revision/Ugandan_sign_language/S1"
                             # Define the file extension
-                            file_extension_question=".6.descriptive_statistics.qns.txt"
+                            file_extension_question=".6.animals_and_birds.qns.txt"
                             # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
+                            question_directory="Revision/Ugandan_sign_language/S1"
                             # Define the file extension
-                            file_extension_question=".6.descriptive_statistics.qns.txt"
+                            file_extension_question=".6.animals_and_birds.qns.txt"
                             # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
                         ;;
                         7)
-                            if ! [ -f ".principal_mathematics.5.6" ]; then
+                            if ! [ -f ".ugandan_sign_language.1.6" ]; then
                                 attempts=0
                                 # Define the targeted directory
-                                answered_directory="Exercise/Principal_mathematics/S5"
+                                answered_directory="Exercise/Ugandan_sign_language/S1"
                                 # Define the file extension
-                                file_extension_answer=".6.descriptive_statistics.ans.txt"
+                                file_extension_answer=".6.animals_and_birds.ans.txt"
                                 # Define the exercise file
-                                exercise_file="../../principal_mathematics_answered_ans.txt"
+                                exercise_file="../../ugandan_sign_language_answered_ans.txt"
                                 # Call the function to process a random question
                                 process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .principal_mathematics.5.6
+                                touch .ugandan_sign_language.1.6
                             fi
-                            if ! [ -f ".s_principal_mathematics_5_7" ]; then
-                                echo -e "\n\nFrom here, you will be proceeding with Scatter diagrams and correlations ...\n\n${g}Please never ever forget that your education is your future${t}\n\nFocus dear \c" && wait_for_a_key_press
+                            if ! [ -f ".s_ugandan_sign_language_1_7" ]; then
+                                echo -e "\n\nFrom here, you will be proceeding with Personal and community hygiene ...\n\n${g}Please never ever forget that your education is your future${t}\n\nFocus dear \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Principal_mathematics/5.7.scatter_diagrams_and_correlations.txt" . || exit 1
-                            mv 5.7.scatter_diagrams_and_correlations.txt .5.7.scatter_diagrams_and_correlations.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .5.7.scatter_diagrams_and_correlations.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .5.7.scatter_diagrams_and_correlations.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .5.7.scatter_diagrams_and_correlations.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .5.7.scatter_diagrams_and_correlations.txt
-                            process_reminders_from_file .5.7.scatter_diagrams_and_correlations.txt
-                            STATE_FILE=".s_principal_mathematics_5_7"
-                            process_file .5.7.scatter_diagrams_and_correlations.txt
+                            cp "Notes/Ugandan_sign_language/1.7.personal_and_community_hygiene.txt" . || exit 1
+                            mv 1.7.personal_and_community_hygiene.txt .1.7.personal_and_community_hygiene.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .1.7.personal_and_community_hygiene.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .1.7.personal_and_community_hygiene.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .1.7.personal_and_community_hygiene.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .1.7.personal_and_community_hygiene.txt
+                            process_reminders_from_file .1.7.personal_and_community_hygiene.txt
+                            STATE_FILE=".s_ugandan_sign_language_1_7"
+                            process_file .1.7.personal_and_community_hygiene.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -3052,676 +3092,41 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .5.7.scatter_diagrams_and_correlations.txt
-                            sed -i '/^1$/!d' .s_principal_mathematics_5_7
+                            rm -f .1.7.personal_and_community_hygiene.txt
+                            sed -i '/^1$/!d' .s_ugandan_sign_language_1_7
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
+                            question_directory="Revision/Ugandan_sign_language/S1"
                             # Define the file extension
-                            file_extension_question=".7.scatter_diagrams_and_correlations.qns.txt"
+                            file_extension_question=".7.personal_and_community_hygiene.qns.txt"
                             # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
+                            question_directory="Revision/Ugandan_sign_language/S1"
                             # Define the file extension
-                            file_extension_question=".7.scatter_diagrams_and_correlations.qns.txt"
+                            file_extension_question=".7.personal_and_community_hygiene.qns.txt"
                             # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        8)
-                            if ! [ -f ".principal_mathematics.5.7" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Principal_mathematics/S5"
-                                # Define the file extension
-                                file_extension_answer=".7.scatter_diagrams_and_correlations.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../principal_mathematics_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .principal_mathematics.5.7
-                            fi
-                            if ! [ -f ".s_principal_mathematics_5_8" ]; then
-                                echo -e "\n\nYou are to cover Dynamics 1 ...\n\n${g}Please never ever settle for less${t}\n\nPromise yourself that you wont give up \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Principal_mathematics/5.8.dynamics_1.txt" . || exit 1
-                            mv 5.8.dynamics_1.txt .5.8.dynamics_1.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .5.8.dynamics_1.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .5.8.dynamics_1.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .5.8.dynamics_1.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .5.8.dynamics_1.txt
-                            process_reminders_from_file .5.8.dynamics_1.txt
-                            STATE_FILE=".s_principal_mathematics_5_8"
-                            process_file .5.8.dynamics_1.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .5.8.dynamics_1.txt
-                            sed -i '/^1$/!d' .s_principal_mathematics_5_8
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
-                            # Define the file extension
-                            file_extension_question=".8.dynamics_1.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
-                            # Define the file extension
-                            file_extension_question=".8.dynamics_1.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        9)
-                            if ! [ -f ".principal_mathematics.5.8" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Principal_mathematics/S5"
-                                # Define the file extension
-                                file_extension_answer=".8.dynamics_1.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../principal_mathematics_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .principal_mathematics.5.8
-                            fi
-                            if ! [ -f ".s_principal_mathematics_5_9" ]; then
-                                echo -e "\n\nI am so happy for you dear one. You are here to cover the the 9th topic (Probability theory )...\n\n${g}Just never underestimate the value of a single second${t}\n\nThat extra one second maybe all you need to fully understand a given concept \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Principal_mathematics/5.9.probability_theory.txt" . || exit 1
-                            mv 5.9.probability_theory.txt .5.9.probability_theory.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .5.9.probability_theory.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .5.9.probability_theory.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .5.9.probability_theory.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .5.9.probability_theory.txt
-                            process_reminders_from_file .5.9.probability_theory.txt
-                            STATE_FILE=".s_principal_mathematics_5_9"
-                            process_file .5.9.probability_theory.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .5.9.probability_theory.txt
-                            sed -i '/^1$/!d' .s_principal_mathematics_5_9
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
-                            # Define the file extension
-                            file_extension_question=".9.probability_theory.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
-                            # Define the file extension
-                            file_extension_question=".9.probability_theory.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        10)
-                            if ! [ -f ".principal_mathematics.5.9" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Principal_mathematics/S5"
-                                # Define the file extension
-                                file_extension_answer=".9.probability_theory.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../principal_mathematics_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .principal_mathematics.5.9
-                            fi
-                            if ! [ -f ".s_principal_mathematics_5_10" ]; then
-                                echo -e "\n\nYou happen to have chosen to explore Differentiation 1 ...${g}I never expected you to come this far${t}\n\nKeep believing, keep hoping! \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Principal_mathematics/5.10.differentiation_1.txt" . || exit 1
-                            mv 5.10.differentiation_1.txt .5.10.differentiation_1.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .5.10.differentiation_1.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .5.10.differentiation_1.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .5.10.differentiation_1.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .5.10.differentiation_1.txt
-                            process_reminders_from_file .5.10.differentiation_1.txt
-                            STATE_FILE=".s_principal_mathematics_5_10"
-                            process_file .5.10.differentiation_1.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .5.10.differentiation_1.txt
-                            sed -i '/^1$/!d' .s_principal_mathematics_5_10
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
-                            # Define the file extension
-                            file_extension_question=".10.differentiation_1.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
-                            # Define the file extension
-                            file_extension_question=".10.differentiation_1.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        11)
-                            if ! [ -f ".principal_mathematics.5.10" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Principal_mathematics/S5"
-                                # Define the file extension
-                                file_extension_answer=".10.differentiation_1.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../principal_mathematics_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .principal_mathematics.5.10
-                            fi
-                            if ! [ -f ".s_principal_mathematics_5_11" ]; then
-                                echo -e "\n\nYou chose to explore Integration 1 ...\n\nThank you for choosing to educate yourself!\n\nWe adore you ${g}darling${t} and wish you the very best! \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Principal_mathematics/5.11.integration_1.txt" . || exit 1
-                            mv 5.11.integration_1.txt .5.11.integration_1.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .5.11.integration_1.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .5.11.integration_1.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .5.11.integration_1.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .5.11.integration_1.txt
-                            process_reminders_from_file .5.11.integration_1.txt
-                            STATE_FILE=".s_principal_mathematics_5_11"
-                            process_file .5.11.integration_1.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .5.11.integration_1.txt
-                            sed -i '/^1$/!d' .s_principal_mathematics_5_11
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
-                            # Define the file extension
-                            file_extension=".11.integration_1.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
-                            # Define the file extension
-                            file_extension_question=".11.integration_1.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        12)
-                            if ! [ -f ".principal_mathematics.5.11" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Principal_mathematics/S5"
-                                # Define the file extension
-                                file_extension_answer=".11.integration_1.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../principal_mathematics_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .principal_mathematics.5.11
-                            fi
-                            if ! [ -f ".s_principal_mathematics_5_12" ]; then
-                                echo -e "\n\nYou happen to have decided to delve into Permutations and combinations ...\n\nOnce again we treasure you ${g}dear one${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Principal_mathematics/5.12.permutations_and_combinations.txt" . || exit 1
-                            mv 5.12.permutations_and_combinations.txt .5.12.permutations_and_combinations.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .5.12.permutations_and_combinations.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .5.12.permutations_and_combinations.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .5.12.permutations_and_combinations.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .5.12.permutations_and_combinations.txt
-                            process_reminders_from_file .5.12.permutations_and_combinations.txt
-                            STATE_FILE=".s_principal_mathematics_5_12"
-                            process_file .5.12.permutations_and_combinations.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .5.12.permutations_and_combinations.txt
-                            sed -i '/^1$/!d' .s_principal_mathematics_5_12
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
-                            # Define the file extension
-                            file_extension_question=".12.permutations_and_combinations.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
-                            # Define the file extension
-                            file_extension_question=".12.permutations_and_combinations.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        13)
-                            if ! [ -f ".principal_mathematics.5.12" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Principal_mathematics/S5"
-                                # Define the file extension
-                                file_extension_answer=".12.permutations_and_combinations.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../principal_mathematics_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .principal_mathematics.5.12
-                            fi
-                            if ! [ -f ".s_principal_mathematics_5_13" ]; then
-                                echo -e "\n\nYou have made a choice to cover Series ...\n\nWe are so exited to have you with us ${g}darling${t}\n\nRemember that hard work forever pays \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Principal_mathematics/5.13.series.txt" . || exit 1
-                            mv 5.13.series.txt .5.13.series.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .5.13.series.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .5.13.series.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .5.13.series.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .5.13.series.txt
-                            process_reminders_from_file .5.13.series.txt
-                            STATE_FILE=".s_principal_mathematics_5_13"
-                            process_file .5.13.series.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .5.13.series.txt
-                            sed -i '/^1$/!d' .s_principal_mathematics_5_13
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
-                            # Define the file extension
-                            file_extension_question=".13.series.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
-                            # Define the file extension
-                            file_extension_question=".13.series.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        14)
-                            if ! [ -f ".principal_mathematics.5.13" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Principal_mathematics/S5"
-                                # Define the file extension
-                                file_extension_answer=".13.series.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../principal_mathematics_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .principal_mathematics.5.13
-                            fi
-                            if ! [ -f ".s_principal_mathematics_5_14" ]; then
-                                echo -e "\n\nYou did qualify to probe into the realm of Random variables ...\n\nWe do treasure you ${g}darling${t}. Just never forget, that no matter how prepared you are, to win gold, you have to follow instructions! \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Principal_mathematics/5.14.random_variables.txt" . || exit 1
-                            mv 5.14.random_variables.txt .5.14.random_variables.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .5.14.random_variables.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .5.14.random_variables.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .5.14.random_variables.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .5.14.random_variables.txt
-                            process_reminders_from_file .5.14.random_variables.txt
-                            STATE_FILE=".s_principal_mathematics_5_14"
-                            process_file .5.14.random_variables.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .5.14.random_variables.txt
-                            sed -i '/^1$/!d' .s_principal_mathematics_5_14
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
-                            # Define the file extension
-                            file_extension=".14.random_variables.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
-                            # Define the file extension
-                            file_extension_question=".14.random_variables.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        15)
-                            if ! [ -f ".principal_mathematics.5.14" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Principal_mathematics/S5"
-                                # Define the file extension
-                                file_extension_answer=".14.random_variables.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../principal_mathematics_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .principal_mathematics.5.14
-                            fi
-                            if ! [ -f ".s_principal_mathematics_5_15" ]; then
-                                echo -e "\n\nHere you are dear one... Stay organised as you explore Probability distributions ...\n\n${g}Just know we are not going to leave you alone${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Principal_mathematics/5.15.probability_distributions.txt" . || exit 1
-                            mv 5.15.probability_distributions.txt .5.15.probability_distributions.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .5.15.probability_distributions.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .5.15.probability_distributions.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .5.15.probability_distributions.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .5.15.probability_distributions.txt
-                            process_reminders_from_file .5.15.probability_distributions.txt
-                            STATE_FILE=".s_principal_mathematics_5_15"
-                            process_file .5.15.probability_distributions.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .5.15.probability_distributions.txt
-                            sed -i '/^1$/!d' .s_principal_mathematics_5_15
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
-                            # Define the file extension
-                            file_extension_question=".15.probability_distributions.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
-                            # Define the file extension
-                            file_extension_question=".15.probability_distributions.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        16)
-                            if ! [ -f ".principal_mathematics.5.15" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Principal_mathematics/S5"
-                                # Define the file extension
-                                file_extension_answer=".15.probability_distributions.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../principal_mathematics_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .principal_mathematics.5.15
-                            fi
-                            if ! [ -f ".s_principal_mathematics_5_16" ]; then
-                                echo -e "\n\nYou have managed to make it to Error analysis ...\n\n${g}Remember to pray always${t}\n\nThe fear of the Lord is the beginning of wisdom \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Principal_mathematics/5.16.error_analysis.txt" . || exit 1
-                            mv 5.16.error_analysis.txt .5.16.error_analysis.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .5.16.error_analysis.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .5.16.error_analysis.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .5.16.error_analysis.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .5.16.error_analysis.txt
-                            process_reminders_from_file .5.16.error_analysis.txt
-                            STATE_FILE=".s_principal_mathematics_5_16"
-                            process_file .5.16.error_analysis.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .5.16.error_analysis.txt
-                            sed -i '/^1$/!d' .s_principal_mathematics_5_16
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
-                            # Define the file extension
-                            file_extension_question=".16.error_analysis.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
-                            # Define the file extension
-                            file_extension_question=".16.error_analysis.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        17)
-                            if ! [ -f ".principal_mathematics.5.16" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Principal_mathematics/S5"
-                                # Define the file extension
-                                file_extension_answer=".16.error_analysis.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../principal_mathematics_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .principal_mathematics.5.16
-                            fi
-                            if ! [ -f ".s_principal_mathematics_5_17" ]; then
-                                echo -e "\n\nFrom here, you will be proceeding with Vectors ...\n\n${g}Please never ever forget that your education is your future${t}\n\nFocus dear \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Principal_mathematics/5.17.vectors.txt" . || exit 1
-                            mv 5.17.vectors.txt .5.17.vectors.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .5.17.vectors.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .5.17.vectors.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .5.17.vectors.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .5.17.vectors.txt
-                            process_reminders_from_file .5.17.vectors.txt
-                            STATE_FILE=".s_principal_mathematics_5_17"
-                            process_file .5.17.vectors.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .5.17.vectors.txt
-                            sed -i '/^1$/!d' .s_principal_mathematics_5_17
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
-                            # Define the file extension
-                            file_extension_question=".17.vectors.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
-                            # Define the file extension
-                            file_extension_question=".17.vectors.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        18)
-                            if ! [ -f ".principal_mathematics.5.17" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Principal_mathematics/S5"
-                                # Define the file extension
-                                file_extension_answer=".17.vectors.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../principal_mathematics_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .principal_mathematics.5.17
-                            fi
-                            if ! [ -f ".s_principal_mathematics_5_18" ]; then
-                                echo -e "\n\nYou are to cover Differentiation 2 ...\n\n${g}Please never ever settle for less${t}\n\nPromise yourself that you wont give up \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Principal_mathematics/5.18.differentiation_2.txt" . || exit 1
-                            mv 5.18.differentiation_2.txt .5.18.differentiation_2.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .5.18.differentiation_2.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .5.18.differentiation_2.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .5.18.differentiation_2.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .5.18.differentiation_2.txt
-                            process_reminders_from_file .5.18.differentiation_2.txt
-                            STATE_FILE=".s_principal_mathematics_5_18"
-                            process_file .5.18.differentiation_2.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .5.18.differentiation_2.txt
-                            sed -i '/^1$/!d' .s_principal_mathematics_5_18
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
-                            # Define the file extension
-                            file_extension_question=".18.differentiation_2.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
-                            # Define the file extension
-                            file_extension_question=".18.differentiation_2.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        19)
-                            if ! [ -f ".principal_mathematics.5.18" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Principal_mathematics/S5"
-                                # Define the file extension
-                                file_extension_answer=".18.differentiation_2.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../principal_mathematics_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .principal_mathematics.5.18
-                            fi
-                            if ! [ -f ".s_principal_mathematics_5_19" ]; then
-                                echo -e "\n\nI am so happy for you dear one. You are here to cover the the 9th topic (Integration 2 )...\n\n${g}Just never underestimate the value of a single second${t}\n\nThat extra one second maybe all you need to fully understand a given concept \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Principal_mathematics/5.19.integration_2.txt" . || exit 1
-                            mv 5.19.integration_2.txt .5.19.integration_2.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .5.19.integration_2.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .5.19.integration_2.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .5.19.integration_2.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .5.19.integration_2.txt
-                            process_reminders_from_file .5.19.integration_2.txt
-                            STATE_FILE=".s_principal_mathematics_5_19"
-                            process_file .5.19.integration_2.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .5.19.integration_2.txt
-                            sed -i '/^1$/!d' .s_principal_mathematics_5_19
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
-                            # Define the file extension
-                            file_extension_question=".19.integration_2.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S5"
-                            # Define the file extension
-                            file_extension_question=".19.integration_2.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                            if ! [ -f ".principal_mathematics.5.19" ]; then
+                            if ! [ -f ".ugandan_sign_language.1.7" ]; then
 	                            attempts=0
 	                            # Define the targeted directory
-	                            answered_directory="Exercise/Principal_mathematics/S5"
+	                            answered_directory="Exercise/Ugandan_sign_language/S1"
 	                            # Define the file extension
-	                            file_extension_answer=".19.integration_2.ans.txt"
+	                            file_extension_answer=".7.personal_and_community_hygiene.ans.txt"
 	                            # Define the exercise file
-	                            exercise_file="../../principal_mathematics_answered_ans.txt"
+	                            exercise_file="../../ugandan_sign_language_answered_ans.txt"
 	                            # Call the function to process a random answer
 	                            process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-								touch .principal_mathematics.5.19
-								echo "5" > .principal_mathematics_ready
+								touch .ugandan_sign_language.1.7
+								echo "1" > .ugandan_sign_language_ready
 							fi
                         ;;
+
                         # Additional cases for other topics can be added here
                         *)
                             echo -e "\n\nInvalid topic number \c"
@@ -3737,11 +3142,11 @@ while true; do
                 quit1
             fi
         done
-    elif [[ "$class" == "6" ]]; then
-        if ! find . -maxdepth 1 -name '.s_principal_mathematics_6*' -type f -quit 2>/dev/null; then
-            echo -e "\n\n${g}Welcome to the S6 Principal Mathematics class${t}\n\n${y}Together, we are going to get you started${t} \c" && wait_for_a_key_press
+    elif [[ "$class" == "2" ]]; then
+        if ! find . -maxdepth 1 -name '.s_ugandan_sign_language_2*' -type f -quit 2>/dev/null; then
+            echo -e "\n\n${g}Welcome to the S2 Ugandan_sign_language class${t}\n\n${y}Together, we are going to get you started${t} \c" && wait_for_a_key_press
             echo -e "\n-------------------------------------- \c"
-            clear_and_center "There are ${r}11${t} topics to be covered. Your tasks will always expand or shrink to fit in the time you give them. For that reason, never procrastinate darling!"
+            clear_and_center "There are ${r}5${t} topics to be covered. Your tasks will always expand or shrink to fit in the time you give them. For that reason, never procrastinate darling!"
         fi
         attempts=0
         max_attempts=4
@@ -3749,8 +3154,8 @@ while true; do
         do
             while [ "$attempts" -lt "$max_attempts" ]
             do
-                handle_s6_topic_input
-                touch .principal_mathematics_topic_selected
+                handle_s2_topic_input
+                touch .ugandan_sign_language_topic_selected
                 if [[ "$topic" == "x" ]]
                 then
                     quit
@@ -3758,44 +3163,44 @@ while true; do
                 then
                     attempts=0
                     # Define the targeted directory
-                    question_directory="Revision/Principal_mathematics/S6"
+                    question_directory="Revision/Ugandan_sign_language/S2"
                     # Define the file extension
                     file_extension_question=".qns.txt"
                     # Define the revision file
-                    revision_file="../../principal_mathematics_covered_qns.txt"
+                    revision_file="../../ugandan_sign_language_covered_qns.txt"
                     # Call the function to process a random question
                     process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
                 elif [[ "$topic" == "a" ]]
                 then
                     attempts=0
                     # Define the targeted directory
-                    question_directory="Revision/Principal_mathematics/S6"
+                    question_directory="Revision/Ugandan_sign_language/S2"
                     # Define the file extension
                     file_extension_question=".qns.txt"
                     # Define the revision file
-                    revision_file="../../principal_mathematics_covered_qns.txt"
+                    revision_file="../../ugandan_sign_language_covered_qns.txt"
                     # Call the function to process a random question
                     process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
                 elif [[ "$topic" == "r" ]]
                 then
                     attempts=0
                     # Define the targeted directory
-                    answered_directory="Exercise/Principal_mathematics/S6"
+                    answered_directory="Exercise/Ugandan_sign_language/S2"
                     # Define the file extension
                     file_extension_answer=".ans.txt"
                     # Define the exercise file
-                    exercise_file="../../principal_mathematics_answered_ans.txt"
+                    exercise_file="../../ugandan_sign_language_answered_ans.txt"
                     # Call the function to process a random question
                     process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
                 elif [[ "$topic" == "z" ]]
                 then
                     attempts=0
                     # Define the targeted directory
-                    answered_directory="Exercise/Principal_mathematics/S6"
+                    answered_directory="Exercise/Ugandan_sign_language/S2"
                     # Define the file extension
                     file_extension_answer=".ans.txt"
                     # Define the exercise file
-                    exercise_file="../../principal_mathematics_answered_ans.txt"
+                    exercise_file="../../ugandan_sign_language_answered_ans.txt"
                     # Call the function to process a random question
                     process_question_answer_adv "$answered_directory" "$file_extension_answer" "$exercise_file"
                 elif [[ "$topic" == "s" ]]
@@ -3806,35 +3211,35 @@ while true; do
                 then
                     attempts=0
                     # Define the targeted directory
-                    answered_directory="Exercise/Principal_mathematics/S6"
+                    answered_directory="Exercise/Ugandan_sign_language/S2"
                     # Define the file extension
                     file_extension_answer=".ans.txt"
                     # Define the exercise file
-                    exercise_file="../../principal_mathematics_answered_ans.txt"
+                    exercise_file="../../ugandan_sign_language_answered_ans.txt"
                     # Call the function to process a random question
                     process_final_assignment "$answered_directory" "$file_extension_answer" "$exercise_file"
                 elif [[ "$topic" == "p" ]]
                 then
                     track_student_progress
-                elif [[ -z "$topic" || ! "$topic" =~ ^([1-9]|1[0-1])$ ]]
+                elif [[ ! "$topic" =~ ^[1-5]$ || -z "$topic" ]]
                 then
                     echo -e "\n\nTopic ${r}$topic not available${t}... Please choose from the available options\c"
                     wait_for_a_key_press
                 else
                     case "$topic" in
                         1)
-                            if ! [ -f ".s_principal_mathematics_6_1" ]; then
-                                echo -e "\n\nYou chose to explore Vectors ...\n\nThank you for choosing to educate yourself!\n\nWe adore you ${g}darling${t} and wish you the very best! \c" && wait_for_a_key_press
+                            if ! [ -f ".s_ugandan_sign_language_2_1" ]; then
+                                echo -e "\n\nYou chose to explore Establishing and managing relationships ...\n\nThank you for choosing to educate yourself!\n\nWe adore you ${g}darling${t} and wish you the very best! \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Principal_mathematics/6.1.vectors.txt" . || exit 1
-                            mv 6.1.vectors.txt .6.1.vectors.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .6.1.vectors.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .6.1.vectors.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .6.1.vectors.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .6.1.vectors.txt
-                            process_reminders_from_file .6.1.vectors.txt
-                            STATE_FILE=".s_principal_mathematics_6_1"
-                            process_file .6.1.vectors.txt
+                            cp "Notes/Ugandan_sign_language/2.1.establishing_and_managing_relationships.txt" . || exit 1
+                            mv 2.1.establishing_and_managing_relationships.txt .2.1.establishing_and_managing_relationships.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .2.1.establishing_and_managing_relationships.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .2.1.establishing_and_managing_relationships.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .2.1.establishing_and_managing_relationships.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .2.1.establishing_and_managing_relationships.txt
+                            process_reminders_from_file .2.1.establishing_and_managing_relationships.txt
+                            STATE_FILE=".s_ugandan_sign_language_2_1"
+                            process_file .2.1.establishing_and_managing_relationships.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -3842,52 +3247,52 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .6.1.vectors.txt
-                            sed -i '/^1$/!d' .s_principal_mathematics_6_1
+                            rm -f .2.1.establishing_and_managing_relationships.txt
+                            sed -i '/^1$/!d' .s_ugandan_sign_language_2_1
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S6"
+                            question_directory="Revision/Ugandan_sign_language/S2"
                             # Define the file extension
-                            file_extension=".1.vectors.qns.txt"
+                            file_extension=".1.establishing_and_managing_relationships.qns.txt"
                             # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension" "$revision_file"
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S6"
+                            question_directory="Revision/Ugandan_sign_language/S2"
                             # Define the file extension
-                            file_extension_question=".1.vectors.qns.txt"
+                            file_extension_question=".1.establishing_and_managing_relationships.qns.txt"
                             # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
                         ;;
                         2)
-                            if ! [ -f ".principal_mathematics.6.1" ]; then
+                            if ! [ -f ".ugandan_sign_language.2.1" ]; then
                                 attempts=0
                                 # Define the targeted directory
-                                answered_directory="Exercise/Principal_mathematics/S6"
+                                answered_directory="Exercise/Ugandan_sign_language/S2"
                                 # Define the file extension
-                                file_extension_answer=".1.vectors.ans.txt"
+                                file_extension_answer=".1.establishing_and_managing_relationships.ans.txt"
                                 # Define the exercise file
-                                exercise_file="../../principal_mathematics_answered_ans.txt"
+                                exercise_file="../../ugandan_sign_language_answered_ans.txt"
                                 # Call the function to process a random question
                                 process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .principal_mathematics.6.1
+                                touch .ugandan_sign_language.2.1
                             fi
-                            if ! [ -f ".s_principal_mathematics_6_2" ]; then
-                                echo -e "\n\nYou happen to have decided to delve into Differentiation 2 ...\n\nOnce again we treasure you ${g}dear one${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
+                            if ! [ -f ".s_ugandan_sign_language_2_2" ]; then
+                                echo -e "\n\nYou happen to have decided to delve into School environment ...\n\nOnce again we treasure you ${g}dear one${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Principal_mathematics/6.2.differentiation_2.txt" . || exit 1
-                            mv 6.2.differentiation_2.txt .6.2.differentiation_2.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .6.2.differentiation_2.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .6.2.differentiation_2.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .6.2.differentiation_2.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .6.2.differentiation_2.txt
-                            process_reminders_from_file .6.2.differentiation_2.txt
-                            STATE_FILE=".s_principal_mathematics_6_2"
-                            process_file .6.2.differentiation_2.txt
+                            cp "Notes/Ugandan_sign_language/2.2.school_environment.txt" . || exit 1
+                            mv 2.2.school_environment.txt .2.2.school_environment.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .2.2.school_environment.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .2.2.school_environment.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .2.2.school_environment.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .2.2.school_environment.txt
+                            process_reminders_from_file .2.2.school_environment.txt
+                            STATE_FILE=".s_ugandan_sign_language_2_2"
+                            process_file .2.2.school_environment.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -3895,52 +3300,52 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .6.2.differentiation_2.txt
-                            sed -i '/^1$/!d' .s_principal_mathematics_6_2
+                            rm -f .2.2.school_environment.txt
+                            sed -i '/^1$/!d' .s_ugandan_sign_language_2_2
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S6"
+                            question_directory="Revision/Ugandan_sign_language/S2"
                             # Define the file extension
-                            file_extension_question=".2.differentiation_2.qns.txt"
+                            file_extension_question=".2.school_environment.qns.txt"
                             # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S6"
+                            question_directory="Revision/Ugandan_sign_language/S2"
                             # Define the file extension
-                            file_extension_question=".2.differentiation_2.qns.txt"
+                            file_extension_question=".2.school_environment.qns.txt"
                             # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
                         ;;
                         3)
-                            if ! [ -f ".principal_mathematics.6.2" ]; then
+                            if ! [ -f ".ugandan_sign_language.2.2" ]; then
                                 attempts=0
                                 # Define the targeted directory
-                                answered_directory="Exercise/Principal_mathematics/S6"
+                                answered_directory="Exercise/Ugandan_sign_language/S2"
                                 # Define the file extension
-                                file_extension_answer=".2.differentiation_2.ans.txt"
+                                file_extension_answer=".2.school_environment.ans.txt"
                                 # Define the exercise file
-                                exercise_file="../../principal_mathematics_answered_ans.txt"
+                                exercise_file="../../ugandan_sign_language_answered_ans.txt"
                                 # Call the function to process a random question
                                 process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .principal_mathematics.6.2
+                                touch .ugandan_sign_language.2.2
                             fi
-                            if ! [ -f ".s_principal_mathematics_6_3" ]; then
-                                echo -e "\n\nYou have made a choice to cover Integration 2 ...\n\nWe are so exited to have you with us ${g}darling${t}\n\nRemember that hard work forever pays \c" && wait_for_a_key_press
+                            if ! [ -f ".s_ugandan_sign_language_2_3" ]; then
+                                echo -e "\n\nYou have made a choice to cover Traditional ceremonies ...\n\nWe are so exited to have you with us ${g}darling${t}\n\nRemember that hard work forever pays \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Principal_mathematics/6.3.integration_2.txt" . || exit 1
-                            mv 6.3.integration_2.txt .6.3.integration_2.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .6.3.integration_2.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .6.3.integration_2.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .6.3.integration_2.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .6.3.integration_2.txt
-                            process_reminders_from_file .6.3.integration_2.txt
-                            STATE_FILE=".s_principal_mathematics_6_3"
-                            process_file .6.3.integration_2.txt
+                            cp "Notes/Ugandan_sign_language/2.3.traditional_ceremonies.txt" . || exit 1
+                            mv 2.3.traditional_ceremonies.txt .2.3.traditional_ceremonies.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .2.3.traditional_ceremonies.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .2.3.traditional_ceremonies.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .2.3.traditional_ceremonies.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .2.3.traditional_ceremonies.txt
+                            process_reminders_from_file .2.3.traditional_ceremonies.txt
+                            STATE_FILE=".s_ugandan_sign_language_2_3"
+                            process_file .2.3.traditional_ceremonies.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -3948,52 +3353,52 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .6.3.integration_2.txt
-                            sed -i '/^1$/!d' .s_principal_mathematics_6_3
+                            rm -f .2.3.traditional_ceremonies.txt
+                            sed -i '/^1$/!d' .s_ugandan_sign_language_2_3
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S6"
+                            question_directory="Revision/Ugandan_sign_language/S2"
                             # Define the file extension
-                            file_extension_question=".3.integration_2.qns.txt"
+                            file_extension_question=".3.traditional_ceremonies.qns.txt"
                             # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S6"
+                            question_directory="Revision/Ugandan_sign_language/S2"
                             # Define the file extension
-                            file_extension_question=".3.integration_2.qns.txt"
+                            file_extension_question=".3.traditional_ceremonies.qns.txt"
                             # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
 						;;
                         4)
-                            if ! [ -f ".principal_mathematics.6.3" ]; then
+                            if ! [ -f ".ugandan_sign_language.2.3" ]; then
                                 attempts=0
                                 # Define the targeted directory
-                                answered_directory="Exercise/Principal_mathematics/S6"
+                                answered_directory="Exercise/Ugandan_sign_language/S2"
                                 # Define the file extension
-                                file_extension_answer=".3.integration_2.ans.txt"
+                                file_extension_answer=".3.traditional_ceremonies.ans.txt"
                                 # Define the exercise file
-                                exercise_file="../../principal_mathematics_answered_ans.txt"
+                                exercise_file="../../ugandan_sign_language_answered_ans.txt"
                                 # Call the function to process a random question
                                 process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .principal_mathematics.6.3
+                                touch .ugandan_sign_language.2.3
                             fi
-                            if ! [ -f ".s_principal_mathematics_6_4" ]; then
-                                echo -e "\n\nYou did qualify to probe into the realm of Dynamics 2 ...\n\nWe do treasure you ${g}darling${t}. Just never forget, that no matter how prepared you are, to win gold, you have to follow instructions! \c" && wait_for_a_key_press
+                            if ! [ -f ".s_ugandan_sign_language_2_4" ]; then
+                                echo -e "\n\nYou did qualify to probe into the realm of Occupations and careers ...\n\nWe do treasure you ${g}darling${t}. Just never forget, that no matter how prepared you are, to win gold, you have to follow instructions! \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Principal_mathematics/6.4.dynamics_2.txt" . || exit 1
-                            mv 6.4.dynamics_2.txt .6.4.dynamics_2.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .6.4.dynamics_2.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .6.4.dynamics_2.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .6.4.dynamics_2.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .6.4.dynamics_2.txt
-                            process_reminders_from_file .6.4.dynamics_2.txt
-                            STATE_FILE=".s_principal_mathematics_6_4"
-                            process_file .6.4.dynamics_2.txt
+                            cp "Notes/Ugandan_sign_language/2.4.occupations_and_careers.txt" . || exit 1
+                            mv 2.4.occupations_and_careers.txt .2.4.occupations_and_careers.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .2.4.occupations_and_careers.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .2.4.occupations_and_careers.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .2.4.occupations_and_careers.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .2.4.occupations_and_careers.txt
+                            process_reminders_from_file .2.4.occupations_and_careers.txt
+                            STATE_FILE=".s_ugandan_sign_language_2_4"
+                            process_file .2.4.occupations_and_careers.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -4001,52 +3406,52 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .6.4.dynamics_2.txt
-                            sed -i '/^1$/!d' .s_principal_mathematics_6_4
+                            rm -f .2.4.occupations_and_careers.txt
+                            sed -i '/^1$/!d' .s_ugandan_sign_language_2_4
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S6"
+                            question_directory="Revision/Ugandan_sign_language/S2"
                             # Define the file extension
-                            file_extension=".4.dynamics_2.qns.txt"
+                            file_extension=".4.occupations_and_careers.qns.txt"
                             # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension" "$revision_file"
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S6"
+                            question_directory="Revision/Ugandan_sign_language/S2"
                             # Define the file extension
-                            file_extension_question=".4.dynamics_2.qns.txt"
+                            file_extension_question=".4.occupations_and_careers.qns.txt"
                             # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
                         ;;
                         5)
-                            if ! [ -f ".principal_mathematics.6.4" ]; then
+                            if ! [ -f ".ugandan_sign_language.2.4" ]; then
                                 attempts=0
                                 # Define the targeted directory
-                                answered_directory="Exercise/Principal_mathematics/S6"
+                                answered_directory="Exercise/Ugandan_sign_language/S2"
                                 # Define the file extension
-                                file_extension_answer=".4.dynamics_2.ans.txt"
+                                file_extension_answer=".4.occupations_and_careers.ans.txt"
                                 # Define the exercise file
-                                exercise_file="../../principal_mathematics_answered_ans.txt"
+                                exercise_file="../../ugandan_sign_language_answered_ans.txt"
                                 # Call the function to process a random question
                                 process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .principal_mathematics.6.4
+                                touch .ugandan_sign_language.2.4
                             fi
-                            if ! [ -f ".s_principal_mathematics_6_5" ]; then
-                                echo -e "\n\nHere you are dear one... Stay organised as you explore Trapezium rule ...\n\n${g}Just know we are not going to leave you alone${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
+                            if ! [ -f ".s_ugandan_sign_language_2_5" ]; then
+                                echo -e "\n\nHere you are dear one... Stay organised as you explore Public places ...\n\n${g}Just know we are not going to leave you alone${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
                             fi
-                            cp "Notes/Principal_mathematics/6.5.trapezium_rule.txt" . || exit 1
-                            mv 6.5.trapezium_rule.txt .6.5.trapezium_rule.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .6.5.trapezium_rule.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .6.5.trapezium_rule.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .6.5.trapezium_rule.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .6.5.trapezium_rule.txt
-                            process_reminders_from_file .6.5.trapezium_rule.txt
-                            STATE_FILE=".s_principal_mathematics_6_5"
-                            process_file .6.5.trapezium_rule.txt
+                            cp "Notes/Ugandan_sign_language/2.5.public_places.txt" . || exit 1
+                            mv 2.5.public_places.txt .2.5.public_places.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .2.5.public_places.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .2.5.public_places.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .2.5.public_places.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .2.5.public_places.txt
+                            process_reminders_from_file .2.5.public_places.txt
+                            STATE_FILE=".s_ugandan_sign_language_2_5"
+                            process_file .2.5.public_places.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -4054,52 +3459,154 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .6.5.trapezium_rule.txt
-                            sed -i '/^1$/!d' .s_principal_mathematics_6_5
+                            rm -f .2.5.public_places.txt
+                            sed -i '/^1$/!d' .s_ugandan_sign_language_2_5
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S6"
+                            question_directory="Revision/Ugandan_sign_language/S2"
                             # Define the file extension
-                            file_extension_question=".5.trapezium_rule.qns.txt"
+                            file_extension_question=".5.public_places.qns.txt"
                             # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S6"
+                            question_directory="Revision/Ugandan_sign_language/S2"
                             # Define the file extension
-                            file_extension_question=".5.trapezium_rule.qns.txt"
+                            file_extension_question=".5.public_places.qns.txt"
                             # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+                            if ! [ -f ".ugandan_sign_language.2.5" ]; then
+	                            attempts=0
+	                            # Define the targeted directory
+	                            answered_directory="Exercise/Ugandan_sign_language/S2"
+	                            # Define the file extension
+	                            file_extension_answer=".5.public_places.ans.txt"
+	                            # Define the exercise file
+	                            exercise_file="../../ugandan_sign_language_answered_ans.txt"
+	                            # Call the function to process a random answer
+	                            process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+								touch .ugandan_sign_language.2.5
+								echo "2" > .ugandan_sign_language_ready
+							fi
                         ;;
-                        6)
-                            if ! [ -f ".principal_mathematics.6.5" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Principal_mathematics/S6"
-                                # Define the file extension
-                                file_extension_answer=".5.trapezium_rule.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../principal_mathematics_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .principal_mathematics.6.5
+
+                        # Additional cases for other topics can be added here
+                        *)
+                            echo -e "\n\nInvalid topic number \c"
+                            continue
+                        ;;
+                    esac
+                    break  # Exit the inner loop after successfully handling user input
+                fi
+                ((attempts++))
+            done
+            # If the loop exits due to max_attempts, handle it
+            if [ "$attempts" -eq "$max_attempts" ]; then
+                quit1
+            fi
+        done
+    elif [[ "$class" == "3" ]]; then
+        if ! find . -maxdepth 1 -name '.s_ugandan_sign_language_3*' -type f -quit 2>/dev/null; then
+            echo -e "\n\n${g}Welcome to the S3 Ugandan_sign_language class${t}\n\n${y}Together, we are going to get you started${t} \c" && wait_for_a_key_press
+            echo -e "\n-------------------------------------- \c"
+            clear_and_center "There are ${r}6${t} topics to be covered. Your tasks will always expand or shrink to fit in the time you give them. For that reason, never procrastinate darling!"
+        fi
+        attempts=0
+        max_attempts=4
+        while true
+        do
+            while [ "$attempts" -lt "$max_attempts" ]
+            do
+                handle_s3_topic_input
+                touch .ugandan_sign_language_topic_selected
+                if [[ "$topic" == "x" ]]
+                then
+                    quit
+                elif [[ "$topic" == "q" ]]
+                then
+                    attempts=0
+                    # Define the targeted directory
+                    question_directory="Revision/Ugandan_sign_language/S3"
+                    # Define the file extension
+                    file_extension_question=".qns.txt"
+                    # Define the revision file
+                    revision_file="../../ugandan_sign_language_covered_qns.txt"
+                    # Call the function to process a random question
+                    process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
+                elif [[ "$topic" == "a" ]]
+                then
+                    attempts=0
+                    # Define the targeted directory
+                    question_directory="Revision/Ugandan_sign_language/S3"
+                    # Define the file extension
+                    file_extension_question=".qns.txt"
+                    # Define the revision file
+                    revision_file="../../ugandan_sign_language_covered_qns.txt"
+                    # Call the function to process a random question
+                    process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+                elif [[ "$topic" == "r" ]]
+                then
+                    attempts=0
+                    # Define the targeted directory
+                    answered_directory="Exercise/Ugandan_sign_language/S3"
+                    # Define the file extension
+                    file_extension_answer=".ans.txt"
+                    # Define the exercise file
+                    exercise_file="../../ugandan_sign_language_answered_ans.txt"
+                    # Call the function to process a random question
+                    process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+                elif [[ "$topic" == "z" ]]
+                then
+                    attempts=0
+                    # Define the targeted directory
+                    answered_directory="Exercise/Ugandan_sign_language/S3"
+                    # Define the file extension
+                    file_extension_answer=".ans.txt"
+                    # Define the exercise file
+                    exercise_file="../../ugandan_sign_language_answered_ans.txt"
+                    # Call the function to process a random question
+                    process_question_answer_adv "$answered_directory" "$file_extension_answer" "$exercise_file"
+                elif [[ "$topic" == "s" ]]
+                then
+                    get_sample_items
+                    break
+                elif [[ "$topic" == "n" ]]
+                then
+                    attempts=0
+                    # Define the targeted directory
+                    answered_directory="Exercise/Ugandan_sign_language/S3"
+                    # Define the file extension
+                    file_extension_answer=".ans.txt"
+                    # Define the exercise file
+                    exercise_file="../../ugandan_sign_language_answered_ans.txt"
+                    # Call the function to process a random question
+                    process_final_assignment "$answered_directory" "$file_extension_answer" "$exercise_file"
+                elif [[ "$topic" == "p" ]]
+                then
+                    track_student_progress
+                elif [[ ! "$topic" =~ ^[1-6]$ || -z "$topic" ]]
+                then
+                    echo -e "\n\nTopic ${r}$topic not available${t}... Please choose from the available options\c"
+                    wait_for_a_key_press
+                else
+                    case "$topic" in
+                        1)
+                            if ! [ -f ".s_ugandan_sign_language_3_1" ]; then
+                                echo -e "\n\nYou chose to explore Games, sports and leisure ...\n\nThank you for choosing to educate yourself!\n\nWe adore you ${g}darling${t} and wish you the very best! \c" && wait_for_a_key_press
                             fi
-                            if ! [ -f ".s_principal_mathematics_6_6" ]; then
-                                echo -e "\n\nYou have managed to make it to Sampling distribution ...\n\n${g}Remember to pray always${t}\n\nThe fear of the Lord is the beginning of wisdom \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Principal_mathematics/6.6.sampling_distribution.txt" . || exit 1
-                            mv 6.6.sampling_distribution.txt .6.6.sampling_distribution.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .6.6.sampling_distribution.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .6.6.sampling_distribution.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .6.6.sampling_distribution.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .6.6.sampling_distribution.txt
-                            process_reminders_from_file .6.6.sampling_distribution.txt
-                            STATE_FILE=".s_principal_mathematics_6_6"
-                            process_file .6.6.sampling_distribution.txt
+                            cp "Notes/Ugandan_sign_language/3.1.games_sports_and_leisure.txt" . || exit 1
+                            mv 3.1.games_sports_and_leisure.txt .3.1.games_sports_and_leisure.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .3.1.games_sports_and_leisure.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .3.1.games_sports_and_leisure.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .3.1.games_sports_and_leisure.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .3.1.games_sports_and_leisure.txt
+                            process_reminders_from_file .3.1.games_sports_and_leisure.txt
+                            STATE_FILE=".s_ugandan_sign_language_3_1"
+                            process_file .3.1.games_sports_and_leisure.txt
                             contact_ai
                             if [ -f .resume_to_class ]; then
                                 break
@@ -4107,305 +3614,673 @@ while true; do
                             if [ -f .skip_exercises ]; then
                                 rm -f .skip_exercises && break
                             fi
-                            rm -f .6.6.sampling_distribution.txt
-                            sed -i '/^1$/!d' .s_principal_mathematics_6_6
+                            rm -f .3.1.games_sports_and_leisure.txt
+                            sed -i '/^1$/!d' .s_ugandan_sign_language_3_1
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S6"
+                            question_directory="Revision/Ugandan_sign_language/S3"
                             # Define the file extension
-                            file_extension_question=".6.sampling_distribution.qns.txt"
+                            file_extension=".1.games_sports_and_leisure.qns.txt"
                             # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S6"
-                            # Define the file extension
-                            file_extension_question=".6.sampling_distribution.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        7)
-                            if ! [ -f ".principal_mathematics.6.6" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Principal_mathematics/S6"
-                                # Define the file extension
-                                file_extension_answer=".6.sampling_distribution.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../principal_mathematics_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .principal_mathematics.6.6
-                            fi
-                            if ! [ -f ".s_principal_mathematics_6_7" ]; then
-                                echo -e "\n\nFrom here, you will be proceeding with Iterative methods ...\n\n${g}Please never ever forget that your education is your future${t}\n\nFocus dear \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Principal_mathematics/6.7.iterative_methods.txt" . || exit 1
-                            mv 6.7.iterative_methods.txt .6.7.iterative_methods.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .6.7.iterative_methods.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .6.7.iterative_methods.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .6.7.iterative_methods.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .6.7.iterative_methods.txt
-                            process_reminders_from_file .6.7.iterative_methods.txt
-                            STATE_FILE=".s_principal_mathematics_6_7"
-                            process_file .6.7.iterative_methods.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .6.7.iterative_methods.txt
-                            sed -i '/^1$/!d' .s_principal_mathematics_6_7
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S6"
-                            # Define the file extension
-                            file_extension_question=".7.iterative_methods.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S6"
-                            # Define the file extension
-                            file_extension_question=".7.iterative_methods.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        8)
-                            if ! [ -f ".principal_mathematics.6.7" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Principal_mathematics/S6"
-                                # Define the file extension
-                                file_extension_answer=".7.iterative_methods.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../principal_mathematics_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .principal_mathematics.6.7
-                            fi
-                            if ! [ -f ".s_principal_mathematics_6_8" ]; then
-                                echo -e "\n\nYou are to cover Coordinate geometry 2 ...\n\n${g}Please never ever settle for less${t}\n\nPromise yourself that you wont give up \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Principal_mathematics/6.8.coordinate_geometry_2.txt" . || exit 1
-                            mv 6.8.coordinate_geometry_2.txt .6.8.coordinate_geometry_2.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .6.8.coordinate_geometry_2.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .6.8.coordinate_geometry_2.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .6.8.coordinate_geometry_2.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .6.8.coordinate_geometry_2.txt
-                            process_reminders_from_file .6.8.coordinate_geometry_2.txt
-                            STATE_FILE=".s_principal_mathematics_6_8"
-                            process_file .6.8.coordinate_geometry_2.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .6.8.coordinate_geometry_2.txt
-                            sed -i '/^1$/!d' .s_principal_mathematics_6_8
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S6"
-                            # Define the file extension
-                            file_extension_question=".8.coordinate_geometry_2.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S6"
-                            # Define the file extension
-                            file_extension_question=".8.coordinate_geometry_2.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        9)
-                            if ! [ -f ".principal_mathematics.6.8" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Principal_mathematics/S6"
-                                # Define the file extension
-                                file_extension_answer=".8.coordinate_geometry_2.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../principal_mathematics_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .principal_mathematics.6.8
-                            fi
-                            if ! [ -f ".s_principal_mathematics_6_9" ]; then
-                                echo -e "\n\nI am so happy for you dear one. You are here to cover the the 9th topic (Complex numbers )...\n\n${g}Just never underestimate the value of a single second${t}\n\nThat extra one second maybe all you need to fully understand a given concept \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Principal_mathematics/6.9.complex_numbers.txt" . || exit 1
-                            mv 6.9.complex_numbers.txt .6.9.complex_numbers.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .6.9.complex_numbers.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .6.9.complex_numbers.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .6.9.complex_numbers.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .6.9.complex_numbers.txt
-                            process_reminders_from_file .6.9.complex_numbers.txt
-                            STATE_FILE=".s_principal_mathematics_6_9"
-                            process_file .6.9.complex_numbers.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .6.9.complex_numbers.txt
-                            sed -i '/^1$/!d' .s_principal_mathematics_6_9
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S6"
-                            # Define the file extension
-                            file_extension_question=".9.complex_numbers.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S6"
-                            # Define the file extension
-                            file_extension_question=".9.complex_numbers.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        10)
-                            if ! [ -f ".principal_mathematics.6.9" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Principal_mathematics/S6"
-                                # Define the file extension
-                                file_extension_answer=".9.complex_numbers.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../principal_mathematics_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .principal_mathematics.6.9
-                            fi
-                            if ! [ -f ".s_principal_mathematics_6_10" ]; then
-                                echo -e "\n\nYou happen to have chosen to explore Differential equations ...${g}I never expected you to come this far${t}\n\nKeep believing, keep hoping! \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Principal_mathematics/6.10.differential_equations.txt" . || exit 1
-                            mv 6.10.differential_equations.txt .6.10.differential_equations.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .6.10.differential_equations.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .6.10.differential_equations.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .6.10.differential_equations.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .6.10.differential_equations.txt
-                            process_reminders_from_file .6.10.differential_equations.txt
-                            STATE_FILE=".s_principal_mathematics_6_10"
-                            process_file .6.10.differential_equations.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .6.10.differential_equations.txt
-                            sed -i '/^1$/!d' .s_principal_mathematics_6_10
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S6"
-                            # Define the file extension
-                            file_extension_question=".10.differential_equations.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S6"
-                            # Define the file extension
-                            file_extension_question=".10.differential_equations.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
-                            # Call the function to process a random question
-                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                        ;;
-                        11)
-                            if ! [ -f ".principal_mathematics.6.10" ]; then
-                                attempts=0
-                                # Define the targeted directory
-                                answered_directory="Exercise/Principal_mathematics/S6"
-                                # Define the file extension
-                                file_extension_answer=".10.differential_equations.ans.txt"
-                                # Define the exercise file
-                                exercise_file="../../principal_mathematics_answered_ans.txt"
-                                # Call the function to process a random question
-                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-                                touch .principal_mathematics.6.10
-                            fi
-                            if ! [ -f ".s_principal_mathematics_6_11" ]; then
-                                echo -e "\n\nYou chose to explore Flow charts ...\n\nThank you for choosing to educate yourself!\n\nWe adore you ${g}darling${t} and wish you the very best! \c" && wait_for_a_key_press
-                            fi
-                            cp "Notes/Principal_mathematics/6.11.flow_charts.txt" . || exit 1
-                            mv 6.11.flow_charts.txt .6.11.flow_charts.txt || exit 1
-                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .6.11.flow_charts.txt
-                            sed -i 's/;\([:!?]\);/\;\1/g' .6.11.flow_charts.txt
-                            sed -i 's/;\([0-9]*\);/;\1. /g' .6.11.flow_charts.txt
-                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .6.11.flow_charts.txt
-                            process_reminders_from_file .6.11.flow_charts.txt
-                            STATE_FILE=".s_principal_mathematics_6_11"
-                            process_file .6.11.flow_charts.txt
-                            contact_ai
-                            if [ -f .resume_to_class ]; then
-                                break
-                            fi
-                            if [ -f .skip_exercises ]; then
-                                rm -f .skip_exercises && break
-                            fi
-                            rm -f .6.11.flow_charts.txt
-                            sed -i '/^1$/!d' .s_principal_mathematics_6_11
-                            attempts=0
-                            # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S6"
-                            # Define the file extension
-                            file_extension=".11.flow_charts.qns.txt"
-                            # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_short_answer_question "$question_directory" "$file_extension" "$revision_file"
                             attempts=0
                             # Define the targeted directory
-                            question_directory="Revision/Principal_mathematics/S6"
+                            question_directory="Revision/Ugandan_sign_language/S3"
                             # Define the file extension
-                            file_extension_question=".11.flow_charts.qns.txt"
+                            file_extension_question=".1.games_sports_and_leisure.qns.txt"
                             # Define the revision file
-                            revision_file="../../principal_mathematics_covered_qns.txt"
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
                             # Call the function to process a random question
                             process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
-                            if ! [ -f ".principal_mathematics.6.11" ]; then
+                        ;;
+                        2)
+                            if ! [ -f ".ugandan_sign_language.3.1" ]; then
+                                attempts=0
+                                # Define the targeted directory
+                                answered_directory="Exercise/Ugandan_sign_language/S3"
+                                # Define the file extension
+                                file_extension_answer=".1.games_sports_and_leisure.ans.txt"
+                                # Define the exercise file
+                                exercise_file="../../ugandan_sign_language_answered_ans.txt"
+                                # Call the function to process a random question
+                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+                                touch .ugandan_sign_language.3.1
+                            fi
+                            if ! [ -f ".s_ugandan_sign_language_3_2" ]; then
+                                echo -e "\n\nYou happen to have decided to delve into Indigenous tourism ...\n\nOnce again we treasure you ${g}dear one${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
+                            fi
+                            cp "Notes/Ugandan_sign_language/3.2.indigenous_tourism.txt" . || exit 1
+                            mv 3.2.indigenous_tourism.txt .3.2.indigenous_tourism.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .3.2.indigenous_tourism.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .3.2.indigenous_tourism.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .3.2.indigenous_tourism.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .3.2.indigenous_tourism.txt
+                            process_reminders_from_file .3.2.indigenous_tourism.txt
+                            STATE_FILE=".s_ugandan_sign_language_3_2"
+                            process_file .3.2.indigenous_tourism.txt
+                            contact_ai
+                            if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
+                                rm -f .skip_exercises && break
+                            fi
+                            rm -f .3.2.indigenous_tourism.txt
+                            sed -i '/^1$/!d' .s_ugandan_sign_language_3_2
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Ugandan_sign_language/S3"
+                            # Define the file extension
+                            file_extension_question=".2.indigenous_tourism.qns.txt"
+                            # Define the revision file
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Ugandan_sign_language/S3"
+                            # Define the file extension
+                            file_extension_question=".2.indigenous_tourism.qns.txt"
+                            # Define the revision file
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+                        ;;
+                        3)
+                            if ! [ -f ".ugandan_sign_language.3.2" ]; then
+                                attempts=0
+                                # Define the targeted directory
+                                answered_directory="Exercise/Ugandan_sign_language/S3"
+                                # Define the file extension
+                                file_extension_answer=".2.indigenous_tourism.ans.txt"
+                                # Define the exercise file
+                                exercise_file="../../ugandan_sign_language_answered_ans.txt"
+                                # Call the function to process a random question
+                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+                                touch .ugandan_sign_language.3.2
+                            fi
+                            if ! [ -f ".s_ugandan_sign_language_3_3" ]; then
+                                echo -e "\n\nYou have made a choice to cover Clans ...\n\nWe are so exited to have you with us ${g}darling${t}\n\nRemember that hard work forever pays \c" && wait_for_a_key_press
+                            fi
+                            cp "Notes/Ugandan_sign_language/3.3.clans.txt" . || exit 1
+                            mv 3.3.clans.txt .3.3.clans.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .3.3.clans.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .3.3.clans.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .3.3.clans.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .3.3.clans.txt
+                            process_reminders_from_file .3.3.clans.txt
+                            STATE_FILE=".s_ugandan_sign_language_3_3"
+                            process_file .3.3.clans.txt
+                            contact_ai
+                            if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
+                                rm -f .skip_exercises && break
+                            fi
+                            rm -f .3.3.clans.txt
+                            sed -i '/^1$/!d' .s_ugandan_sign_language_3_3
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Ugandan_sign_language/S3"
+                            # Define the file extension
+                            file_extension_question=".3.clans.qns.txt"
+                            # Define the revision file
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Ugandan_sign_language/S3"
+                            # Define the file extension
+                            file_extension_question=".3.clans.qns.txt"
+                            # Define the revision file
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+						;;
+                        4)
+                            if ! [ -f ".ugandan_sign_language.3.3" ]; then
+                                attempts=0
+                                # Define the targeted directory
+                                answered_directory="Exercise/Ugandan_sign_language/S3"
+                                # Define the file extension
+                                file_extension_answer=".3.clans.ans.txt"
+                                # Define the exercise file
+                                exercise_file="../../ugandan_sign_language_answered_ans.txt"
+                                # Call the function to process a random question
+                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+                                touch .ugandan_sign_language.3.3
+                            fi
+                            if ! [ -f ".s_ugandan_sign_language_3_4" ]; then
+                                echo -e "\n\nYou did qualify to probe into the realm of Wealth creation ...\n\nWe do treasure you ${g}darling${t}. Just never forget, that no matter how prepared you are, to win gold, you have to follow instructions! \c" && wait_for_a_key_press
+                            fi
+                            cp "Notes/Ugandan_sign_language/3.4.wealth_creation.txt" . || exit 1
+                            mv 3.4.wealth_creation.txt .3.4.wealth_creation.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .3.4.wealth_creation.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .3.4.wealth_creation.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .3.4.wealth_creation.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .3.4.wealth_creation.txt
+                            process_reminders_from_file .3.4.wealth_creation.txt
+                            STATE_FILE=".s_ugandan_sign_language_3_4"
+                            process_file .3.4.wealth_creation.txt
+                            contact_ai
+                            if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
+                                rm -f .skip_exercises && break
+                            fi
+                            rm -f .3.4.wealth_creation.txt
+                            sed -i '/^1$/!d' .s_ugandan_sign_language_3_4
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Ugandan_sign_language/S3"
+                            # Define the file extension
+                            file_extension=".4.wealth_creation.qns.txt"
+                            # Define the revision file
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_short_answer_question "$question_directory" "$file_extension" "$revision_file"
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Ugandan_sign_language/S3"
+                            # Define the file extension
+                            file_extension_question=".4.wealth_creation.qns.txt"
+                            # Define the revision file
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+                        ;;
+                        5)
+                            if ! [ -f ".ugandan_sign_language.3.4" ]; then
+                                attempts=0
+                                # Define the targeted directory
+                                answered_directory="Exercise/Ugandan_sign_language/S3"
+                                # Define the file extension
+                                file_extension_answer=".4.wealth_creation.ans.txt"
+                                # Define the exercise file
+                                exercise_file="../../ugandan_sign_language_answered_ans.txt"
+                                # Call the function to process a random question
+                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+                                touch .ugandan_sign_language.3.4
+                            fi
+                            if ! [ -f ".s_ugandan_sign_language_3_5" ]; then
+                                echo -e "\n\nHere you are dear one... Stay organised as you explore Environmental awareness ...\n\n${g}Just know we are not going to leave you alone${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
+                            fi
+                            cp "Notes/Ugandan_sign_language/3.5.environmental_awareness.txt" . || exit 1
+                            mv 3.5.environmental_awareness.txt .3.5.environmental_awareness.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .3.5.environmental_awareness.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .3.5.environmental_awareness.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .3.5.environmental_awareness.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .3.5.environmental_awareness.txt
+                            process_reminders_from_file .3.5.environmental_awareness.txt
+                            STATE_FILE=".s_ugandan_sign_language_3_5"
+                            process_file .3.5.environmental_awareness.txt
+                            contact_ai
+                            if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
+                                rm -f .skip_exercises && break
+                            fi
+                            rm -f .3.5.environmental_awareness.txt
+                            sed -i '/^1$/!d' .s_ugandan_sign_language_3_5
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Ugandan_sign_language/S3"
+                            # Define the file extension
+                            file_extension_question=".5.environmental_awareness.qns.txt"
+                            # Define the revision file
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Ugandan_sign_language/S3"
+                            # Define the file extension
+                            file_extension_question=".5.environmental_awareness.qns.txt"
+                            # Define the revision file
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+                        ;;
+                        6)
+                            if ! [ -f ".ugandan_sign_language.3.5" ]; then
+                                attempts=0
+                                # Define the targeted directory
+                                answered_directory="Exercise/Ugandan_sign_language/S3"
+                                # Define the file extension
+                                file_extension_answer=".5.environmental_awareness.ans.txt"
+                                # Define the exercise file
+                                exercise_file="../../ugandan_sign_language_answered_ans.txt"
+                                # Call the function to process a random question
+                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+                                touch .ugandan_sign_language.3.5
+                            fi
+                            if ! [ -f ".s_ugandan_sign_language_3_6" ]; then
+                                echo -e "\n\nYou have managed to make it to Water ...\n\n${g}Remember to pray always${t}\n\nThe fear of the Lord is the beginning of wisdom \c" && wait_for_a_key_press
+                            fi
+                            cp "Notes/Ugandan_sign_language/3.6.water.txt" . || exit 1
+                            mv 3.6.water.txt .3.6.water.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .3.6.water.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .3.6.water.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .3.6.water.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .3.6.water.txt
+                            process_reminders_from_file .3.6.water.txt
+                            STATE_FILE=".s_ugandan_sign_language_3_6"
+                            process_file .3.6.water.txt
+                            contact_ai
+                            if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
+                                rm -f .skip_exercises && break
+                            fi
+                            rm -f .3.6.water.txt
+                            sed -i '/^1$/!d' .s_ugandan_sign_language_3_6
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Ugandan_sign_language/S3"
+                            # Define the file extension
+                            file_extension_question=".6.water.qns.txt"
+                            # Define the revision file
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Ugandan_sign_language/S3"
+                            # Define the file extension
+                            file_extension_question=".6.water.qns.txt"
+                            # Define the revision file
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+                            if ! [ -f ".ugandan_sign_language.3.6" ]; then
 	                            attempts=0
 	                            # Define the targeted directory
-	                            answered_directory="Exercise/Principal_mathematics/S6"
+	                            answered_directory="Exercise/Ugandan_sign_language/S3"
 	                            # Define the file extension
-	                            file_extension_answer=".11.flow_charts.ans.txt"
+	                            file_extension_answer=".6.water.ans.txt"
 	                            # Define the exercise file
-	                            exercise_file="../../principal_mathematics_answered_ans.txt"
+	                            exercise_file="../../ugandan_sign_language_answered_ans.txt"
 	                            # Call the function to process a random answer
 	                            process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
-								touch .principal_mathematics.6.11
-								echo "6" > .principal_mathematics_ready
+								touch .ugandan_sign_language.3.6
+								echo "3" > .ugandan_sign_language_ready
 							fi
                         ;;
+
+                        # Additional cases for other topics can be added here
+                        *)
+                            echo -e "\n\nInvalid topic number \c"
+                            continue
+                        ;;
+                    esac
+                    break  # Exit the inner loop after successfully handling user input
+                fi
+                ((attempts++))
+            done
+            # If the loop exits due to max_attempts, handle it
+            if [ "$attempts" -eq "$max_attempts" ]; then
+                quit1
+            fi
+        done
+    elif [[ "$class" == "4" ]]; then
+        if ! find . -maxdepth 1 -name '.s_ugandan_sign_language_4*' -type f -quit 2>/dev/null; then
+            echo -e "\n\n${g}Welcome to the S4 Ugandan_sign_language class${t}\n\n${y}Together, we are going to get you started${t} \c" && wait_for_a_key_press
+            echo -e "\n-------------------------------------- \c"
+            clear_and_center "There are ${r}5${t} topics to be covered. Your tasks will always expand or shrink to fit in the time you give them. For that reason, never procrastinate darling!"
+        fi
+        attempts=0
+        max_attempts=4
+        while true
+        do
+            while [ "$attempts" -lt "$max_attempts" ]
+            do
+                handle_s4_topic_input
+                touch .ugandan_sign_language_topic_selected
+                if [[ "$topic" == "x" ]]
+                then
+                    quit
+                elif [[ "$topic" == "q" ]]
+                then
+                    attempts=0
+                    # Define the targeted directory
+                    question_directory="Revision/Ugandan_sign_language/S4"
+                    # Define the file extension
+                    file_extension_question=".qns.txt"
+                    # Define the revision file
+                    revision_file="../../ugandan_sign_language_covered_qns.txt"
+                    # Call the function to process a random question
+                    process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
+                elif [[ "$topic" == "a" ]]
+                then
+                    attempts=0
+                    # Define the targeted directory
+                    question_directory="Revision/Ugandan_sign_language/S4"
+                    # Define the file extension
+                    file_extension_question=".qns.txt"
+                    # Define the revision file
+                    revision_file="../../ugandan_sign_language_covered_qns.txt"
+                    # Call the function to process a random question
+                    process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+                elif [[ "$topic" == "r" ]]
+                then
+                    attempts=0
+                    # Define the targeted directory
+                    answered_directory="Exercise/Ugandan_sign_language/S4"
+                    # Define the file extension
+                    file_extension_answer=".ans.txt"
+                    # Define the exercise file
+                    exercise_file="../../ugandan_sign_language_answered_ans.txt"
+                    # Call the function to process a random question
+                    process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+                elif [[ "$topic" == "z" ]]
+                then
+                    attempts=0
+                    # Define the targeted directory
+                    answered_directory="Exercise/Ugandan_sign_language/S4"
+                    # Define the file extension
+                    file_extension_answer=".ans.txt"
+                    # Define the exercise file
+                    exercise_file="../../ugandan_sign_language_answered_ans.txt"
+                    # Call the function to process a random question
+                    process_question_answer_adv "$answered_directory" "$file_extension_answer" "$exercise_file"
+                elif [[ "$topic" == "s" ]]
+                then
+                    get_sample_items
+                    break
+                elif [[ "$topic" == "n" ]]
+                then
+                    attempts=0
+                    # Define the targeted directory
+                    answered_directory="Exercise/Ugandan_sign_language/S4"
+                    # Define the file extension
+                    file_extension_answer=".ans.txt"
+                    # Define the exercise file
+                    exercise_file="../../ugandan_sign_language_answered_ans.txt"
+                    # Call the function to process a random question
+                    process_final_assignment "$answered_directory" "$file_extension_answer" "$exercise_file"
+                elif [[ "$topic" == "p" ]]
+                then
+                    track_student_progress
+                elif [[ ! "$topic" =~ ^[1-5]$ || -z "$topic" ]]
+                then
+                    echo -e "\n\nTopic ${r}$topic not available${t}... Please choose from the available options\c"
+                    wait_for_a_key_press
+                else
+                    case "$topic" in
+                        1)
+                            if ! [ -f ".s_ugandan_sign_language_4_1" ]; then
+                                echo -e "\n\nYou chose to explore Migration and settlement ...\n\nThank you for choosing to educate yourself!\n\nWe adore you ${g}darling${t} and wish you the very best! \c" && wait_for_a_key_press
+                            fi
+                            cp "Notes/Ugandan_sign_language/4.1.migration_and_settlement.txt" . || exit 1
+                            mv 4.1.migration_and_settlement.txt .4.1.migration_and_settlement.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .4.1.migration_and_settlement.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .4.1.migration_and_settlement.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .4.1.migration_and_settlement.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .4.1.migration_and_settlement.txt
+                            process_reminders_from_file .4.1.migration_and_settlement.txt
+                            STATE_FILE=".s_ugandan_sign_language_4_1"
+                            process_file .4.1.migration_and_settlement.txt
+                            contact_ai
+                            if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
+                                rm -f .skip_exercises && break
+                            fi
+                            rm -f .4.1.migration_and_settlement.txt
+                            sed -i '/^1$/!d' .s_ugandan_sign_language_4_1
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Ugandan_sign_language/S4"
+                            # Define the file extension
+                            file_extension=".1.migration_and_settlement.qns.txt"
+                            # Define the revision file
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_short_answer_question "$question_directory" "$file_extension" "$revision_file"
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Ugandan_sign_language/S4"
+                            # Define the file extension
+                            file_extension_question=".1.migration_and_settlement.qns.txt"
+                            # Define the revision file
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+                        ;;
+                        2)
+                            if ! [ -f ".ugandan_sign_language.4.1" ]; then
+                                attempts=0
+                                # Define the targeted directory
+                                answered_directory="Exercise/Ugandan_sign_language/S4"
+                                # Define the file extension
+                                file_extension_answer=".1.migration_and_settlement.ans.txt"
+                                # Define the exercise file
+                                exercise_file="../../ugandan_sign_language_answered_ans.txt"
+                                # Call the function to process a random question
+                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+                                touch .ugandan_sign_language.4.1
+                            fi
+                            if ! [ -f ".s_ugandan_sign_language_4_2" ]; then
+                                echo -e "\n\nYou happen to have decided to delve into Traditional ceremonies (initiation, marriage and funeral rites) ...\n\nOnce again we treasure you ${g}dear one${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
+                            fi
+                            cp "Notes/Ugandan_sign_language/4.2.traditional_ceremonies_initiation_marriage_and_funeral_rites.txt" . || exit 1
+                            mv 4.2.traditional_ceremonies_initiation_marriage_and_funeral_rites.txt .4.2.traditional_ceremonies_initiation_marriage_and_funeral_rites.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .4.2.traditional_ceremonies_initiation_marriage_and_funeral_rites.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .4.2.traditional_ceremonies_initiation_marriage_and_funeral_rites.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .4.2.traditional_ceremonies_initiation_marriage_and_funeral_rites.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .4.2.traditional_ceremonies_initiation_marriage_and_funeral_rites.txt
+                            process_reminders_from_file .4.2.traditional_ceremonies_initiation_marriage_and_funeral_rites.txt
+                            STATE_FILE=".s_ugandan_sign_language_4_2"
+                            process_file .4.2.traditional_ceremonies_initiation_marriage_and_funeral_rites.txt
+                            contact_ai
+                            if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
+                                rm -f .skip_exercises && break
+                            fi
+                            rm -f .4.2.traditional_ceremonies_initiation_marriage_and_funeral_rites.txt
+                            sed -i '/^1$/!d' .s_ugandan_sign_language_4_2
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Ugandan_sign_language/S4"
+                            # Define the file extension
+                            file_extension_question=".2.traditional_ceremonies_initiation_marriage_and_funeral_rites.qns.txt"
+                            # Define the revision file
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Ugandan_sign_language/S4"
+                            # Define the file extension
+                            file_extension_question=".2.traditional_ceremonies_initiation_marriage_and_funeral_rites.qns.txt"
+                            # Define the revision file
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+                        ;;
+                        3)
+                            if ! [ -f ".ugandan_sign_language.4.2" ]; then
+                                attempts=0
+                                # Define the targeted directory
+                                answered_directory="Exercise/Ugandan_sign_language/S4"
+                                # Define the file extension
+                                file_extension_answer=".2.traditional_ceremonies_initiation_marriage_and_funeral_rites.ans.txt"
+                                # Define the exercise file
+                                exercise_file="../../ugandan_sign_language_answered_ans.txt"
+                                # Call the function to process a random question
+                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+                                touch .ugandan_sign_language.4.2
+                            fi
+                            if ! [ -f ".s_ugandan_sign_language_4_3" ]; then
+                                echo -e "\n\nYou have made a choice to cover Cultural values, morals and ethics ...\n\nWe are so exited to have you with us ${g}darling${t}\n\nRemember that hard work forever pays \c" && wait_for_a_key_press
+                            fi
+                            cp "Notes/Ugandan_sign_language/4.3.cultural_values_morals_and_ethics.txt" . || exit 1
+                            mv 4.3.cultural_values_morals_and_ethics.txt .4.3.cultural_values_morals_and_ethics.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .4.3.cultural_values_morals_and_ethics.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .4.3.cultural_values_morals_and_ethics.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .4.3.cultural_values_morals_and_ethics.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .4.3.cultural_values_morals_and_ethics.txt
+                            process_reminders_from_file .4.3.cultural_values_morals_and_ethics.txt
+                            STATE_FILE=".s_ugandan_sign_language_4_3"
+                            process_file .4.3.cultural_values_morals_and_ethics.txt
+                            contact_ai
+                            if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
+                                rm -f .skip_exercises && break
+                            fi
+                            rm -f .4.3.cultural_values_morals_and_ethics.txt
+                            sed -i '/^1$/!d' .s_ugandan_sign_language_4_3
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Ugandan_sign_language/S4"
+                            # Define the file extension
+                            file_extension_question=".3.cultural_values_morals_and_ethics.qns.txt"
+                            # Define the revision file
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Ugandan_sign_language/S4"
+                            # Define the file extension
+                            file_extension_question=".3.cultural_values_morals_and_ethics.qns.txt"
+                            # Define the revision file
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+						;;
+                        4)
+                            if ! [ -f ".ugandan_sign_language.4.3" ]; then
+                                attempts=0
+                                # Define the targeted directory
+                                answered_directory="Exercise/Ugandan_sign_language/S4"
+                                # Define the file extension
+                                file_extension_answer=".3.cultural_values_morals_and_ethics.ans.txt"
+                                # Define the exercise file
+                                exercise_file="../../ugandan_sign_language_answered_ans.txt"
+                                # Call the function to process a random question
+                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+                                touch .ugandan_sign_language.4.3
+                            fi
+                            if ! [ -f ".s_ugandan_sign_language_4_4" ]; then
+                                echo -e "\n\nYou did qualify to probe into the realm of Leadership and citizenship ...\n\nWe do treasure you ${g}darling${t}. Just never forget, that no matter how prepared you are, to win gold, you have to follow instructions! \c" && wait_for_a_key_press
+                            fi
+                            cp "Notes/Ugandan_sign_language/4.4.leadership_and_citizenship.txt" . || exit 1
+                            mv 4.4.leadership_and_citizenship.txt .4.4.leadership_and_citizenship.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .4.4.leadership_and_citizenship.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .4.4.leadership_and_citizenship.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .4.4.leadership_and_citizenship.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .4.4.leadership_and_citizenship.txt
+                            process_reminders_from_file .4.4.leadership_and_citizenship.txt
+                            STATE_FILE=".s_ugandan_sign_language_4_4"
+                            process_file .4.4.leadership_and_citizenship.txt
+                            contact_ai
+                            if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
+                                rm -f .skip_exercises && break
+                            fi
+                            rm -f .4.4.leadership_and_citizenship.txt
+                            sed -i '/^1$/!d' .s_ugandan_sign_language_4_4
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Ugandan_sign_language/S4"
+                            # Define the file extension
+                            file_extension=".4.leadership_and_citizenship.qns.txt"
+                            # Define the revision file
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_short_answer_question "$question_directory" "$file_extension" "$revision_file"
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Ugandan_sign_language/S4"
+                            # Define the file extension
+                            file_extension_question=".4.leadership_and_citizenship.qns.txt"
+                            # Define the revision file
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+                        ;;
+                        5)
+                            if ! [ -f ".ugandan_sign_language.4.4" ]; then
+                                attempts=0
+                                # Define the targeted directory
+                                answered_directory="Exercise/Ugandan_sign_language/S4"
+                                # Define the file extension
+                                file_extension_answer=".4.leadership_and_citizenship.ans.txt"
+                                # Define the exercise file
+                                exercise_file="../../ugandan_sign_language_answered_ans.txt"
+                                # Call the function to process a random question
+                                process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+                                touch .ugandan_sign_language.4.4
+                            fi
+                            if ! [ -f ".s_ugandan_sign_language_4_5" ]; then
+                                echo -e "\n\nHere you are dear one... Stay organised as you explore Human rights ...\n\n${g}Just know we are not going to leave you alone${t}\n\nWe promise to always be right here for you \c" && wait_for_a_key_press
+                            fi
+                            cp "Notes/Ugandan_sign_language/4.5.human_rights.txt" . || exit 1
+                            mv 4.5.human_rights.txt .4.5.human_rights.txt || exit 1
+                            sed -i -e 's/\.\( \+\)/;/g' -e '/https:/! s/\([!?:]\)/\1;/g' -e 's/\([;]\) /\1/g' .4.5.human_rights.txt
+                            sed -i 's/;\([:!?]\);/\;\1/g' .4.5.human_rights.txt
+                            sed -i 's/;\([0-9]*\);/;\1. /g' .4.5.human_rights.txt
+                            sed -i -E 's/(\([^)]*);/\1/g; s/(\[[^]]*);/\1/g; s/(\{[^}]*);/\1/g' .4.5.human_rights.txt
+                            process_reminders_from_file .4.5.human_rights.txt
+                            STATE_FILE=".s_ugandan_sign_language_4_5"
+                            process_file .4.5.human_rights.txt
+                            contact_ai
+                            if [ -f .resume_to_class ]; then
+                                break
+                            fi
+                            if [ -f .skip_exercises ]; then
+                                rm -f .skip_exercises && break
+                            fi
+                            rm -f .4.5.human_rights.txt
+                            sed -i '/^1$/!d' .s_ugandan_sign_language_4_5
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Ugandan_sign_language/S4"
+                            # Define the file extension
+                            file_extension_question=".5.human_rights.qns.txt"
+                            # Define the revision file
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_short_answer_question "$question_directory" "$file_extension_question" "$revision_file"
+                            attempts=0
+                            # Define the targeted directory
+                            question_directory="Revision/Ugandan_sign_language/S4"
+                            # Define the file extension
+                            file_extension_question=".5.human_rights.qns.txt"
+                            # Define the revision file
+                            revision_file="../../ugandan_sign_language_covered_qns.txt"
+                            # Call the function to process a random question
+                            process_random_aoi "$question_directory" "$file_extension_question" "$revision_file"
+                            if ! [ -f ".ugandan_sign_language.4.5" ]; then
+	                            attempts=0
+	                            # Define the targeted directory
+	                            answered_directory="Exercise/Ugandan_sign_language/S4"
+	                            # Define the file extension
+	                            file_extension_answer=".5.human_rights.ans.txt"
+	                            # Define the exercise file
+	                            exercise_file="../../ugandan_sign_language_answered_ans.txt"
+	                            # Call the function to process a random answer
+	                            process_question_answer "$answered_directory" "$file_extension_answer" "$exercise_file"
+								touch .ugandan_sign_language.4.5
+								echo "4" > .ugandan_sign_language_ready
+							fi
+                        ;;
+
                         # Additional cases for other topics can be added here
                         *)
                             echo -e "\n\nInvalid topic number \c"
@@ -4423,7 +4298,7 @@ while true; do
         done
 
 
-    elif [[ "$class" == "6" ]]; then
+    elif [[ "$class" == "2" || "$class" == "3" || "$class" == "4" ]]; then
     echo -e "\n\nLessons for your class are still being developed.. Keep in touch \n"
     wait_for_a_key_press
     echo -e "\n\nYou could choose to fund the initiative by contacting us through our gmail: 2024omd256@gmail.com \n"
