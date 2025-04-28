@@ -1536,7 +1536,7 @@ function resume_from_last_point() {
 function handle_resume_input() {
   # Check if the user wants to resume from the last point
   clear_and_center "${r}\n\n      Equitable, Relevant, and Quality Education for All${t}\n\n\n      ${m}Your Education is our Future${t} -------- ${g}Never despair${t}"
-  read -rp $'\n\n\n	'"${y}Press Enter to resume from your last point. Otherwise, enter${t}"' (no or n) : ' resume_choice
+  read -rp $'\n\n\n  '"${y}Press Enter to resume from your last point. Otherwise, enter${t}"' (no or n) : ' resume_choice
   resume_choice=${resume_choice,,} # Convert to lowercase
   if ! [[ "$resume_choice" == "no" || "$resume_choice" == "n" ]]; then
 		rm -f .english_topic_selected
