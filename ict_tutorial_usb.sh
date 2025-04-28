@@ -66,7 +66,7 @@ process_random_communication() {
         gsub(/^[[:space:]]+|[[:space:]]+$/, ""); # Trim leading/trailing spaces
         if ($0 ~ pattern) {
           a_raw[++n] = $0;              # Original (with prefix)
-          a_clean[n] = gensub(pattern, "", 1, $0);  # Cleaned (no prefix)
+          gsub(pattern, "", $0);  a_clean[n] = $0;  # Cleaned (no prefix)
         }
       }
       END {
