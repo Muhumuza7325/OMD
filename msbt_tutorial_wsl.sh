@@ -749,7 +749,7 @@ while true; do
   if [ -z "$(find . -mindepth 3 -maxdepth 3 -type f -name "*.txt" 2>/dev/null)" ]; then
 	read -rp $'\n\nEnter '"${g}cl${t}"' to get to class or '"${r}x${t}"' to exit: ' user_input
   else
-    echo -e "\n\nYou can search your Notes by topic using uppercase letters or just feed in key words \c"
+    echo -e "\n\nYou can search your Notes by course_unit using uppercase letters or just feed in key words \c"
 	read -rp $'\n\nEnter '"${y}Keywords...${t}"' to search or type '"${g}cl${t}"' to get to class or '"${g}sh${t}"' to share anything with us or '"${b}sr${t}"' to check out shared resources or '"${b}ch${t}"' to connect to chatgpt or '"${r}ge${t}"' to connect to Google AI or '"${m}zz${t}"' to update the code or '"${m}xx${t}"' to update learning materials or '"${c}nw${t}"' to create new workspace or '"${r}x${t}"' to exit: ' user_input
   fi
 
@@ -2522,7 +2522,6 @@ export OPENAI_KEY="$key"
 if [ ! -f .msbt_user_state ]; then
 	touch .msbt_user_state
 	touch .msbt_surveyor
-	echo -e "\n\nYou can search your Notes by course_unit using uppercase letters or just feed in key words \c"
 	get_and_display_pattern
 else
   if [ -f .omd_communication.txt ]; then
@@ -2534,7 +2533,6 @@ else
 fi
 
 if [ -z "$semester" ] && [ -s ".msbt_user_state" ]; then
-  echo -e "\n\nYou can search your Notes by course_unit using uppercase letters or just feed in key words \c"
   get_and_display_pattern
 fi
 # Check for the presence of specific directories and a file
