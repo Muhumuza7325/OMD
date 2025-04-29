@@ -540,7 +540,6 @@ PROGRESSIVE ASSESSMENT' > student
     elif [ "$student_number" == "1" ]; then
       echo -e "\nTo track your progress, press the Tab key or Press "${r}Esc key${t}" to capture details of another student: $user_input\c"
     else
-    echo -e "\n\nYou can search your Notes by topic using uppercase letters or just feed in key words \c"
       echo -ne "\nTo search for student details, Enter "${y}Student Name${t}"\nor "${r}Esc key${t}" to capture new student details or "${r}qq${t}" to return to your session: $user_input\c"
     fi
     read -rsn1 char
@@ -551,7 +550,6 @@ PROGRESSIVE ASSESSMENT' > student
     if [[ $char == $'\x7f' ]]; then # Check if the input is the backspace key
       user_input="${user_input%?}" # Remove the last character from user_input
     else
-    echo -e "\n\nYou can search your Notes by topic using uppercase letters or just feed in key words \c"
       user_input="${user_input}${char}"
     fi
     if [[ "$user_input" == "qq" ]]; then
@@ -884,7 +882,6 @@ while true; do
       # Case-sensitive search for user input
       result=$(grep -h -w -A 999999 "$user_input" Notes/Physics/*.txt | sed -e '1s/^/\n/' -e 's/\.\s\+/&\n\n/g' -e 's/;\s*/&\n/g' | sed '/https:/! s/^[^:]*://' | tr -d '\000' | sed 's/^ \([^ ]\)/\1/')
     else
-    echo -e "\n\nYou can search your Notes by topic using uppercase letters or just feed in key words \c"
       # Case-insensitive search for user input
 	  	result=$(find Notes/Physics -type f -name "*.txt" | sort | while read -r file; do awk '{if (gsub(/\.\s+/,"&\n\n"FILENAME":")) print ""; print FILENAME":" $0}' "$file"; done | grep -i -w "$user_input" | sed -e 's/: /. /g' | awk -F: 'BEGIN {file="";} {if (file != $1) { print ""; print $1; file=$1; print ""; } print $2}' | sed -e '/https:/! s/^[^:]*://' -e '/^$/N;/^\n$/D' | sed 's/\.\s\+/&\n/g' | tr -d '\000' | grep -E "$user_input|.txt" | sed 's/$/\n/' | sed 's/;\s*/&\n/g')
     fi
