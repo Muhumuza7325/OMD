@@ -365,3 +365,21 @@ for file in e_o_c.txt e_o_c_1.txt e_o_c_1_samples_1.txt e_o_c_2.txt e_o_c_2_samp
     mv "$file" "$hidden_file"
 done
 cd - > /dev/null 2>&1 || exit
+
+SRC1="$HOME/Omd/Students/Omd/Exercise/Chemistry"
+DEST1="$HOME/Omd/Exercise/Chemistry"
+SRC2="$HOME/Omd/Students/Omd/Revision/Chemistry"
+DEST2="$HOME/Omd/Revision/Chemistry"
+if ! find "$DEST1" -type f -name "*.ans.txt" | grep -q .; then
+  cp -r "$SRC1"/* "$DEST1"
+fi
+if ! find "$DEST2" -type f -name "*.qns.txt" | grep -q .; then
+  cp -r "$SRC2"/* "$DEST2"
+else
+  read -rp $'\n\nExisting exercise and revision files have been detected.\n\nUpdating them now may overwrite your current progress.\n\nIf you want to continue and overwrite, type "yes" or "y".\nOtherwise, press Enter to cancel: ' prompt
+  if [[ "$prompt" == "yes" || "$prompt" == "y" ]]; then
+    cp -r "$SRC1"/* "$DEST1"
+    cp -r "$SRC2"/* "$DEST2"
+  fi
+fi
+
