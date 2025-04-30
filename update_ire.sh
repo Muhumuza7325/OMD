@@ -298,3 +298,23 @@ for file in e_o_c_ire.txt e_o_c_ire_1.txt e_o_c_ire_1_samples_1.txt e_o_c_ire_2.
     mv "$file" "$hidden_file"
 done
 cd - > /dev/null 2>&1 || exit
+
+SRC1="$HOME/Omd/Students/Omd/Exercise/Ire"
+DEST1="$HOME/Omd/Exercise/Ire"
+SRC2="$HOME/Omd/Students/Omd/Revision/Ire"
+DEST2="$HOME/Omd/Revision/Ire"
+if ! find "$DEST1" -type f -name "*.ans.txt" | grep -q .; then
+  cp -r "$SRC1"/* "$DEST1"
+fi
+if find "$DEST2" -type f -name "*.qns.txt" | grep -q .; then
+  read -rp $'\n\nExisting exercise and revision files have been detected.\n\nUpdating them now may overwrite your current progress.\n\nIf you want to continue and overwrite, type "yes" or "y".\nOtherwise, press Enter to cancel: ' prompt
+  if [[ "$prompt" == "yes" || "$prompt" == "y" ]]; then
+    cp -r "$SRC1"/* "$DEST1"
+    cp -r "$SRC2"/* "$DEST2"
+    echo -e "\nExercise and revision files successfully updated!"
+  else
+    echo -e "\nUpdate cancelled. Existing exercise and revision files remain untouched!"
+  fi
+else
+  cp -r "$SRC2"/* "$DEST2"
+fi

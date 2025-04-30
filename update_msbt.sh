@@ -81,3 +81,23 @@ cd - > /dev/null 2>&1 || exit
 rm -rf Students/Omd/Revision/Msbt/Sem1_Yr1/Downloads
 cd Notes/Msbt/ || exit
 exit
+
+SRC1="$HOME/Omd/Students/Omd/Exercise/Msbt"
+DEST1="$HOME/Omd/Exercise/Msbt"
+SRC2="$HOME/Omd/Students/Omd/Revision/Msbt"
+DEST2="$HOME/Omd/Revision/Msbt"
+if ! find "$DEST1" -type f -name "*.ans.txt" | grep -q .; then
+  cp -r "$SRC1"/* "$DEST1"
+fi
+if find "$DEST2" -type f -name "*.qns.txt" | grep -q .; then
+  read -rp $'\n\nExisting exercise and revision files have been detected.\n\nUpdating them now may overwrite your current progress.\n\nIf you want to continue and overwrite, type "yes" or "y".\nOtherwise, press Enter to cancel: ' prompt
+  if [[ "$prompt" == "yes" || "$prompt" == "y" ]]; then
+    cp -r "$SRC1"/* "$DEST1"
+    cp -r "$SRC2"/* "$DEST2"
+    echo -e "\nExercise and revision files successfully updated!"
+  else
+    echo -e "\nUpdate cancelled. Existing exercise and revision files remain untouched!"
+  fi
+else
+  cp -r "$SRC2"/* "$DEST2"
+fi
