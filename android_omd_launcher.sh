@@ -47,8 +47,7 @@ declare -A tutorials=(
 )
 
 # Menu options
-# Sort keys alphabetically before displaying the menu
-sorted_keys=($(printf "%s\n" "${!tutorials[@]}" | sort))
+mapfile -t sorted_keys < <(printf "%s\n" "${!tutorials[@]}" | sort)
 options=("${sorted_keys[@]}" "Exit")
 
 echo -e "\n${m}Select a tutorial to run:${t}"
