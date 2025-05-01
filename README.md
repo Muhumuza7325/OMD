@@ -5,6 +5,22 @@
 - Driven by the vision to contribute to the transformation of education in Uganda and globally.
 - You can connect to me via email: muhumuzaomega@gmail.com
 
+## Installation Instructions for Android Phone Users (Using UserLAnd)
+Android users can run the pipelines by using the free UserLAnd app, which provides a full Linux environment without requiring root access.
+
+1.  **Install UserLAnd:**
+Download UserLAnd from the Google Play Store.
+
+2.  **Set up Ubuntu (Minimal Terminal):**
+
+Choose Ubuntu as your distribution. Select Minimal when asked for filesystem type. Select Terminal as the session type. Set any username and password when prompted (you’ll need them later).
+
+3.  **Run the Setup Command (One-Liner):**
+After setup completes and you're inside the Ubuntu terminal, paste the following single command: **sudo apt update && sudo apt-get upgrade -y && sudo apt install --reinstall ca-certificates -y && mkdir -p ~/Omd && cd ~/Omd && curl -O -L https://github.com/Muhumuza7325/OMD/raw/main/Omd/android_omd_launcher.sh && chmod +x android_omd_launcher.sh && echo 'bash ~/Omd/android_omd_launcher.sh' >> ~/.bashrc && sudo apt install whiptail -y && bash android_omd_launcher.sh**. This will update your system, install any missing packages, download and configure the OMD launcher, and ensures that the launcher runs every time you open the terminal.
+
+4.  **Use the Launcher:**
+Every time you open the terminal in UserLAnd, the interactive learning script will launch automatically. Simply choose your subject and begin. Please note that content for some subjects is still under development. We wish you all the best in your studies and look forward to your continued cooperation. If you have any questions or run into any difficulties, please feel free to contact us. Also remember to contact us for details on how to integrate AI (Artificial intelligence) for free into the pipeline(s).
+
 ## Installation Instructions for MacOS and Linux
 
 1.  **Create a New folder on the Desktop:**
