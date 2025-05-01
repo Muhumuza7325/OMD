@@ -1,5 +1,7 @@
 #!/bin/bash
 
+clear
+
 # Always work from ~/Omd
 mkdir -p ~/Omd
 cd ~/Omd || { echo "Failed to enter ~/Omd"; exit 1; }
@@ -47,7 +49,7 @@ declare -A tutorials=(
 # Menu options
 options=("${!tutorials[@]}" "Exit")
 
-echo "Select a tutorial to run:"
+echo -e "\n${m}Select a tutorial to run:${t}"
 select choice in "${options[@]}"; do
     if [[ "$choice" == "Exit" ]]; then
         echo "Goodbye!"
@@ -62,7 +64,7 @@ select choice in "${options[@]}"; do
                 exit 1
             }
         fi
-        echo -e "\nRunning: $script\n"
+        sed -i 's/20 80/20 30/g' "$script"
         bash "$script"
         break
     else

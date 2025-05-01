@@ -820,7 +820,7 @@ while true; do
       return # Exit the loop if the user enters 'cl'
      fi
      if [[ "$user_input" == "sr" ]]; then
-      xdg-open Resources/Mathematics_tutorial.sh > /dev/null 2>&1 &
+      xdg-open Resources/Mathematics > /dev/null 2>&1 &
       return
      fi
     if [[ "$user_input" == "ch" ]]; then

@@ -767,6 +767,12 @@ while true; do
      if [[ "$user_input" == "cl" ]]; then
       return # Exit the loop if the user enters 'cl'
      fi
+     if [[ "$user_input" == "sr" ]]; then
+      cd Resources || { echo "Failed to access the resources... Contact OMD for help!"; return; }
+      explorer.exe Msbt > /dev/null 2>&1 &
+      cd - > /dev/null 2>&1 || { echo "Failed to return to the original directory!"; exit 1; }
+      return
+     fi
     if [[ "$user_input" == "ch" ]]; then
       chatgpt #connect to chatgpt
       return

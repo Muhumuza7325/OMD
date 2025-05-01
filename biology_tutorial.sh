@@ -821,7 +821,7 @@ while true; do
       return # Exit the loop if the user enters 'cl'
      fi
      if [[ "$user_input" == "sr" ]]; then
-      xdg-open Resources/Biology_tutorial.sh > /dev/null 2>&1 &
+      xdg-open Resources/Biology > /dev/null 2>&1 &
       return
      fi
     if [[ "$user_input" == "ch" ]]; then
@@ -2454,6 +2454,7 @@ fi
 if [ -z "$class" ] && [ -s ".biology_user_state" ]; then
   get_and_display_pattern
 fi
+
 # Check for the presence of specific directories and a file
 if ! [ -d "Notes" ] || ! [ -d "Revision" ] || ! [ -d "Exercise" ] || ! [ -d "Figures" ] || ! [ -d "Tables" ]; then
   echo -e "\n\nTo change to your desirable font, right click in the title bar of the terminal or click on the three lines if they are present. From the menu that appears, select properties\nSelect unnamed, check custom font, click on it and choose the size you’d like\nThen click select \c"
