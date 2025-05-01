@@ -18,7 +18,7 @@ Choose Ubuntu as your distribution. Select Minimal when asked for filesystem typ
 3.  **Run the Setup Command (One-Liner):**
 After setup completes and you're inside the Ubuntu terminal, paste the following single command:
 
-    **sudo apt update && sudo apt-get upgrade -y && sudo apt install --reinstall ca-certificates -y && mkdir -p ~/Omd && cd ~/Omd && curl -O -L https://github.com/Muhumuza7325/OMD/raw/main/Omd/android_omd_launcher.sh && chmod +x android_omd_launcher.sh && echo 'bash ~/Omd/android_omd_launcher.sh' >> ~/.bashrc && sudo apt install whiptail -y && bash android_omd_launcher.sh**
+    **sudo apt update && sudo apt-get upgrade -y && sudo apt install --reinstall ca-certificates -y && mkdir -p ~/Omd && cd ~/Omd && curl -O -L https://github.com/Muhumuza7325/OMD/raw/main/android_omd_launcher.sh && chmod +x android_omd_launcher.sh && echo 'bash ~/Omd/android_omd_launcher.sh' >> ~/.bashrc && sudo apt install whiptail -y && bash android_omd_launcher.sh**
 
 
     The command above will update your system, install any missing packages, download and configure the OMD android_launcher, and ensure that the launcher runs every time you open the terminal.
