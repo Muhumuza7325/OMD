@@ -9,11 +9,12 @@
 Android users can run the pipelines by using the free UserLAnd app, which provides a full Linux environment without requiring root access.
 
 1.  **Install UserLAnd:**
-Download UserLAnd from the Google Play Store.
+
+    Download UserLAnd from the Google Play Store.
 
 2.  **Set up Ubuntu (Minimal Terminal):**
 
-Choose Ubuntu as your distribution. Select Minimal when asked for filesystem type. Select Terminal as the session type. Set any username and password when prompted (you’ll need them later).
+    Choose Ubuntu as your distribution. Select Minimal when asked for filesystem type. Select Terminal as the session type. Set any username and password when prompted (you’ll need them later).
 
 3.  **Run the Setup Command (One-Liner):**
 After setup completes and you're inside the Ubuntu terminal, paste the following single command:
