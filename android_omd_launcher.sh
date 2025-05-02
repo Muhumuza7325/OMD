@@ -58,7 +58,7 @@ select choice in "${options[@]}"; do
     elif [[ -n "${tutorials[$choice]}" ]]; then
         script="${tutorials[$choice]}"
         if [[ ! -f "$script" ]]; then
-            echo -e "\n${m}Missing file: $script. Attempting to download...${t}"
+            echo -e "\n${m}Missing script!!!! Attempting to download...${t}"
             curl -O -L "https://github.com/Muhumuza7325/OMD/raw/main/$script" || {
                 echo -e "\n\n${m}Check your internet connection and try again!${t}" >&2
                 sleep 10
