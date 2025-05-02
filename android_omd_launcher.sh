@@ -66,6 +66,7 @@ select choice in "${options[@]}"; do
             }
         fi
         sed -i 's/20 80/20 30/g' "$script"
+        sed -i 's|sudo apt-get install -y jq|apt-get install -y jq|g' "$script"
         bash "$script"
         break
     else
