@@ -817,7 +817,7 @@ while true; do
   trap 'rm -f videos.txt figures.txt tables.txt' EXIT
 
   # Prompt the user for input
-  if [ -z "$(find . -mindepth 3 -maxdepth 3 -type f -name "*.txt" 2>/dev/null)" ]; then
+  if [ -z "$(find ./Notes/Physics -mindepth 1 -maxdepth 1 -type f -name "*.txt" 2>/dev/null)" ]; then
 	read -rp $'\n\nEnter '"${g}cl${t}"' to get to class or '"${r}x${t}"' to exit: ' user_input
   else
     echo -e "\n\nYou can search your Notes by topic using uppercase letters or just feed in key words \c"
@@ -858,7 +858,7 @@ while true; do
     if [[ "$user_input" == "xx" ]]; then
       current_datetime=$(date)
       echo -e "\nIt is  ........  ""${r}$current_datetime${t}""  ........\n\nPlease understand that the content upon which the code runs is always updated on the "${y}first day of every month${t}"  ........ \c"
-      read -rp $'\n\nEnsure the code is up to date and enter '"${m}y${t}"' to proceed to the update or press '"${y}Enter${t}"' to get to class  ........  '$'\n> ' input
+      read -rp $'\n\nEnsure the code is up to date and enter '"${m}y${t}"' to proceed to the update or simply press '"${y}Enter${t}"' to get to class  ........  '$'\n> ' input
       if [[ "$input" == "y" || "$input" == "Y" ]]; then
         echo -e "\n"
         curl -O -L "https://github.com/Muhumuza7325/OMD/raw/main/update_physics.sh" || { echo -e "\n\n${m}Check your internet connection and try again!${t}" >&2; return; }
@@ -2382,7 +2382,7 @@ if [ -z "$class" ] && [ -s ".physics_user_state" ]; then
   get_and_display_pattern
 fi
 # Check for the presence of specific directories and a file
-if ! [ -d "Notes" ] || ! [ -d "Revision" ] || ! [ -d "Exercise" ] || ! [ -d "Figures" ] || ! [ -d "Tables" ]; then
+if ! [ -d "Notes/Physics" ] || ! [ -d "Revision" ] || ! [ -d "Exercise" ] || ! [ -d "Figures" ] || ! [ -d "Tables" ]; then
   echo -e "\n\nTo change to your desirable font, right click in the title bar of the terminal or click on the three lines if they are present. From the menu that appears, select properties\nSelect unnamed, check custom font, click on it and choose the size you’d like\nThen click select \c"
   wait_for_a_key_press 
   echo -e "\n\nAlways remember to press ${r}control and c${t} together or just close the terminal to exit a class session\n\nIf nothing goes wrong, you will always be able to continue from where you stopped. In most cases, pressing the backspace key will connect you to an AI model and entering q will always return you from the model to your current session${b} \c"
@@ -2404,7 +2404,7 @@ if ! [ -d "Notes" ] || ! [ -d "Revision" ] || ! [ -d "Exercise" ] || ! [ -d "Fig
 fi
 
 shopt -s nullglob
-if [ -z "$(find . -mindepth 3 -maxdepth 3 -type f -name "*.txt" 2>/dev/null)" ]; then
+if [ -z "$(find ./Notes/Physics -mindepth 1 -maxdepth 1 -type f -name "*.txt" 2>/dev/null)" ]; then
   shopt -u nullglob
   read -rp $'\n\nTo get material for this tutorial, get your internet on and press the enter key or press any character key followed by the Enter key to exit: ' user_input
 
