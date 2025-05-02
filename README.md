@@ -24,7 +24,7 @@ After setup completes and you're inside the Ubuntu terminal, paste the following
     The command above will update your system, install any missing packages, download and configure the OMD android_launcher, and ensure that the launcher runs every time you open the terminal.
 
 4.  **Use the Launcher:**
-Every time you open the terminal in UserLAnd, the interactive learning script will launch automatically. Simply choose your subject and begin. Please note that content for some subjects is still under development. We wish you all the best in your studies and look forward to your continued cooperation. If you have any questions or run into any difficulties, please feel free to contact us. Also remember to contact us for details on how to integrate AI (Artificial intelligence) for free into the pipeline(s).
+    Every time you open a new terminal session in UserLAnd, an interactive script should launch automatically. If the terminal hangs, press *Ctrl + C* to continue to the subject selection interface. If the terminal opens but the subject selection interface does not appear, press *Ctrl + D* to log out of the current session and start again. Please note that content for some subjects is still under development. We wish you all the best in your studies and look forward to your continued cooperation. If you have any questions or run into any difficulties, please feel free to contact us. Also remember to contact us for details on how to integrate AI (Artificial intelligence) for free into the pipeline(s).
 
 ## Installation Instructions for MacOS and Linux
 
