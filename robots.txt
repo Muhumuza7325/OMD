@@ -1,3 +1,7 @@
 User-agent: *
-Allow: /
-Sitemap: https://muhumuza7325.github.io/OMD/sitemap.xml
+Disallow: /404.html
+Disallow: /error/
+Allow: /OMD/
+
+Sitemap: https://muhumuza7325.github.io/OMD/sitemap-main.xml
+Sitemap: https://muhumuza7325.github.io/OMD/sitemap-downloads.xml
