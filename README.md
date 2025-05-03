@@ -9,19 +9,15 @@
 Android users can run the pipelines by using the free UserLAnd app, which provides a full Linux environment without requiring root access.
 
 1.  **Install UserLAnd:**
-
-    Download UserLAnd from the Google Play Store.
+    Download [UserLAnd](https://play.google.com/store/apps/details?id=tech.ula) from the Google Play Store.
 
 2.  **Set up Ubuntu (Minimal Terminal):**
-
-    Tap on the UserLand app on the home screen. Click on the three dots in the top-right corner of the application window and select Settings. In the settings menu, choose Sessions as your default landing page. Choose Ubuntu as your distribution. Allow access to Storage. Select Minimal when asked for filesystem type. Select Terminal as the session type. Check the option to always use this setting.
+    Tap on the UserLand app on the home screen. Click on the three dots in the top-right corner of the application window and select Settings. In the settings menu, choose Sessions as your default landing page. Press the back button (usually a back arrow or swipe gesture on your phone) to return to the main screen. Now, select Ubuntu as your distribution. Allow access to Storage. Select Minimal when asked for filesystem type. Select Terminal as the session type. Check the option to always use this setting.
 
 3.  **Run the Setup Command (One-Liner):**
-After setup completes and you're inside the Ubuntu terminal, paste the following single command:
+    After setup completes and you're inside the Ubuntu terminal, paste the following single command (the One-Liner command will update your system, install any missing packages, download and configure the OMD android_launcher, and ensure that the launcher runs every time you open the terminal):
 
-    **    sudo apt update && sudo apt-get upgrade -y && sudo apt install --reinstall ca-certificates -y && sudo apt install whiptail -y && sudo ln -sf /usr/share/zoneinfo/Africa/Nairobi /etc/localtime && mkdir -p ~/Omd && cd ~/Omd && curl -O -L https://github.com/Muhumuza7325/OMD/raw/main/android_omd_launcher.sh && chmod +x android_omd_launcher.sh && echo 'bash ~/Omd/android_omd_launcher.sh' >> ~/.bashrc && bash android_omd_launcher.sh    **
-
-    The command above will update your system, install any missing packages, download and configure the OMD android_launcher, and ensure that the launcher runs every time you open the terminal.
+    **sudo apt update && sudo apt-get upgrade -y && sudo apt install --reinstall ca-certificates -y && sudo apt install whiptail -y && sudo ln -sf /usr/share/zoneinfo/Africa/Nairobi /etc/localtime && mkdir -p ~/Omd && cd ~/Omd && curl -O -L https://github.com/Muhumuza7325/OMD/raw/main/android_omd_launcher.sh && chmod +x android_omd_launcher.sh && echo 'bash ~/Omd/android_omd_launcher.sh' >> ~/.bashrc && bash android_omd_launcher.sh**
 
 4.  **Use the Launcher:**
     Every time you open a new terminal session in UserLAnd, an interactive script should launch automatically. If the terminal hangs, press **Ctrl + C** to continue to the subject selection interface. If the terminal opens but the subject selection interface does not appear, press **Ctrl + D** to log out of the current session and start again. Please note that content for some subjects is still under development. We wish you all the best in your studies and look forward to your continued cooperation. If you have any questions or run into any difficulties, please feel free to contact us. Also remember to contact us for details on how to integrate AI (Artificial intelligence) for free into the pipeline(s).
@@ -46,7 +42,7 @@ After setup completes and you're inside the Ubuntu terminal, paste the following
 
 ## Installation Instructions for Windows (10 & above)
 
-1.  **Install Ubuntu 24.04.1 LTS from the microsoft store:**
+1.  **Install [Ubuntu 24.04.1 LTS](https://apps.microsoft.com/detail/9PN20MSR04DW?hl=en-us&gl=US) from the Microsoft Store:**
     Open your microsoft store. Copy and paste "Ubuntu 24.04.1 LTS" into the search bar. Click on it and then get it by clicking the get option... You will require a minimum of 400MB for the download.
 
 2.  **Update the windows subsystem of linux:**
