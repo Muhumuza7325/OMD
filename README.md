@@ -42,7 +42,7 @@ Android users can run the pipelines by using the free UserLAnd app, which provid
 
 ## Installation Instructions for Windows (10 & above)
 
-1.  **Install [Ubuntu 24.04.1 LTS](https://apps.microsoft.com/detail/9PN20MSR04DW?hl=en-us&gl=US) from the Microsoft Store:**
+1.  **Install [Ubuntu 24.04.1 LTS](https://apps.microsoft.com/detail/9nz3klhxdjp5?hl=en-US&gl=US) from the Microsoft Store:**
     Open your microsoft store. Copy and paste "Ubuntu 24.04.1 LTS" into the search bar. Click on it and then get it by clicking the get option... You will require a minimum of 400MB for the download.
 
 2.  **Update the windows subsystem of linux:**
