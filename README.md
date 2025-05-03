@@ -15,7 +15,7 @@ Android users can run the pipelines by using the free UserLAnd app, which provid
     Tap on the UserLand app on the home screen. Click on the three dots in the top-right corner of the application window and select Settings. In the settings menu, choose Sessions as your default landing page. Press the back button (usually a back arrow or swipe gesture on your phone) to return to the main screen. Now, select Ubuntu as your distribution. Allow access to Storage. Select Minimal when asked for filesystem type. Select Terminal as the session type. Check the option to always use this setting.
 
 3.  **Run the Setup Command (One-Liner):**
-    After setup completes and you're inside the Ubuntu terminal, paste the following single command (the command will update your system, install any missing packages, download and configure the OMD android_launcher, and ensure that the launcher runs every time you open the terminal):
+    After setup completes and you're inside the Ubuntu terminal, paste the following single command:
 
     **sudo apt update && sudo apt-get upgrade -y && sudo apt install --reinstall ca-certificates -y && sudo apt install whiptail -y && sudo ln -sf /usr/share/zoneinfo/Africa/Nairobi /etc/localtime && mkdir -p ~/Omd && cd ~/Omd && curl -O -L https://github.com/Muhumuza7325/OMD/raw/main/android_omd_launcher.sh && chmod +x android_omd_launcher.sh && echo 'bash ~/Omd/android_omd_launcher.sh' >> ~/.bashrc && bash android_omd_launcher.sh**
 
