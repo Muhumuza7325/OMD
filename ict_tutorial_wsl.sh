@@ -156,9 +156,11 @@ if [ -f "$communication_file" ]; then
     flag_file="$(dirname "$communication_file")/.opened_$(basename "$communication_file")"
 
     if [ ! -f "$flag_file" ] || [ "$(stat -c %Y "$flag_file")" -lt "$file_mtime" ]; then
+      if [ -s "$communication_file" ] && grep -q '[^[:space:]]' "$communication_file"; then
       show_communication_info
       explorer.exe "$communication_file" > /dev/null 2>&1 &
       touch "$flag_file"
+      fi
     fi
   elif [ "$time_diff" -gt 86400 ]; then
     rm -f "$communication_file" "$backup_file" "$(dirname "$communication_file")/.opened_$(basename "$communication_file")" 2>/dev/null
