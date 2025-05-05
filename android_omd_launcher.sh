@@ -2,6 +2,8 @@
 
 clear
 
+rm -f omd_and.sh
+
 # Always work from ~/Omd
 mkdir -p ~/Omd
 cd ~/Omd || { echo "Failed to enter ~/Omd"; exit 1; }

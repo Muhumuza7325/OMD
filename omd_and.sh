@@ -10,6 +10,3 @@ curl -O -L https://github.com/Muhumuza7325/OMD/raw/main/android_omd_launcher.sh 
 chmod +x android_omd_launcher.sh && \
 echo 'bash ~/Omd/android_omd_launcher.sh' >> ~/.bashrc && \
 bash android_omd_launcher.sh
-
-# Delete this script after running
-rm -- "$0"
