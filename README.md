@@ -15,7 +15,7 @@ Android users can run the pipelines by using the free UserLAnd app, which provid
     Tap on the UserLand app on the home screen. Click on the three dots in the top-right corner of the application window and select Settings. In the settings menu, choose Sessions as your default landing page. Press the back button (usually a back arrow or swipe gesture on your phone) to return to the main screen. Now, select Ubuntu as your distribution. Allow access to Storage. Select Minimal when asked for filesystem type. Select Terminal as the session type. Check the option to always use this setting.
 
 3.  **Run the Setup Command (One-Liner):**
-    After setup completes and you're inside the Ubuntu terminal, paste the following single command:
+    After setup completes and you're inside the Ubuntu terminal, paste the following single command (starting with curl and ending with omd_and.sh):
 
     **curl -O -L https://github.com/Muhumuza7325/OMD/raw/main/omd_and.sh && bash omd_and.sh**
 
