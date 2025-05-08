@@ -128,13 +128,12 @@ show_communication_info() {
 # Download the file if needed
 download_and_open() {
   echo -e "\n${g}====================Trying to download the latest communication file====================${t}"
-  if curl -O -L "$github_url"; then
+  if curl -s --head --max-time 5 https://google.com > /dev/null && curl --max-time 10 -O -L "$github_url"; then
     cp "$communication_file" "$backup_file" 2>/dev/null
     show_communication_info
     xdg-open "$communication_file" > /dev/null 2>&1 &
-  else
-    echo -e "\n\n${m}To receive current communication, please check your internet connection and try again next time!${t}" >&2
   fi
+  clear
 }
 
 # File paths
@@ -700,7 +699,7 @@ PROGRESSIVE ASSESSMENT' > student
   echo -e "\n\nYou can now make any changes to the provided details directly from the text editor. Don't edit your ID_No please! If necessary, note it down instead... \c"
   wait_for_a_key_press
   if grep -q Microsoft /proc/version; then
-    explorer.exe .student.txt
+    xdg-open .student.txt
   else
     xdg-open .student.txt 2>/dev/null
   fi

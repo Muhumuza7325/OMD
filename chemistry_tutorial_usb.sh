@@ -128,13 +128,12 @@ show_communication_info() {
 # Download the file if needed
 download_and_open() {
   echo -e "\n${g}====================Trying to download the latest communication file====================${t}"
-  if curl -O -L "$github_url"; then
+  if curl -s --head --max-time 5 https://google.com > /dev/null && curl --max-time 10 -O -L "$github_url"; then
     cp "$communication_file" "$backup_file" 2>/dev/null
     show_communication_info
     xdg-open "$communication_file" > /dev/null 2>&1 &
-  else
-    echo -e "\n\n${m}To receive current communication, please check your internet connection and try again next time!${t}" >&2
   fi
+  clear
 }
 
 # File paths
@@ -310,7 +309,7 @@ function handle_s1_topic_input() {
     rm -f .chemistry_topic_selected
   fi
   if [ -z "$last_topic" ] || [ -f .chemistry_topic_selected ]; then
-    read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. Chemistry and society '"${r}Term1${t}"''$'\n\n2. Experimental chemistry '"${r}Term1${t}"''$'\n\n3. States and changes of states of matter '"${r}Term1${t}"''$'\n\n4. Using materials '"${r}Term1${t}"''$'\n\n5. Temporary and permanent changes '"${r}Term2${t}"''$'\n\n6. Mixtures elements and compounds '"${r}Term2${t}"''$'\n\n7. Air '"${r}Term2${t}"''$'\n\n8. Water '"${r}Term3${t}"''$'\n\n9. Rocks and minerals '"${r}Term3${t}"''$'\n\n> ' topic
+    read -rp $'\n\nChoose either topic '"${g}1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9${t}"' to learn'$'\nor enter '"${r}z${t}"' for an adventure or '"${r}r${t}"' to revise or '"${r}s${t}"' to get sample_items'$'\nor '"${r}a${t}"' to get an activity of integration or '"${r}q${t}"' to get a short answer question'$'\nor '"${r}n${t}"' to do your final class assignment and if necessary, gain access to the next class'$'\nor '"${r}p${t}"' to track academic progress or '"${r}x${t}"' to exit'$'\n\n1. chemistry and society '"${r}Term1${t}"''$'\n\n2. Experimental chemistry '"${r}Term1${t}"''$'\n\n3. States and changes of states of matter '"${r}Term1${t}"''$'\n\n4. Using materials '"${r}Term1${t}"''$'\n\n5. Temporary and permanent changes '"${r}Term2${t}"''$'\n\n6. Mixtures elements and compounds '"${r}Term2${t}"''$'\n\n7. Air '"${r}Term2${t}"''$'\n\n8. Water '"${r}Term3${t}"''$'\n\n9. Rocks and minerals '"${r}Term3${t}"''$'\n\n> ' topic
     touch .chemistry_surveyor
     touch .chemistry_topic_selected
     # Update the state file with the topic
@@ -699,7 +698,7 @@ PROGRESSIVE ASSESSMENT' > student
   echo -e "\n\nYou can now make any changes to the provided details directly from the text editor. Don't edit your ID_No please! If necessary, note it down instead... \c"
   wait_for_a_key_press
   if grep -q Microsoft /proc/version; then
-    explorer.exe .student.txt
+    xdg-open .student.txt
   else
     xdg-open .student.txt 2>/dev/null
   fi
