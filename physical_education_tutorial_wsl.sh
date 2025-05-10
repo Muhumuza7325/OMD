@@ -1922,220 +1922,326 @@ process_final_assignment() {
 # Function to process sample_items
 get_sample_items() {
 	# File to store the last echo time
-  last_echo_time_file="/tmp/last_echo_time.txt"
+	last_echo_time_file="/tmp/last_echo_time.txt"
 	rm -f .physical_education_topic_selected
-  # Save the current working directory
-  pushd . > /dev/null
-  cd Revision/Physical_education || { echo "Directory not found"; return; }
+	# Save the current working directory
+	pushd . > /dev/null
+	cd Revision/Physical_education || { echo "Directory not found"; return; }
 	if [ -f .revise.txt ] && [ ! -s .revise.txt ]; then
-	  rm -f .revise.txt
+		rm -f .revise.txt
 	fi
-  while true; do
-	  if [ ! -f .revise.txt ]; then
-      # Get the current time in seconds
-      current_time=$(date +%s)
-      # Check if the last echo time file exists
-      if [ ! -f "$last_echo_time_file" ]; then
-        echo $current_time > "$last_echo_time_file"
-        last_echo_time=0
-      else
-        last_echo_time=$(cat "$last_echo_time_file")
-      fi
-	    # Check if the difference exceeds 3600 seconds (1 hour)
-  	  time_diff=$((current_time - last_echo_time))
-    	if [ $time_diff -gt 3600 ]; then
-      	# Echo the message and update the last echo time
-	    	echo -e "\n\n\n${r}You are advised to not make any changes to the provided answers, instead, you can make copies that you can edit${t}\n\n${y}For a teacher willing to join us reach out to everyone of our children, please send us your questions and answers in a file labelled with your name, school, physical_education, and file content (e.g., Muhumuza_Omega_Kasule_High_School_O_level_Chemistry_Answered_EOC1_Items.pdf) to our contacts${t}\n\n\nEmail: ${g}2024omd256@gmail.com${t} \c"
+	while true; do
+		if [ ! -f .revise.txt ]; then
+			# Get the current time in seconds
+			current_time=$(date +%s)
+			# Check if the last echo time file exists
+			if [ ! -f "$last_echo_time_file" ]; then
 				echo $current_time > "$last_echo_time_file"
-  		fi
-      read -rp $'\n\n\nEnter '"${m}any character${t}"' for access to the file of answered items or simply press '"${r}Enter${t}"' to get items to attempt : ' input
-     	if [[ -n $input ]]; then
-     		explorer.exe .physical_education_samples* > /dev/null 2>&1 &
-      	clear
-      	popd > /dev/null || exit
-        return
-      fi
-      if [ -f .e_o_c_physical_education.txt ]; then
-        echo -e "\n\n${y}Below is the list of the elements of construct${t} \n"
-        cat .e_o_c_physical_education.txt
-        read -rp $'\nEnter a '"${m}specific${t}"' number or simply press '"${r}Enter${t}"' to get random sample items'$'\n> ' input
-        if [[ -n $input ]]; then
-          echo -e "\n${c}Below is the basis of assessment for the selected element of construct${t} \n"
-          selected_file1=$(ls -a | grep -E "\.e_o_c_physical_education_${input}\.txt")
-          cat "$selected_file1"
-          # Remove empty lines from the selected files
-          find . -type f -name "*_samples_[0-9].txt" -exec sed -i '/^[[:space:]]*$/d' {} +
-          selected_file=$(ls -a | grep -E "\.e_o_c_physical_education_${input}_samples" | shuf -n 1)
-        else
-          # Find all files and randomly select one
-          local selected_file # Declare the variable
-          selected_file=$(find . -maxdepth 1 -type f -name "*_samples_[0-9].txt" -print | shuf -n 1 | xargs -n 1 basename)
-    		fi
-     		# Check if the selected file exists
-    		if [ -f "$selected_file" ]; then
-        	# Randomly select a non-empty item from the selected file
-        	local selected_item # Declare the variable
-    			selected_item=$(awk -v RS='*' 'BEGIN{srand();}{gsub(/^[[:space:]]+|[[:space:]]+$/, ""); if (!(length == 0 || $0 ~ /\(3 scores\)/)) a[++n]=$0}END{if (n > 0) print a[int(rand()*n)+1]}' "$selected_file")
-        	# Check if selected item is not empty and contains non-whitespace characters
-    	   	if [[ -n "$selected_item" && "$selected_item" =~ [[:graph:]] ]]; then
-          	if [ ! -e answered_items.txt ]; then
-            	touch answered_items.txt
-          	fi
-          	echo -e "\n\nYou are advised to follow the ${r}answering format${t} and have your item ${g}marked${t} by your teacher.\c"
-          	wait_for_a_key_press
-          	# Output the selected question
-    	 	  		current_datetime=$(date)
-      	    clear
-        	  echo -e "		Item selected on ${y}$current_datetime${t}:"
-    				echo -e "$selected_item" > .revise.txt
-    				# Modify the selected item by replacing # with a newline and * with two newlines
-    				modified_item=$(echo -e "$selected_item" | sed 's/#/\n/g')
-    				# Append the modified item to the text file
-    				echo -e "$modified_item\n\n" >> answered_items.txt
-    	      # Create a temporary file
-    	      temp_file=$(mktemp)
-    	      # Use grep to find lines matching the pattern and get their line numbers
-    	      grep -n "$(printf '%s' "$selected_item" | sed 's/[]\/$*.^|[]/\\&/g')" "$selected_file" | awk -F: '{ print $1 }' > "$temp_file"
-    	     	# Use sed to delete both the matching line and the one immediately after it
-            sed -i -e "$(sed 's/$/,+1d/' "$temp_file")" "$selected_file"
-    	      rm -f "$temp_file"
-    	      # Check if the file is empty after deletion and remove it
-    	      if [ ! -s "$selected_file" ] || [ -z "$(awk 'NF' "$selected_file")" ]; then
-    	        rm "$selected_file"
-    	      fi
-    			else
-    				echo -e "\n\nAll the available items have been attempted. ${g}Opening attempted items in the text editor${t}... \c"
-    				notepad.exe answered_items.txt > /dev/null 2>&1 # Open the file
-    				# Return to the original working directory
-    	      popd > /dev/null || exit
-    	      wait_for_a_key_press
-    	      return
-    	    fi
-    	  else
-    	    echo -e "\n\nNo more available items to attempt. ${g}Opening attempted items in the text editor${t}...\c"
-    			wait_for_a_key_press
-    			notepad.exe answered_items.txt > /dev/null 2>&1 # Open the file
-    	    popd > /dev/null || exit
-    	    return
-    	  fi
-    	else
-      	explorer.exe .physical_education_samples* > /dev/null 2>&1 &
-        popd > /dev/null || exit
-        return
-    	fi
-      while IFS= read -r line || [ -n "$line" ]; do
-        # Use a # as a secondary delimiter and read into an array
-        IFS='#' read -r -a sentences <<< "$line"
-        # Loop through each sentence
-        for sentence in "${sentences[@]}"; do
-    			if [[ -n "$sentence" && "$sentence" =~ [[:graph:]] ]]; then
-    	      if [[ $sentence == *"Figure"* ]]; then
-    					modified_sentence=$(echo "$sentence" | sed 's/.*\(Figure.*\.jpg\).*$/\1/')
-              # Change to the "../../Figures/Physical_education" directory
-              cd ../../Figures/Physical_education || { echo "Failed to change to ../../Figures/Physical_education"; return; }
-              # Open the file using explorer.exe
-              explorer.exe "$modified_sentence" > /dev/null 2>&1 &
-              # Go back to the original directory
-              cd ../../../../ || { echo "Failed to change back to the original directory \c"; exit 1; }
-            fi
-            if [[ $sentence == *"Table"* ]]; then
-              cd ../../Tables/Physical_education || { echo -e "\nFailed to change to ../../Tables/Physical_education \c"; return; }
-              explorer.exe "$sentence" > /dev/null 2>&1 &
-              cd ../../../../ || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
-            fi
-            if [[ $sentence == *"Video"* ]]; then
-              cd ../../Videos/Physical_education || { echo -e "\nFailed to change to ../../Videos/Physical_education \c"; return; }
-              explorer.exe "$sentence" > /dev/null 2>&1 &
-              cd ../../../../ || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
-            fi
-            if [ $((sentence_count % 5)) -eq 0 ]; then
-              # Clear and center for every 5th sentence
-              clear_and_center "${y}$sentence${t} \c"
-            elif [ $((sentence_count % 7)) -eq 0 ]; then
-              # Display the sentence in green for every 7th sentence
-              echo -e "\n\n${g}$sentence${t} \c"
-            elif [ $((sentence_count % 6)) -eq 0 ]; then
-              # Display the sentence in magenta for every 6th sentence
-              echo -e "\n\n${m}$sentence${t} \c"
-            elif [ $((sentence_count % 8)) -eq 0 ]; then
-              echo -e "\n\n${c}$sentence${t} \c"
-            elif [ $((sentence_count % 3)) -eq 0 ]; then
-              # Display the sentence in blue for every 3rd sentence
-              echo -e "\n\n${b}$sentence${t} \c"
-            elif [ $((sentence_count % 2)) -eq 0 ] || [ $((sentence_count % 4)) -eq 0 ]; then
-              # Display the sentence in green for every 4th sentence
-              echo -e "\n\n${g}$sentence${t} \c"
-            else
-              # Display the sentence in red for other sentences
-              echo -e "\n\n${r}$sentence${t} \c"
-            fi
-    			else
-    				echo -e "\n\nKind regards @OMD \c"
-    			fi
-    			((sentence_count++))
-          # Wait for a keypress
-          read -rsn 1 </dev/tty
-        done
-      done < .revise.txt
-	  else
-      while IFS= read -r line || [ -n "$line" ]; do
-        # Use a # as a secondary delimiter and read into an array
-        IFS='#' read -r -a sentences <<< "$line"
-        # Loop through each sentence
-        for sentence in "${sentences[@]}"; do
-    			if [[ -n "$sentence" && "$sentence" =~ [[:graph:]] ]]; then
-    	      if [[ $sentence == *"Figure"* ]]; then
-    					modified_sentence=$(echo "$sentence" | sed 's/.*\(Figure.*\.jpg\).*$/\1/')
-              # Change to the "../../Figures/Physical_education" directory
-              cd ../../Figures/Physical_education || { echo "Failed to change to ../../Figures/Physical_education"; return; }
-              # Open the file using explorer.exe
-              explorer.exe "$modified_sentence" > /dev/null 2>&1 &
-              # Go back to the original directory
-              cd ../../../../ || { echo "Failed to change back to the original directory \c"; exit 1; }
-            fi
-            if [[ $sentence == *"Table"* ]]; then
-              cd ../../Tables/Physical_education || { echo -e "\nFailed to change to ../../Tables/Physical_education \c"; return; }
-              explorer.exe "$sentence" > /dev/null 2>&1 &
-              cd ../../../../ || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
-            fi
-            if [[ $sentence == *"Video"* ]]; then
-              cd ../../Videos/Physical_education || { echo -e "\nFailed to change to ../../Videos/Physical_education \c"; return; }
-              explorer.exe "$sentence" > /dev/null 2>&1 &
-              cd ../../../../ || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
-            fi
-            if [ $((sentence_count % 5)) -eq 0 ]; then
-              # Clear and center for every 5th sentence
-              clear_and_center "${y}$sentence${t} \c"
-            elif [ $((sentence_count % 7)) -eq 0 ]; then
-              # Display the sentence in green for every 7th sentence
-              echo -e "\n\n${g}$sentence${t} \c"
-            elif [ $((sentence_count % 6)) -eq 0 ]; then
-              # Display the sentence in magenta for every 6th sentence
-              echo -e "\n\n${m}$sentence${t} \c"
-            elif [ $((sentence_count % 8)) -eq 0 ]; then
-              echo -e "\n\n${c}$sentence${t} \c"
-            elif [ $((sentence_count % 3)) -eq 0 ]; then
-              # Display the sentence in blue for every 3rd sentence
-              echo -e "\n\n${b}$sentence${t} \c"
-            elif [ $((sentence_count % 2)) -eq 0 ] || [ $((sentence_count % 4)) -eq 0 ]; then
-              # Display the sentence in green for every 4th sentence
-              echo -e "\n\n${g}$sentence${t} \c"
-            else
-              # Display the sentence in red for other sentences
-              echo -e "\n\n${r}$sentence${t} \c"
-            fi
-    			else
-    				echo -e "\n\nKind regards @OMD \c"
-    			fi
-    			((sentence_count++))
-          # Wait for a keypress
-          read -rsn 1 </dev/tty
-        done
-      done < .revise.txt
-	  fi
-    rm -f .revise.txt .physical_education_topic_selected 2>/dev/null
-  done
-  popd > /dev/null || exit
+				last_echo_time=0
+			else
+				last_echo_time=$(cat "$last_echo_time_file")
+			fi
+			# Check if the difference exceeds 3600 seconds (1 hour)
+			time_diff=$((current_time - last_echo_time))
+			if [ $time_diff -gt 3600 ]; then
+				# Echo the message and update the last echo time
+				echo -e "\n\n\n${r}You are advised to not make any changes to the provided answers, instead, you can make copies that you can edit${t}\n\n${y}For a teacher willing to join us reach out to everyone of our children, please send us your questions and answers in a file labelled with your name, school, physical_education, and file content (e.g., Muhumuza_Omega_Kasule_High_School_O_level_Chemistry_Answered_EOC1_Items.pdf) to our contacts${t}\n\n\nEmail: ${g}2024omd256@gmail.com${t} \c"
+				echo $current_time > "$last_echo_time_file"
+			fi
+			read -rp $'\n\n\nEnter '"${m}any character${t}"' for access to the file of answered items or simply press '"${r}Enter${t}"' to get items to attempt : ' input
+			if [[ -n $input ]]; then
+				explorer.exe .physical_education_samples* > /dev/null 2>&1 &
+				clear
+				popd > /dev/null || exit
+				return
+			fi
+			if [ -f .e_o_c.txt ]; then
+				echo -e "\n\n${y}Below is the list of the elements of construct${t} \n"
+				cat .e_o_c.txt
+				read -rp $'\nEnter a '"${m}specific${t}"' number or simply press '"${r}Enter${t}"' to get random sample items'$'\n> ' input
+				if [[ -n $input ]]; then
+					echo -e "\n${c}Below is the basis of assessment for the selected element of construct${t} \n"
+					selected_file1=$(ls -a | grep -E "\.e_o_c_${input}\.txt")
+					cat "$selected_file1"
+					# Remove empty lines from the selected files
+					find . -type f -name "*_samples_[0-9].txt" -exec sed -i '/^[[:space:]]*$/d' {} +
+					selected_file=$(ls -a | grep -E "\.e_o_c_${input}_samples" | shuf -n 1)
+				else
+					# Find all files and randomly select one
+					local selected_file # Declare the variable
+					selected_file=$(find . -maxdepth 1 -type f -name "*_samples_[0-9].txt" -print | shuf -n 1 | xargs -n 1 basename)
+				fi
+				# Check if the selected file exists
+				if [ -f "$selected_file" ]; then
+					# Randomly select a non-empty item from the selected file
+					local selected_item # Declare the variable
+					selected_item=$(awk -v RS='*' 'BEGIN{srand();}{gsub(/^[[:space:]]+|[[:space:]]+$/, ""); if (!(length == 0 || $0 ~ /\(3 scores\)/)) a[++n]=$0}END{if (n > 0) print a[int(rand()*n)+1]}' "$selected_file")
+					# Check if selected item is not empty and contains non-whitespace characters
+					if [[ -n "$selected_item" && "$selected_item" =~ [[:graph:]] ]]; then
+						if [ ! -e answered_items.txt ]; then
+						touch answered_items.txt
+						fi
+						echo -e "\n\nYou are advised to follow the ${r}answering format${t} and have your item ${g}marked${t} by your teacher.\c"
+						wait_for_a_key_press
+						# Output the selected question
+						current_datetime=$(date)
+						clear
+						echo -e "		Item selected on ${y}$current_datetime${t}:"
+						echo -e "$selected_item" > .revise.txt
+						# Modify the selected item by replacing # with a newline and * with two newlines
+						modified_item=$(echo -e "$selected_item" | sed 's/#/\n/g')
+						# Append the modified item to the text file
+						echo -e "$modified_item\n\n" >> answered_items.txt
+						# Create a temporary file
+						temp_file=$(mktemp)
+						# Use grep to find lines matching the pattern and get their line numbers
+						grep -n "$(printf '%s' "$selected_item" | sed 's/[]\/$*.^|[]/\\&/g')" "$selected_file" | awk -F: '{ print $1 }' > "$temp_file"
+						# Use sed to delete both the matching line and the one immediately after it
+						sed -i -e "$(sed 's/$/,+1d/' "$temp_file")" "$selected_file"
+						rm -f "$temp_file"
+						# Check if the file is empty after deletion and remove it
+						if [ ! -s "$selected_file" ] || [ -z "$(awk 'NF' "$selected_file")" ]; then
+							rm "$selected_file"
+						fi
+					else
+						echo -e "\n\nAll the available items have been attempted. ${g}Opening attempted items in the text editor${t}... \c"
+						notepad.exe answered_items.txt > /dev/null 2>&1 # Open the file
+						# Return to the original working directory
+						popd > /dev/null || exit
+						wait_for_a_key_press
+						return
+					fi
+				else
+					echo -e "\n\nNo more available items to attempt. ${g}Opening attempted items in the text editor${t}...\c"
+					wait_for_a_key_press
+					notepad.exe answered_items.txt > /dev/null 2>&1 # Open the file
+					popd > /dev/null || exit
+					return
+				fi
+			else
+				explorer.exe .physical_education_samples* > /dev/null 2>&1 &
+				popd > /dev/null || exit
+				return
+			fi
+			if [[ $(grep -o '#' .revise.txt | wc -l) -gt 10 ]]; then
+				cp .revise.txt ITEM.ans.txt
+				cp .revise.txt ITEM.txt
+				sed -i 's/#/\n/g' ITEM.ans.txt
+				sed -i 's/#/\n/g' ITEM.txt
+				sed -i 's/\r//g' ITEM.txt     # Remove carriage returns (Windows-style)
+				sed -i 's/^[ \t]*//' ITEM.txt # Remove leading spaces/tabs
+				if grep -q '^(a)' ITEM.txt; then
+					awk '
+					NR == 1 { print; next }
+					/^\(a\)/ && !keep {
+					keep = 1
+					print
+					next
+					}
+					keep && /^\([b-z]\)/ { print; next }
+					keep && /^\(a\)/ { next }  # skip any later (a)
+					keep { next }
+					' ITEM.txt > tmp && mv tmp ITEM.txt
+					sed -i $'s/^\\(([b-zB-Z])\\)/\\\n\\1/' ITEM.txt
+				else
+					head -n 1 ITEM.txt > tmp && mv tmp ITEM.txt
+				fi
+				cp ITEM.txt revise.txt
+				echo -e "\n\n${y}You are advised to answer the item to be opened in the text editor, then have your internet on to have it marked!\nOtherwise, just close the opened item to have a look at the suggested responses!${t} \c"
+				wait_for_a_key_press
+				notepad.exe ITEM.txt
+				if [[ $(wc -l < revise.txt) -ne $(wc -l < ITEM.txt) ]]; then
+					echo -e "\n\n.......................................................................\n"
+					# Create a temporary file
+					temp_file22=$(mktemp)
+					# Set up a trap to remove the temporary file on script exit
+					trap 'rm -f "$temp_file22"' EXIT
+					echo -e "The item (question) below was given to a high schoolstudent, and using a text editor, they managed to answer it as follows:\n" >> "$temp_file22"
+					cat revise.txt >> "$temp_file22"
+					echo -e "\n\nBelow was the basis of assessment for the attempted item: " >> "$temp_file22"
+					cat "$selected_file1" >> "$temp_file22"
+					echo -e "\n\nBelow was the teacher's response for the attempted item: " >> "$temp_file22"
+					cat ITEM.ans.txt >> "$temp_file22"
+					echo -e "\n\nBelow was the student's response for the attempted item: " >> "$temp_file22"
+					cat ITEM.txt >> "$temp_file22"
+					echo -e "\n\nPlease mark this high school student, and return the whole item with the ${r}total score${t} and ${g}remarks${t} at the beginning... Wherever there is a right point in the answer provided, put the score of ${r}(O1)${t} in brackets.... For parts whose maximum scores are already predetermined, please remember to cater for that when giving the total mark at the beginning of the item (If scores are indicated within the item itself, ignore the basis of assesment and use the indicated scores)... You MUST mark according to the marking guide and give remarks according to how the missing marks could have been obtained... Keep it mind that the marking points are totally indepedent. Being a high school student, where the student is so close to the answer, award the point with a remark.... Most importantly, note that you are reporting everything to the student themselves and that whatever is in the teacher's response is to be considered right if it also appears in the student's response. In cases where you think the teacher got that wrong too, give the mark to the student with a remark... Never forget to include those variables (${r} and ${g})" >> "$temp_file22"
+					geminichat_adv
+					rm -f .revise.txt revise.txt ITEM.txt 2>/dev/null
+					echo -e "\n\n${y}The teacher's response is to be opened in the text editor, please look through the answers!${t} \c"
+					wait_for_a_key_press
+					notepad.exe ITEM.ans.txt
+					rm -f ITEM.ans.txt 2>/dev/null
+				else
+					while IFS= read -r line || [ -n "$line" ]; do
+						# Use a # as a secondary delimiter and read into an array
+						IFS='#' read -r -a sentences <<< "$line"
+						# Loop through each sentence
+						for sentence in "${sentences[@]}"; do
+							if [[ -n "$sentence" && "$sentence" =~ [[:graph:]] ]]; then
+								if [[ $sentence == *"Figure"* ]]; then
+									modified_sentence=$(echo "$sentence" | sed 's/.*\(Figure.*\.jpg\).*$/\1/')
+									# Change to the "../../Figures/Physical_education" directory
+									cd ../../Figures/Physical_education || { echo "Failed to change to ../../Figures/Physical_education"; return; }
+									# Open the file using explorer.exe
+									explorer.exe "$modified_sentence" > /dev/null 2>&1 &
+									# Go back to the original directory
+									cd ../../../../ || { echo "Failed to change back to the original directory \c"; exit 1; }
+								fi
+								if [[ $sentence == *"Table"* ]]; then
+									cd ../../Tables/Physical_education || { echo -e "\nFailed to change to ../../Tables/Physical_education \c"; return; }
+									explorer.exe "$sentence" > /dev/null 2>&1 &
+									cd ../../../../ || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
+								fi
+								if [[ $sentence == *"Video"* ]]; then
+									cd ../../Videos/Physical_education || { echo -e "\nFailed to change to ../../Videos/Physical_education \c"; return; }
+									explorer.exe "$sentence" > /dev/null 2>&1 &
+									cd ../../../../ || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
+								fi
+								if [ $((sentence_count % 5)) -eq 0 ]; then
+									# Clear and center for every 5th sentence
+									clear_and_center "${y}$sentence${t} \c"
+								elif [ $((sentence_count % 7)) -eq 0 ]; then
+									# Display the sentence in green for every 7th sentence
+									echo -e "\n\n${g}$sentence${t} \c"
+								elif [ $((sentence_count % 6)) -eq 0 ]; then
+									# Display the sentence in magenta for every 6th sentence
+									echo -e "\n\n${m}$sentence${t} \c"
+								elif [ $((sentence_count % 8)) -eq 0 ]; then
+									echo -e "\n\n${c}$sentence${t} \c"
+								elif [ $((sentence_count % 3)) -eq 0 ]; then
+									# Display the sentence in blue for every 3rd sentence
+									echo -e "\n\n${b}$sentence${t} \c"
+								elif [ $((sentence_count % 2)) -eq 0 ] || [ $((sentence_count % 4)) -eq 0 ]; then
+									# Display the sentence in green for every 4th sentence
+									echo -e "\n\n${g}$sentence${t} \c"
+								else
+									# Display the sentence in red for other sentences
+									echo -e "\n\n${r}$sentence${t} \c"
+								fi
+							else
+								echo -e "\n\nKind regards @OMD \c"
+							fi
+							((sentence_count++))
+							# Wait for a keypress
+							read -rsn 1 </dev/tty
+						done
+					done < .revise.txt
+				fi
+			else
+				while IFS= read -r line || [ -n "$line" ]; do
+					# Use a # as a secondary delimiter and read into an array
+					IFS='#' read -r -a sentences <<< "$line"
+					# Loop through each sentence
+					for sentence in "${sentences[@]}"; do
+						if [[ -n "$sentence" && "$sentence" =~ [[:graph:]] ]]; then
+							if [[ $sentence == *"Figure"* ]]; then
+								modified_sentence=$(echo "$sentence" | sed 's/.*\(Figure.*\.jpg\).*$/\1/')
+								# Change to the "../../Figures/Physical_education" directory
+								cd ../../Figures/Physical_education || { echo "Failed to change to ../../Figures/Physical_education"; return; }
+								# Open the file using explorer.exe
+								explorer.exe "$modified_sentence" > /dev/null 2>&1 &
+								# Go back to the original directory
+								cd ../../../../ || { echo "Failed to change back to the original directory \c"; exit 1; }
+							fi
+							if [[ $sentence == *"Table"* ]]; then
+								cd ../../Tables/Physical_education || { echo -e "\nFailed to change to ../../Tables/Physical_education \c"; return; }
+								explorer.exe "$sentence" > /dev/null 2>&1 &
+								cd ../../../../ || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
+							fi
+							if [[ $sentence == *"Video"* ]]; then
+								cd ../../Videos/Physical_education || { echo -e "\nFailed to change to ../../Videos/Physical_education \c"; return; }
+								explorer.exe "$sentence" > /dev/null 2>&1 &
+								cd ../../../../ || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
+							fi
+							if [ $((sentence_count % 5)) -eq 0 ]; then
+								# Clear and center for every 5th sentence
+								clear_and_center "${y}$sentence${t} \c"
+							elif [ $((sentence_count % 7)) -eq 0 ]; then
+								# Display the sentence in green for every 7th sentence
+								echo -e "\n\n${g}$sentence${t} \c"
+							elif [ $((sentence_count % 6)) -eq 0 ]; then
+								# Display the sentence in magenta for every 6th sentence
+								echo -e "\n\n${m}$sentence${t} \c"
+							elif [ $((sentence_count % 8)) -eq 0 ]; then
+								echo -e "\n\n${c}$sentence${t} \c"
+							elif [ $((sentence_count % 3)) -eq 0 ]; then
+								# Display the sentence in blue for every 3rd sentence
+								echo -e "\n\n${b}$sentence${t} \c"
+							elif [ $((sentence_count % 2)) -eq 0 ] || [ $((sentence_count % 4)) -eq 0 ]; then
+								# Display the sentence in green for every 4th sentence
+								echo -e "\n\n${g}$sentence${t} \c"
+							else
+								# Display the sentence in red for other sentences
+								echo -e "\n\n${r}$sentence${t} \c"
+							fi
+						else
+							echo -e "\n\nKind regards @OMD \c"
+						fi
+						((sentence_count++))
+						# Wait for a keypress
+						read -rsn 1 </dev/tty
+					done
+				done < .revise.txt
+			fi
+		else
+			while IFS= read -r line || [ -n "$line" ]; do
+				# Use a # as a secondary delimiter and read into an array
+				IFS='#' read -r -a sentences <<< "$line"
+				# Loop through each sentence
+				for sentence in "${sentences[@]}"; do
+					if [[ -n "$sentence" && "$sentence" =~ [[:graph:]] ]]; then
+						if [[ $sentence == *"Figure"* ]]; then
+							modified_sentence=$(echo "$sentence" | sed 's/.*\(Figure.*\.jpg\).*$/\1/')
+							# Change to the "../../Figures/Physical_education" directory
+							cd ../../Figures/Physical_education || { echo "Failed to change to ../../Figures/Physical_education"; return; }
+							# Open the file using explorer.exe
+							explorer.exe "$modified_sentence" > /dev/null 2>&1 &
+							# Go back to the original directory
+							cd ../../../../ || { echo "Failed to change back to the original directory \c"; exit 1; }
+						fi
+						if [[ $sentence == *"Table"* ]]; then
+							cd ../../Tables/Physical_education || { echo -e "\nFailed to change to ../../Tables/Physical_education \c"; return; }
+							explorer.exe "$sentence" > /dev/null 2>&1 &
+							cd ../../../../ || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
+						fi
+						if [[ $sentence == *"Video"* ]]; then
+							cd ../../Videos/Physical_education || { echo -e "\nFailed to change to ../../Videos/Physical_education \c"; return; }
+							explorer.exe "$sentence" > /dev/null 2>&1 &
+							cd ../../../../ || { echo -e "\nFailed to change back to the original directory \c"; exit 1; }
+						fi
+						if [ $((sentence_count % 5)) -eq 0 ]; then
+							# Clear and center for every 5th sentence
+							clear_and_center "${y}$sentence${t} \c"
+						elif [ $((sentence_count % 7)) -eq 0 ]; then
+							# Display the sentence in green for every 7th sentence
+							echo -e "\n\n${g}$sentence${t} \c"
+						elif [ $((sentence_count % 6)) -eq 0 ]; then
+							# Display the sentence in magenta for every 6th sentence
+							echo -e "\n\n${m}$sentence${t} \c"
+						elif [ $((sentence_count % 8)) -eq 0 ]; then
+							echo -e "\n\n${c}$sentence${t} \c"
+						elif [ $((sentence_count % 3)) -eq 0 ]; then
+							# Display the sentence in blue for every 3rd sentence
+							echo -e "\n\n${b}$sentence${t} \c"
+						elif [ $((sentence_count % 2)) -eq 0 ] || [ $((sentence_count % 4)) -eq 0 ]; then
+							# Display the sentence in green for every 4th sentence
+							echo -e "\n\n${g}$sentence${t} \c"
+						else
+							# Display the sentence in red for other sentences
+							echo -e "\n\n${r}$sentence${t} \c"
+						fi
+					else
+						echo -e "\n\nKind regards @OMD \c"
+					fi
+					((sentence_count++))
+					# Wait for a keypress
+					read -rsn 1 </dev/tty
+				done
+			done < .revise.txt
+		fi
+		rm -f .revise.txt .physical_education_topic_selected 2>/dev/null
+	done
+	popd > /dev/null || exit
 	return
 }
 

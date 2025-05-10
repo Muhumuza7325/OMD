@@ -1839,6 +1839,8 @@ done
 
 # Function to process sample_items
 get_sample_items() {
+	# File to store the last echo time
+  last_echo_time_file="/tmp/last_echo_time.txt"
 	rm -f .history_topic_selected
   # Save the current working directory
   pushd . > /dev/null
@@ -1846,133 +1848,197 @@ get_sample_items() {
 	if [ -f .revise.txt ] && [ ! -s .revise.txt ]; then
 	  rm -f .revise.txt
 	fi
-	if [ ! -f .revise.txt ]; then
-	  echo -e "\n\n\n${r}You are advised to not make any changes to the provided answers, instead, you can make copies that you can edit${t}\n\n${y}For a teacher willing to join us reach out to everyone of our children, please send us your questions and answers in a file labelled with your name, school, subject, and file content (e.g., Muhumuza_Omega_Kasule_High_School_O_level_Chemistry_Answered_EOC1_Items.pdf) to our contacts${t}\n\n\nEmail: ${g}2024omd256@gmail.com${t} \c"
-	  read -rp $'\n\n\nEnter '"${m}any character${t}"' for access to the file of answered items or simply press '"${r}Enter${t}"' to get items to attempt : ' input
-	 	if [[ -n $input ]]; then
-	 		libreoffice .history_samples* > /dev/null 2>&1 &
-	  	clear
-	  	popd > /dev/null || exit
-      return
-	  fi
-	  if [ -f .e_o_c_history.txt ]; then
-	    echo -e "\n\n${y}Below is the list of the elements of construct${t} \n"
-	    cat .e_o_c_history.txt
-	    read -rp $'\nEnter a '"${m}specific${t}"' number or simply press '"${r}Enter${t}"' to get random sample items'$'\n> ' input
-	    if [[ -n $input ]]; then
-	      echo -e "\n${c}Below is the basis of assessment for the selected element of construct${t} \n"
-	      selected_file1=$(ls -a | grep -E "\.e_o_c_history_${input}\.txt")
-	      cat "$selected_file1"
-	      # Remove empty lines from the selected files
-	      find . -type f -name "*_samples_[0-9].txt" -exec sed -i '/^[[:space:]]*$/d' {} +
-	      wait_for_a_key_press
-	      selected_file=$(ls -a | grep -E "\.e_o_c_history_${input}_samples" | shuf -n 1)
-	    else
-	      # Find all files and randomly select one
-	      local selected_file # Declare the variable
-	      selected_file=$(find . -maxdepth 1 -type f -name "*_samples_[0-9].txt" -print | shuf -n 1 | xargs -n 1 basename)
-			fi
-   		# Check if the selected file exists
-  		if [ -f "$selected_file" ]; then
-	    	# Randomly select a non-empty item from the selected file
-	    	local selected_item # Declare the variable
-				selected_item=$(awk -v RS='*' 'BEGIN{srand();}{gsub(/^[[:space:]]+|[[:space:]]+$/, ""); if (!(length == 0 || $0 ~ /\(3 scores\)/)) a[++n]=$0}END{if (n > 0) print a[int(rand()*n)+1]}' "$selected_file")
-	    	# Check if selected item is not empty and contains non-whitespace characters
-		   	if [[ -n "$selected_item" && "$selected_item" =~ [[:graph:]] ]]; then
-	      	if [ ! -e answered_items.txt ]; then
-	        	touch answered_items.txt
-	      	fi
-	      	echo -e "\n\nYou are advised to follow the ${r}answering format${t} and have your item ${g}marked${t} by your teacher.\c"
-	      	wait_for_a_key_press
-	      	# Output the selected question
-		 	  		current_datetime=$(date)
-	  	    clear
-	    	  echo -e "		Item selected on ${y}$current_datetime${t}:"
-					echo -e "$selected_item" > .revise.txt
-					# Modify the selected item by replacing # with a newline and * with two newlines
-					modified_item=$(echo -e "$selected_item" | sed 's/#/\n/g')
-					# Append the modified item to the text file
-					echo -e "$modified_item\n\n" >> answered_items.txt
-		      # Create a temporary file
-		      temp_file=$(mktemp)
-		      # Use grep to find lines matching the pattern and get their line numbers
-		      grep -n "$(printf '%s' "$selected_item" | sed 's/[]\/$*.^|[]/\\&/g')" "$selected_file" | awk -F: '{ print $1 }' > "$temp_file"
-		     	# Use sed to delete both the matching line and the one immediately after it
-sed -i -e "$(sed 's/$/,+1d/' "$temp_file")" "$selected_file"
-		      rm -f "$temp_file"
-		      # Check if the file is empty after deletion and remove it
-		      if [ ! -s "$selected_file" ] || [ -z "$(awk 'NF' "$selected_file")" ]; then
-		        rm "$selected_file"
-		      fi
-				else
-					echo -e "\n\nAll the available items have been attempted. ${g}Opening attempted items in the text editor${t}... \c"
-					gedit --new-window answered_items.txt > /dev/null 2>&1 # Open the file
-					# Return to the original working directory
-		      popd > /dev/null || exit
-		      wait_for_a_key_press
-		      return
-		    fi
-		  else
-		    echo -e "\n\nNo more available items to attempt. ${g}Opening attempted items in the text editor${t}...\c"
-				wait_for_a_key_press
-				gedit --new-window answered_items.txt > /dev/null 2>&1 # Open the file
-		    popd > /dev/null || exit
-		    return
-		  fi
-		else
-    	libreoffice .history_samples* > /dev/null 2>&1 &
-      popd > /dev/null || exit
-      return
-  	fi
-	fi
-  while IFS= read -r line || [ -n "$line" ]; do
-    # Use a # as a secondary delimiter and read into an array
-    IFS='#' read -r -a sentences <<< "$line"
-    # Loop through each sentence
-    for sentence in "${sentences[@]}"; do
-			if [[ -n "$sentence" && "$sentence" =~ [[:graph:]] ]]; then
-	      if [[ $sentence == *"Figure"* ]]; then
-          modified_sentence=$(echo "$sentence" | sed 's/.*\(Figure.*\.jpg\).*$/\1/')
-          # Open the file
-          eog "../../Figures/History/$modified_sentence" > /dev/null 2>&1 &
-        fi
-        if [[ $sentence == *"Table"* ]]; then
-          libreoffice "../../Tables/History/$sentence" > /dev/null 2>&1 &
-        fi
-        if [[ $sentence == *"Video"* ]]; then
-          # Open the video file
-          vlc --one-instance --playlist-enqueue "../../Videos/History/$sentence" > /dev/null 2>&1 &
-	      fi
-        if [ $((sentence_count % 5)) -eq 0 ]; then
-          # Clear and center for every 5th sentence
-          clear_and_center "${y}$sentence${t} \c"
-        elif [ $((sentence_count % 7)) -eq 0 ]; then
-          # Display the sentence in green for every 7th sentence
-          echo -e "\n\n${g}$sentence${t} \c"
-        elif [ $((sentence_count % 6)) -eq 0 ]; then
-          # Display the sentence in magenta for every 6th sentence
-          echo -e "\n\n${m}$sentence${t} \c"
-        elif [ $((sentence_count % 8)) -eq 0 ]; then
-          echo -e "\n\n${c}$sentence${t} \c"
-        elif [ $((sentence_count % 3)) -eq 0 ]; then
-          # Display the sentence in blue for every 3rd sentence
-          echo -e "\n\n${b}$sentence${t} \c"
-        elif [ $((sentence_count % 2)) -eq 0 ] || [ $((sentence_count % 4)) -eq 0 ]; then
-          # Display the sentence in green for every 4th sentence
-          echo -e "\n\n${g}$sentence${t} \c"
+  while true; do
+	  if [ ! -f .revise.txt ]; then
+      # Get the current time in seconds
+      current_time=$(date +%s)
+      # Check if the last echo time file exists
+      if [ ! -f "$last_echo_time_file" ]; then
+        echo $current_time > "$last_echo_time_file"
+        last_echo_time=0
+      else
+        last_echo_time=$(cat "$last_echo_time_file")
+      fi
+	    # Check if the difference exceeds 3600 seconds (1 hour)
+  	  time_diff=$((current_time - last_echo_time))
+    	if [ $time_diff -gt 3600 ]; then
+      	# Echo the message and update the last echo time
+	    	echo -e "\n\n\n${r}You are advised to not make any changes to the provided answers, instead, you can make copies that you can edit${t}\n\n${y}For a teacher willing to join us reach out to everyone of our children, please send us your questions and answers in a file labelled with your name, school, history, and file content (e.g., Muhumuza_Omega_Kasule_High_School_O_level_Chemistry_Answered_EOC1_Items.pdf) to our contacts${t}\n\n\nEmail: ${g}2024omd256@gmail.com${t} \c"
+				echo $current_time > "$last_echo_time_file"
+  		fi
+      read -rp $'\n\n\nEnter '"${m}any character${t}"' for access to the file of answered items or simply press '"${r}Enter${t}"' to get items to attempt : ' input
+     	if [[ -n $input ]]; then
+     		libreoffice .history_samples* > /dev/null 2>&1 &
+      	clear
+      	popd > /dev/null || exit
+        return
+      fi
+      if [ -f .e_o_c_history.txt ]; then
+        echo -e "\n\n${y}Below is the list of the elements of construct${t} \n"
+        cat .e_o_c_history.txt
+        read -rp $'\nEnter a '"${m}specific${t}"' number or simply press '"${r}Enter${t}"' to get random sample items'$'\n> ' input
+        if [[ -n $input ]]; then
+          echo -e "\n${c}Below is the basis of assessment for the selected element of construct${t} \n"
+          selected_file1=$(ls -a | grep -E "\.e_o_c_history_${input}\.txt")
+          cat "$selected_file1"
+          # Remove empty lines from the selected files
+          find . -type f -name "*_samples_[0-9].txt" -exec sed -i '/^[[:space:]]*$/d' {} +
+          selected_file=$(ls -a | grep -E "\.e_o_c_history_${input}_samples" | shuf -n 1)
         else
-          # Display the sentence in red for other sentences
-          echo -e "\n\n${r}$sentence${t} \c"
-        fi
-			else
-				echo -e "\n\nKind regards @OMD \c"
-			fi
-			((sentence_count++))
-      # Wait for a keypress
-      read -rsn 1 </dev/tty
-    done
-  done < .revise.txt
-  rm -f .revise.txt .history_topic_selected 2>/dev/null
+          # Find all files and randomly select one
+          local selected_file # Declare the variable
+          selected_file=$(find . -maxdepth 1 -type f -name "*_samples_[0-9].txt" -print | shuf -n 1 | xargs -n 1 basename)
+    		fi
+     		# Check if the selected file exists
+    		if [ -f "$selected_file" ]; then
+        	# Randomly select a non-empty item from the selected file
+        	local selected_item # Declare the variable
+    			selected_item=$(awk -v RS='*' 'BEGIN{srand();}{gsub(/^[[:space:]]+|[[:space:]]+$/, ""); if (!(length == 0 || $0 ~ /\(3 scores\)/)) a[++n]=$0}END{if (n > 0) print a[int(rand()*n)+1]}' "$selected_file")
+        	# Check if selected item is not empty and contains non-whitespace characters
+    	   	if [[ -n "$selected_item" && "$selected_item" =~ [[:graph:]] ]]; then
+          	if [ ! -e answered_items.txt ]; then
+            	touch answered_items.txt
+          	fi
+          	echo -e "\n\nYou are advised to follow the ${r}answering format${t} and have your item ${g}marked${t} by your teacher.\c"
+          	wait_for_a_key_press
+          	# Output the selected question
+    	 	  		current_datetime=$(date)
+      	    clear
+        	  echo -e "		Item selected on ${y}$current_datetime${t}:"
+    				echo -e "$selected_item" > .revise.txt
+    				# Modify the selected item by replacing # with a newline and * with two newlines
+    				modified_item=$(echo -e "$selected_item" | sed 's/#/\n/g')
+    				# Append the modified item to the text file
+    				echo -e "$modified_item\n\n" >> answered_items.txt
+    	      # Create a temporary file
+    	      temp_file=$(mktemp)
+    	      # Use grep to find lines matching the pattern and get their line numbers
+    	      grep -n "$(printf '%s' "$selected_item" | sed 's/[]\/$*.^|[]/\\&/g')" "$selected_file" | awk -F: '{ print $1 }' > "$temp_file"
+    	     	# Use sed to delete both the matching line and the one immediately after it
+            sed -i -e "$(sed 's/$/,+1d/' "$temp_file")" "$selected_file"
+    	      rm -f "$temp_file"
+    	      # Check if the file is empty after deletion and remove it
+    	      if [ ! -s "$selected_file" ] || [ -z "$(awk 'NF' "$selected_file")" ]; then
+    	        rm "$selected_file"
+    	      fi
+    			else
+    				echo -e "\n\nAll the available items have been attempted. ${g}Opening attempted items in the text editor${t}... \c"
+    				gedit --new-window answered_items.txt > /dev/null 2>&1 # Open the file
+    				# Return to the original working directory
+    	      popd > /dev/null || exit
+    	      wait_for_a_key_press
+    	      return
+    	    fi
+    	  else
+    	    echo -e "\n\nNo more available items to attempt. ${g}Opening attempted items in the text editor${t}...\c"
+    			wait_for_a_key_press
+    			gedit --new-window answered_items.txt > /dev/null 2>&1 # Open the file
+    	    popd > /dev/null || exit
+    	    return
+    	  fi
+    	else
+      	libreoffice .history_samples* > /dev/null 2>&1 &
+        popd > /dev/null || exit
+        return
+    	fi
+      while IFS= read -r line || [ -n "$line" ]; do
+        # Use a # as a secondary delimiter and read into an array
+        IFS='#' read -r -a sentences <<< "$line"
+        # Loop through each sentence
+        for sentence in "${sentences[@]}"; do
+    			if [[ -n "$sentence" && "$sentence" =~ [[:graph:]] ]]; then
+    	      if [[ $sentence == *"Figure"* ]]; then
+              modified_sentence=$(echo "$sentence" | sed 's/.*\(Figure.*\.jpg\).*$/\1/')
+              # Open the file
+              eog "../../Figures/History/$modified_sentence" > /dev/null 2>&1 &
+            fi
+            if [[ $sentence == *"Table"* ]]; then
+              libreoffice "../../Tables/History/$sentence" > /dev/null 2>&1 &
+            fi
+            if [[ $sentence == *"Video"* ]]; then
+              # Open the video file
+              vlc --one-instance --playlist-enqueue "../../../Videos/History/$sentence" > /dev/null 2>&1 &
+    	      fi
+            if [ $((sentence_count % 5)) -eq 0 ]; then
+              # Clear and center for every 5th sentence
+              clear_and_center "${y}$sentence${t} \c"
+            elif [ $((sentence_count % 7)) -eq 0 ]; then
+              # Display the sentence in green for every 7th sentence
+              echo -e "\n\n${g}$sentence${t} \c"
+            elif [ $((sentence_count % 6)) -eq 0 ]; then
+              # Display the sentence in magenta for every 6th sentence
+              echo -e "\n\n${m}$sentence${t} \c"
+            elif [ $((sentence_count % 8)) -eq 0 ]; then
+              echo -e "\n\n${c}$sentence${t} \c"
+            elif [ $((sentence_count % 3)) -eq 0 ]; then
+              # Display the sentence in blue for every 3rd sentence
+              echo -e "\n\n${b}$sentence${t} \c"
+            elif [ $((sentence_count % 2)) -eq 0 ] || [ $((sentence_count % 4)) -eq 0 ]; then
+              # Display the sentence in green for every 4th sentence
+              echo -e "\n\n${g}$sentence${t} \c"
+            else
+              # Display the sentence in red for other sentences
+              echo -e "\n\n${r}$sentence${t} \c"
+            fi
+    			else
+    				echo -e "\n\nKind regards @OMD \c"
+    			fi
+    			((sentence_count++))
+          # Wait for a keypress
+          read -rsn 1 </dev/tty
+        done
+      done < .revise.txt
+	  else
+		  while IFS= read -r line || [ -n "$line" ]; do
+		    # Use a # as a secondary delimiter and read into an array
+		    IFS='#' read -r -a sentences <<< "$line"
+		    # Loop through each sentence
+		    for sentence in "${sentences[@]}"; do
+					if [[ -n "$sentence" && "$sentence" =~ [[:graph:]] ]]; then
+			      if [[ $sentence == *"Figure"* ]]; then
+		          modified_sentence=$(echo "$sentence" | sed 's/.*\(Figure.*\.jpg\).*$/\1/')
+		          # Open the file
+		          eog "../../Figures/History/$modified_sentence" > /dev/null 2>&1 &
+		        fi
+		        if [[ $sentence == *"Table"* ]]; then
+		          libreoffice "../../Tables/History/$sentence" > /dev/null 2>&1 &
+		        fi
+		        if [[ $sentence == *"Video"* ]]; then
+		          # Open the video file
+		          vlc --one-instance --playlist-enqueue "../../../Videos/History/$sentence" > /dev/null 2>&1 &
+			      fi
+		        if [ $((sentence_count % 5)) -eq 0 ]; then
+		          # Clear and center for every 5th sentence
+		          clear_and_center "${y}$sentence${t} \c"
+		        elif [ $((sentence_count % 7)) -eq 0 ]; then
+		          # Display the sentence in green for every 7th sentence
+		          echo -e "\n\n${g}$sentence${t} \c"
+		        elif [ $((sentence_count % 6)) -eq 0 ]; then
+		          # Display the sentence in magenta for every 6th sentence
+		          echo -e "\n\n${m}$sentence${t} \c"
+		        elif [ $((sentence_count % 8)) -eq 0 ]; then
+		          echo -e "\n\n${c}$sentence${t} \c"
+		        elif [ $((sentence_count % 3)) -eq 0 ]; then
+		          # Display the sentence in blue for every 3rd sentence
+		          echo -e "\n\n${b}$sentence${t} \c"
+		        elif [ $((sentence_count % 2)) -eq 0 ] || [ $((sentence_count % 4)) -eq 0 ]; then
+		          # Display the sentence in green for every 4th sentence
+		          echo -e "\n\n${g}$sentence${t} \c"
+		        else
+		          # Display the sentence in red for other sentences
+		          echo -e "\n\n${r}$sentence${t} \c"
+		        fi
+					else
+						echo -e "\n\nKind regards @OMD \c"
+					fi
+					((sentence_count++))
+		      # Wait for a keypress
+		      read -rsn 1 </dev/tty
+		    done
+		  done < .revise.txt
+	  fi
+    rm -f .revise.txt .history_topic_selected 2>/dev/null
+  done
   popd > /dev/null || exit
 	return
 }
