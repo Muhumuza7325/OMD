@@ -660,9 +660,9 @@ show_communication_info() {
   echo -e "\n${g}A text file with communications is about to open!${t}"
   echo -e "${r}==============================================${t}"
   echo -e "${b} Browse for:${t}"
-  echo -e "${m} • Zoom class times${t}"
+  echo -e "${m} • Scheduled Zoom and/or Google Meet class sessions${t}"
   echo -e "${c} • Opportunities or offers${t}"
-  echo -e "${y} • Something good — you never know!${t}"
+  echo -e "${y} • Something good — You never know!${t}"
   echo -e "${r}==============================================${t}\n"
   sleep 3
 }
@@ -942,10 +942,8 @@ while true; do
       # Output the selected question
         current_datetime=$(date)
       echo -e "\n\nQuestion selected on ${y}$current_datetime${t}:\n$selected_question\n"
-
       # Append the selected question to revision_file
       echo -e "$selected_question;" >> "$revision_file"
-
       if echo "$selected_question" | grep "Figure"; then
         echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../Figures/Msbt/figures.txt
         sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../Figures/Msbt/figures.txt
@@ -965,25 +963,44 @@ while true; do
         # Remove the temporary file
         rm -f ../../Figures/Msbt/figures.txt
       fi
-
       # Create a temporary file
       temp_file=$(mktemp)
-
       # Use grep to find lines matching the pattern and get their line numbers
       grep -n "$selected_question" "$selected_file" | awk -F: '{ print $1 }' > "$temp_file"
-
       # Use sed to delete lines by line numbers
       sed -i -e "$(sed 's/$/d/' "$temp_file")" "$selected_file"
       rm -f "$temp_file"
-
       # Check if the file is empty after deletion and remove it
       if [ ! -s "$selected_file" ] || [ -z "$(awk 'NF' "$selected_file")" ]; then
         rm "$selected_file"
       fi
-
+	SAQ_file=$(mktemp)
+	Saq_file=$(mktemp)
+	temp_file22=$(mktemp)
+	trap 'rm -f "$SAQ_file" "$Saq_file" "$temp_file22"' EXIT
+	echo -e "\n\nPlease follow the answering format (${r}Relevance, Accuracy, Coherence, Excellence${t}), and ensure the short answer question selected above is ${g}scored${t} by your teacher or AI. By default, it will open in a text editor—respond there with your ${y}internet on for scoring${t}. Otherwise, just close the opened text file! \c"
+	wait_for_a_key_press
+	echo "$selected_question" > "$SAQ_file"
+	echo "$selected_question" > "$Saq_file"
+	notepad.exe "$SAQ_file"
+	if [[ $(wc -l < "$SAQ_file") -ne $(wc -l < "$Saq_file") ]]; then
+		echo -e "\n\n.......................................................................\n"
+		base_name="${0##*/}"
+		muhumuza="${base_name%%_tutorial*}"
+		muhumuza="${muhumuza/_advanced/}"
+		capitalised_muhumuza="$(echo "${muhumuza//_/ }" | sed 's/\b\(.\)/\u\1/g')"
+		echo -e "A short $capitalised_muhumuza item (question) below was given to a high school student:\n" >> "$temp_file22"
+		cat "$Saq_file" >> "$temp_file22"
+		echo -e "\n\nThe following was most likely used as the basis for assessing the attempted item, unless otherwise specified within the item itself:" >> "$temp_file22"
+		echo "Relevance (R-02 scores), Accuracy (A-02 scores), Coherence (C-02 scores), Excellence (E-01 score) ---- RACE" >> "$temp_file22"
+		echo -e "\n\nEach attempted response had to be relevant (01), accurate (01), and coherent (01). A maximum of the 2 best points were considered. Where only one point was required, considering additional points was unnecessary. The Excellence score was awarded only for exceptional content." >> "$temp_file22"
+		echo -e "\n\nHaving used a text editor with limited capabilities, below was the student's response for the attempted item (question):" >> "$temp_file22"
+		cat "$SAQ_file" >> "$temp_file22"
+		echo -e "\n\nPlease score this high school student and return the whole item with the ${r}total score${t} and ${g}remarks${t} at the beginning. Wherever there's a valid point, add the score tag ${r}(R1, A1, C1)${t}. Award up to 2 per category. If the item has its own scoring rubric, ignore RACE. Your remarks must clearly explain how any missing scores could have been earned. Be generous where appropriate, keeping in mind the student’s level. Never forget to include formatting variables (${r} and ${g})." >> "$temp_file22"
+		geminichat_adv
+	fi
       # Return to the original working directory
       popd > /dev/null || exit
-      wait_for_a_key_press
       return
     else
       echo -e "\n\nAll the available short answer questions have been attempted. ${g}Please try the remaining activities of integration${t}... \c"
@@ -1028,21 +1045,17 @@ while true; do
   if [ -f "$selected_file" ]; then
     # Randomly select a non-empty activity of integration from the selected file
     local selected_question # Declare the variable
-		selected_question=$(awk -v RS=';' 'BEGIN{srand();}{gsub(/^[[:space:]]+|[[:space:]]+$/, ""); if (!(length == 0 || $0 ~ /\(3 scores\)/)) a[++n]=$0}END{if (n > 0) print a[int(rand()*n)+1]}' "$selected_file")
+        selected_question=$(awk -v RS=';' 'BEGIN{srand();}{gsub(/^[[:space:]]+|[[:space:]]+$/, ""); if (!(length == 0 || $0 ~ /\(3 scores\)/)) a[++n]=$0}END{if (n > 0) print a[int(rand()*n)+1]}' "$selected_file")
     # Check if selected question is not empty and contains non-whitespace characters
     if [[ -n "$selected_question" && "$selected_question" =~ [[:graph:]] ]]; then
       if [ ! -e "$revision_file" ]; then
         touch "$revision_file"
       fi
-      echo -e "\n\nYou are advised to follow the ${r}answering format${t} and have your activity ${g}marked${t} by your lecturer.\c"
-      wait_for_a_key_press
-
       # Output the selected question
      	current_datetime=$(date)
       echo -e "\n\nQuestion selected on ${y}$current_datetime${t}:\n$selected_question\n"
       # Append the selected question to revision_file
       echo -e "$selected_question;" >> "$revision_file"
-
       if echo "$selected_question" | grep "Figure"; then
         echo "$selected_question" | grep -o '\bFigure[0-9]\+[^;]*\b' > ../../Figures/Msbt/figures.txt
         sed -i -e '/^Figure/!d' -e '/^[[:space:]]*$/d' -e 's/^[[:space:]]*//;s/[[:space:]]*$//' ../../Figures/Msbt/figures.txt
@@ -1062,28 +1075,47 @@ while true; do
         # Remove the temporary file
         rm -f ../../Figures/Msbt/figures.txt
       fi
-
       # Create a temporary file
       temp_file=$(mktemp)
-
       # Use grep to find lines matching the pattern and get their line numbers
       grep -n "$selected_question" "$selected_file" | awk -F: '{ print $1 }' > "$temp_file"
-
       # Use sed to delete lines by line numbers
       sed -i -e "$(sed 's/$/d/' "$temp_file")" "$selected_file"
       rm -f "$temp_file"
-
       # Check if the file is empty after deletion and remove it
       if [ ! -s "$selected_file" ] || [ -z "$(awk 'NF' "$selected_file")" ]; then
         rm "$selected_file"
       fi
-
+	AOI_file=$(mktemp)
+	Aoi_file=$(mktemp)
+	temp_file22=$(mktemp)
+	trap 'rm -f "$AOI_file" "$Aoi_file" "$temp_file22"' EXIT
+	echo -e "\n\nPlease follow the answering format (${r}Relevance, Accuracy, Coherence, Excellence${t}), and ensure the activity selected above is ${g}scored${t} by your teacher or AI. By default, it will open in a text editor—respond there with your ${y}internet on for scoring${t}. Otherwise, just close the opened text file! \c"
+	wait_for_a_key_press
+	echo "$selected_question" > "$AOI_file"
+	echo "$selected_question" > "$Aoi_file"
+	notepad.exe "$AOI_file"
+	if [[ $(wc -l < "$AOI_file") -ne $(wc -l < "$Aoi_file") ]]; then
+		echo -e "\n\n.......................................................................\n"
+		base_name="${0##*/}"
+		muhumuza="${base_name%%_tutorial*}"
+		muhumuza="${muhumuza/_advanced/}"
+		capitalised_muhumuza="$(echo "${muhumuza//_/ }" | sed 's/\b\(.\)/\u\1/g')"
+		echo -e "A $capitalised_muhumuza item (question) below was given to a high school student:\n" >> "$temp_file22"
+		cat "$Aoi_file" >> "$temp_file22"
+		echo -e "\n\nThe following was most likely used as the basis for assessing the attempted item, unless otherwise specified within the item itself:" >> "$temp_file22"
+		echo "Relevance (R-03 scores), Accuracy (A-03 scores), Coherence (C-03 scores), Excellence (E-01 score) ---- RACE" >> "$temp_file22"
+		echo -e "\n\nEach attempted response had to be relevant (01), accurate (01), and coherent (01). A maximum of the 3 best points were considered! The Excellence score was awarded only for exceptional content." >> "$temp_file22"
+		echo -e "\n\nHaving used a text editor with limited capabilities, below was the student's response for the attempted item (question):" >> "$temp_file22"
+		cat "$AOI_file" >> "$temp_file22"
+		echo -e "\n\nPlease score this high school student and return the whole item with the ${r}total score${t} and ${g}remarks${t} at the beginning. Wherever there's a valid point, add the score tag ${r}(R1, A1, C1)${t}. Award up to 3 per category. If the item has its own scoring rubric, ignore RACE. Your remarks must clearly explain how any missing scores could have been earned. Be generous where appropriate, keeping in mind the student’s level. Never forget to include formatting variables (${r} and ${g})." >> "$temp_file22"
+		geminichat_adv
+	fi
       # Return to the original working directory
       popd > /dev/null || exit
-      wait_for_a_key_press
       return
-    else
-      echo -e "\n\nAll the available activities of integration have been attempted. ${g}Please try the remaining short answer questions${t}... \c"
+        else
+            echo -e "\n\nAll the available activities of integration have been attempted. ${g}Please try the remaining short answer questions${t}... \c"
       # Return to the original working directory
       popd > /dev/null || exit
       wait_for_a_key_press
@@ -1091,24 +1123,21 @@ while true; do
     fi
   else
     echo -e "\n\nNo more available questions to attempt. ${g}Opening attempted questions in the text editor${t}...\c"
-    wait_for_a_key_press
-    original_directory=$(pwd)
-    directory_path=$(dirname "$revision_file")
-    file_name=$(basename "$revision_file")
-
-    # Change to the directory of the file
-    if cd "$directory_path"; then
-
-      notepad.exe "$file_name" > /dev/null 2>&1
-
-      # Return to the original directory
-      cd "$original_directory"
-    else
-      # If cd fails, return to the original directory
-      cd "$original_directory"
-      echo "Failed to change to the specified directory."
-    fi
-    echo -e "\n"
+        wait_for_a_key_press
+        original_directory=$(pwd)
+        directory_path=$(dirname "$revision_file")
+        file_name=$(basename "$revision_file")
+        # Change to the directory of the file
+        if cd "$directory_path"; then
+            notepad.exe "$file_name" > /dev/null 2>&1
+          # Return to the original directory
+          cd "$original_directory"
+        else
+          # If cd fails, return to the original directory
+          cd "$original_directory"
+          echo "Failed to change to the specified directory."
+        fi
+        echo -e "\n"
     popd > /dev/null || exit
     break
   fi
@@ -1921,6 +1950,7 @@ get_sample_items() {
 					# Find all files and randomly select one
 					local selected_file # Declare the variable
 					selected_file=$(find . -maxdepth 1 -type f -name "*_samples_[0-9].txt" -print | shuf -n 1 | xargs -n 1 basename)
+					selected_file1=$(echo "$selected_file" | sed -E 's/_samples_[0-9]+//')
 				fi
 				# Check if the selected file exists
 				if [ -f "$selected_file" ]; then
@@ -1932,7 +1962,7 @@ get_sample_items() {
 						if [ ! -e answered_items.txt ]; then
 						touch answered_items.txt
 						fi
-						echo -e "\n\nYou are advised to follow the ${r}answering format${t} and have your item ${g}marked${t} by your teacher.\c"
+						echo -e "\n\nYou are advised to follow the ${r}answering format${t} and have your item ${g}scored${t} by your teacher or AI.\c"
 						wait_for_a_key_press
 						# Output the selected question
 						current_datetime=$(date)
@@ -1975,53 +2005,54 @@ get_sample_items() {
 				return
 			fi
 			if [[ $(grep -o '#' .revise.txt | wc -l) -gt 10 ]]; then
-				cp .revise.txt ITEM.ans.txt
-				cp .revise.txt ITEM.txt
-				sed -i 's/#/\n/g' ITEM.ans.txt
-				sed -i 's/#/\n/g' ITEM.txt
-				sed -i 's/\r//g' ITEM.txt     # Remove carriage returns (Windows-style)
-				sed -i 's/^[ \t]*//' ITEM.txt # Remove leading spaces/tabs
-				if grep -q '^(a)' ITEM.txt; then
-					awk '
-					NR == 1 { print; next }
-					/^\(a\)/ && !keep {
-					keep = 1
-					print
-					next
-					}
-					keep && /^\([b-z]\)/ { print; next }
-					keep && /^\(a\)/ { next }  # skip any later (a)
-					keep { next }
-					' ITEM.txt > tmp && mv tmp ITEM.txt
-					sed -i $'s/^\\(([b-zB-Z])\\)/\\\n\\1/' ITEM.txt
+				item_file=$(mktemp)
+				ans_file=$(mktemp)
+				revise_copy=$(mktemp)
+				temp_file22=$(mktemp)
+				trap 'rm -f "$item_file" "$ans_file" "$revise_copy" "$temp_file22"' EXIT
+				cp .revise.txt "$ans_file"
+				cp .revise.txt "$item_file"
+				sed -i 's/#/\n/g' "$ans_file"
+				sed -i 's/#/\n/g' "$item_file"
+				sed -i 's/\r//g' "$item_file"
+				sed -i 's/^[ \t]*//' "$item_file"
+				if grep -q '^(a)' "$item_file"; then
+				    awk '
+				    NR == 1 { print; next }
+				    /^\(a\)/ && !keep {
+				        keep = 1
+				        print
+				        next
+				    }
+				    keep && /^\([b-z]\)/ { print; next }
+				    keep && /^\(a\)/ { next }
+				    keep { next }
+				    ' "$item_file" > tmp && mv tmp "$item_file"
+				    sed -i $'s/^\\(([b-zB-Z])\\)/\\\n\\1/' "$item_file"
 				else
-					head -n 1 ITEM.txt > tmp && mv tmp ITEM.txt
+				    head -n 1 "$item_file" > tmp && mv tmp "$item_file"
 				fi
-				cp ITEM.txt revise.txt
-				echo -e "\n\n${y}You are advised to answer the item to be opened in the text editor, then have your internet on to have it marked!\nOtherwise, just close the opened item to have a look at the suggested responses!${t} \c"
+				cp "$item_file" "$revise_copy"
+				echo -e "\n\n${y}You are advised to answer the item to be opened in the text editor, then have your internet on to have it scored!\nOtherwise, just close the opened item to have a look at the suggested responses!${t} \c"
 				wait_for_a_key_press
-				notepad.exe ITEM.txt
-				if [[ $(wc -l < revise.txt) -ne $(wc -l < ITEM.txt) ]]; then
+				notepad.exe "$item_file"
+				if [[ $(wc -l < "$revise_copy") -ne $(wc -l < "$item_file") ]]; then
 					echo -e "\n\n.......................................................................\n"
-					# Create a temporary file
-					temp_file22=$(mktemp)
-					# Set up a trap to remove the temporary file on script exit
-					trap 'rm -f "$temp_file22"' EXIT
-					echo -e "The item (question) below was given to a high schoolstudent, and using a text editor, they managed to answer it as follows:\n" >> "$temp_file22"
-					cat revise.txt >> "$temp_file22"
+					echo -e "The item (question) below was given to a high school student:\n" >> "$temp_file22"
+					cat "$revise_copy" >> "$temp_file22"
 					echo -e "\n\nBelow was the basis of assessment for the attempted item: " >> "$temp_file22"
 					cat "$selected_file1" >> "$temp_file22"
 					echo -e "\n\nBelow was the teacher's response for the attempted item: " >> "$temp_file22"
-					cat ITEM.ans.txt >> "$temp_file22"
-					echo -e "\n\nBelow was the student's response for the attempted item: " >> "$temp_file22"
-					cat ITEM.txt >> "$temp_file22"
-					echo -e "\n\nPlease mark this high school student, and return the whole item with the ${r}total score${t} and ${g}remarks${t} at the beginning... Wherever there is a right point in the answer provided, put the score of ${r}(O1)${t} in brackets.... For parts whose maximum scores are already predetermined, please remember to cater for that when giving the total mark at the beginning of the item (If scores are indicated within the item itself, ignore the basis of assesment and use the indicated scores)... You MUST mark according to the marking guide and give remarks according to how the missing marks could have been obtained... Keep it mind that the marking points are totally indepedent. Being a high school student, where the student is so close to the answer, award the point with a remark.... Most importantly, note that you are reporting everything to the student themselves and that whatever is in the teacher's response is to be considered right if it also appears in the student's response. In cases where you think the teacher got that wrong too, give the mark to the student with a remark... Never forget to include those variables (${r} and ${g})" >> "$temp_file22"
+					cat "$ans_file" >> "$temp_file22"
+					echo -e "\n\nHaving used a text editor with limited capabilities, below was the student's response for the attempted item: " >> "$temp_file22"
+					cat "$item_file" >> "$temp_file22"
+					echo -e "\n\nPlease score this high school student, and return the whole item with the ${r}total score${t} and ${g}remarks${t} at the beginning... Wherever there is a right point in the answer provided, put the score of ${r}(O1)${t} in brackets.... For parts whose maximum scores are already predetermined, please remember to cater for that when giving the total score at the beginning of the item (If scores are indicated within the item itself, ignore the basis of assesment and use the indicated scores)... You MUST score according to the scoring guide and give remarks according to how the missing scores could have been obtained... Keep it mind that the scoring points are totally indepedent. Being a high school student, where the student is so close to the answer, award the point with a remark.... Most importantly, note that you are reporting everything to the student themselves and that whatever is in the teacher's response is to be considered right if it also appears in the student's response. In cases where you think the teacher got that wrong too, give the score to the student with a remark... Never forget to include those variables (${r} and ${g})" >> "$temp_file22"
 					geminichat_adv
-					rm -f .revise.txt revise.txt ITEM.txt 2>/dev/null
+					rm -f .revise.txt "$item_file" "$revise_copy" 2>/dev/null
 					echo -e "\n\n${y}The teacher's response is to be opened in the text editor, please look through the answers!${t} \c"
 					wait_for_a_key_press
-					notepad.exe ITEM.ans.txt
-					rm -f ITEM.ans.txt 2>/dev/null
+					notepad.exe "$ans_file"
+					rm -f "$ans_file" 2>/dev/null
 				else
 					while IFS= read -r line || [ -n "$line" ]; do
 						# Use a # as a secondary delimiter and read into an array
