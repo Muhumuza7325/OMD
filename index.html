@@ -162,6 +162,7 @@
     <a href="https://github.com/Muhumuza7325/OMD" target="_blank" title="GitHub Repository" class="github-icon" style="margin-top: 10px;">
         <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" style="width: 40px; height: 40px;">
     </a>
+    <button onclick="openCommunication()">Communication ✉️</button>
 </div>
         <p>Your Education is our Future -------- Never despair</p>
         <a href="https://github.com/Muhumuza7325/OMD/blob/main/README.md" target="_blank" class="download-btn">View (Android Phone)</a>
@@ -201,22 +202,21 @@
   </div>
   <h3 id="subject-heading" style="text-align: center;">🔬 Random Chemistry Sample</h3>
   <div id="content-box" style="min-height: 120px; padding: 15px; font-size: 18px; background: white; border-radius: 5px; margin-bottom: 15px; line-height: 1.6;"></div>
-    <button onclick="refreshContent()">🔄 Refresh</button>
-    <button onclick="saveToFavourites()">⭐ Favourite</button>
-    <button onclick="copyToClipboard()">📋 Copy</button>
-    <button onclick="openShareModal()">Share Item 🔗</button>
-    <button onclick="showRandomContent()">➡ Next</button>
+  <button onclick="refreshContent()" style="margin-right: 5px;">🔄 Refresh</button>
+  <button onclick="saveToFavourites()" style="margin-right: 5px;">⭐ Favourite</button>
+  <button onclick="copyToClipboard()" style="margin-right: 5px;">📋 Copy</button>
+  <button onclick="openShareModal()" style="margin-right: 5px;">Share Item 🔗</button>
+  <button onclick="showRandomContent()">➡ Next</button>
 </div>
   <div id="feedback" style="text-align: center; color: green; font-weight: bold; min-height: 20px; margin-bottom: 10px;"></div>
   <div id="progress" style="text-align: center; margin-bottom: 10px; font-weight: bold;"></div>
   <div style="text-align: center; display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;">
-    <button onclick="viewFavourites()">📂 View Favourites</button>
-    <button onclick="downloadFavourites()">⬇ Download Favourites</button>
-    <button id="back-button" onclick="showLastContent()" style="display: none;">🔙 Back to Sample</button>
+    <button onclick="viewFavourites()" style="margin-right: 5px;">📂 View Favourites</button>
+    <button id="back-button" onclick="showLastContent()" style="display: none; margin-right: 5px;">🔙 Back to Sample</button>
+    <button onclick="downloadFavourites()" style="margin-right: 5px;">⬇ Download Favourites</button>
     <button onclick="shareWithUs()">Share with Us 📧</button>
   </div>
   <div id="search-container" style="display:none; margin-top: 10px; text-align: center;">
-    <input type="text" id="searchInput" placeholder="Search favourites..." oninput="searchFavourites()" style="padding: 5px; font-size: 16px; width: 60%; max-width: 400px;">
   </div>
 </div>
     <div id="shareModal" style="display: none;">
@@ -380,7 +380,6 @@
   }
 }
 
-
 function showLastContent() {
   if (lastContent !== null) {
     document.getElementById('content-box').innerHTML = formatLine(lastContent);
@@ -437,22 +436,6 @@ function showLastContent() {
     viewFavourites();
   }
 
-  function searchFavourites() {
-    const query = document.getElementById('searchInput').value.toLowerCase();
-    const favs = JSON.parse(localStorage.getItem(getFavKey()) || '[]');
-    const filtered = favs.filter(f => f.toLowerCase().includes(query));
-    const box = document.getElementById('content-box');
-    if (filtered.length === 0) {
-      box.innerHTML = '<p style="text-align:center;">🔍 No matches found.</p>';
-    } else {
-      const formatted = filtered.map((f, i) => `
-        <div style="border-bottom: 1px solid #ccc; padding-bottom: 10px; margin-bottom: 10px;">
-          <p style="text-align: justify;">${f}</p>
-        </div>`).join('');
-      box.innerHTML = `<h4 style="text-align:center;">🔍 Search Results</h4>${formatted}`;
-    }
-  }
-
   function downloadFavourites() {
     const favs = JSON.parse(localStorage.getItem(getFavKey()) || '[]');
     const blob = new Blob([favs.join('\n\n')], { type: 'text/plain' });
@@ -478,6 +461,61 @@ function shareWithUs() {
             const mailtoLink = `https://mail.google.com/mail/?view=cm&to=2024omd256@gmail.com&su=${encodedAgriculture}&body=${encodedBody}`;
             window.open(mailtoLink, '_blank');
         }
+
+async function openCommunication() {
+  try {
+    const response = await fetch('https://raw.githubusercontent.com/Muhumuza7325/OMD/main/omd_communication.txt');
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const text = await response.text();
+    const communications = text.split(';').map(comm => comm.trim()).filter(comm => comm !== '');
+
+    if (communications.length === 0) {
+      alert('No new communications found from OMD.');
+      return;
+    }
+
+    const allBoxesHTML = communications.map(communication => `
+      <div class="communication-box">
+        <p>${communication}</p>
+      </div>
+    `).join('');
+
+    const newTab = window.open('', '_blank');
+    newTab.document.write(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>The Latest from OMD</title>
+        <style>
+          body { font-family: sans-serif; }
+          .communication-box {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin: 20px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+          }
+          h1 { text-align: center; color: #333; }
+          .communication-box p { color: #555; line-height: 1.6; }
+        </style>
+      </head>
+      <body>
+        <h1>The Latest from OMD</h1>
+        ${allBoxesHTML}
+      </body>
+      </html>
+    `);
+    newTab.document.close();
+
+  } catch (error) {
+    console.error('An error occurred while fetching or displaying communications:', error);
+    alert('Failed to display the latest communications from OMD.');
+  }
+}
 
         function getCurrentItemText() {
             const contentBox = document.getElementById('content-box');
@@ -556,6 +594,11 @@ function shareWithUs() {
     transform: scale(1.05);
   }
 </style>
+      <p>
+        <a href="https://whatsapp.com/channel/0029VbAQnEyEKyZNRlj8Eu1K" target="_blank" style="text-decoration: none;">
+          <i class="fab fa-whatsapp" style="font-size: 1.5em; color: #25D366;"></i> Follow OMD on WhatsApp
+        </a>
+      </p>
     <div class="footer">&copy; 2025 Your Trusted Learning Platform. All rights reserved.</div>
 </body>
 </html>
