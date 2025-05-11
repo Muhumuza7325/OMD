@@ -125,5 +125,294 @@
         </section>
     </div>
     <div class="footer">&copy; 2025 Your Trusted Learning Platform. All rights reserved.</div>
+<div style="margin-top: 30px; padding: 20px; border: 2px solid #ccc; border-radius: 10px; max-width: 1000px; margin-left: auto; margin-right: auto; background: #f9f9f9;">
+  <div style="text-align: center; margin-bottom: 15px;">
+    <label for="subjectSelect"><strong>Select Subject:</strong></label>
+    <select id="subjectSelect" onchange="fetchContent()" style="padding: 5px 10px; font-size: 16px; margin-left: 10px;">
+      <option value="CHEM">Chemistry</option>
+      <option value="BIO">Biology</option>
+    </select>
+  </div>
+  <h3 id="subject-heading" style="text-align: center;">🔬 Random Chemistry Sample</h3>
+  <div id="content-box" style="min-height: 120px; padding: 15px; font-size: 18px; background: white; border-radius: 5px; margin-bottom: 15px; line-height: 1.6;"></div>
+  <div id="feedback" style="text-align: center; color: green; font-weight: bold; min-height: 20px; margin-bottom: 10px;"></div>
+  <div id="progress" style="text-align: center; margin-bottom: 10px; font-weight: bold;"></div>
+  <div style="text-align: center; display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;">
+    <button onclick="downloadFavourites()">⬇ Download Favourites</button>
+    <button onclick="viewFavourites()">📂 View Favourites</button>
+    <button id="back-button" onclick="showLastContent()" style="display: none;">🔙 Back to Sample</button>
+    <button onclick="saveToFavourites()">⭐ Favourite</button>
+    <button onclick="copyToClipboard()">📋 Copy</button>
+    <button onclick="refreshContent()" >🔄 Refresh</button>
+    <button onclick="showRandomContent()">➡ Next</button>
+  </div>
+  <div id="search-container" style="display:none; margin-top: 10px; text-align: center;">
+    <input type="text" id="searchInput" placeholder="Search favourites..." oninput="searchFavourites()" style="padding: 5px; font-size: 16px; width: 60%; max-width: 400px;">
+  </div>
+</div>
+
+<script>
+  let lines = [];
+  let lastContent = null;
+  let currentIndex = null;
+  let selectedFiles = []; // To track selected files
+
+  function getSubject() {
+    return document.getElementById('subjectSelect')?.value || 'CHEM';
+  }
+
+  function getStorageKey() {
+    return `shown_${getSubject().toLowerCase()}_lines`;
+  }
+
+  function getFavKey() {
+    return `favourites_${getSubject().toLowerCase()}`;
+  }
+
+  function getSelectedFilesKey() {
+    return `selected_${getSubject().toLowerCase()}_files`;
+  }
+
+  async function fetchContent() {
+    const subject = getSubject();
+    const apiUrl = `https://api.github.com/repos/Muhumuza7325/OMD/contents/${subject}`;
+
+    document.getElementById('subject-heading').textContent =
+      subject === 'CHEM' ? '🔬 Random Chemistry Sample' : '🧬 Random Biology Sample';
+
+    try {
+      const response = await fetch(apiUrl);
+      const files = await response.json();
+
+      // Filter files with _samples_ in name and .txt extension
+      const sampleFiles = files.filter(file =>
+        file.name.includes('_samples_') && file.name.endsWith('.txt')
+      );
+
+      if (sampleFiles.length === 0) {
+        document.getElementById('content-box').textContent = '⚠️ No matching sample files found.';
+        return;
+      }
+
+      // Load previously selected files
+      selectedFiles = JSON.parse(localStorage.getItem(getSelectedFilesKey())) || [];
+
+      let fileToLoad;
+      if (selectedFiles.length < sampleFiles.length) {
+        // Filter out already selected files
+        const unselectedFiles = sampleFiles.filter(file => !selectedFiles.includes(file.name));
+        // Randomly pick an unselected sample file
+        const randomFileIndex = Math.floor(Math.random() * unselectedFiles.length);
+        fileToLoad = unselectedFiles[randomFileIndex];
+      } else {
+        // All files have been shown, so we can reset the selection
+        selectedFiles = [];
+        localStorage.removeItem(getSelectedFilesKey());
+        // Pick a random file from the beginning
+        const randomFileIndex = Math.floor(Math.random() * sampleFiles.length);
+        fileToLoad = sampleFiles[randomFileIndex];
+      }
+
+      if (!fileToLoad) {
+        document.getElementById('content-box').textContent = '⚠️ Error selecting a sample file.';
+        return;
+      }
+
+      const rawUrl = fileToLoad.download_url;
+
+      // Fetch the content of the randomly selected file
+      const textResponse = await fetch(rawUrl);
+      const text = await textResponse.text();
+      lines = text.split('\n').map(line => line.trim()).filter(line => line !== '' && line !== '*' && !line.startsWith('Chapter'));
+
+      if (lines.length === 0) {
+        document.getElementById('content-box').textContent = '⚠️ Sample file is empty.';
+        return;
+      }
+
+      // Add the selected file to the list of selected files and save
+      selectedFiles.push(fileToLoad.name);
+      localStorage.setItem(getSelectedFilesKey(), JSON.stringify(selectedFiles));
+
+      // Clear the shown lines for the new file
+      localStorage.removeItem(getStorageKey());
+      updateProgress([], lines.length); // Reset progress
+
+      // Show random content from the new file
+      showRandomContent();
+    } catch (error) {
+      console.error('Fetch error:', error);
+      document.getElementById('content-box').textContent = 'Failed to load content. Please try again later.';
+    }
+  }
+
+  function refreshContent() {
+    // This function will trigger the fetching of a new file
+    fetchContent();
+  }
+
+  function formatLine(line) {
+    if (line.includes(']:')) {
+      const parts = line.split(']:' );
+      const before = `<div style="text-align: center;">${parts[0].trim()}]:</div>`;
+      const after = parts.slice(1).join(']:').trim();
+      line = before + '<br>' + after;
+    }
+    const itemPattern = /^Item \d+:/;
+    if (itemPattern.test(line)) {
+      const parts = line.split(':');
+      const before = `<div style="text-align: center;">${parts[0].trim()}:</div>`;
+      const after = parts.slice(1).join(':').trim();
+      line = before + '<br>' + after;
+    }
+    return line.replaceAll('#', '<br>').split('<br>').map(part => `<p style="text-align: justify;">${part}</p>`).join('');
+  }
+
+ function showRandomContent() {
+  const box = document.getElementById('content-box');
+  document.getElementById('back-button').style.display = 'none';
+  document.getElementById('search-container').style.display = 'none';
+
+  let shown = JSON.parse(localStorage.getItem(getStorageKey())) || [];
+
+  const remainingLines = lines.filter((_, index) => !shown.includes(index));
+
+  if (remainingLines.length === 0) {
+    // All lines have been shown, clear the shown list to restart line selection
+    shown = [];
+    localStorage.setItem(getStorageKey(), JSON.stringify(shown));
+  }
+
+  if (lines.length > 0) {
+    const availableIndexes = lines.map((_, i) => i).filter(i => !shown.includes(i));
+    if (availableIndexes.length > 0) {
+      currentIndex = availableIndexes[Math.floor(Math.random() * availableIndexes.length)];
+      lastContent = lines[currentIndex];
+      box.innerHTML = formatLine(lastContent);
+      shown.push(currentIndex);
+      localStorage.setItem(getStorageKey(), JSON.stringify(shown));
+      updateProgress(shown, lines.length);
+    } else {
+      // This case should ideally not be reached if we reset 'shown' when all lines are displayed.
+      // However, for robustness, we can re-fetch content, which will also reset the line tracking.
+      fetchContent();
+    }
+  } else {
+    box.textContent = '⚠️ No content to display.';
+    updateProgress(shown, lines.length);
+  }
+}
+
+
+function showLastContent() {
+  if (lastContent !== null) {
+    document.getElementById('content-box').innerHTML = formatLine(lastContent);
+    document.getElementById('back-button').style.display = 'none';
+    document.getElementById('search-container').style.display = 'none';
+  }
+}
+
+
+  function copyToClipboard() {
+    const content = document.getElementById('content-box').innerText;
+    navigator.clipboard.writeText(content).then(() => showFeedback('✅ Copied!'));
+  }
+
+  function updateProgress(shown, total) {
+    document.getElementById('progress').textContent = `Progress: ${shown.length} / ${total}`;
+  }
+
+  function saveToFavourites() {
+    const content = document.getElementById('content-box').innerText.trim();
+    let favs = JSON.parse(localStorage.getItem(getFavKey()) || '[]');
+    if (!favs.includes(content)) {
+      favs.push(content);
+      localStorage.setItem(getFavKey(), JSON.stringify(favs));
+      showFeedback('⭐ Added to favourites!');
+    } else {
+      showFeedback('✅ Already in favourites.');
+    }
+  }
+
+  function viewFavourites() {
+    const favs = JSON.parse(localStorage.getItem(getFavKey()) || '[]');
+    const box = document.getElementById('content-box');
+    if (favs.length === 0) {
+      box.innerHTML = '<p style="text-align:center;">📂 No favourites saved yet.</p>';
+    } else {
+      const formatted = favs.map((f, i) => `
+        <div style="border-bottom: 1px solid #ccc; padding-bottom: 10px; margin-bottom: 10px;">
+          <p style="text-align: justify;">${f}</p>
+          <div style="text-align: right;">
+            <button onclick="removeFavourite(${i})" style="background-color: red; color: white; padding: 5px 10px; border-radius: 4px; border: none; cursor: pointer;">Remove</button>
+          </div>
+        </div>`).join('');
+      box.innerHTML = `<h4 style="text-align:center;">⭐ Your Favourites</h4>${formatted}`;
+    }
+    document.getElementById('back-button').style.display = 'inline-block';
+    document.getElementById('search-container').style.display = 'block';
+  }
+
+  function removeFavourite(index) {
+    let favs = JSON.parse(localStorage.getItem(getFavKey()) || '[]');
+    favs.splice(index, 1);
+    localStorage.setItem(getFavKey(), JSON.stringify(favs));
+    viewFavourites();
+  }
+
+  function searchFavourites() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    const favs = JSON.parse(localStorage.getItem(getFavKey()) || '[]');
+    const filtered = favs.filter(f => f.toLowerCase().includes(query));
+    const box = document.getElementById('content-box');
+    if (filtered.length === 0) {
+      box.innerHTML = '<p style="text-align:center;">🔍 No matches found.</p>';
+    } else {
+      const formatted = filtered.map((f, i) => `
+        <div style="border-bottom: 1px solid #ccc; padding-bottom: 10px; margin-bottom: 10px;">
+          <p style="text-align: justify;">${f}</p>
+        </div>`).join('');
+      box.innerHTML = `<h4 style="text-align:center;">🔍 Search Results</h4>${formatted}`;
+    }
+  }
+
+  function downloadFavourites() {
+    const favs = JSON.parse(localStorage.getItem(getFavKey()) || '[]');
+    const blob = new Blob([favs.join('\n\n')], { type: 'text/plain' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    const subject = getSubject().toLowerCase();
+    const formattedSubject = subject.charAt(0).toUpperCase() + subject.slice(1);
+    link.download = `${formattedSubject}_favourites.txt`;
+    link.click();
+  }
+
+  function showFeedback(message) {
+    const feedback = document.getElementById('feedback');
+    feedback.textContent = message;
+    setTimeout(() => feedback.textContent = '', 3000);
+  }
+
+  // Initialize the page with content
+  fetchContent();
+</script>
+
+<style>
+  button {
+    padding: 10px 15px;
+    font-size: 15px;
+    border-radius: 6px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  button:hover:not(:disabled) {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+</style>
+    <div class="footer">&copy; 2025 Your Trusted Learning Platform. All rights reserved.</div>
 </body>
 </html>
