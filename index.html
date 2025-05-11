@@ -85,6 +85,71 @@
         .support ul {
             padding-left: 20px;
         }
+        button {
+            padding: 10px 15px;
+            font-size: 15px;
+            border-radius: 6px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        button:hover:not(:disabled) {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+        #shareModal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        #shareModal .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            border-radius: 8px;
+            position: relative;
+        }
+        #shareModal .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        #shareModal .close-button:hover,
+        #shareModal .close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        #shareLinks {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+        #shareLinks a {
+            display: inline-block;
+            padding: 10px 15px;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        #shareLinks a:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -135,21 +200,32 @@
   </div>
   <h3 id="subject-heading" style="text-align: center;">🔬 Random Chemistry Sample</h3>
   <div id="content-box" style="min-height: 120px; padding: 15px; font-size: 18px; background: white; border-radius: 5px; margin-bottom: 15px; line-height: 1.6;"></div>
+    <button onclick="refreshContent()">🔄 Refresh</button>
+    <button onclick="saveToFavourites()">⭐ Favourite</button>
+    <button onclick="copyToClipboard()">📋 Copy</button>
+    <button onclick="openShareModal()">Share Item 🔗</button>
+    <button onclick="showRandomContent()">➡ Next</button>
+</div>
   <div id="feedback" style="text-align: center; color: green; font-weight: bold; min-height: 20px; margin-bottom: 10px;"></div>
   <div id="progress" style="text-align: center; margin-bottom: 10px; font-weight: bold;"></div>
   <div style="text-align: center; display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;">
-    <button onclick="downloadFavourites()">⬇ Download Favourites</button>
     <button onclick="viewFavourites()">📂 View Favourites</button>
+    <button onclick="downloadFavourites()">⬇ Download Favourites</button>
     <button id="back-button" onclick="showLastContent()" style="display: none;">🔙 Back to Sample</button>
-    <button onclick="saveToFavourites()">⭐ Favourite</button>
-    <button onclick="copyToClipboard()">📋 Copy</button>
-    <button onclick="refreshContent()" >🔄 Refresh</button>
-    <button onclick="showRandomContent()">➡ Next</button>
+    <button onclick="shareWithUs()">Share with Us 📧</button>
   </div>
   <div id="search-container" style="display:none; margin-top: 10px; text-align: center;">
     <input type="text" id="searchInput" placeholder="Search favourites..." oninput="searchFavourites()" style="padding: 5px; font-size: 16px; width: 60%; max-width: 400px;">
   </div>
 </div>
+    <div id="shareModal" style="display: none;">
+        <div class="modal-content">
+            <span onclick="closeShareModal()" class="close-button">&times;</span>
+            <h3>Share This Item</h3>
+            <div id="shareLinks">
+                </div>
+        </div>
+    </div>
 
 <script>
   let lines = [];
@@ -392,6 +468,72 @@ function showLastContent() {
     feedback.textContent = message;
     setTimeout(() => feedback.textContent = '', 3000);
   }
+
+function shareWithUs() {
+            const response = "We are looking forward to receiving your economic support, thoughts, suggestions, and any files you feel should reach out to everyone of our children. Please remember to label the files you are to attach using the format: Your_name_School_Agriculture_File_content (e.g., Muhumuza_Omega_Kasule_High_School_O_level_Chemistry_Answered_EOC1_Items.pdf). Thanks a lot for your contributions.";
+            const agriculture = `${document.title} - ${new Date().toISOString().slice(0, 19).replace('T', ' ')} - Thoughts, suggestions, and contributions`;
+            const encodedAgriculture = encodeURIComponent(agriculture);
+            const encodedBody = encodeURIComponent(response);
+            const mailtoLink = `https://mail.google.com/mail/?view=cm&to=2024omd256@gmail.com&su=${encodedAgriculture}&body=${encodedBody}`;
+            window.open(mailtoLink, '_blank');
+        }
+
+        function getCurrentItemText() {
+            const contentBox = document.getElementById('content-box');
+            return contentBox ? contentBox.innerText : '';
+        }
+
+        function openShareModal() {
+            const shareModal = document.getElementById('shareModal');
+            const shareLinksContainer = document.getElementById('shareLinks');
+            shareLinksContainer.innerHTML = ''; // Clear previous links
+
+            const currentItemText = getCurrentItemText();
+            const encodedText = encodeURIComponent(currentItemText);
+            const currentPageUrl = encodeURIComponent(window.location.href); // Or a specific link if you prefer
+
+            // Define social sharing URLs
+            const twitterUrl = `https://twitter.com/intent/tweet?text=${encodedText}&url=${currentPageUrl}`;
+            const whatsappUrl = `https://wa.me/?text=${encodedText} ${currentPageUrl}`;
+            // Add more social media platforms as needed
+
+            // Create and append share links
+            const shareLinks = [
+              { name: 'Twitter', url: twitterUrl, icon: '🐦' },
+              { name: 'WhatsApp', url: whatsappUrl, icon: '📱' },
+              // Add more here
+            ];
+
+            shareLinks.forEach(link => {
+              const a = document.createElement('a');
+              a.href = link.url;
+              a.target = '_blank';
+              a.style.display = 'inline-block';
+              a.style.padding = '10px 15px';
+              a.style.borderRadius = '5px';
+              a.style.backgroundColor = '#007bff'; // Example style
+              a.style.color = 'white';
+              a.style.textDecoration = 'none';
+              a.style.marginRight = '5px';
+              a.textContent = link.icon + ' ' + link.name;
+              shareLinksContainer.appendChild(a);
+            });
+
+            shareModal.style.display = 'block';
+        }
+
+        function closeShareModal() {
+            const shareModal = document.getElementById('shareModal');
+            shareModal.style.display = 'none';
+        }
+
+        // Close modal if user clicks outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById('shareModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
 
   // Initialize the page with content
   fetchContent();
