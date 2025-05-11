@@ -735,7 +735,7 @@ while true; do
   # Check if user_input is not empty
   if [[ -n "$user_input" ]]; then
 		if [[ "$user_input" == "sh" ]]; then
-		  Response="We are looking forward to receiving your economic support, thoughts, suggestions, and any files you feel should reach out to everyone of our children. Please remember to label the files you are to attach using the format: Your_name_School_Physics_advanced_File_content (e.g., Muhumuza_Omega_Kasule_High_School_O_level_Chemistry_Answered_EOC1_Items.pdf). Thanks a lot for your contributions."  
+		  Response="We are looking forward to receiving your economic support, thoughts, suggestions, and any files you feel should reach out to everyone of our children. Please remember to label the files you are to attach using the format: Your_name_School_Subject_File_content (e.g., Muhumuza_Omega_Kasule_High_School_O_level_Chemistry_Answered_EOC1_Items.pdf). Thanks a lot for your contributions."  
 		  physics_advanced="$(basename "$0") - $(date +"%Y-%m-%d %H:%M:%S") - Thoughts, suggestions, and contributions"
 		  encoded_physics_advanced=$(echo "$physics_advanced" | sed 's/ /%20/g; s/\n/%0A/g')
 		  encoded_body=$(echo "$Response" | sed 's/ /%20/g; s/\n/%0A/g')
