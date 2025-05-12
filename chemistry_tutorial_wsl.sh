@@ -473,244 +473,230 @@ replace_prompt() {
 }
 
 track_student_progress() {
-echo -e 'School:             ?
-Class on joining:        ?
-DateTime:            ?
-1  Name:            surname given
-  ID:             ?
-  contact(s):         ?
-2  Residence
-       Village:      ?
-       Parish:      ?
-       Subcounty:     ?
-       District:     ?
-3  Age:            Age
-4  Sex:            Male or Female
-5  Parent/Guardian:      Surname Given
-  Contact(s):         ?
+echo -e 'School:                         ?
+Class on joining:               ?
+DateTime:                       ?
+1   Name:                       surname given
+    ID:                         ?
+    contact(s):                 ?
+2   Residence
+             Village:           ?
+             Parish:            ?
+             Subcounty:         ?
+             District:          ?
+3   Age:                        Age
+4   Sex:                        Male or Female
+5   Parent/Guardian:            Surname Given
+    Contact(s):                 ?
 PROGRESSIVE ASSESSMENT' > student
-
-  temp_file4=$(mktemp)
-  temp_file3=$(mktemp)
-  temp_file2=$(mktemp)
-  temp_file=$(mktemp)
-  trap 'rm -f student .temmmm "$temp_file" "$temp_file2" "$temp_file3" "$temp_file4" .student.txt' EXIT
-  if [ -f .school_name ]; then
+    temp_file4=$(mktemp)
+    temp_file3=$(mktemp)
+    temp_file2=$(mktemp)
+    temp_file=$(mktemp)
+    trap 'rm -f student .temmmm "$temp_file" "$temp_file2" "$temp_file3" "$temp_file4" .student.txt' EXIT
+    if [ -f .school_name ]; then
+        read -r school_name < .school_name
+        school_name="${school_name// /_}"
+        touch ."$school_name"_students_file.txt
+        sed -i '/^[[:space:]]*$/d' ."$school_name"_students_file.txt
+    fi
+    if [ -f .student_number.txt ]; then
+        student_number=$(<.student_number.txt)
+        if [ "$student_number" == "0" ]; then
+            echo -e "\n\nHey! You currently have no records... Please take records \c"
+            wait_for_a_key_press
+        elif [ -n "$student_number" ] && [ "$student_number" -gt 1 ]; then
+            echo -e "\n\nHey! You currently have records for $student_number students \c"
+            wait_for_a_key_press
+        fi
+    else
+        echo "0" > .student_number.txt
+    fi
+    clear
+    # Initialize user_input variable
+    user_input=""
+    while true; do
+        local user_input
+        # Prompt the user for input
+        if [ "$student_number" == "0" ]; then
+            echo -e "\nPress "${r}Esc key${t}" to capture student details: $user_input\c"
+        elif [ "$student_number" == "1" ]; then
+            echo -e "\nTo track your progress, press the Tab key or Press "${r}Esc key${t}" to capture details of another student: $user_input\c"
+        else
+            echo -ne "\nTo search for student details, Enter "${y}Student Name${t}"\nor "${r}Esc key${t}" to capture new student details or "${r}qq${t}" to return to your session: $user_input\c"
+        fi
+        read -rsn1 char
+        if [[ $char == $'\e' ]]; then
+            break
+        fi
+        # Handle backspace
+        if [[ $char == $'\x7f' ]]; then  # Check if the input is the backspace key
+            user_input="${user_input%?}" # Remove the last character from user_input
+        else
+            user_input="${user_input}${char}"
+        fi
+        if [[ "$user_input" == "qq" ]]; then
+            return
+        fi
+        clear
+        # Define the file path
+        file=."$school_name"_students_file.txt
+        # Search for the pattern and capture the result
+        match=$(sed 's/;/\n/g' "$file" | grep -i "Name:.*$user_input.*")
+        colon_count=$(grep -o ":" <<< "$match" | wc -l)
+        # Set initial flag to false
+        flag=false
+        if [[ $colon_count -eq 1 ]]; then
+            matched="$match"
+            flag=true
+        else
+            if [[ $char != $'\x7f' ]]; then
+                if [[ $colon_count -eq 0 ]]; then
+                    echo "Press the back space key and enter a "${r}Valid Name${t}"........."
+                else
+                    echo "${g}Close! A few more characters to refine your search.........${t}"
+                fi
+            fi
+        fi
+        if $flag; then
+        awk -v user_input="$matched" 'tolower($0) ~ tolower(user_input) { print }' ."$school_name"_students_file.txt |
+            while IFS= read -r line; do
+                if [[ $char != $'\x7f' ]]; then
+                   echo "$line" | sed 's/;/\n/g'
+                fi
+            done
+        fi
+    done
+    # Prompt for user input
+    echo -e "\n\n${y}By just pressing Enter; it means yes or skip${t} \c"
+    echo -e ""
+    if ! [ -f .school_name ]; then
+        echo -e "\nPlease Enter the name of your school... This option is only available once \c"
+        echo -e ""
+        if replace_prompt "" replacement; then
+            replacement=${replacement^^}  # Convert to uppercase
+            # Store the value in the school_name file
+            echo "$replacement" > .school_name
+        fi
+    else
+        read -r replacement < .school_name
+        current_datetime=$(date)
+        echo -e "\nYou are at ${g}"$replacement"${t} and it is ${b}$current_datetime${t} \c"
+        echo ""
+    fi
+    sed -i "s/School:                         ?/School:                         $replacement/" student
+    current_datetime=$(date)
+    sed -i "s/DateTime:                       ?/Date + Time:                    $current_datetime/" student
+    if replace_prompt 'What is the '"client's"' current class (just a single digit)?' replacement; then
+        sed -i "s/Class on joining:               ?/Class on joining:               S$replacement/" student
+    fi
+    if replace_prompt  ''"Client's"' SurName' replacement; then
+        replacement=${replacement^}
+        echo "$replacement" > "$temp_file"
+        sed -i "s/surname/$replacement/" student
+    fi
+    read -r surname < "$temp_file"
+    if replace_prompt  ''"Client's"' Given name' replacement; then
+        replacement=${replacement^}
+        sed -i "s/given/$replacement/" student
+        echo -e "\nYou are highly welcome "$surname" "$replacement"... You are reminded that your education is our future \c"
+        echo ""
+    fi
+    if replace_prompt  ''"$surname's"' Contact(s) (space separated)' replacement; then
+        sed -i "s/contact(s):                 ?/Contact(s):                 $replacement/" student
+    fi
+    if replace_prompt  ''"$surname's"' Village' replacement; then
+        replacement=${replacement^}
+        sed -i "s/Village:           ?/Village:           $replacement/" student
+    fi
+    if replace_prompt  ''"$surname's"' Parish' replacement; then
+        replacement=${replacement^}
+        sed -i "s/Parish:            ?/Parish:            $replacement/" student
+    fi
+    if replace_prompt  ''"$surname's"' Subcounty' replacement; then
+        replacement=${replacement^}
+        sed -i "s/Subcounty:         ?/Subcounty:         $replacement/" student
+    fi
+    if replace_prompt  ''"$surname's"' District' replacement; then
+        replacement=${replacement^}
+        sed -i "s/District:          ?/District:          $replacement/" student
+    fi
+    if replace_prompt  ''"$surname's"' Age (Enter digits)' replacement; then
+        sed -i "s/Age:                        Age/Age:                        $replacement/" student
+    fi
+    while true; do
+        if replace_prompt  ''"$surname's"' Sex (M or F)' replacement; then
+            replacement=${replacement^}
+            if [ "$replacement" == "M" ]; then
+                sed -i "s/Male or Female/"$replacement"ale/" student
+                echo "him" > "$temp_file3"
+                break
+            elif [ "$replacement" == "F" ]; then
+                sed -i "s/Male or Female/"$replacement"emale/" student
+                echo "her" > "$temp_file3"
+                break
+            elif [ "$replacement" == "Female" ]; then
+                sed -i "s/Male or Female/"$replacement"/" student
+                echo "her" > "$temp_file3"
+                break
+            elif [ "$replacement" == "Male" ]; then
+                sed -i "s/Male or Female/"$replacement"/" student
+                echo "him" > "$temp_file3"
+                break
+            else
+                echo -e "\nInvalid choice... Please choose either m or f \c"
+                continue
+            fi
+        fi
+    done
+    if replace_prompt  'Please Enter the SurName of '"$surname's"' Parent/Guardian' replacement; then
+        replacement=${replacement^}
+        echo "$replacement" > "$temp_file2"
+        sed -i "s/Surname/$replacement/" student
+    fi
+    read -r surname_nok < "$temp_file2"
+    read -r gender < "$temp_file3"
+    if [ "$gender" == "him" ]; then
+        echo "his" > "$temp_file4"
+    else
+        echo "her" > "$temp_file4"
+    fi
+    read -r gender1 < "$temp_file4"
+    if replace_prompt  ''"$surname_nok's"' Given name' replacement; then
+        replacement=${replacement^}
+        sed -i "s/Given/$replacement/" student
+        echo -e "\n"$surname" is hereby reminded that "$gender1" Parent/Guardian is "$surname_nok" "$replacement" \c"
+        echo ""
+    fi
+    if replace_prompt  ''"$surname_nok's"' Contact(s) (space separated)' replacement; then
+        sed -i "s/Contact(s):                 ?/Contact(s):                 $replacement/" student
+    fi
     read -r school_name < .school_name
     school_name="${school_name// /_}"
     touch ."$school_name"_students_file.txt
     sed -i '/^[[:space:]]*$/d' ."$school_name"_students_file.txt
-  fi
-  if [ -f .student_number.txt ]; then
-    student_number=$(<.student_number.txt)
-    if [ "$student_number" == "0" ]; then
-      echo -e "\n\nHey! You currently have no records... Please take records \c"
-      wait_for_a_key_press
-    elif [ -n "$student_number" ] && [ "$student_number" -gt 1 ]; then
-      echo -e "\n\nHey! You currently have records for $student_number students \c"
-      wait_for_a_key_press
-    fi
-  else
-    echo "0" > .student_number.txt
-  fi
-
-  clear
-  # Initialize user_input variable
-  user_input=""
-  while true; do
-    local user_input
-    # Prompt the user for input
-    if [ "$student_number" == "0" ]; then
-      echo -e "\nPress "${r}Esc key${t}" to capture student details: $user_input\c"
-    elif [ "$student_number" == "1" ]; then
-      echo -e "\nTo track your progress, press the Tab key or Press "${r}Esc key${t}" to capture details of another student: $user_input\c"
+    # Count the number of students
+    student_number=$(grep -c "^School" ."$school_name"_students_file.txt)
+    (( student_number++ ))
+    sed -i -e 's/surname/?/gi' \
+            -e 's/given/?/gi' \
+            -e 's/? ?/?/gi' student
+    cp student .student.txt
+    sed -i "s/ID:                         ?/ID:                         $student_number/" .student.txt
+    echo -e "\n"$surname"'s identification number is: "$student_number" \c"
+    echo -e "\n\nYou can now make any changes to the provided details directly from the text editor. Don't edit your ID_No please! If necessary, note it down instead... \c"
+    wait_for_a_key_press
+    if grep -q Microsoft /proc/version; then
+        explorer.exe .student.txt
     else
-      echo -ne "\nTo search for student details, Enter "${y}Student Name${t}"\nor "${r}Esc key${t}" to capture new student details or "${r}qq${t}" to return to your session: $user_input\c"
+        xdg-open .student.txt
     fi
-    read -rsn1 char
-    if [[ $char == $'\e' ]]; then
-      break
-    fi
-    # Handle backspace
-    if [[ $char == $'\x7f' ]]; then # Check if the input is the backspace key
-      user_input="${user_input%?}" # Remove the last character from user_input
-    else
-      user_input="${user_input}${char}"
-    fi
-    if [[ "$user_input" == "qq" ]]; then
-      return
-    fi
-
-    clear
-    # Define the file path
-    file=."$school_name"_students_file.txt
-
-    # Search for the pattern and capture the result
-    match=$(sed 's/;/\n/g' "$file" | grep -i "Name:.*$user_input.*")
-    colon_count=$(grep -o ":" <<< "$match" | wc -l)
-    # Set initial flag to false
-    flag=false
-    if [[ $colon_count -eq 1 ]]; then
-      matched="$match"
-      flag=true
-    else
-      if [[ $char != $'\x7f' ]]; then
-        if [[ $colon_count -eq 0 ]]; then
-          echo "Press the back space key and enter a "${r}Valid Name${t}"........."
-        else
-          echo "${g}Close! A few more characters to refine your search.........${t}"
-        fi
-      fi
-    fi
-    if $flag; then
-    awk -v user_input="$matched" 'tolower($0) ~ tolower(user_input) { print }' ."$school_name"_students_file.txt |
-      while IFS= read -r line; do
-        if [[ $char != $'\x7f' ]]; then
-          echo "$line" | sed 's/;/\n/g'
-        fi
-      done
-    fi
-  done
-
-  # Prompt for user input
-  echo -e "\n\n${y}By just pressing Enter; it means yes or skip${t} \c"
-  echo -e ""
-  if ! [ -f .school_name ]; then
-    echo -e "\nPlease Enter the name of your school... This option is only available once \c"
-    echo -e ""
-    if replace_prompt "" replacement; then
-      replacement=${replacement^^} # Convert to uppercase
-      # Store the value in the school_name file
-      echo "$replacement" > .school_name
-    fi
-  else
-    read -r replacement < .school_name
-    current_datetime=$(date)
-    echo -e "\nYou are at ${g}"$replacement"${t} and it is ${b}$current_datetime${t} \c"
-    echo ""
-  fi
-  sed -i "s/School:             ?/School:             $replacement/" student
-  current_datetime=$(date)
-  sed -i "s/DateTime:            ?/Date + Time:          $current_datetime/" student
-
-  if replace_prompt 'What is the '"client's"' current class (just a single digit)?' replacement; then
-    sed -i "s/Class on joining:        ?/Class on joining:        S$replacement/" student
-  fi
-  if replace_prompt ''"Client's"' SurName' replacement; then
-    replacement=${replacement^}
-    echo "$replacement" > "$temp_file"
-    sed -i "s/surname/$replacement/" student
-  fi
-
-  read -r surname < "$temp_file"
-  if replace_prompt ''"Client's"' Given name' replacement; then
-    replacement=${replacement^}
-    sed -i "s/given/$replacement/" student
-    echo -e "\nYou are highly welcome "$surname" "$replacement"... You are reminded that your education is our future \c"
-    echo ""
-  fi
-
-  if replace_prompt ''"$surname's"' Contact(s) (space separated)' replacement; then
-    sed -i "s/contact(s):         ?/Contact(s):         $replacement/" student
-  fi
-
-  if replace_prompt ''"$surname's"' Village' replacement; then
-    replacement=${replacement^}
-    sed -i "s/Village:      ?/Village:      $replacement/" student
-  fi
-  if replace_prompt ''"$surname's"' Parish' replacement; then
-    replacement=${replacement^}
-    sed -i "s/Parish:      ?/Parish:      $replacement/" student
-  fi
-
-  if replace_prompt ''"$surname's"' Subcounty' replacement; then
-    replacement=${replacement^}
-    sed -i "s/Subcounty:     ?/Subcounty:     $replacement/" student
-  fi
-  if replace_prompt ''"$surname's"' District' replacement; then
-    replacement=${replacement^}
-    sed -i "s/District:     ?/District:     $replacement/" student
-  fi
-
-  if replace_prompt ''"$surname's"' Age (Enter digits)' replacement; then
-    sed -i "s/Age:            Age/Age:            $replacement/" student
-  fi
-
-  while true; do
-    if replace_prompt ''"$surname's"' Sex (M or F)' replacement; then
-      replacement=${replacement^}
-      if [ "$replacement" == "M" ]; then
-        sed -i "s/Male or Female/"$replacement"ale/" student
-        echo "him" > "$temp_file3"
-        break
-      elif [ "$replacement" == "F" ]; then
-        sed -i "s/Male or Female/"$replacement"emale/" student
-        echo "her" > "$temp_file3"
-        break
-      elif [ "$replacement" == "Female" ]; then
-        sed -i "s/Male or Female/"$replacement"/" student
-        echo "her" > "$temp_file3"
-        break
-      elif [ "$replacement" == "Male" ]; then
-        sed -i "s/Male or Female/"$replacement"/" student
-        echo "him" > "$temp_file3"
-        break
-      else
-        echo -e "\nInvalid choice... Please choose either m or f \c"
-        continue
-      fi
-    fi
-  done
-
-  if replace_prompt 'Please Enter the SurName of '"$surname's"' Parent/Guardian' replacement; then
-    replacement=${replacement^}
-    echo "$replacement" > "$temp_file2"
-    sed -i "s/Surname/$replacement/" student
-  fi
-  read -r surname_nok < "$temp_file2"
-  read -r gender < "$temp_file3"
-  if [ "$gender" == "him" ]; then
-    echo "his" > "$temp_file4"
-  else
-    echo "her" > "$temp_file4"
-  fi
-  read -r gender1 < "$temp_file4"
-  if replace_prompt ''"$surname_nok's"' Given name' replacement; then
-    replacement=${replacement^}
-    sed -i "s/Given/$replacement/" student
-    echo -e "\n"$surname" is hereby reminded that "$gender1" Parent/Guardian is "$surname_nok" "$replacement" \c"
-    echo ""
-  fi
-  if replace_prompt ''"$surname_nok's"' Contact(s) (space separated)' replacement; then
-    sed -i "s/Contact(s):         ?/Contact(s):         $replacement/" student
-  fi
-
-  read -r school_name < .school_name
-  school_name="${school_name// /_}"
-  touch ."$school_name"_students_file.txt
-  sed -i '/^[[:space:]]*$/d' ."$school_name"_students_file.txt
-  # Count the number of students
-  student_number=$(grep -c "^School" ."$school_name"_students_file.txt)
-  (( student_number++ ))
-  sed -i -e 's/surname/?/gi' \
-      -e 's/given/?/gi' \
-      -e 's/? ?/?/gi' student
-  cp student .student.txt
-  sed -i "s/ID:             ?/ID:             $student_number/" .student.txt
-  echo -e "\n"$surname"'s identification number is: "$student_number" \c"
-  echo -e "\n\nYou can now make any changes to the provided details directly from the text editor. Don't edit your ID_No please! If necessary, note it down instead... \c"
-  wait_for_a_key_press
-  if grep -q Microsoft /proc/version; then
-    explorer.exe .student.txt
-  else
-    xdg-open .student.txt
-  fi
-  wait_for_a_key_press
-  sed -e ':a;N;$!ba;s/\n/;/g' .student.txt >> ."$school_name"_students_file.txt
-  sort -f ."$school_name"_students_file.txt | uniq -i > .temmmm && mv .temmmm ."$school_name"_students_file.txt
-  rm -f student .temmmm "$temp_file" "$temp_file2" "$temp_file3" "$temp_file4" .student.txt
-  echo "$student_number" > .student_number.txt
-  echo " "
+    wait_for_a_key_press
+    sed -e ':a;N;$!ba;s/\n/;/g' .student.txt >> ."$school_name"_students_file.txt
+    sort -f ."$school_name"_students_file.txt | uniq -i > .temmmm && mv .temmmm ."$school_name"_students_file.txt
+    rm -f student .temmmm "$temp_file" "$temp_file2" "$temp_file3" "$temp_file4" .student.txt
+    echo "$student_number" > .student_number.txt
+    echo " "
 }
 
 
