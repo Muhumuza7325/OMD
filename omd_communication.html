@@ -1,71 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>The Latest from OMD</title>
+ <html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OMD Communications</title>
   <style>
-    body {
-      font-family: sans-serif;
-      background: #f5f5f5;
-      padding: 1rem;
-      max-width: 800px;
-      margin: auto;
-    }
-    h1 {
-      text-align: center;
-      color: #333;
-      margin-bottom: 2rem;
-    }
-    .communication-box {
-      border: 1px solid #ccc;
-      padding: 15px;
-      margin-bottom: 20px;
-      border-radius: 8px;
-      background-color: #fff;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    }
-    .communication-box p {
-      color: #444;
-      line-height: 1.6;
-    }
-    #status {
-      text-align: center;
-      color: #777;
-    }
+   #communications {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+   }
+
+   .communication-box {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 300px;
+   }
+
+   .communication-box p {
+    margin: 0;
+    word-break: break-word;
+    line-height: 1.6;
+    font-size: 20px;
+   }
+
+   #status {
+    padding: 15px;
+    font-style: italic;
+    color: #777;
+   }
   </style>
-</head>
-<body>
-  <h1>The Latest from OMD</h1>
-  <div id="status">Loading communication...</div>
-  <div id="communications"></div>
+ </head>
+ <body>
+
+  <div id="communications">
+   <p id="status">Loading communications from OMD...</p>
+  </div>
 
   <script>
-    fetch('https://raw.githubusercontent.com/Muhumuza7325/OMD/main/omd_communication.txt')
-      .then(response => {
-        if (!response.ok) throw new Error('Failed to fetch');
-        return response.text();
-      })
-      .then(text => {
-        const communications = text.split(';').map(c => c.trim()).filter(c => c !== '');
-        const container = document.getElementById('communications');
-        const status = document.getElementById('status');
-        if (communications.length === 0) {
-          status.textContent = 'No new communications found from OMD.';
-          return;
-        }
-        status.remove();
-        communications.forEach(comm => {
-          const box = document.createElement('div');
-          box.className = 'communication-box';
-          box.innerHTML = `<p>${comm}</p>`;
-          container.appendChild(box);
-        });
-      })
-      .catch(error => {
-        document.getElementById('status').textContent = 'Error loading communication.';
-        console.error(error);
-      });
+   fetch('https://raw.githubusercontent.com/Muhumuza7325/OMD/main/omd_communication.txt')
+    .then(response => {
+     if (!response.ok) throw new Error('Failed to fetch communications from OMD.');
+     return response.text();
+    })
+    .then(text => {
+     const communications = text.split(';').map(c => c.trim()).filter(c => c !== '');
+     const container = document.getElementById('communications');
+     const statusElement = document.getElementById('status');
+
+     if (communications.length === 0) {
+      statusElement.textContent = 'No new communications found from OMD.';
+      return;
+     }
+
+     // Remove the initial loading status
+     if (statusElement) {
+      statusElement.remove();
+     }
+
+     communications.forEach(comm => {
+      const box = document.createElement('div');
+      box.className = 'communication-box';
+      const paragraph = document.createElement('p');
+      paragraph.textContent = comm; // Set text content directly to handle special characters better
+      box.appendChild(paragraph);
+      container.appendChild(box);
+     });
+    })
+    .catch(error => {
+     const statusElement = document.getElementById('status');
+     if (statusElement) {
+      statusElement.textContent = error.message;
+     } else {
+      const errorElement = document.createElement('p');
+      errorElement.id = 'status';
+      errorElement.textContent = error.message;
+      document.getElementById('communications').appendChild(errorElement);
+     }
+     console.error('Error loading OMD communications:', error);
+    });
   </script>
-</body>
-</html>
+
+ </body>
+ </html>
