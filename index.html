@@ -512,66 +512,9 @@ function contactOmegaEmail(event) {
     }
 }
 
-async function openCommunication() {
-  const newTab = window.open('', '_blank'); // Open immediately
-
-  if (!newTab) {
-    alert('Popup blocked! Please allow popups for this site.');
-    return;
-  }
-
-  newTab.document.write(`
-    <html><head><title>Loading...</title></head><body><p>Loading communications...</p></body></html>
-  `);
-  newTab.document.close();
-
-  try {
-    const response = await fetch('https://raw.githubusercontent.com/Muhumuza7325/OMD/main/omd_communication.txt');
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-
-    const text = await response.text();
-    const communications = text.split(';').map(comm => comm.trim()).filter(comm => comm !== '');
-
-    if (communications.length === 0) {
-      newTab.document.body.innerHTML = '<p>No new communications found from OMD.</p>';
-      return;
-    }
-
-    const allBoxesHTML = communications.map(communication => `
-      <div class="communication-box">
-        <p>${communication}</p>
-      </div>
-    `).join('');
-
-    newTab.document.open();
-    newTab.document.write(`
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <title>The Latest from OMD</title>
-        <style>
-          body { font-family: sans-serif; }
-          .communication-box {
-            border: 1px solid #ccc;
-            padding: 15px;
-            margin: 20px;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-          }
-          h1 { text-align: center; color: #333; }
-          .communication-box p { color: #555; line-height: 1.6; }
-        </style>
-      </head>
-      <body>
-        <h1>The Latest from OMD</h1>
-        ${allBoxesHTML}
-      </body>
-      </html>
-    `);
-    newTab.document.close();
+function openCommunication() {
+  window.open('https://muhumuza7325.github.io/OMD/omd_communication.html', '_blank');
+}
 
   } catch (error) {
     console.error('An error occurred while fetching or displaying communications:', error);
