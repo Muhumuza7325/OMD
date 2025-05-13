@@ -515,12 +515,6 @@ function contactOmegaEmail(event) {
 function openCommunication() {
   window.open('https://muhumuza7325.github.io/OMD/omd_communication.html', '_blank');
 }
-
-  } catch (error) {
-    console.error('An error occurred while fetching or displaying communications:', error);
-    newTab.document.body.innerHTML = '<p>Failed to display the latest communications from OMD.</p>';
-  }
-}
         function getCurrentItemText() {
             const contentBox = document.getElementById('content-box');
             return contentBox ? contentBox.innerText : '';
