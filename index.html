@@ -503,7 +503,7 @@ function contactOmegaEmail(event) {
     const gmailLink = `https://mail.google.com/mail/?view=cm&to=${email}`;
     const mailtoLink = `mailto:${email}`;
 
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    const isMobile = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
     if (isMobile) {
         window.location.href = mailtoLink;
@@ -513,7 +513,12 @@ function contactOmegaEmail(event) {
 }
 
 function openCommunication() {
-  window.open('https://muhumuza7325.github.io/OMD/omd_communication.html', '_blank');
+  const isMobile = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  if (isMobile) {
+    window.location.href = 'https://muhumuza7325.github.io/OMD/omd_communication.html';
+  } else {
+    window.open('https://muhumuza7325.github.io/OMD/omd_communication.html', '_blank');
+  }
 }
         function getCurrentItemText() {
             const contentBox = document.getElementById('content-box');
