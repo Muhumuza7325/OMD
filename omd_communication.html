@@ -23,6 +23,7 @@
    }
 
    .communication-box p {
+white-space: pre-wrap;
     margin: 0;
     word-break: break-word;
     line-height: 1.6;
@@ -62,15 +63,25 @@
      if (statusElement) {
       statusElement.remove();
      }
+communications.forEach(comm => {
+  const box = document.createElement('div');
+  box.className = 'communication-box';
 
-     communications.forEach(comm => {
-      const box = document.createElement('div');
-      box.className = 'communication-box';
-      const paragraph = document.createElement('p');
-      paragraph.textContent = comm; // Set text content directly to handle special characters better
-      box.appendChild(paragraph);
-      container.appendChild(box);
-     });
+  const paragraph = document.createElement('p');
+
+  // Safely escape HTML, convert newlines to <br>, and linkify URLs
+  const safeHTML = comm
+    .replace(/&/g, '&amp;')    // escape &
+    .replace(/</g, '&lt;')     // escape <
+    .replace(/>/g, '&gt;')     // escape >
+    .replace(/\n/g, '<br>')    // convert newlines to <br>
+    .replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>'); // linkify
+
+  paragraph.innerHTML = safeHTML;
+
+  box.appendChild(paragraph);
+  container.appendChild(box);
+});
     })
     .catch(error => {
      const statusElement = document.getElementById('status');
