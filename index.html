@@ -289,13 +289,17 @@ function getSubject() {
     return `selected_${getSubject().toLowerCase()}_files`;
   }
 
-    function openSubjectLink(select) {
-        const url = select.value;
-        if (url) {
-            window.open(url, '_blank'); // Opens in a new tab
-            select.selectedIndex = 0; // Reset selection
-        }
-    }
+function openSubjectLink(select) {
+  const url = select.value;
+  if (!url) return;
+  const isMobile = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  if (isMobile) {
+    window.location.href = url;
+  } else {
+    window.open(url, '_blank');
+  }
+  select.selectedIndex = 0;
+}
 
 async function fetchContent() {
   const subject = getSubject();
@@ -531,7 +535,7 @@ function shareWithUs() {
     const mailtoLink = `mailto:2024omd256@gmail.com?subject=${encodedSubject}&body=${encodedBody}`;
 
     // Detect mobile device
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    const isMobile =  /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
     // Open Gmail on PC, fallback to mail app on mobile
     if (isMobile) {
