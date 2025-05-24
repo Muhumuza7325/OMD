@@ -816,7 +816,7 @@ while true; do
       return # Exit the loop if the user enters 'cl'
      fi
      if [[ "$user_input" == "sr" ]]; then
-      echo -e "\n\033[1;34mShared Resources can be found online at:\033[0m \033[4;34mhttps://archive.org/details/chemistry_omd/\033[0m\c"
+      echo -e "\n\033[1;34mShared Resources can be found online at:\033[0m \033[4;34mhttps://muhumuza7325.github.io/OMD/\033[0m\c"
       wait_for_a_key_press
       cd Resources || { echo "Failed to access the resources... Contact OMD for help!"; return; }
       explorer.exe English > /dev/null 2>&1 &
