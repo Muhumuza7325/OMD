@@ -695,8 +695,8 @@ show_communication_info() {
 
 # Download the file if needed
 download_and_open() {
-  echo -e "\n${g}====================Trying to download the latest communication file====================${t}"
   if curl -s --head --max-time 5 https://google.com > /dev/null && curl --max-time 10 -O -L "$github_url"; then
+    echo -e "\n${g}====================Trying to download the latest communication file====================${t}"
     cp "$communication_file" "$backup_file" 2>/dev/null
     show_communication_info
     explorer.exe "$communication_file" > /dev/null 2>&1 &
