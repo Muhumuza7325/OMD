@@ -14,144 +14,151 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="https://muhumuza7325.github.io/OMD/logo.png">
     <link rel="shortcut icon" href="https://muhumuza7325.github.io/OMD/logo.ico" type="image/x-icon">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 10px;
-            text-align: center;
-        }
-        .header {
-            background-color: green;
-            padding: 10px;
-            color: white;
-            font-size: 24px;
-        }
-        .nav {
-            background-color: #333;
-            padding: 5px;
-        }
-        .nav a {
-            color: white;
-            margin: 0 15px;
-            text-decoration: none;
-            font-size: 18px;
-        }
-        .main {
-            padding: 5px;
-        }
-        .download-btn {
-            background-color: #ff6600;
-            color: white;
-            padding: 15px 50px;
-            font-size: 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            display: inline-block;
-            margin: 5px;
-            transition: background-color 0.2s ease, transform 0.2s ease;
-        }
-        .download-btn:hover {
-            background-color: #e05500;
-            transform: scale(1.05);
-        }
-        .github-icon img {
-            transition: transform 0.2s ease, filter 0.2s ease;
-        }
-        .github-icon img:hover {
-            transform: scale(1.2);
-            filter: brightness(80%);
-        }
-        .footer {
-            background-color: #222;
-            color: white;
-            padding: 10px;
-            margin-top: 10px;
-        }
-        .content {
-            display: flex;
-            justify-content: space-between;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 10px;
-            text-align: left;
-        }
-        .features, .support {
-            max-width: 45%;
-        }
-        .features ul, .support ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        .support ul {
-            padding-left: 20px;
-        }
-        button {
-            padding: 10px 15px;
-            font-size: 15px;
-            border-radius: 6px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-        button:hover:not(:disabled) {
-            background-color: #0056b3;
-            transform: scale(1.05);
-        }
-        #shareModal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.4);
-        }
-        #shareModal .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            border-radius: 8px;
-            position: relative;
-        }
-        #shareModal .close-button {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        #shareModal .close-button:hover,
-        #shareModal .close-button:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        #shareLinks {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-            justify-content: center;
-        }
-        #shareLinks a {
-            display: inline-block;
-            padding: 10px 15px;
-            border-radius: 5px;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
-            transition: background-color 0.3s ease;
-        }
-        #shareLinks a:hover {
-            background-color: #0056b3;
-        }
-    </style>
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 10px;
+        text-align: center;
+        background-color: #fafafa;
+    }
+    .header {
+        background-color: #1abc9c;
+        padding: 14px;
+        color: white;
+        font-size: 26px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .nav {
+        background-color: #333;
+        padding: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .nav a {
+        color: white;
+        margin: 0 15px;
+        text-decoration: none;
+        font-size: 18px;
+    }
+    .main {
+        padding: 10px;
+    }
+    .download-btn {
+        background-color: #ff6600;
+        color: white;
+        padding: 15px 50px;
+        font-size: 20px;
+        text-decoration: none;
+        border-radius: 8px;
+        display: inline-block;
+        margin: 5px;
+        transition: background-color 0.2s ease, transform 0.2s ease;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    }
+    .download-btn:hover {
+        background-color: #e05500;
+        transform: scale(1.05);
+    }
+    .github-icon img {
+        transition: transform 0.2s ease, filter 0.2s ease;
+    }
+    .github-icon img:hover {
+        transform: scale(1.2);
+        filter: brightness(80%);
+    }
+    .footer {
+        background-color: #222;
+        color: white;
+        padding: 10px;
+        margin-top: 20px;
+    }
+    .content {
+        display: flex;
+        justify-content: space-between;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 10px;
+        text-align: left;
+    }
+    .features, .support {
+        max-width: 45%;
+    }
+    .features ul, .support ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    .support ul {
+        padding-left: 20px;
+    }
+    button {
+        padding: 10px 15px;
+        font-size: 15px;
+        border-radius: 6px;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    button:hover:not(:disabled) {
+        background-color: #0056b3;
+        transform: scale(1.05);
+    }
+    #shareModal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.4);
+    }
+    #shareModal .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        border-radius: 8px;
+        position: relative;
+    }
+    #shareModal .close-button {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    #shareModal .close-button:hover,
+    #shareModal .close-button:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    #shareLinks {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+        justify-content: center;
+    }
+    #shareLinks a {
+        display: inline-block;
+        padding: 10px 15px;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+    #shareLinks a:hover {
+        background-color: #0056b3;
+    }
+</style>
+
 </head>
 <body>
 <div class="header">Equitable, Relevant, and Quality Education for All</div>
@@ -216,17 +223,23 @@
 <div style="margin-top: 30px; padding: 20px; border: 2px solid #ccc; border-radius: 10px; max-width: 1000px; margin-left: auto; margin-right: auto; background: #f9f9f9;">
   <div style="text-align: center; margin-bottom: 15px;">
     <label for="subjectSelect"><strong>Selected Items:</strong></label>
-    <select id="subjectSelect" onchange="fetchContent()" style="padding: 5px 10px; font-size: 16px; margin-left: 10px;">
-      <option value="">-- Choose a subject --</option>
-      <option value="CHEM">Chemistry</option>
-      <option value="BIO">Biology</option>
-      <option value="PHY">Physics</option>
-      <option value="MTC">Mathematics</option>
-      <option value="ENG">English</option>
-      <option value="HIST">History</option>
-      <option value="GEO">Geography</option>
-      <!-- Add more subjects -->
-    </select>
+<select id="levelSelect" onchange="fetchContent()" style="padding: 5px 10px; font-size: 16px;">
+  <option value="O">O'Level</option>
+  <option value="A">A'Level</option>
+</select>
+<select id="subjectSelect" onchange="fetchContent()" style="padding: 5px 10px; font-size: 16px; margin-left: 10px;">
+  <option value="">-- Choose a subject --</option>
+  <option value="CHEM">Chemistry</option>
+  <option value="BIO">Biology</option>
+  <option value="PHY">Physics</option>
+  <option value="MTC">Mathematics</option>
+  <option value="ENG">English</option>
+  <option value="HIST">History</option>
+  <option value="GEOG">Geography</option>
+  <option value="ICT">ICT</option>
+  <option value="ENT">Entrepreneurship</option>
+  <!-- Add more subjects -->
+</select>
     <label for="openSubjectLink"><strong>Shared Resources:</strong></label>
     <select onchange="openSubjectLink(this)" style="padding: 5px 10px; font-size: 16px; margin-left: 10px;">
             <option value="">-- Choose a subject --</option>
@@ -237,6 +250,9 @@
             <option value="https://drive.google.com/drive/folders/1ruHqYQ-ton6SimMqKB9dq0Ux0z0hGTps">English</option>
             <option value="https://drive.google.com/drive/folders/1VN3OVA7hJXIiMQNbSWWJkJHKs-c3FoUL">History</option>
             <option value="https://drive.google.com/drive/folders/1sfea5iDT9k0qiupfApCkhWIuzm-O3BEI">Geography</option>
+            <option value="https://drive.google.com/drive/folders/1REX5jePj7rx-R7aNAz2V2Y_aoEJGK2Gq">Ict</option>
+            <option value="https://drive.google.com/drive/folders/1aDnql3JmwbSZYdjlC1Ppr_QdbRZTuWhq">Entrepreneurship</option>
+            <option value="https://drive.google.com/drive/folders/1T3dVoe0-REluN86trC89gxBTZMZbK5wm">Others</option>
             <!-- Add more subjects and links as needed -->
     </select>
   </div><h3 id="subject-heading" style="display:none; text-align:center;"></h3>
@@ -278,17 +294,21 @@ function getSubject() {
   return value === '' ? null : value;
 }
 
-  function getStorageKey() {
-    return `shown_${getSubject().toLowerCase()}_lines`;
-  }
+function getLevel() {
+  return document.getElementById('levelSelect')?.value || 'O';
+}
 
-  function getFavKey() {
-    return `favourites_${getSubject().toLowerCase()}`;
-  }
+function getStorageKey() {
+  return `shown_${getSubject().toLowerCase()}_${getLevel().toLowerCase()}_lines`;
+}
 
-  function getSelectedFilesKey() {
-    return `selected_${getSubject().toLowerCase()}_files`;
-  }
+function getFavKey() {
+  return `favourites_${getSubject().toLowerCase()}_${getLevel().toLowerCase()}`;
+}
+
+function getSelectedFilesKey() {
+  return `selected_${getSubject().toLowerCase()}_${getLevel().toLowerCase()}_files`;
+}
 
 function openSubjectLink(select) {
   const url = select.value;
@@ -305,94 +325,92 @@ function openSubjectLink(select) {
 async function fetchContent() {
   const subject = getSubject();
   if (!subject) {
-    // Hide content and heading if no subject selected
     document.getElementById('subject-heading').style.display = 'none';
     document.getElementById('content-box').style.display = 'none';
     return;
   }
-    const apiUrl = `https://api.github.com/repos/Muhumuza7325/OMD/contents/${subject}`;
 
-const subjectHeadings = {
-  CHEM: '🔬 Random Chemistry Sample',
-  BIO: '🧬 Random Biology Sample',
-  PHY: '⚛️ Random Physics Sample',
-  MTC: '📐 Random Mathematics Sample',
-  ENG: '📚 Random English Sample',
-  HIST: '🏺 Random History Sample',
-  GEO: '🌍 Random Geography Sample'
-};
+  const apiUrl = `https://api.github.com/repos/Muhumuza7325/OMD/contents/${subject}`;
 
-document.getElementById('subject-heading').textContent =
-  subjectHeadings[subject] || '📘 Random Subject Sample';
+  const subjectHeadings = {
+    CHEM: '🧪 Random Chemistry Sample',
+    BIO: '🧬 Random Biology Sample',
+    PHY: '💡 Random Physics Sample',
+    MTC: '📐 Random Mathematics Sample',
+    ENG: '📖 Random English Sample',
+    HIST: '📜 Random History Sample',
+    GEOG: '🌍 Random Geography Sample',
+    ICT: '💻 Random ICT Sample',
+    ENT: '💰 Random Entrepreneurship Sample'
+  };
 
-document.getElementById('subject-heading').style.display = 'block';
-document.getElementById('content-box').style.display = 'block';
+  document.getElementById('subject-heading').textContent =
+    subjectHeadings[subject] || '📘 Random Subject Sample';
 
-    try {
-      const response = await fetch(apiUrl);
-      const files = await response.json();
+  document.getElementById('subject-heading').style.display = 'block';
+  document.getElementById('content-box').style.display = 'block';
 
-      // Filter files with _samples_ in name and .txt extension
-      const sampleFiles = files.filter(file =>
-        file.name.includes('_samples_') && file.name.endsWith('.txt')
-      );
+  try {
+    const response = await fetch(apiUrl);
+    const files = await response.json();
 
-      if (sampleFiles.length === 0) {
-        document.getElementById('content-box').textContent = '⚠️ No matching sample files found!';
-        return;
-      }
+    const level = getLevel();
+    const pattern = level === 'A' ? '_samplesadvanced_' : '_samples_';
 
-      // Load previously selected files
-      selectedFiles = JSON.parse(localStorage.getItem(getSelectedFilesKey())) || [];
+    const sampleFiles = files.filter(file =>
+      file.name.includes(pattern) && file.name.endsWith('.txt')
+    );
 
-      let fileToLoad;
-      if (selectedFiles.length < sampleFiles.length) {
-        // Filter out already selected files
-        const unselectedFiles = sampleFiles.filter(file => !selectedFiles.includes(file.name));
-        // Randomly pick an unselected sample file
-        const randomFileIndex = Math.floor(Math.random() * unselectedFiles.length);
-        fileToLoad = unselectedFiles[randomFileIndex];
-      } else {
-        // All files have been shown, so we can reset the selection
-        selectedFiles = [];
-        localStorage.removeItem(getSelectedFilesKey());
-        // Pick a random file from the beginning
-        const randomFileIndex = Math.floor(Math.random() * sampleFiles.length);
-        fileToLoad = sampleFiles[randomFileIndex];
-      }
-
-      if (!fileToLoad) {
-        document.getElementById('content-box').textContent = '⚠️ Error selecting a sample file!';
-        return;
-      }
-
-      const rawUrl = fileToLoad.download_url;
-
-      // Fetch the content of the randomly selected file
-      const textResponse = await fetch(rawUrl);
-      const text = await textResponse.text();
-      lines = text.split('\n').map(line => line.trim()).filter(line => line !== '' && line !== '*' && !line.startsWith('Chapter'));
-
-      if (lines.length === 0) {
-        document.getElementById('content-box').textContent = '⚠️ Sample file is empty!';
-        return;
-      }
-
-      // Add the selected file to the list of selected files and save
-      selectedFiles.push(fileToLoad.name);
-      localStorage.setItem(getSelectedFilesKey(), JSON.stringify(selectedFiles));
-
-      // Clear the shown lines for the new file
-      localStorage.removeItem(getStorageKey());
-      updateProgress([], lines.length); // Reset progress
-
-      // Show random content from the new file
-      showRandomContent();
-    } catch (error) {
-      console.error('Fetch error:', error);
-      document.getElementById('content-box').textContent = 'Failed to load content. Please try again later.';
+    if (sampleFiles.length === 0) {
+      document.getElementById('content-box').textContent = '⚠️ No matching sample files found!';
+      return;
     }
+
+    let selectedFiles = JSON.parse(localStorage.getItem(getSelectedFilesKey())) || [];
+
+    let fileToLoad;
+    if (selectedFiles.length < sampleFiles.length) {
+      const unselectedFiles = sampleFiles.filter(file => !selectedFiles.includes(file.name));
+      const randomFileIndex = Math.floor(Math.random() * unselectedFiles.length);
+      fileToLoad = unselectedFiles[randomFileIndex];
+    } else {
+      selectedFiles = [];
+      localStorage.removeItem(getSelectedFilesKey());
+      const randomFileIndex = Math.floor(Math.random() * sampleFiles.length);
+      fileToLoad = sampleFiles[randomFileIndex];
+    }
+
+    if (!fileToLoad) {
+      document.getElementById('content-box').textContent = '⚠️ Error selecting a sample file!';
+      return;
+    }
+
+    const rawUrl = fileToLoad.download_url;
+
+    const textResponse = await fetch(rawUrl);
+    const text = await textResponse.text();
+    lines = text.split('\n')
+      .map(line => line.trim())
+      .filter(line => line !== '' && line !== '*' && !line.startsWith('Chapter'));
+
+    if (lines.length === 0) {
+      document.getElementById('content-box').textContent = '⚠️ Sample file is empty!';
+      return;
+    }
+
+    selectedFiles.push(fileToLoad.name);
+    localStorage.setItem(getSelectedFilesKey(), JSON.stringify(selectedFiles));
+
+    localStorage.removeItem(getStorageKey());
+    updateProgress([], lines.length);
+
+    showRandomContent();
+
+  } catch (error) {
+    console.error('Fetch error:', error);
+    document.getElementById('content-box').textContent = 'Failed to load content. Please try again later.';
   }
+}
 
   function refreshContent() {
     // This function will trigger the fetching of a new file
